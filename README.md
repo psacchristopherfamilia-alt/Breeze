@@ -12,9 +12,28 @@ Zona horaria `America/Grand_Turk` · USD · Inglés y español.
 Next.js (App Router) · TypeScript · Tailwind CSS · Supabase (Auth, Postgres, Realtime, Edge Functions, pg_cron).
 
 ## Estado
-Fase 2 — plan en [`docs/PLAN.md`](docs/PLAN.md). Aún no hay código de aplicación.
+**Fase 3 — prototipo con datos falsos** (sin Supabase todavía). Plan en [`docs/PLAN.md`](docs/PLAN.md).
 
-## Comandos (se activan en la Fase 3/4)
+### Ver el prototipo
+```bash
+pnpm install
+pnpm dev            # abre http://localhost:3000
+```
+
+| Ruta | Qué es |
+|---|---|
+| `/` | Índice del prototipo |
+| `/explore` | App del cliente: búsqueda por nombre, tipo y zona |
+| `/s/coral-salon` | Reserva: servicios → profesional → día y hora → datos → confirmación |
+| `/me` | Mis citas: cancelar / reprogramar (respeta la ventana de cancelación) |
+| `/dashboard` | Panel del salón: agenda por columnas y colores, filtro, citas por teléfono |
+| `/dashboard/professionals` | Profesionales con color único |
+| `/live/coral-salon` | Breeze Live (kiosco) |
+
+Demo en tiempo real: abre `/live/coral-salon` en una pestaña y reserva en Coral Salon desde otra; la alerta aparece al instante.
+Los datos son falsos y se guardan en el navegador (`localStorage` + `BroadcastChannel`).
+
+## Comandos
 ```bash
 pnpm install          # instalar dependencias
 pnpm dev              # servidor de desarrollo (http://localhost:3000)

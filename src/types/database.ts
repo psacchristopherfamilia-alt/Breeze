@@ -597,8 +597,14 @@ isOneToOne: false
 "get_guest_booking":
 { Args: { "p_token": string }; Returns: Json
                            },
+"get_live_board":
+{ Args: { "p_day"?: string,"p_salon_id": string }; Returns: Json
+                           },
 "get_public_schedule":
 { Args: { "p_from": string,"p_salon_id": string,"p_to": string }; Returns: Json
+                           },
+"live_device_status":
+{ Args: { "p_salon_slug": string }; Returns: Json
                            },
 "mark_appointment":
 { Args: { "p_appointment_id": string,"p_status": Database["public"]['Enums']["appointment_status"] }; Returns: undefined
@@ -611,11 +617,20 @@ isOneToOne: false
               "organization_id": string,"organization_name": string,"organization_slug": string,"professional_id": string,"role": Database["public"]['Enums']["member_role"],"salon_id": string,"salon_name": string,"salon_slug": string
             }[]
                            },
+"pair_live_device":
+{ Args: { "p_code": string,"p_name"?: string,"p_salon_id": string }; Returns: string
+                           },
+"request_live_pairing":
+{ Args: { "p_salon_slug": string }; Returns: Json
+                           },
 "reschedule_booking":
 { Args: { "p_booking_group_id": string,"p_new_start": string }; Returns: string
                            },
 "reschedule_by_guest_token":
 { Args: { "p_new_start": string,"p_token": string }; Returns: string
+                           },
+"revoke_live_device":
+{ Args: { "p_device_id": string }; Returns: undefined
                            },
 "set_professional_services":
 { Args: { "p_professional_id": string,"p_service_ids": (string)[] }; Returns: number

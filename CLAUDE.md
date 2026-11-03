@@ -39,13 +39,19 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Contexto: `getPanelContext()` (`src/lib/panel/server.ts`) a partir de `my_context`; sucursal activa en la cookie `breeze-salon`.
 - La agenda es un solo componente (`components/agenda/AgendaView.tsx`) con dos adaptadores: `MockAgenda` y `LiveAgenda`.
 
+## Breeze Live (módulo 5)
+- Flujo: TV con sesión anónima → `request_live_pairing(slug)` (código de 6 dígitos, en BD solo hash, caduca a los 15 min, máx. 5 pendientes por sucursal) → el salón escribe el código en Ajustes → `pair_live_device` crea la membresía `display` → `revoke_live_device` la quita.
+- Datos: `get_live_board(salon)` devuelve la agenda del día ya saneada (`private.live_appointment_json`: "Juan P.", servicio, horas). Nunca teléfono, correo ni apellido.
+- Tiempo real: trigger `appointments_broadcast_live` → `realtime.send(payload, 'appointment', 'live:<salon_id>', private)`; la política de `realtime.messages` solo deja leer ese tema a personal/pantallas de esa sucursal. En tests, `realtime.send` es un sustituto que guarda en `realtime.test_sent`.
+- UI: `components/live/LiveBoardView.tsx` (visual) + `MockLive` (prototipo, con simulador) / `RealLive` (Supabase, emparejamiento + Realtime).
+
 ## Auth (Supabase)
 - Sin variables de Supabase → modo prototipo (datos falsos). `isSupabaseConfigured()` en `src/lib/supabase/env.ts`.
 - Clientes: `src/lib/supabase/server.ts` (server), `client.ts` (navegador), `session.ts` + `src/proxy.ts` (refresco de sesión y rutas protegidas; en Next 16 el middleware se llama `proxy`).
 - Server actions en `src/app/(auth)/actions.ts` devuelven CLAVES de traducción (`auth.errors.*`), nunca texto.
 - Validación con zod en `src/lib/validation/` (compartida cliente/servidor). Teléfonos con `normalizePhone` (= `private.normalize_phone` en SQL).
 - Redirecciones solo internas con `safeNext`.
-- Sesiones anónimas desactivadas hasta el módulo de Breeze Live (deben bloquearse en RPC de alta de salón e invitaciones).
+- Sesiones anónimas ACTIVADAS solo para pantallas Breeze Live. Triggers `private.block_anonymous` en `organizations`, `memberships` (salvo rol `display`) y `customers` impiden que una sesión anónima cree negocios, acepte invitaciones o reserve.
 
 ## Reglas técnicas no negociables
 1. **Prohibido el doble booking**: exclusion constraint `gist` (`professional_id =`, `tstzrange(starts_at, blocked_until, '[)') &&`) sobre citas no canceladas. No basta la validación en frontend.

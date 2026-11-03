@@ -1,13 +1,13 @@
 "use client";
-import { CalendarX, Eye, EyeOff, Loader2, Plus, Trash2 } from "lucide-react";
+import { CalendarX, Eye, EyeOff, Loader2, MonitorPlay, Plus, Trash2, Tv } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
-import { addClosure, deleteClosure, saveSettings, setPublished } from "@/app/dashboard/actions";
+import { addClosure, deleteClosure, pairLiveDevice, revokeLiveDevice, saveSettings, setPublished } from "@/app/dashboard/actions";
 import { useAppLocale } from "@/components/Providers";
 import { TypeIcon } from "@/components/ui/TypeIcon";
-import { addDaysKey, atLocal, formatDayShort } from "@/lib/time";
+import { addDaysKey, atLocal, formatDayShort, formatTime } from "@/lib/time";
 import { ZONES } from "@/lib/validation/auth";
 import { Toggle } from "./LiveProfessionals";
 
@@ -29,7 +29,15 @@ interface Settings {
   noShowThreshold: number;
 }
 
-export function LiveSettings({ salon, closures }: { salon: Settings; closures: { id: string; start: string; end: string; reason: string | null }[] }) {
+export function LiveSettings({
+  salon,
+  closures,
+  devices,
+}: {
+  salon: Settings;
+  closures: { id: string; start: string; end: string; reason: string | null }[];
+  devices: { id: string; name: string; pairedAt: string; lastSeenAt: string | null }[];
+}) {
   const t = useTranslations();
   const { locale } = useAppLocale();
   const router = useRouter();
@@ -37,6 +45,7 @@ export function LiveSettings({ salon, closures }: { salon: Settings; closures: {
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [pending, start] = useTransition();
   const [closure, setClosure] = useState({ from: "", to: "", reason: "" });
+  const [pair, setPair] = useState({ code: "", name: "" });
 
   const report = (r: { ok: boolean; error?: string }, okText: string) => {
     setMsg(r.ok ? { ok: true, text: okText } : { ok: false, text: t(`panel.errors.${r.error ?? "generic"}`) });
@@ -152,6 +161,43 @@ export function LiveSettings({ salon, closures }: { salon: Settings; closures: {
             })}
             className="inline-flex items-center justify-center gap-1 rounded-xl bg-lagoon px-4 py-2 text-sm font-bold text-white disabled:opacity-40">
             <Plus className="size-4" /> {t("settings.addClosure")}
+          </button>
+        </div>
+      </section>
+
+      {/* Pantallas Breeze Live */}
+      <section className="mt-5 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">
+        <h2 className="flex items-center gap-2 font-bold"><MonitorPlay className="size-4 text-lagoon" /> {t("settings.screens.title")}</h2>
+        <p className="text-sm text-ink/60">{t("settings.screens.hint", { url: `/live/${salon.slug}` })}</p>
+        <ul className="mt-3 space-y-1 text-sm">
+          {devices.length === 0 && <li className="text-ink/40">{t("settings.screens.none")}</li>}
+          {devices.map((d) => (
+            <li key={d.id} className="flex items-center justify-between rounded-xl bg-foam px-3 py-2">
+              <span className="inline-flex items-center gap-2">
+                <Tv className="size-4 text-lagoon" /> <b>{d.name}</b>
+                <span className="text-ink/50">
+                  · {d.lastSeenAt ? t("settings.screens.lastSeen", { when: `${formatDayShort(new Date(d.lastSeenAt), locale)} ${formatTime(new Date(d.lastSeenAt))}` }) : t("settings.screens.neverSeen")}
+                </span>
+              </span>
+              <button onClick={() => start(async () => report(await revokeLiveDevice(d.id), t("settings.screens.revoked")))} className="text-xs font-semibold text-red-600 hover:underline">
+                {t("settings.screens.revoke")}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-3 grid gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)_auto]">
+          <input inputMode="numeric" maxLength={7} placeholder="123 456" aria-label={t("settings.screens.code")} value={pair.code}
+            onChange={(e) => setPair({ ...pair, code: e.target.value })} className="min-w-0 rounded-xl bg-foam px-3 py-2 text-center font-mono text-lg tracking-widest ring-1 ring-breeze-100" />
+          <input placeholder={t("settings.screens.namePlaceholder")} aria-label={t("settings.screens.name")} value={pair.name}
+            onChange={(e) => setPair({ ...pair, name: e.target.value })} className="min-w-0 rounded-xl bg-foam px-3 py-2 ring-1 ring-breeze-100" />
+          <button disabled={pending || pair.code.replace(/\D/g, "").length !== 6}
+            onClick={() => start(async () => {
+              const r = await pairLiveDevice(salon.id, pair.code, pair.name);
+              report(r, t("settings.screens.paired"));
+              if (r.ok) setPair({ code: "", name: "" });
+            })}
+            className="inline-flex items-center justify-center gap-1 rounded-xl bg-lagoon px-4 py-2 text-sm font-bold text-white disabled:opacity-40">
+            <Plus className="size-4" /> {t("settings.screens.pair")}
           </button>
         </div>
       </section>

@@ -291,7 +291,9 @@
       "invalid_items": "Check the service.",
       "not_found": "Not found.",
       "invalid_range": "Check the dates.",
-      "category_mismatch": "That category doesn't match your business type."
+      "category_mismatch": "That category doesn't match your business type.",
+      "invalid_code": "That code isn't valid or has expired. Check the screen.",
+      "too_many_pending": "Too many screens waiting. Try again later."
     }
   },
   "pros": {
@@ -367,7 +369,20 @@
     "count": "{count, plural, =0 {No appointments today} one {# appointment today} other {# appointments today}}",
     "free": "Free today",
     "now": "Now",
-    "next": "Next"
+    "next": "Next",
+    "reconnecting": "Reconnecting…",
+    "notFound": "Salon not found.",
+    "pair": {
+      "instructions": "To show today's agenda here, open Breeze on your phone or computer: Dashboard → Settings → Breeze Live screens, and type this code:",
+      "codeLabel": "Pairing code",
+      "waiting": "Waiting for the salon to enter the code… (it changes every 15 minutes)",
+      "errors": {
+        "notFound": "This salon doesn't exist. Check the address.",
+        "anonDisabled": "Screens aren't enabled yet (Supabase anonymous sign-ins are off).",
+        "tooManyPending": "Too many screens waiting for a code. Try again in a few minutes.",
+        "generic": "Something went wrong. Reload the page."
+      }
+    }
   },
   "auth": {
     "notConfiguredBanner": "Prototype mode: Supabase isn't connected yet (.env.local), so sign-in and sign-up are disabled.",
@@ -512,6 +527,20 @@
     "closures": "Closures",
     "closuresHint": "Holidays, hurricane days… No one can book on these days.",
     "closureReason": "Reason (optional)",
-    "addClosure": "Add"
+    "addClosure": "Add",
+    "screens": {
+      "title": "Breeze Live screens",
+      "hint": "Open {url} on the salon TV or tablet: it will show a 6-digit code. Type it here.",
+      "none": "No screens connected yet.",
+      "lastSeen": "last seen {when}",
+      "neverSeen": "not connected yet",
+      "revoke": "Disconnect",
+      "revoked": "Screen disconnected.",
+      "code": "Code shown on the screen",
+      "name": "Screen name",
+      "namePlaceholder": "Name (e.g. Reception TV)",
+      "pair": "Connect",
+      "paired": "Screen connected! It will show the agenda in a few seconds."
+    }
   }
 }

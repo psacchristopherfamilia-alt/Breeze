@@ -287,3 +287,19 @@ export async function deleteClosure(id: string): Promise<Result> {
   const { error } = await supabase.from("salon_closures").delete().eq("id", uuid.parse(id));
   return error ? fail(error) : done();
 }
+
+// ─── Pantallas Breeze Live ─────────────────────────────────────────────────
+
+export async function pairLiveDevice(salonId: string, code: string, name: string): Promise<Result> {
+  const digits = code.replace(/\D/g, "");
+  if (digits.length !== 6) return { ok: false, error: "invalid_code" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("pair_live_device", { p_salon_id: uuid.parse(salonId), p_code: digits, p_name: name.trim() || undefined });
+  return error ? { ok: false, error: error.message === "invalid_code" ? "invalid_code" : panelErrorKey(error) } : done();
+}
+
+export async function revokeLiveDevice(deviceId: string): Promise<Result> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("revoke_live_device", { p_device_id: uuid.parse(deviceId) });
+  return error ? fail(error) : done();
+}

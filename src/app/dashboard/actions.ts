@@ -231,6 +231,7 @@ const settingsSchema = z.object({
   cancellationWindowHours: z.number().int().min(0).max(168),
   noShowBlockEnabled: z.boolean(),
   noShowThreshold: z.number().int().min(1).max(10),
+  reminderOffsetsMin: z.array(z.number().int().min(15).max(10080)).max(3).default([1440, 120]),
 });
 
 export async function saveSettings(salonId: string, input: z.input<typeof settingsSchema>): Promise<Result> {
@@ -255,6 +256,7 @@ export async function saveSettings(salonId: string, input: z.input<typeof settin
         cancellation_window_hours: d.cancellationWindowHours,
         no_show_block_enabled: d.noShowBlockEnabled,
         no_show_threshold: d.noShowThreshold,
+        reminder_offsets_min: [...new Set(d.reminderOffsetsMin)].sort((a, b) => b - a),
       },
       { count: "exact" },
     )

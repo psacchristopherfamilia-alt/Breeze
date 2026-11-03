@@ -346,6 +346,8 @@ Convenciones: `id uuid default gen_random_uuid()`, `created_at/updated_at timest
 - El historial (`appointment_events`) se escribe solo, con un trigger, en cada alta, cambio de estado o reprogramación.
 - El color único por sucursal aplica solo a profesionales **activos**: al desactivar a uno, su color queda libre.
 
+- **Recordatorios (módulo 6): el worker corre como ruta de Next.js** (`/api/cron/notifications`) en lugar de Edge Function. `pg_cron` (o el cron del hosting) la llama cada 5 min con un secreto. Motivo: reutiliza las plantillas, el formato de hora de TCI y los tests de la app sin duplicar código en Deno, y no añade dependencias. La clave `service_role` sigue solo en el servidor.
+
 ### 6.3 Funciones RPC (Postgres)
 
 | Función | Quién | Qué hace |

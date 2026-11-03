@@ -12,7 +12,7 @@ export default async function SettingsPage() {
   const [{ data: s }, { data: closures }, { data: devices }] = await Promise.all([
     supabase
       .from("salons")
-      .select("id, name, slug, address, phone, zone, business_types, slot_step_min, min_lead_time_min, max_advance_days, cancellation_window_hours, no_show_block_enabled, no_show_threshold, is_published")
+      .select("id, name, slug, address, phone, zone, business_types, slot_step_min, min_lead_time_min, max_advance_days, cancellation_window_hours, no_show_block_enabled, no_show_threshold, reminder_offsets_min, is_published")
       .eq("id", ctx.current.salonId)
       .single(),
     supabase.from("salon_closures").select("id, starts_at, ends_at, reason_en").eq("salon_id", ctx.current.salonId).gt("ends_at", new Date().toISOString()).order("starts_at"),
@@ -36,6 +36,7 @@ export default async function SettingsPage() {
         cancellationWindowHours: s.cancellation_window_hours,
         noShowBlockEnabled: s.no_show_block_enabled,
         noShowThreshold: s.no_show_threshold,
+        reminderOffsetsMin: s.reminder_offsets_min,
       }}
       closures={(closures ?? []).map((c) => ({ id: c.id, start: c.starts_at, end: c.ends_at, reason: c.reason_en }))}
       devices={(devices ?? []).map((d) => ({ id: d.id, name: d.name, pairedAt: d.paired_at!, lastSeenAt: d.last_seen_at }))}

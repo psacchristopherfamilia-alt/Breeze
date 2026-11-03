@@ -45,6 +45,12 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Tiempo real: trigger `appointments_broadcast_live` → `realtime.send(payload, 'appointment', 'live:<salon_id>', private)`; la política de `realtime.messages` solo deja leer ese tema a personal/pantallas de esa sucursal. En tests, `realtime.send` es un sustituto que guarda en `realtime.test_sent`.
 - UI: `components/live/LiveBoardView.tsx` (visual) + `MockLive` (prototipo, con simulador) / `RealLive` (Supabase, emparejamiento + Realtime).
 
+## Recordatorios (módulo 6)
+- El trigger `appointments_enqueue_notifications` crea los trabajos en `notification_jobs` (uno por reserva): confirmación, recordatorios según `salons.reminder_offsets_min`, reprogramación y cancelación.
+- Worker en `src/app/api/cron/notifications/route.ts` (Next, no Edge Function: reutiliza plantillas y hora de TCI, y se prueba con Vitest). Usa `createAdminClient()` (service_role) → `claim_notification_jobs` / `complete_notification_job` (solo service_role).
+- Plantillas en `src/lib/notifications/templates.ts` (EN/ES, siempre "— Breeze"); proveedores en `providers.ts` (console, Resend, Twilio SMS/WhatsApp vía fetch, sin SDK); orden de canales y reintentos en `worker.ts`.
+- El enlace privado del invitado se adjunta con `attach_guest_link(token)` y se borra al enviar; la columna `link_token` no es legible por el panel.
+
 ## Auth (Supabase)
 - Sin variables de Supabase → modo prototipo (datos falsos). `isSupabaseConfigured()` en `src/lib/supabase/env.ts`.
 - Clientes: `src/lib/supabase/server.ts` (server), `client.ts` (navegador), `session.ts` + `src/proxy.ts` (refresco de sesión y rutas protegidas; en Next 16 el middleware se llama `proxy`).

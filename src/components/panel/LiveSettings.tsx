@@ -27,6 +27,7 @@ interface Settings {
   cancellationWindowHours: number;
   noShowBlockEnabled: boolean;
   noShowThreshold: number;
+  reminderOffsetsMin: number[];
 }
 
 export function LiveSettings({
@@ -125,11 +126,20 @@ export function LiveSettings({
         <Toggle label={t("settings.fields.noShowBlock")} checked={f.noShowBlockEnabled} onChange={(v) => setF({ ...f, noShowBlockEnabled: v })} />
         {f.noShowBlockEnabled && numField("noShowThreshold", t("settings.fields.noShowThreshold"), t("settings.hints.noShowThreshold"))}
 
+        <h2 className="pt-2 font-bold">{t("settings.reminders.title")}</h2>
+        <p className="-mt-2 text-sm text-ink/60">{t("settings.reminders.hint")}</p>
+        {[1440, 120].map((m) => (
+          <Toggle key={m} label={t(m === 1440 ? "settings.reminders.day" : "settings.reminders.twoHours")}
+            checked={f.reminderOffsetsMin.includes(m)}
+            onChange={(v) => setF({ ...f, reminderOffsetsMin: v ? [...f.reminderOffsetsMin, m] : f.reminderOffsetsMin.filter((x) => x !== m) })} />
+        ))}
+
         <button disabled={pending}
           onClick={() => start(async () => report(await saveSettings(salon.id, {
             name: f.name, address: f.address || null, phone: f.phone || null, zone: f.zone as (typeof ZONES)[number], businessTypes: f.businessTypes,
             slotStepMin: f.slotStepMin as 15, minLeadTimeMin: f.minLeadTimeMin, maxAdvanceDays: f.maxAdvanceDays,
             cancellationWindowHours: f.cancellationWindowHours, noShowBlockEnabled: f.noShowBlockEnabled, noShowThreshold: f.noShowThreshold,
+            reminderOffsetsMin: f.reminderOffsetsMin,
           }), t("settings.saved")))}
           className="inline-flex items-center gap-2 rounded-xl bg-lagoon px-5 py-2.5 font-bold text-white disabled:opacity-50">
           {pending && <Loader2 className="size-4 animate-spin" />} {t("common.save")}

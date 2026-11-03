@@ -41,6 +41,8 @@ export async function confirmBooking(salonId: string, req: ConfirmRequest): Prom
   });
   if (error) return { ok: false, error: bookingErrorKey(error) };
   const r = data as { booking_group_id: string; guest_token: string | null };
+  // El invitado recibe su enlace privado /b/<token> en la confirmación y los recordatorios.
+  if (r.guest_token) await supabase.rpc("attach_guest_link", { p_token: r.guest_token });
   revalidatePath("/me");
   return { ok: true, bookingGroupId: r.booking_group_id, guestToken: r.guest_token };
 }

@@ -271,14 +271,14 @@ isOneToOne: false
                   ]
                 },"notification_jobs": {
                   Row: {
-                    "appointment_id": string,"attempts": number,"channel": Database["public"]['Enums']["notification_channel"],"created_at": string,"error": string | null,"id": string,"kind": Database["public"]['Enums']["notification_kind"],"locale": Database["public"]['Enums']["app_locale"],"provider": string | null,"provider_message_id": string | null,"salon_id": string,"scheduled_for": string,"sent_at": string | null,"status": Database["public"]['Enums']["notification_status"]
+                    "appointment_id": string,"attempts": number,"booking_group_id": string | null,"channel": Database["public"]['Enums']["notification_channel"],"created_at": string,"error": string | null,"id": string,"kind": Database["public"]['Enums']["notification_kind"],"link_token": string | null,"locale": Database["public"]['Enums']["app_locale"],"locked_until": string | null,"provider": string | null,"provider_message_id": string | null,"salon_id": string,"scheduled_for": string,"sent_at": string | null,"status": Database["public"]['Enums']["notification_status"]
                   }
                   ComputedFields: never
                   Insert: {
-                    "appointment_id": string,"attempts"?: number,"channel": Database["public"]['Enums']["notification_channel"],"created_at"?: string,"error"?: string | null,"id"?: string,"kind": Database["public"]['Enums']["notification_kind"],"locale"?: Database["public"]['Enums']["app_locale"],"provider"?: string | null,"provider_message_id"?: string | null,"salon_id": string,"scheduled_for": string,"sent_at"?: string | null,"status"?: Database["public"]['Enums']["notification_status"]
+                    "appointment_id": string,"attempts"?: number,"booking_group_id"?: string | null,"channel": Database["public"]['Enums']["notification_channel"],"created_at"?: string,"error"?: string | null,"id"?: string,"kind": Database["public"]['Enums']["notification_kind"],"link_token"?: string | null,"locale"?: Database["public"]['Enums']["app_locale"],"locked_until"?: string | null,"provider"?: string | null,"provider_message_id"?: string | null,"salon_id": string,"scheduled_for": string,"sent_at"?: string | null,"status"?: Database["public"]['Enums']["notification_status"]
                   }
                   Update: {
-                    "appointment_id"?: string,"attempts"?: number,"channel"?: Database["public"]['Enums']["notification_channel"],"created_at"?: string,"error"?: string | null,"id"?: string,"kind"?: Database["public"]['Enums']["notification_kind"],"locale"?: Database["public"]['Enums']["app_locale"],"provider"?: string | null,"provider_message_id"?: string | null,"salon_id"?: string,"scheduled_for"?: string,"sent_at"?: string | null,"status"?: Database["public"]['Enums']["notification_status"]
+                    "appointment_id"?: string,"attempts"?: number,"booking_group_id"?: string | null,"channel"?: Database["public"]['Enums']["notification_channel"],"created_at"?: string,"error"?: string | null,"id"?: string,"kind"?: Database["public"]['Enums']["notification_kind"],"link_token"?: string | null,"locale"?: Database["public"]['Enums']["app_locale"],"locked_until"?: string | null,"provider"?: string | null,"provider_message_id"?: string | null,"salon_id"?: string,"scheduled_for"?: string,"sent_at"?: string | null,"status"?: Database["public"]['Enums']["notification_status"]
                   }
                   Relationships: [
                     {
@@ -286,6 +286,12 @@ isOneToOne: false
       columns: ["appointment_id"]
 isOneToOne: false
       referencedRelation: "appointments"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "notification_jobs_booking_group_id_fkey"
+      columns: ["booking_group_id"]
+isOneToOne: false
+      referencedRelation: "booking_groups"
       referencedColumns: ["id"]
     },{
       foreignKeyName: "notification_jobs_salon_id_fkey"
@@ -576,6 +582,9 @@ isOneToOne: false
             "accept_invitation":
 { Args: { "p_token": string }; Returns: Json
                            },
+"attach_guest_link":
+{ Args: { "p_token": string }; Returns: number
+                           },
 "book_appointment":
 { Args: { "p_guest"?: Json,"p_items": Json,"p_salon_id": string,"p_starts_at": string }; Returns: Json
                            },
@@ -584,6 +593,12 @@ isOneToOne: false
                            },
 "cancel_by_guest_token":
 { Args: { "p_reason"?: string,"p_token": string }; Returns: number
+                           },
+"claim_notification_jobs":
+{ Args: { "p_limit"?: number }; Returns: Json[]
+                           },
+"complete_notification_job":
+{ Args: { "p_channel"?: Database["public"]['Enums']["notification_channel"],"p_error"?: string,"p_job_id": string,"p_ok": boolean,"p_provider"?: string,"p_provider_message_id"?: string }; Returns: Database["public"]['Enums']["notification_status"]
                            },
 "create_branch":
 { Args: { "p_address"?: string,"p_business_types": (Database["public"]['Enums']["business_type"])[],"p_organization_id": string,"p_phone"?: string,"p_salon_name": string,"p_zone": Database["public"]['Enums']["salon_zone"] }; Returns: Json

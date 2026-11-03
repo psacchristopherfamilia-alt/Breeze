@@ -29,7 +29,7 @@ export function makePool(max = 4) {
   return new pg.Pool({ connectionString: inject("dbUrl"), max });
 }
 
-export type Who = { role: "anon" } | { role: "authenticated"; userId: string };
+export type Who = { role: "anon" } | { role: "service_role" } | { role: "authenticated"; userId: string };
 
 /**
  * Ejecuta `fn` como lo haría la API de Supabase: rol anon/authenticated + JWT con el "sub" del usuario.
@@ -39,7 +39,7 @@ export async function as<T>(pool: pg.Pool, who: Who, fn: (c: pg.PoolClient) => P
   const c = await pool.connect();
   try {
     await c.query("begin");
-    const claims = who.role === "anon" ? { role: "anon" } : { role: "authenticated", sub: who.userId };
+    const claims = who.role === "authenticated" ? { role: "authenticated", sub: who.userId } : { role: who.role };
     await c.query("select set_config('request.jwt.claims', $1, true)", [JSON.stringify(claims)]);
     await c.query(`set local role ${who.role}`);
     return await fn(c);
@@ -51,6 +51,7 @@ export async function as<T>(pool: pg.Pool, who: Who, fn: (c: pg.PoolClient) => P
 
 export const user = (userId: string): Who => ({ role: "authenticated", userId });
 export const anon: Who = { role: "anon" };
+export const serviceRole: Who = { role: "service_role" };
 
 export interface BookArgs {
   salon: string;
@@ -113,7 +114,7 @@ export async function attempt(c: pg.ClientBase, fn: () => Promise<unknown>): Pro
 
 /** Dentro de una transacción abierta: actúa como `who` (rol + JWT). */
 export async function switchTo(c: pg.ClientBase, who: Who) {
-  const claims = who.role === "anon" ? { role: "anon" } : { role: "authenticated", sub: who.userId };
+  const claims = who.role === "authenticated" ? { role: "authenticated", sub: who.userId } : { role: who.role };
   await c.query("reset role");
   await c.query("select set_config('request.jwt.claims', $1, true)", [JSON.stringify(claims)]);
   await c.query(`set local role ${who.role}`);

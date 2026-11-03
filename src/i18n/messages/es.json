@@ -541,6 +541,12 @@
       "namePlaceholder": "Nombre (p. ej. TV recepción)",
       "pair": "Conectar",
       "paired": "¡Pantalla conectada! Mostrará la agenda en unos segundos."
+    },
+    "reminders": {
+      "title": "Recordatorios automáticos",
+      "hint": "Se envían por WhatsApp (si el cliente aceptó), SMS o correo, firmados por Breeze. La confirmación y los avisos de cancelación se envían siempre.",
+      "day": "24 horas antes",
+      "twoHours": "2 horas antes"
     }
   }
 }

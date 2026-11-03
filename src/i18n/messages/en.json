@@ -541,6 +541,12 @@
       "namePlaceholder": "Name (e.g. Reception TV)",
       "pair": "Connect",
       "paired": "Screen connected! It will show the agenda in a few seconds."
+    },
+    "reminders": {
+      "title": "Automatic reminders",
+      "hint": "Sent by WhatsApp (if the client accepted), SMS or email, signed by Breeze. Confirmation and cancellation notices are always sent.",
+      "day": "24 hours before",
+      "twoHours": "2 hours before"
     }
   }
 }

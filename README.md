@@ -88,6 +88,13 @@ La sucursal activa se guarda en una cookie (`breeze-salon`) y se cambia desde el
 
 La pantalla solo recibe "Nombre I.", servicio y hora: el recorte lo hace la base de datos.
 
+### Recordatorios (módulo 6)
+- Cada reserva encola sola: **confirmación**, **recordatorios** (24 h y 2 h antes, configurable en Ajustes) y avisos de **cambio de hora** o **cancelación**. Un mensaje por reserva, firmado **"— Breeze"**, en el idioma del cliente.
+- Canal: **WhatsApp** (si el cliente aceptó) → **SMS** → **correo**; si uno falla, prueba el siguiente. Hasta 3 intentos con espera.
+- Proveedores (`.env.local`): `NOTIFICATIONS_PROVIDER=console` (se imprime en el log) o `live` (Resend para correo; Twilio para SMS/WhatsApp, solo los que tengan claves).
+- Worker: `GET/POST /api/cron/notifications` con `Authorization: Bearer <CRON_SECRET>`, cada 5 min. Programarlo con `supabase/snippets/schedule-notifications.sql` (pg_cron + pg_net) o con el cron del hosting.
+- WhatsApp en producción: Meta exige **plantillas aprobadas** para mensajes iniciados por el negocio; hay que registrarlas en Twilio antes de activarlo.
+
 **Datos de demo** (`supabase/seed.sql`, se cargan con `supabase db reset`): 3 salones, 8 profesionales; dueño `owner@breeze.demo` / `breeze-demo-2026`.
 
 ## Reglas no negociables

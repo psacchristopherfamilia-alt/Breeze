@@ -140,7 +140,31 @@
     "policy": "Cancelación gratis hasta {hours} h antes. Pagas en el salón (efectivo o transferencia).",
     "summary": "{count, plural, one {# servicio} other {# servicios}}",
     "pickServices": "Elige al menos un servicio",
-    "confirm": "Confirmar cita"
+    "confirm": "Confirmar cita",
+    "rescheduledTitle": "¡Cita cambiada!",
+    "guestLinkNote": "Te enviaremos por mensaje un enlace privado para gestionar esta cita. Guárdalo.",
+    "noServices": "Este salón todavía no ha añadido servicios.",
+    "signedIn": "Reservando con tu cuenta",
+    "goLogin": "Entra para reservar con tu cuenta",
+    "confirmReschedule": "Confirmar nueva hora",
+    "errors": {
+      "slot_taken": "Lo sentimos, esa hora acaba de ocuparse. Elige otra, por favor.",
+      "too_soon": "Esa hora es demasiado pronto. Elige una más tarde.",
+      "too_far": "Esa fecha está demasiado lejos.",
+      "outside_working_hours": "Esa hora ya no está disponible. Elige otra, por favor.",
+      "salon_not_bookable": "Este salón no acepta reservas en línea ahora mismo. Llámales, por favor.",
+      "guest_limit": "Ya tienes 2 citas próximas como invitado. Crea una cuenta para reservar más.",
+      "customer_blocked": "La reserva en línea está desactivada para ti en este salón. Llámales, por favor.",
+      "phone_required": "Escribe tu teléfono, por favor.",
+      "name_required": "Escribe tu nombre, por favor.",
+      "service_not_offered": "Ese profesional no ofrece alguno de los servicios.",
+      "invalid_items": "Revisa los servicios elegidos.",
+      "outside_change_window": "Ya es tarde para cambiar esta cita en línea. Llama al salón, por favor.",
+      "nothing_to_cancel": "Esta cita ya estaba cancelada.",
+      "nothing_to_reschedule": "Esta cita no se puede mover.",
+      "not_found": "No encontramos la cita.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
   },
   "me": {
     "title": "Mis citas",
@@ -339,5 +363,13 @@
       "inviteWrongAccount": "Esta invitación se envió a otro correo o teléfono.",
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
+  },
+  "guest": {
+    "title": "Hola {name}, esta es tu cita",
+    "subtitle": "Sin cuenta: este enlace privado es tu llave.",
+    "keepLink": "No compartas este enlace: quien lo tenga puede cambiar tu cita.",
+    "notFoundTitle": "No encontramos la cita",
+    "notFoundBody": "Puede que el enlace esté mal o que la cita se haya eliminado.",
+    "explore": "Buscar un salón"
   }
 }

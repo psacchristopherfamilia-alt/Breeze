@@ -61,6 +61,17 @@ Copia `.env.example` a `.env.local` y rellena los valores. **Nunca** subas secre
 | `/auth/callback` | Enlace del correo; termina el alta del salón si quedó pendiente |
 | `/invite/[token]` | Aceptar invitación de profesional/admin |
 
+### Reservas (módulo 3)
+| Ruta | Qué es |
+|---|---|
+| `/explore` | Salones publicados (Supabase) o de demo (prototipo) |
+| `/s/[slug]` | Reservar: huecos reales calculados con horario + citas + buffer |
+| `/s/[slug]?reschedule=<id>` / `?rt=<token>` | Reprogramar (con sesión / invitado) |
+| `/me` | Mis citas: cancelar o reprogramar dentro de la ventana del salón |
+| `/b/[token]` | Enlace privado del invitado para ver, cancelar o reprogramar |
+
+**Datos de demo** (`supabase/seed.sql`, se cargan con `supabase db reset`): 3 salones, 8 profesionales; dueño `owner@breeze.demo` / `breeze-demo-2026`.
+
 ## Reglas no negociables
 - Sin doble reserva: exclusion constraint con rangos de tiempo en Postgres.
 - Disponibilidad = duración del servicio + horario del profesional + citas existentes. UTC en BD, `America/Grand_Turk` en pantalla.

@@ -576,6 +576,15 @@ isOneToOne: false
             "accept_invitation":
 { Args: { "p_token": string }; Returns: Json
                            },
+"book_appointment":
+{ Args: { "p_guest"?: Json,"p_items": Json,"p_salon_id": string,"p_starts_at": string }; Returns: Json
+                           },
+"cancel_booking":
+{ Args: { "p_booking_group_id": string,"p_reason"?: string }; Returns: number
+                           },
+"cancel_by_guest_token":
+{ Args: { "p_reason"?: string,"p_token": string }; Returns: number
+                           },
 "create_branch":
 { Args: { "p_address"?: string,"p_business_types": (Database["public"]['Enums']["business_type"])[],"p_organization_id": string,"p_phone"?: string,"p_salon_name": string,"p_zone": Database["public"]['Enums']["salon_zone"] }; Returns: Json
                            },
@@ -585,10 +594,31 @@ isOneToOne: false
 "create_organization":
 { Args: { "p_address"?: string,"p_business_types": (Database["public"]['Enums']["business_type"])[],"p_org_name": string,"p_phone"?: string,"p_salon_name": string,"p_zone": Database["public"]['Enums']["salon_zone"] }; Returns: Json
                            },
+"get_guest_booking":
+{ Args: { "p_token": string }; Returns: Json
+                           },
+"get_public_schedule":
+{ Args: { "p_from": string,"p_salon_id": string,"p_to": string }; Returns: Json
+                           },
+"mark_appointment":
+{ Args: { "p_appointment_id": string,"p_status": Database["public"]['Enums']["appointment_status"] }; Returns: undefined
+                           },
+"my_bookings":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "my_context":
 { Args: Record<PropertyKey, never>; Returns: {
               "organization_id": string,"organization_name": string,"organization_slug": string,"professional_id": string,"role": Database["public"]['Enums']["member_role"],"salon_id": string,"salon_name": string,"salon_slug": string
             }[]
+                           },
+"reschedule_booking":
+{ Args: { "p_booking_group_id": string,"p_new_start": string }; Returns: string
+                           },
+"reschedule_by_guest_token":
+{ Args: { "p_new_start": string,"p_token": string }; Returns: string
+                           },
+"staff_create_appointment":
+{ Args: { "p_allow_outside_hours"?: boolean,"p_customer": Json,"p_items": Json,"p_salon_id": string,"p_source"?: Database["public"]['Enums']["booking_source"],"p_starts_at": string }; Returns: Json
                            }
           }
           Enums: {

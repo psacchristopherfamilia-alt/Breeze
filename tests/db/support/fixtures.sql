@@ -13,7 +13,8 @@ insert into auth.users (id, email) values
   ('00000000-0000-4000-8000-000000000106', 'juan@example.com'),
   ('00000000-0000-4000-8000-000000000107', 'stranger@example.com');
 
-insert into public.profiles (id, full_name, email) select id, split_part(email, '@', 1), email from auth.users;
+-- El trigger on_auth_user_created ya creó los perfiles; solo les damos nombre.
+update public.profiles set full_name = split_part(email, '@', 1);
 
 insert into public.organizations (id, name, slug, owner_id) values
   ('00000000-0000-4000-8000-000000000201', 'Coral Group', 'coral-group', '00000000-0000-4000-8000-000000000101'),

@@ -42,10 +42,24 @@ pnpm test             # tests unitarios (Vitest)
 pnpm test:db          # doble reserva + RLS + integridad contra Postgres real (necesita supabase start)
 pnpm exec supabase start     # Supabase local (Docker)
 pnpm exec supabase db reset  # aplicar migraciones
+pnpm db:types                # regenerar src/types/database.ts (sin Docker)
 ```
 
 ## Configuración
 Copia `.env.example` a `.env.local` y rellena los valores. **Nunca** subas secretos al repositorio.
+
+- **Sin** `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` → **modo prototipo**: datos falsos y sin login.
+- **Con** ellas → login real; `/dashboard`, `/me`, `/pro` y `/onboarding` exigen sesión (`src/proxy.ts`).
+
+### Acceso (módulo 2)
+| Ruta | Qué es |
+|---|---|
+| `/login` | Entrar (correo + contraseña) |
+| `/signup` | Cuenta de cliente (nombre, correo, móvil, contraseña) |
+| `/signup/salon` | Alta de negocio: dueño + organización + 1.ª sucursal + 14 días de prueba |
+| `/check-email` | Aviso de confirmación de correo |
+| `/auth/callback` | Enlace del correo; termina el alta del salón si quedó pendiente |
+| `/invite/[token]` | Aceptar invitación de profesional/admin |
 
 ## Reglas no negociables
 - Sin doble reserva: exclusion constraint con rangos de tiempo en Postgres.

@@ -110,3 +110,30 @@ export async function attempt(c: pg.ClientBase, fn: () => Promise<unknown>): Pro
     return (e as { code?: string }).code ?? "unknown";
   }
 }
+
+/** Dentro de una transacción abierta: actúa como `who` (rol + JWT). */
+export async function switchTo(c: pg.ClientBase, who: Who) {
+  const claims = who.role === "anon" ? { role: "anon" } : { role: "authenticated", sub: who.userId };
+  await c.query("reset role");
+  await c.query("select set_config('request.jwt.claims', $1, true)", [JSON.stringify(claims)]);
+  await c.query(`set local role ${who.role}`);
+}
+
+/** Vuelve a superusuario dentro de la transacción (para preparar datos). */
+export async function asSuperuser(c: pg.ClientBase) {
+  await c.query("reset role");
+  await c.query("select set_config('request.jwt.claims', '', true)");
+}
+
+/** Crea un usuario de Auth (el trigger crea su perfil). */
+export async function createAuthUser(
+  c: pg.ClientBase,
+  u: { id?: string; email?: string; phone?: string; meta?: Record<string, unknown> },
+): Promise<string> {
+  const r = await c.query<{ id: string }>(
+    `insert into auth.users (id, email, phone, raw_user_meta_data)
+     values (coalesce($1::uuid, gen_random_uuid()), $2, $3, $4) returning id`,
+    [u.id ?? null, u.email ?? null, u.phone ?? null, JSON.stringify(u.meta ?? {})],
+  );
+  return r.rows[0].id;
+}

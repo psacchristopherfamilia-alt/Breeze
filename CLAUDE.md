@@ -21,7 +21,17 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Una migración nueva por cambio; nunca editar una migración ya aplicada en producción.
 - La migración de RLS hace `revoke all` a anon/authenticated: **toda tabla nueva necesita sus GRANT explícitos, `enable row level security`, políticas y un test de aislamiento** en `tests/db/rls.test.ts`.
 - Helpers de RLS en el esquema `private` (`has_org_role`, `has_salon_role`, `my_professional_ids`, `my_customer_ids`), `security definer` + `search_path = ''`.
-- Dentro de una transacción de test, usar `attempt(c, () => …)` para esperar errores (savepoint).
+- Dentro de una transacción de test, usar `attempt(c, () => …)` para esperar errores (savepoint); `switchTo(c, user(id))` / `asSuperuser(c)` para cambiar de rol.
+- Tras cambiar el esquema: `pnpm db:types` (aplica migraciones en una BD temporal y regenera `src/types/database.ts`).
+- Funciones RPC nuevas: `security definer` + `set search_path = ''`, `revoke execute … from public, anon` y `grant` explícito.
+
+## Auth (Supabase)
+- Sin variables de Supabase → modo prototipo (datos falsos). `isSupabaseConfigured()` en `src/lib/supabase/env.ts`.
+- Clientes: `src/lib/supabase/server.ts` (server), `client.ts` (navegador), `session.ts` + `src/proxy.ts` (refresco de sesión y rutas protegidas; en Next 16 el middleware se llama `proxy`).
+- Server actions en `src/app/(auth)/actions.ts` devuelven CLAVES de traducción (`auth.errors.*`), nunca texto.
+- Validación con zod en `src/lib/validation/` (compartida cliente/servidor). Teléfonos con `normalizePhone` (= `private.normalize_phone` en SQL).
+- Redirecciones solo internas con `safeNext`.
+- Sesiones anónimas desactivadas hasta el módulo de Breeze Live (deben bloquearse en RPC de alta de salón e invitaciones).
 
 ## Reglas técnicas no negociables
 1. **Prohibido el doble booking**: exclusion constraint `gist` (`professional_id =`, `tstzrange(starts_at, blocked_until, '[)') &&`) sobre citas no canceladas. No basta la validación en frontend.

@@ -128,12 +128,12 @@ export async function asSuperuser(c: pg.ClientBase) {
 /** Crea un usuario de Auth (el trigger crea su perfil). */
 export async function createAuthUser(
   c: pg.ClientBase,
-  u: { id?: string; email?: string; phone?: string; meta?: Record<string, unknown> },
+  u: { id?: string; email?: string; phone?: string; meta?: Record<string, unknown>; anonymous?: boolean },
 ): Promise<string> {
   const r = await c.query<{ id: string }>(
-    `insert into auth.users (id, email, phone, raw_user_meta_data)
-     values (coalesce($1::uuid, gen_random_uuid()), $2, $3, $4) returning id`,
-    [u.id ?? null, u.email ?? null, u.phone ?? null, JSON.stringify(u.meta ?? {})],
+    `insert into auth.users (id, email, phone, raw_user_meta_data, is_anonymous)
+     values (coalesce($1::uuid, gen_random_uuid()), $2, $3, $4, $5) returning id`,
+    [u.id ?? null, u.email ?? null, u.phone ?? null, JSON.stringify(u.meta ?? {}), u.anonymous ?? false],
   );
   return r.rows[0].id;
 }

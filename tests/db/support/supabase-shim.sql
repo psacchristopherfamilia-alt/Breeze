@@ -36,3 +36,20 @@ grant execute on function auth.uid() to anon, authenticated, service_role;
 alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
 alter default privileges in schema public grant all on functions to anon, authenticated, service_role;
 alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
+
+-- Sustituto de Supabase Realtime: realtime.send() guarda lo que se habría emitido,
+-- para poder comprobar en los tests qué llega a las pantallas.
+create schema if not exists realtime;
+create table if not exists realtime.test_sent (
+  id bigserial primary key,
+  payload jsonb not null,
+  event text not null,
+  topic text not null,
+  private boolean not null,
+  at timestamptz not null default now()
+);
+create or replace function realtime.send(payload jsonb, event text, topic text, private boolean default true)
+returns void language sql security definer as $$
+  insert into realtime.test_sent (payload, event, topic, private) values (payload, event, topic, private);
+$$;
+grant usage on schema realtime to anon, authenticated, service_role;

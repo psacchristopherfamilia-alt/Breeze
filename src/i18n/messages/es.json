@@ -291,7 +291,9 @@
       "invalid_items": "Revisa el servicio.",
       "not_found": "No encontrado.",
       "invalid_range": "Revisa las fechas.",
-      "category_mismatch": "Esa categoría no corresponde a tu tipo de negocio."
+      "category_mismatch": "Esa categoría no corresponde a tu tipo de negocio.",
+      "invalid_code": "Ese código no es válido o caducó. Revisa la pantalla.",
+      "too_many_pending": "Demasiadas pantallas esperando. Prueba más tarde."
     }
   },
   "pros": {
@@ -367,7 +369,20 @@
     "count": "{count, plural, =0 {Sin citas hoy} one {# cita hoy} other {# citas hoy}}",
     "free": "Libre hoy",
     "now": "Ahora",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "reconnecting": "Reconectando…",
+    "notFound": "Salón no encontrado.",
+    "pair": {
+      "instructions": "Para mostrar aquí la agenda del día, abre Breeze en tu móvil u ordenador: Panel → Ajustes → Pantallas Breeze Live, y escribe este código:",
+      "codeLabel": "Código de emparejamiento",
+      "waiting": "Esperando a que el salón escriba el código… (cambia cada 15 minutos)",
+      "errors": {
+        "notFound": "Este salón no existe. Revisa la dirección.",
+        "anonDisabled": "Las pantallas aún no están activadas (las sesiones anónimas de Supabase están desactivadas).",
+        "tooManyPending": "Demasiadas pantallas esperando código. Prueba en unos minutos.",
+        "generic": "Algo salió mal. Recarga la página."
+      }
+    }
   },
   "auth": {
     "notConfiguredBanner": "Modo prototipo: Supabase todavía no está conectado (.env.local), así que el acceso y el registro están desactivados.",
@@ -512,6 +527,20 @@
     "closures": "Cierres",
     "closuresHint": "Festivos, días de huracán… Nadie puede reservar esos días.",
     "closureReason": "Motivo (opcional)",
-    "addClosure": "Añadir"
+    "addClosure": "Añadir",
+    "screens": {
+      "title": "Pantallas Breeze Live",
+      "hint": "Abre {url} en la TV o tablet del salón: mostrará un código de 6 dígitos. Escríbelo aquí.",
+      "none": "Aún no hay pantallas conectadas.",
+      "lastSeen": "vista {when}",
+      "neverSeen": "aún sin conectar",
+      "revoke": "Desconectar",
+      "revoked": "Pantalla desconectada.",
+      "code": "Código que muestra la pantalla",
+      "name": "Nombre de la pantalla",
+      "namePlaceholder": "Nombre (p. ej. TV recepción)",
+      "pair": "Conectar",
+      "paired": "¡Pantalla conectada! Mostrará la agenda en unos segundos."
+    }
   }
 }

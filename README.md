@@ -80,6 +80,14 @@ Copia `.env.example` a `.env.local` y rellena los valores. **Nunca** subas secre
 
 La sucursal activa se guarda en una cookie (`breeze-salon`) y se cambia desde el menú lateral.
 
+### Breeze Live (módulo 5)
+1. En la TV o tablet del salón abre `/live/<slug-del-salón>` (p. ej. `/live/coral-salon`). Muestra un **código de 6 dígitos**.
+2. En el panel: **Ajustes → Pantallas Breeze Live**, escribe el código → la pantalla muestra la agenda del día.
+3. Las citas nuevas aparecen al instante (Supabase Realtime, canal privado `live:<salon_id>`) con el color del profesional. Sonido opcional (botón del altavoz).
+4. Desde el mismo panel se puede **desconectar** una pantalla; deja de recibir datos al momento.
+
+La pantalla solo recibe "Nombre I.", servicio y hora: el recorte lo hace la base de datos.
+
 **Datos de demo** (`supabase/seed.sql`, se cargan con `supabase db reset`): 3 salones, 8 profesionales; dueño `owner@breeze.demo` / `breeze-demo-2026`.
 
 ## Reglas no negociables

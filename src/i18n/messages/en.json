@@ -32,7 +32,8 @@
     "resetDone": "Prototype data reset."
   },
   "client": {
-    "myBookings": "My bookings"
+    "myBookings": "My bookings",
+    "signIn": "Sign in"
   },
   "explore": {
     "title": "Find your next appointment",
@@ -62,7 +63,10 @@
     "blue_hills": "Blue Hills",
     "grand_turk": "Grand Turk",
     "north_caicos": "North Caicos",
-    "south_caicos": "South Caicos"
+    "south_caicos": "South Caicos",
+    "kew_town": "Kew Town",
+    "middle_caicos": "Middle Caicos",
+    "salt_cay": "Salt Cay"
   },
   "categories": {
     "cuts": "Cuts",
@@ -251,5 +255,89 @@
     "free": "Free today",
     "now": "Now",
     "next": "Next"
+  },
+  "auth": {
+    "notConfiguredBanner": "Prototype mode: Supabase isn't connected yet (.env.local), so sign-in and sign-up are disabled.",
+    "fields": {
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Mobile phone (WhatsApp)",
+      "phoneHint": "We use it for reminders. Local numbers like 649 555 1234 are fine.",
+      "password": "Password",
+      "passwordHint": "At least 8 characters.",
+      "orgName": "Business name",
+      "orgNameHint": "Your company. You can add more branches later.",
+      "salonName": "First location name",
+      "salonNameHint": "What clients will see, e.g. \"Coral Nails Grace Bay\".",
+      "businessTypes": "Type of business (pick one or more)",
+      "zone": "Area",
+      "zonePlaceholder": "Choose an area",
+      "salonPhone": "Business phone (optional)",
+      "address": "Address (optional)"
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to manage your bookings.",
+      "submit": "Sign in",
+      "noAccount": "New to Breeze?",
+      "createAccount": "Create an account",
+      "isSalon": "Own a salon, spa or barbershop?",
+      "registerSalon": "Register your business"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Book faster and manage all your appointments in one place.",
+      "submit": "Create account",
+      "guestNote": "Just visiting the islands? You can also book as a guest without an account.",
+      "haveAccount": "Already have an account?",
+      "login": "Sign in"
+    },
+    "salon": {
+      "eyebrow": "Breeze for business",
+      "title": "Register your business",
+      "subtitle": "Barbershops, salons and spas in Turks and Caicos.",
+      "you": "You (owner)",
+      "business": "Your business",
+      "trialTitle": "14-day free trial, everything included",
+      "trialBody": "No card needed. After the trial you pay by bank transfer or cash. Your salon stays hidden until you publish it.",
+      "submit": "Create my business"
+    },
+    "checkEmail": {
+      "title": "Check your email",
+      "body": "We sent you a link to confirm your account. Open it on this device to continue.",
+      "spam": "Can't find it? Check your spam folder.",
+      "back": "Back to sign in"
+    },
+    "invite": {
+      "title": "You've been invited to Breeze",
+      "body": "A salon invited you to join its team. You'll see your own agenda.",
+      "signedInAs": "Signed in as {who}",
+      "accept": "Accept invitation",
+      "login": "Sign in to accept",
+      "signup": "Create an account",
+      "sameEmail": "Use the same email or phone the invitation was sent to."
+    },
+    "errors": {
+      "required": "Required.",
+      "invalidEmail": "Enter a valid email.",
+      "invalidPhone": "Enter a valid phone number.",
+      "passwordTooShort": "Use at least 8 characters.",
+      "passwordTooLong": "Use at most 72 characters.",
+      "nameTooShort": "Enter your name.",
+      "businessNameTooShort": "Enter a name.",
+      "pickBusinessType": "Pick at least one type.",
+      "pickZone": "Choose an area.",
+      "notConfigured": "Supabase isn't connected yet. This is the prototype.",
+      "invalidCredentials": "Wrong email or password.",
+      "emailNotConfirmed": "Confirm your email first (check your inbox).",
+      "emailTaken": "There's already an account with that email.",
+      "rateLimited": "Too many attempts. Please wait a minute.",
+      "linkInvalid": "That link is invalid or has expired. Sign in again.",
+      "inviteNotFound": "This invitation doesn't exist.",
+      "inviteUsed": "This invitation was already used.",
+      "inviteExpired": "This invitation has expired. Ask the salon for a new one.",
+      "inviteWrongAccount": "This invitation was sent to a different email or phone.",
+      "generic": "Something went wrong. Please try again."
+    }
   }
 }

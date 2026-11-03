@@ -10,16 +10,19 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:db": "vitest run --config vitest.db.config.ts",
-    "db:types": "supabase gen types typescript --local --schema public > src/types/database.ts"
+    "db:types": "bash scripts/db-types.sh"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
     "date-fns": "^4.4.0",
     "lucide-react": "^1.67.0",
     "next": "^16.4.4",
     "next-intl": "^4.14.9",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.4",

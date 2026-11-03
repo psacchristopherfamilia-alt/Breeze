@@ -1,5 +1,5 @@
 "use client";
-import { CalendarCheck } from "lucide-react";
+import { CalendarCheck, LogIn } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Logo } from "./Logo";
@@ -21,6 +21,13 @@ export function ClientHeader() {
             >
               <CalendarCheck className="size-4" />
               <span className="hidden sm:inline">{t("myBookings")}</span>
+            </Link>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold text-lagoon hover:bg-breeze-50"
+            >
+              <LogIn className="size-4" />
+              <span className="hidden sm:inline">{t("signIn")}</span>
             </Link>
             <LocaleSwitcher />
           </div>

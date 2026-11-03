@@ -32,7 +32,8 @@
     "resetDone": "Datos del prototipo reiniciados."
   },
   "client": {
-    "myBookings": "Mis citas"
+    "myBookings": "Mis citas",
+    "signIn": "Entrar"
   },
   "explore": {
     "title": "Encuentra tu próxima cita",
@@ -62,7 +63,10 @@
     "blue_hills": "Blue Hills",
     "grand_turk": "Grand Turk",
     "north_caicos": "North Caicos",
-    "south_caicos": "South Caicos"
+    "south_caicos": "South Caicos",
+    "kew_town": "Kew Town",
+    "middle_caicos": "Middle Caicos",
+    "salt_cay": "Salt Cay"
   },
   "categories": {
     "cuts": "Cortes",
@@ -251,5 +255,89 @@
     "free": "Libre hoy",
     "now": "Ahora",
     "next": "Siguiente"
+  },
+  "auth": {
+    "notConfiguredBanner": "Modo prototipo: Supabase todavía no está conectado (.env.local), así que el acceso y el registro están desactivados.",
+    "fields": {
+      "fullName": "Nombre completo",
+      "email": "Correo",
+      "phone": "Móvil (WhatsApp)",
+      "phoneHint": "Lo usamos para los recordatorios. Sirven números locales como 649 555 1234.",
+      "password": "Contraseña",
+      "passwordHint": "Mínimo 8 caracteres.",
+      "orgName": "Nombre del negocio",
+      "orgNameHint": "Tu empresa. Luego puedes añadir más sucursales.",
+      "salonName": "Nombre de la primera sucursal",
+      "salonNameHint": "Lo que verán los clientes, p. ej. \"Coral Nails Grace Bay\".",
+      "businessTypes": "Tipo de negocio (uno o varios)",
+      "zone": "Zona",
+      "zonePlaceholder": "Elige una zona",
+      "salonPhone": "Teléfono del negocio (opcional)",
+      "address": "Dirección (opcional)"
+    },
+    "login": {
+      "title": "Hola de nuevo",
+      "subtitle": "Entra para gestionar tus citas.",
+      "submit": "Entrar",
+      "noAccount": "¿Nuevo en Breeze?",
+      "createAccount": "Crear una cuenta",
+      "isSalon": "¿Tienes un salón, spa o barbería?",
+      "registerSalon": "Registra tu negocio"
+    },
+    "signup": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Reserva más rápido y gestiona todas tus citas en un solo lugar.",
+      "submit": "Crear cuenta",
+      "guestNote": "¿Estás de paso por las islas? También puedes reservar como invitado, sin cuenta.",
+      "haveAccount": "¿Ya tienes cuenta?",
+      "login": "Entrar"
+    },
+    "salon": {
+      "eyebrow": "Breeze para negocios",
+      "title": "Registra tu negocio",
+      "subtitle": "Barberías, salones y spas en Turks and Caicos.",
+      "you": "Tú (dueño)",
+      "business": "Tu negocio",
+      "trialTitle": "14 días gratis, todo incluido",
+      "trialBody": "Sin tarjeta. Después pagas por transferencia o en efectivo. Tu salón no será visible hasta que lo publiques.",
+      "submit": "Crear mi negocio"
+    },
+    "checkEmail": {
+      "title": "Revisa tu correo",
+      "body": "Te enviamos un enlace para confirmar tu cuenta. Ábrelo en este dispositivo para continuar.",
+      "spam": "¿No lo encuentras? Mira en la carpeta de spam.",
+      "back": "Volver a entrar"
+    },
+    "invite": {
+      "title": "Te invitaron a Breeze",
+      "body": "Un salón te invitó a su equipo. Verás tu propia agenda.",
+      "signedInAs": "Has entrado como {who}",
+      "accept": "Aceptar invitación",
+      "login": "Entrar para aceptar",
+      "signup": "Crear una cuenta",
+      "sameEmail": "Usa el mismo correo o teléfono al que llegó la invitación."
+    },
+    "errors": {
+      "required": "Obligatorio.",
+      "invalidEmail": "Escribe un correo válido.",
+      "invalidPhone": "Escribe un teléfono válido.",
+      "passwordTooShort": "Usa al menos 8 caracteres.",
+      "passwordTooLong": "Usa como máximo 72 caracteres.",
+      "nameTooShort": "Escribe tu nombre.",
+      "businessNameTooShort": "Escribe un nombre.",
+      "pickBusinessType": "Elige al menos un tipo.",
+      "pickZone": "Elige una zona.",
+      "notConfigured": "Supabase aún no está conectado. Esto es el prototipo.",
+      "invalidCredentials": "Correo o contraseña incorrectos.",
+      "emailNotConfirmed": "Primero confirma tu correo (revisa tu bandeja).",
+      "emailTaken": "Ya existe una cuenta con ese correo.",
+      "rateLimited": "Demasiados intentos. Espera un minuto.",
+      "linkInvalid": "El enlace no es válido o caducó. Vuelve a entrar.",
+      "inviteNotFound": "Esta invitación no existe.",
+      "inviteUsed": "Esta invitación ya se usó.",
+      "inviteExpired": "Esta invitación caducó. Pide una nueva al salón.",
+      "inviteWrongAccount": "Esta invitación se envió a otro correo o teléfono.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }

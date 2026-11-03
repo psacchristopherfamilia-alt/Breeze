@@ -10,7 +10,7 @@ export function Logo({ href = "/", size = "md", invert = false }: { href?: strin
       >
         <Wind className={big ? "size-6" : "size-5"} strokeWidth={2.4} />
       </span>
-      <span className={`font-extrabold tracking-tight ${invert ? "text-white" : "text-ink"} ${big ? "text-3xl" : "text-xl"}`}>
+      <span className={`font-extrabold tracking-tight ${invert ? "text-white" : "text-ink"} ${big ? "text-3xl" : "text-xl"}`} translate="no">
         Breeze
       </span>
     </Link>

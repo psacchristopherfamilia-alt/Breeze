@@ -1,19 +1,29 @@
 "use client";
-import { CalendarHeart, LayoutDashboard, MonitorPlay, ArrowRight } from "lucide-react";
+import { CalendarHeart, LayoutDashboard, MonitorPlay, ArrowRight, Store } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import { resetPrototype } from "@/lib/mock/store";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 
-const CARDS = [
+const PROTOTYPE_CARDS = [
   { href: "/explore", icon: CalendarHeart, key: "client", accent: "#2BB3B1" },
   { href: "/dashboard", icon: LayoutDashboard, key: "panel", accent: "#2563EB" },
   { href: "/live/coral-salon", icon: MonitorPlay, key: "live", accent: "#BE185D" },
 ] as const;
 
+// Con datos reales: reservar, entrar al panel o dar de alta un negocio.
+const LIVE_CARDS = [
+  { href: "/explore", icon: CalendarHeart, key: "client", accent: "#2BB3B1" },
+  { href: "/dashboard", icon: LayoutDashboard, key: "panel", accent: "#2563EB" },
+  { href: "/signup/salon", icon: Store, key: "business", accent: "#BE185D" },
+] as const;
+
 export default function Hub() {
   const t = useTranslations("hub");
+  const live = isSupabaseConfigured();
+  const cards = live ? LIVE_CARDS : PROTOTYPE_CARDS;
   return (
     <main className="bg-breeze-sky min-h-dvh">
       <div className="mx-auto max-w-5xl px-4 py-8 sm:py-14">
@@ -23,13 +33,13 @@ export default function Hub() {
         </header>
 
         <section className="mt-12 max-w-2xl">
-          <p className="text-sm font-bold uppercase tracking-widest text-breeze-600">{t("eyebrow")}</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-breeze-600">{t(live ? "eyebrowLive" : "eyebrow")}</p>
           <h1 className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">{t("title")}</h1>
-          <p className="mt-4 text-lg text-ink/70">{t("subtitle")}</p>
+          <p className="mt-4 text-lg text-ink/70">{t(live ? "subtitleLive" : "subtitle")}</p>
         </section>
 
         <section className="mt-10 grid gap-4 sm:grid-cols-3">
-          {CARDS.map(({ href, icon: Icon, key, accent }) => (
+          {cards.map(({ href, icon: Icon, key, accent }) => (
             <Link
               key={key}
               href={href}
@@ -47,6 +57,7 @@ export default function Hub() {
           ))}
         </section>
 
+        {!live && (
         <section className="mt-10 rounded-3xl bg-white/70 p-6 ring-1 ring-breeze-100">
           <h3 className="font-bold">{t("tipTitle")}</h3>
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-ink/70">
@@ -64,6 +75,7 @@ export default function Hub() {
             {t("reset")}
           </button>
         </section>
+        )}
       </div>
     </main>
   );

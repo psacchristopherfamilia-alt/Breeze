@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:db": "vitest run --config vitest.db.config.ts",
+    "db:types": "supabase gen types typescript --local --schema public > src/types/database.ts"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
@@ -21,16 +24,23 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.4",
     "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "pg": "^8.23.1",
     "postcss": "^8.5.32",
+    "supabase": "^3.0.0",
     "tailwindcss": "^4.3.4",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
       "@parcel/watcher",
       "@swc/core"
+    ],
+    "onlyBuiltDependencies": [
+      "supabase"
     ]
   }
 }

@@ -37,11 +37,11 @@ Los datos son falsos y se guardan en el navegador (`localStorage` + `BroadcastCh
 ```bash
 pnpm install          # instalar dependencias
 pnpm dev              # servidor de desarrollo (http://localhost:3000)
+pnpm typecheck        # comprobación de tipos
 pnpm test             # tests unitarios (Vitest)
-pnpm test:db          # tests de base de datos (Supabase local)
-pnpm test:e2e         # tests end-to-end (Playwright)
-supabase start        # Supabase local
-supabase db reset     # aplicar migraciones + seed
+pnpm test:db          # doble reserva + RLS + integridad contra Postgres real (necesita supabase start)
+pnpm exec supabase start     # Supabase local (Docker)
+pnpm exec supabase db reset  # aplicar migraciones
 ```
 
 ## Configuración

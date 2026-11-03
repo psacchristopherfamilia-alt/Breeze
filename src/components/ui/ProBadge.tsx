@@ -20,18 +20,19 @@ export function ProBadge({
   showName = false,
   className = "",
 }: {
-  pro: Pick<Professional, "firstName" | "lastName" | "color">;
+  /** color (clave de la paleta, prototipo) o colorHex (datos reales). */
+  pro: Pick<Professional, "firstName" | "lastName"> & { color?: Professional["color"]; colorHex?: string };
   size?: keyof typeof SIZES;
   showName?: boolean;
   className?: string;
 }) {
-  const c = colorOf(pro.color);
+  const hex = pro.colorHex ?? colorOf(pro.color ?? "blue").hex;
   const name = shortName(pro.firstName, pro.lastName);
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
       <span
         className={`grid shrink-0 place-items-center rounded-full font-extrabold text-white ring-2 ring-white ${SIZES[size]}`}
-        style={{ backgroundColor: c.hex }}
+        style={{ backgroundColor: hex }}
         title={showName ? undefined : name}
         aria-label={showName ? undefined : name}
       >

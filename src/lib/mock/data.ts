@@ -85,8 +85,8 @@ export interface Salon {
   cover: [string, string];
 }
 
-/** Horario semanal en hora local: índice 0 = domingo. */
-export type WeeklyHours = Partial<Record<number, [string, string][]>>;
+import type { WeeklyHours } from "../availability";
+export type { WeeklyHours };
 
 export interface Professional {
   id: string;

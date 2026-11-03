@@ -137,3 +137,17 @@ export async function createAuthUser(
   );
   return r.rows[0].id;
 }
+
+/** Como attempt(), pero devuelve el MENSAJE del error (nuestras RPC usan claves como 'too_soon'). */
+export async function attemptMsg(c: pg.ClientBase, fn: () => Promise<unknown>): Promise<string | null> {
+  await c.query("savepoint attempt_msg");
+  try {
+    await fn();
+    await c.query("release savepoint attempt_msg");
+    return null;
+  } catch (e) {
+    await c.query("rollback to savepoint attempt_msg");
+    const err = e as { code?: string; message: string };
+    return err.code === "23P01" ? "23P01" : err.message;
+  }
+}

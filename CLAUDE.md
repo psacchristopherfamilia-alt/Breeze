@@ -25,6 +25,14 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Tras cambiar el esquema: `pnpm db:types` (aplica migraciones en una BD temporal y regenera `src/types/database.ts`).
 - Funciones RPC nuevas: `security definer` + `set search_path = ''`, `revoke execute … from public, anon` y `grant` explícito.
 
+## Reservas (módulo 3)
+- RPC: `get_public_schedule` (anon), `book_appointment` (cliente o invitado), `staff_create_appointment`, `cancel_booking` / `cancel_by_guest_token`, `reschedule_booking` / `reschedule_by_guest_token`, `mark_appointment`, `get_guest_booking`, `my_bookings`.
+- Los errores de las RPC son mensajes-clave (`too_soon`, `outside_working_hours`, …) o el código `23P01`; `bookingErrorKey()` los traduce a `booking.errors.*`.
+- Las exclusion constraints son `DEFERRABLE INITIALLY IMMEDIATE`: solo `private.reschedule_group` las difiere y las vuelve a comprobar (`set constraints … immediate`) antes de salir.
+- Regla de secuencia (varios servicios): cada uno empieza en fin + buffer del anterior. Idéntica en `planSequence()` (TS) y `private.plan_items()` (SQL).
+- La pantalla de reserva es una sola (`components/booking/BookingFlow.tsx`) con dos fuentes: `MockBooking` (prototipo) y `LiveBooking` (Supabase).
+- Invitados: token de 64 hex en el enlace `/b/[token]`; en BD solo su sha256. Máx. 2 reservas futuras por teléfono no verificado.
+
 ## Auth (Supabase)
 - Sin variables de Supabase → modo prototipo (datos falsos). `isSupabaseConfigured()` en `src/lib/supabase/env.ts`.
 - Clientes: `src/lib/supabase/server.ts` (server), `client.ts` (navegador), `session.ts` + `src/proxy.ts` (refresco de sesión y rutas protegidas; en Next 16 el middleware se llama `proxy`).

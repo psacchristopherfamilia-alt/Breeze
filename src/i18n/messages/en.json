@@ -140,7 +140,31 @@
     "policy": "Free cancellation up to {hours} h before. Pay at the salon (cash or transfer).",
     "summary": "{count, plural, one {# service} other {# services}}",
     "pickServices": "Pick at least one service",
-    "confirm": "Confirm booking"
+    "confirm": "Confirm booking",
+    "rescheduledTitle": "Booking moved!",
+    "guestLinkNote": "We'll text you a private link to manage this booking. Keep it.",
+    "noServices": "This salon hasn't added services yet.",
+    "signedIn": "Booking with your account",
+    "goLogin": "Sign in to book with your account",
+    "confirmReschedule": "Confirm new time",
+    "errors": {
+      "slot_taken": "Sorry, that time was just taken. Please pick another one.",
+      "too_soon": "That time is too soon. Please pick a later time.",
+      "too_far": "That date is too far ahead.",
+      "outside_working_hours": "That time is no longer available. Please pick another one.",
+      "salon_not_bookable": "This salon isn't taking online bookings right now. Please call them.",
+      "guest_limit": "You already have 2 upcoming bookings as a guest. Create an account to book more.",
+      "customer_blocked": "Online booking is disabled for your account at this salon. Please call them.",
+      "phone_required": "Please enter your phone number.",
+      "name_required": "Please enter your name.",
+      "service_not_offered": "That professional doesn't offer one of the services.",
+      "invalid_items": "Please review the services you picked.",
+      "outside_change_window": "It's too late to change this booking online. Please call the salon.",
+      "nothing_to_cancel": "This booking was already cancelled.",
+      "nothing_to_reschedule": "This booking can't be moved.",
+      "not_found": "Booking not found.",
+      "generic": "Something went wrong. Please try again."
+    }
   },
   "me": {
     "title": "My bookings",
@@ -339,5 +363,13 @@
       "inviteWrongAccount": "This invitation was sent to a different email or phone.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "guest": {
+    "title": "Hi {name}, here's your booking",
+    "subtitle": "No account needed: this private link is your key.",
+    "keepLink": "Don't share this link: anyone with it can change your booking.",
+    "notFoundTitle": "Booking not found",
+    "notFoundBody": "The link may be wrong or the booking was removed.",
+    "explore": "Find a salon"
   }
 }

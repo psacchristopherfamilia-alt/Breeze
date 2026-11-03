@@ -1,0 +1,255 @@
+{
+  "common": {
+    "prototype": "Prototype · fake data",
+    "navClient": "Client app",
+    "navPanel": "Salon panel",
+    "back": "Back",
+    "continue": "Continue",
+    "cancel": "Cancel"
+  },
+  "hub": {
+    "eyebrow": "Breeze · Phase 3 prototype",
+    "title": "Bookings with an island breeze.",
+    "subtitle": "Barbershops, salons and spas in Turks and Caicos. Explore the three parts of Breeze with fake data.",
+    "open": "Open",
+    "client": {
+      "title": "Client app",
+      "desc": "Search salons, pick services and a professional, see real availability and book in seconds."
+    },
+    "panel": {
+      "title": "Salon panel",
+      "desc": "Color-coded agenda per professional, phone bookings and team setup with unique colors."
+    },
+    "live": {
+      "title": "Breeze Live",
+      "desc": "Kiosk screen for the salon TV: today's agenda by column and live booking alerts."
+    },
+    "tipTitle": "Try the real-time demo",
+    "tip1": "Open Breeze Live in one tab (Coral Salon & Nails).",
+    "tip2": "In another tab, book at Coral Salon from the client app or create a phone booking in the panel.",
+    "tip3": "Watch the alert appear on Live instantly with the professional's color. Turn on the sound with the speaker button.",
+    "reset": "Reset prototype data",
+    "resetDone": "Prototype data reset."
+  },
+  "client": {
+    "myBookings": "My bookings"
+  },
+  "explore": {
+    "title": "Find your next appointment",
+    "subtitle": "Barbershops, salons and spas across Turks and Caicos.",
+    "searchPlaceholder": "Salon or service (e.g. fade, nails, massage)",
+    "allTypes": "All",
+    "zone": "Area",
+    "allZones": "All areas",
+    "results": "{count, plural, =0 {No places} one {# place} other {# places}}",
+    "from": "from",
+    "empty": "No places match your search. Try another area or type."
+  },
+  "types": {
+    "barbershop": "Barbershop",
+    "salon": "Salon",
+    "spa": "Spa & Esthetics"
+  },
+  "zones": {
+    "grace_bay": "Grace Bay",
+    "downtown_provo": "Downtown Provo",
+    "leeward": "Leeward",
+    "long_bay": "Long Bay",
+    "turtle_cove": "Turtle Cove",
+    "the_bight": "The Bight",
+    "chalk_sound": "Chalk Sound",
+    "five_cays": "Five Cays",
+    "blue_hills": "Blue Hills",
+    "grand_turk": "Grand Turk",
+    "north_caicos": "North Caicos",
+    "south_caicos": "South Caicos"
+  },
+  "categories": {
+    "cuts": "Cuts",
+    "beard": "Beard & shave",
+    "designs": "Designs & line-ups",
+    "hair_treatments": "Hair treatments",
+    "hair": "Hair (cut & style)",
+    "color": "Color",
+    "braids": "Braids & extensions",
+    "nails": "Nails",
+    "makeup": "Makeup",
+    "brows_lashes": "Brows & lashes",
+    "massage": "Massage",
+    "facials": "Facials",
+    "waxing": "Waxing",
+    "body": "Body treatments",
+    "packages": "Packages"
+  },
+  "titles": {
+    "barber": "Barber",
+    "stylist": "Stylist",
+    "nail_tech": "Nail technician",
+    "makeup_artist": "Makeup artist",
+    "esthetician": "Esthetician",
+    "massage_therapist": "Massage therapist"
+  },
+  "booking": {
+    "notFound": "Salon not found.",
+    "conflict": "Sorry, that time was just taken. Please choose another one.",
+    "doneTitle": "You're booked!",
+    "doneSubtitle": "Your appointment is confirmed. See you soon.",
+    "tzNote": "Times shown in Turks and Caicos time",
+    "reminderTitle": "Reminder on WhatsApp",
+    "reminderBody": "We'll remind you 24 h and 2 h before. You can cancel or reschedule up to {hours} h before your appointment.",
+    "manage": "Manage my booking",
+    "seeLive": "See it on Breeze Live",
+    "rescheduling": "You are rescheduling an existing booking. Pick a new time.",
+    "steps": {
+      "services": "Services",
+      "pro": "Professional",
+      "time": "Date & time",
+      "details": "Your details"
+    },
+    "headings": {
+      "services": "What would you like?",
+      "pro": "Who would you like?",
+      "time": "Pick a date and time",
+      "details": "Almost done"
+    },
+    "multiHint": "You can pick several services. They'll be booked one after another, never at the same time.",
+    "noPro": "No single professional offers all the selected services. Remove one or book them separately.",
+    "anyPro": "Any professional",
+    "anyProHint": "First available time",
+    "blockNote": "Includes {min} min with prep time",
+    "noSlots": "No availability this day. Try another date.",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "with": "with {name}",
+    "mode": {
+      "guest": "Continue as guest",
+      "account": "Sign in"
+    },
+    "demoAccount": "Demo account (prototype)",
+    "guestHint": "Just visiting? No account needed. We'll text you a link to manage your booking.",
+    "first": "First name",
+    "last": "Last name",
+    "phone": "Phone (WhatsApp)",
+    "email": "Email (optional)",
+    "whatsappOptIn": "Send me reminders on WhatsApp",
+    "policy": "Free cancellation up to {hours} h before. Pay at the salon (cash or transfer).",
+    "summary": "{count, plural, one {# service} other {# services}}",
+    "pickServices": "Pick at least one service",
+    "confirm": "Confirm booking"
+  },
+  "me": {
+    "title": "My bookings",
+    "empty": "You don't have bookings yet.",
+    "bookNow": "Book now",
+    "upcoming": "Upcoming",
+    "noneUpcoming": "No upcoming bookings.",
+    "history": "History",
+    "payAtSalon": "pay at the salon",
+    "reschedule": "Reschedule",
+    "cancel": "Cancel",
+    "cancelConfirm": "Cancel this booking?",
+    "windowPassed": "Less than {hours} h left: to change it, please call the salon at {phone}.",
+    "windowInfo": "Changes allowed up to {hours} h before."
+  },
+  "status": {
+    "booked": "Confirmed",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "no_show": "No-show"
+  },
+  "sources": {
+    "online": "Online",
+    "phone": "Phone",
+    "walk_in": "Walk-in"
+  },
+  "panel": {
+    "nav": {
+      "agenda": "Agenda",
+      "professionals": "Professionals"
+    },
+    "branch": "Branch",
+    "yourBranches": "your branches",
+    "otherDemo": "Other demo salons",
+    "plan": {
+      "title": "Studio plan · trial",
+      "body": "11 days left. Pay by bank transfer or cash."
+    },
+    "prevDay": "Previous day",
+    "nextDay": "Next day",
+    "today": "Today",
+    "newBooking": "New booking",
+    "kpi": {
+      "bookings": "Bookings",
+      "online": "Booked online",
+      "revenue": "Est. revenue",
+      "noShows": "No-shows"
+    },
+    "filter": "Show",
+    "showAll": "Show all",
+    "dayOff": "Day off",
+    "buffer": "Prep / cleaning time",
+    "bufferLegend": "prep / cleaning time",
+    "phoneLegend": "phone or walk-in booking",
+    "detail": {
+      "phone": "Phone",
+      "source": "Source",
+      "status": "Status",
+      "with": "Professional",
+      "privacy": "Staff only. Breeze Live shows just the first name and last initial.",
+      "complete": "Completed",
+      "noShow": "No-show",
+      "cancel": "Cancel"
+    },
+    "new": {
+      "title": "New phone / walk-in booking",
+      "pro": "Professional",
+      "service": "Service",
+      "time": "Time",
+      "save": "Save booking"
+    }
+  },
+  "pros": {
+    "title": "Professionals",
+    "subtitle": "Each professional has a unique color in this branch. The color is always shown with their name or initials.",
+    "add": "Add professional",
+    "role": "Role",
+    "color": "Color",
+    "colorHint": "Colors already in use are locked.",
+    "takenBy": "In use by {name}",
+    "services": "Services",
+    "preview": "Preview",
+    "namePlaceholder": "Name",
+    "pickColor": "Pick a color to see the preview.",
+    "save": "Save professional",
+    "inviteNote": "In production they will get an invitation to create their login and see their own agenda.",
+    "hours": "Hours",
+    "off": "off"
+  },
+  "weekdays": {
+    "0": "Sun",
+    "1": "Mon",
+    "2": "Tue",
+    "3": "Wed",
+    "4": "Thu",
+    "5": "Fri",
+    "6": "Sat"
+  },
+  "live": {
+    "soundOn": "Sound on",
+    "soundOff": "Sound off",
+    "autoDemo": "Auto demo (a booking every 9 s)",
+    "simulate": "Simulate a booking",
+    "theme": "Light / dark",
+    "fullscreen": "Full screen",
+    "connected": "Live",
+    "privacy": "first name + last initial only",
+    "hint": "Tip: book from another tab and watch it appear here.",
+    "newBooking": "New booking",
+    "alert": "<b>{customer}</b> just booked with <b>{pro}</b> for {when}",
+    "count": "{count, plural, =0 {No appointments today} one {# appointment today} other {# appointments today}}",
+    "free": "Free today",
+    "now": "Now",
+    "next": "Next"
+  }
+}

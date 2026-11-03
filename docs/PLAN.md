@@ -338,6 +338,14 @@ Convenciones: `id uuid default gen_random_uuid()`, `created_at/updated_at timest
 - Al **crear un servicio**, el salón elige una categoría de sus tipos; el nombre es libre (EN/ES).
 - Las categorías se pueden ampliar después con una migración, sin tocar la lógica.
 
+#### 6.2.2 Ajustes hechos al implementar (Fase 4, módulo 1)
+
+- **El vínculo profesional ↔ cuenta de usuario vive en `memberships.professional_id`**, no en `professionals.user_id`. Así la ficha pública del profesional no expone ningún identificador de usuario.
+- **Tenencia garantizada con claves foráneas compuestas**: `booking_groups` lleva `organization_id`; cliente y sucursal deben ser de la misma organización, y profesional, servicio y cita, de la misma sucursal. Un error de código no puede mezclar datos de dos salones.
+- `appointments.customer_display` ("Juan P.") lo rellena un trigger en la BD. `professionals.public_name` e `initials` son columnas generadas.
+- El historial (`appointment_events`) se escribe solo, con un trigger, en cada alta, cambio de estado o reprogramación.
+- El color único por sucursal aplica solo a profesionales **activos**: al desactivar a uno, su color queda libre.
+
 ### 6.3 Funciones RPC (Postgres)
 
 | Función | Quién | Qué hace |

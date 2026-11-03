@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Breeze — brisa del Caribe: blancos, turquesas suaves y mucho espacio. */
+@theme {
+  --color-foam: #f2fbfb;
+  --color-sand: #f6f1e7;
+  --color-lagoon: #0e7c86;
+  --color-ink: #0f2a33;
+
+  --color-breeze-50: #eefbfa;
+  --color-breeze-100: #d5f4f2;
+  --color-breeze-200: #ade8e5;
+  --color-breeze-300: #7dd7d4;
+  --color-breeze-400: #4bc2c0;
+  --color-breeze-500: #2bb3b1;
+  --color-breeze-600: #1e9396;
+  --color-breeze-700: #0e7c86;
+  --color-breeze-800: #0f5f69;
+  --color-breeze-900: #0f2a33;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-slide-in: slide-in 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  --animate-fade-up: fade-up 0.35s ease-out both;
+  --animate-pulse-ring: pulse-ring 1.6s ease-out infinite;
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(110%) scale(0.95); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 var(--ring-color, rgba(43, 179, 177, 0.55)); }
+    100% { box-shadow: 0 0 0 18px transparent; }
+  }
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+/* Fondo "brisa": degradado suave turquesa → blanco */
+.bg-breeze-sky {
+  background:
+    radial-gradient(1200px 400px at 85% -10%, rgba(43, 179, 177, 0.18), transparent 60%),
+    radial-gradient(900px 380px at -10% 0%, rgba(125, 215, 212, 0.25), transparent 60%),
+    #ffffff;
+}
+
+/* Rayado para el tiempo de limpieza (buffer) en la agenda */
+.bg-buffer {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(15, 42, 51, 0.07) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

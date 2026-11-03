@@ -1,0 +1,46 @@
+{
+  "name": "breeze",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:db": "vitest run --config vitest.db.config.ts",
+    "db:types": "supabase gen types typescript --local --schema public > src/types/database.ts"
+  },
+  "dependencies": {
+    "@date-fns/tz": "^1.5.0",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.67.0",
+    "next": "^16.4.4",
+    "next-intl": "^4.14.9",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.4",
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "pg": "^8.23.1",
+    "postcss": "^8.5.32",
+    "supabase": "^3.0.0",
+    "tailwindcss": "^4.3.4",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core"
+    ],
+    "onlyBuiltDependencies": [
+      "supabase"
+    ]
+  }
+}

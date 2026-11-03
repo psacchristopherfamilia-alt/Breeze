@@ -13,8 +13,15 @@ Plan completo: `docs/PLAN.md` (fuente de verdad para esquema, roles, flujos y ca
 Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realtime, Edge Functions, pg_cron). next-intl, @date-fns/tz, zod, Vitest, pgTAP, Playwright.
 
 ## Comandos
-- `pnpm dev` · `pnpm test` · `pnpm test:db` · `pnpm test:e2e` · `pnpm lint` · `pnpm typecheck`
-- `supabase start` · `supabase db reset` · `supabase gen types typescript --local > src/types/database.ts`
+- `pnpm dev` · `pnpm typecheck` · `pnpm test` (unitarios) · `pnpm test:db` (Postgres real)
+- `pnpm exec supabase start` · `pnpm exec supabase db reset` · `pnpm db:types`
+- `pnpm test:db` crea una BD desechable en `TEST_DATABASE_URL` (por defecto `postgres://postgres:postgres@localhost:54322/postgres`, el Postgres de `supabase start`), aplica `tests/db/support/supabase-shim.sql` + `supabase/migrations/*` + `fixtures.sql`, y la borra al terminar.
+
+## Base de datos (supabase/migrations)
+- Una migración nueva por cambio; nunca editar una migración ya aplicada en producción.
+- La migración de RLS hace `revoke all` a anon/authenticated: **toda tabla nueva necesita sus GRANT explícitos, `enable row level security`, políticas y un test de aislamiento** en `tests/db/rls.test.ts`.
+- Helpers de RLS en el esquema `private` (`has_org_role`, `has_salon_role`, `my_professional_ids`, `my_customer_ids`), `security definer` + `search_path = ''`.
+- Dentro de una transacción de test, usar `attempt(c, () => …)` para esperar errores (savepoint).
 
 ## Reglas técnicas no negociables
 1. **Prohibido el doble booking**: exclusion constraint `gist` (`professional_id =`, `tstzrange(starts_at, blocked_until, '[)') &&`) sobre citas no canceladas. No basta la validación en frontend.

@@ -1,0 +1,255 @@
+{
+  "common": {
+    "prototype": "Prototipo · datos falsos",
+    "navClient": "App cliente",
+    "navPanel": "Panel del salón",
+    "back": "Atrás",
+    "continue": "Continuar",
+    "cancel": "Cancelar"
+  },
+  "hub": {
+    "eyebrow": "Breeze · prototipo Fase 3",
+    "title": "Reservas con brisa caribeña.",
+    "subtitle": "Barberías, salones y spas en Turks and Caicos. Explora las tres partes de Breeze con datos falsos.",
+    "open": "Abrir",
+    "client": {
+      "title": "App del cliente",
+      "desc": "Busca salones, elige servicios y profesional, mira la disponibilidad real y reserva en segundos."
+    },
+    "panel": {
+      "title": "Panel del salón",
+      "desc": "Agenda por colores de cada profesional, citas por teléfono y equipo con colores únicos."
+    },
+    "live": {
+      "title": "Breeze Live",
+      "desc": "Pantalla de kiosco para la TV del salón: agenda del día por columnas y alertas en vivo."
+    },
+    "tipTitle": "Prueba la demo en tiempo real",
+    "tip1": "Abre Breeze Live en una pestaña (Coral Salon & Nails).",
+    "tip2": "En otra pestaña, reserva en Coral Salon desde la app del cliente o crea una cita por teléfono en el panel.",
+    "tip3": "Verás la alerta en Live al instante con el color del profesional. Activa el sonido con el botón del altavoz.",
+    "reset": "Reiniciar datos del prototipo",
+    "resetDone": "Datos del prototipo reiniciados."
+  },
+  "client": {
+    "myBookings": "Mis citas"
+  },
+  "explore": {
+    "title": "Encuentra tu próxima cita",
+    "subtitle": "Barberías, salones y spas en todo Turks and Caicos.",
+    "searchPlaceholder": "Salón o servicio (ej. fade, uñas, masaje)",
+    "allTypes": "Todos",
+    "zone": "Zona",
+    "allZones": "Todas las zonas",
+    "results": "{count, plural, =0 {Ningún lugar} one {# lugar} other {# lugares}}",
+    "from": "desde",
+    "empty": "Ningún lugar coincide con tu búsqueda. Prueba otra zona o tipo."
+  },
+  "types": {
+    "barbershop": "Barbería",
+    "salon": "Salón",
+    "spa": "Estética y Spa"
+  },
+  "zones": {
+    "grace_bay": "Grace Bay",
+    "downtown_provo": "Downtown Provo",
+    "leeward": "Leeward",
+    "long_bay": "Long Bay",
+    "turtle_cove": "Turtle Cove",
+    "the_bight": "The Bight",
+    "chalk_sound": "Chalk Sound",
+    "five_cays": "Five Cays",
+    "blue_hills": "Blue Hills",
+    "grand_turk": "Grand Turk",
+    "north_caicos": "North Caicos",
+    "south_caicos": "South Caicos"
+  },
+  "categories": {
+    "cuts": "Cortes",
+    "beard": "Barba y afeitado",
+    "designs": "Diseños y perfilado",
+    "hair_treatments": "Tratamientos capilares",
+    "hair": "Cabello (corte y peinado)",
+    "color": "Color",
+    "braids": "Trenzas y extensiones",
+    "nails": "Uñas",
+    "makeup": "Maquillaje",
+    "brows_lashes": "Cejas y pestañas",
+    "massage": "Masajes",
+    "facials": "Faciales",
+    "waxing": "Depilación",
+    "body": "Tratamientos corporales",
+    "packages": "Paquetes"
+  },
+  "titles": {
+    "barber": "Barbero",
+    "stylist": "Estilista",
+    "nail_tech": "Manicurista",
+    "makeup_artist": "Maquilladora",
+    "esthetician": "Esteticista",
+    "massage_therapist": "Masajista"
+  },
+  "booking": {
+    "notFound": "Salón no encontrado.",
+    "conflict": "Lo sentimos, esa hora acaba de ocuparse. Elige otra, por favor.",
+    "doneTitle": "¡Cita reservada!",
+    "doneSubtitle": "Tu cita está confirmada. ¡Te esperamos!",
+    "tzNote": "Horas en hora de Turks and Caicos",
+    "reminderTitle": "Recordatorio por WhatsApp",
+    "reminderBody": "Te avisaremos 24 h y 2 h antes. Puedes cancelar o reprogramar hasta {hours} h antes de tu cita.",
+    "manage": "Gestionar mi cita",
+    "seeLive": "Verla en Breeze Live",
+    "rescheduling": "Estás reprogramando una cita existente. Elige la nueva hora.",
+    "steps": {
+      "services": "Servicios",
+      "pro": "Profesional",
+      "time": "Día y hora",
+      "details": "Tus datos"
+    },
+    "headings": {
+      "services": "¿Qué te gustaría?",
+      "pro": "¿Con quién?",
+      "time": "Elige día y hora",
+      "details": "Casi listo"
+    },
+    "multiHint": "Puedes elegir varios servicios. Se reservan uno detrás de otro, nunca a la misma hora.",
+    "noPro": "Ningún profesional ofrece todos los servicios elegidos. Quita alguno o resérvalos por separado.",
+    "anyPro": "Cualquier profesional",
+    "anyProHint": "La primera hora disponible",
+    "blockNote": "Incluye {min} min con tiempo de preparación",
+    "noSlots": "No hay disponibilidad este día. Prueba otra fecha.",
+    "morning": "Mañana",
+    "afternoon": "Tarde",
+    "evening": "Noche",
+    "with": "con {name}",
+    "mode": {
+      "guest": "Continuar como invitado",
+      "account": "Iniciar sesión"
+    },
+    "demoAccount": "Cuenta de demostración (prototipo)",
+    "guestHint": "¿Estás de paso? No necesitas cuenta. Te enviaremos un enlace para gestionar tu cita.",
+    "first": "Nombre",
+    "last": "Apellido",
+    "phone": "Teléfono (WhatsApp)",
+    "email": "Correo (opcional)",
+    "whatsappOptIn": "Enviarme recordatorios por WhatsApp",
+    "policy": "Cancelación gratis hasta {hours} h antes. Pagas en el salón (efectivo o transferencia).",
+    "summary": "{count, plural, one {# servicio} other {# servicios}}",
+    "pickServices": "Elige al menos un servicio",
+    "confirm": "Confirmar cita"
+  },
+  "me": {
+    "title": "Mis citas",
+    "empty": "Todavía no tienes citas.",
+    "bookNow": "Reservar ahora",
+    "upcoming": "Próximas",
+    "noneUpcoming": "No tienes citas próximas.",
+    "history": "Historial",
+    "payAtSalon": "pagas en el salón",
+    "reschedule": "Reprogramar",
+    "cancel": "Cancelar",
+    "cancelConfirm": "¿Cancelar esta cita?",
+    "windowPassed": "Quedan menos de {hours} h: para cambiarla, llama al salón al {phone}.",
+    "windowInfo": "Se permiten cambios hasta {hours} h antes."
+  },
+  "status": {
+    "booked": "Confirmada",
+    "completed": "Completada",
+    "cancelled": "Cancelada",
+    "no_show": "No asistió"
+  },
+  "sources": {
+    "online": "En línea",
+    "phone": "Teléfono",
+    "walk_in": "Sin cita"
+  },
+  "panel": {
+    "nav": {
+      "agenda": "Agenda",
+      "professionals": "Profesionales"
+    },
+    "branch": "Sucursal",
+    "yourBranches": "tus sucursales",
+    "otherDemo": "Otros salones de demo",
+    "plan": {
+      "title": "Plan Studio · prueba",
+      "body": "Quedan 11 días. Paga por transferencia o en efectivo."
+    },
+    "prevDay": "Día anterior",
+    "nextDay": "Día siguiente",
+    "today": "Hoy",
+    "newBooking": "Nueva cita",
+    "kpi": {
+      "bookings": "Citas",
+      "online": "Reservadas en línea",
+      "revenue": "Ingresos estimados",
+      "noShows": "Ausencias"
+    },
+    "filter": "Mostrar",
+    "showAll": "Mostrar todos",
+    "dayOff": "Día libre",
+    "buffer": "Tiempo de preparación / limpieza",
+    "bufferLegend": "tiempo de preparación / limpieza",
+    "phoneLegend": "cita por teléfono o sin cita",
+    "detail": {
+      "phone": "Teléfono",
+      "source": "Origen",
+      "status": "Estado",
+      "with": "Profesional",
+      "privacy": "Solo para el personal. Breeze Live muestra únicamente el nombre y la inicial del apellido.",
+      "complete": "Completada",
+      "noShow": "No asistió",
+      "cancel": "Cancelar"
+    },
+    "new": {
+      "title": "Nueva cita por teléfono / sin cita",
+      "pro": "Profesional",
+      "service": "Servicio",
+      "time": "Hora",
+      "save": "Guardar cita"
+    }
+  },
+  "pros": {
+    "title": "Profesionales",
+    "subtitle": "Cada profesional tiene un color único en esta sucursal. El color siempre se muestra con su nombre o iniciales.",
+    "add": "Añadir profesional",
+    "role": "Rol",
+    "color": "Color",
+    "colorHint": "Los colores ya usados están bloqueados.",
+    "takenBy": "En uso por {name}",
+    "services": "Servicios",
+    "preview": "Vista previa",
+    "namePlaceholder": "Nombre",
+    "pickColor": "Elige un color para ver la vista previa.",
+    "save": "Guardar profesional",
+    "inviteNote": "En producción recibirá una invitación para crear su acceso y ver su propia agenda.",
+    "hours": "Horario",
+    "off": "libre"
+  },
+  "weekdays": {
+    "0": "Dom",
+    "1": "Lun",
+    "2": "Mar",
+    "3": "Mié",
+    "4": "Jue",
+    "5": "Vie",
+    "6": "Sáb"
+  },
+  "live": {
+    "soundOn": "Sonido activado",
+    "soundOff": "Sonido desactivado",
+    "autoDemo": "Demo automática (una cita cada 9 s)",
+    "simulate": "Simular una cita",
+    "theme": "Claro / oscuro",
+    "fullscreen": "Pantalla completa",
+    "connected": "En vivo",
+    "privacy": "solo nombre + inicial del apellido",
+    "hint": "Consejo: reserva desde otra pestaña y mira cómo aparece aquí.",
+    "newBooking": "Nueva cita",
+    "alert": "<b>{customer}</b> acaba de agendar con <b>{pro}</b> para {when}",
+    "count": "{count, plural, =0 {Sin citas hoy} one {# cita hoy} other {# citas hoy}}",
+    "free": "Libre hoy",
+    "now": "Ahora",
+    "next": "Siguiente"
+  }
+}

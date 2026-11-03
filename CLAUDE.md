@@ -33,6 +33,12 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - La pantalla de reserva es una sola (`components/booking/BookingFlow.tsx`) con dos fuentes: `MockBooking` (prototipo) y `LiveBooking` (Supabase).
 - Invitados: token de 64 hex en el enlace `/b/[token]`; en BD solo su sha256. Máx. 2 reservas futuras por teléfono no verificado.
 
+## Panel (módulo 4)
+- RPC atómicas: `set_working_hours`, `set_professional_services`, `set_salon_published` (exige ≥1 profesional activo con horario y servicio). `is_published` NO se puede cambiar con UPDATE directo (GRANT por columnas).
+- El resto (servicios, profesionales, ajustes, días libres, cierres) se escribe directamente con RLS desde `src/app/dashboard/actions.ts`, que devuelve `{ ok } | { ok: false, error: <panel.errors.*> }`.
+- Contexto: `getPanelContext()` (`src/lib/panel/server.ts`) a partir de `my_context`; sucursal activa en la cookie `breeze-salon`.
+- La agenda es un solo componente (`components/agenda/AgendaView.tsx`) con dos adaptadores: `MockAgenda` y `LiveAgenda`.
+
 ## Auth (Supabase)
 - Sin variables de Supabase → modo prototipo (datos falsos). `isSupabaseConfigured()` en `src/lib/supabase/env.ts`.
 - Clientes: `src/lib/supabase/server.ts` (server), `client.ts` (navegador), `session.ts` + `src/proxy.ts` (refresco de sesión y rutas protegidas; en Next 16 el middleware se llama `proxy`).

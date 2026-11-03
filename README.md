@@ -70,6 +70,16 @@ Copia `.env.example` a `.env.local` y rellena los valores. **Nunca** subas secre
 | `/me` | Mis citas: cancelar o reprogramar dentro de la ventana del salón |
 | `/b/[token]` | Enlace privado del invitado para ver, cancelar o reprogramar |
 
+### Panel del salón (módulo 4)
+| Ruta | Quién | Qué es |
+|---|---|---|
+| `/dashboard` | dueño, admin, profesional | Agenda del día por columnas y colores; citas por teléfono; completada / no-show / cancelar. El profesional solo ve su columna. |
+| `/dashboard/professionals` | dueño, admin | Alta/edición con color único, horario semanal, servicios, días libres e invitación con enlace |
+| `/dashboard/services` | dueño, admin | Servicios con duración, tiempo de preparación y precio (EN/ES) |
+| `/dashboard/settings` | dueño, admin | Publicar/ocultar, datos, políticas (cancelación, antelación, bloqueo por ausencias) y cierres |
+
+La sucursal activa se guarda en una cookie (`breeze-salon`) y se cambia desde el menú lateral.
+
 **Datos de demo** (`supabase/seed.sql`, se cargan con `supabase db reset`): 3 salones, 8 profesionales; dueño `owner@breeze.demo` / `breeze-demo-2026`.
 
 ## Reglas no negociables

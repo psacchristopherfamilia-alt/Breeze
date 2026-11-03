@@ -23,6 +23,8 @@
 | Tiempo entre citas | Sí, **buffer** (limpieza/preparación) configurable por servicio. |
 | Idioma | Inglés por defecto; se adapta al idioma del teléfono/navegador; el usuario puede cambiarlo. |
 | Notificaciones | WhatsApp primero, SMS de respaldo (integración preparada), correo siempre. Firmadas como **Breeze**. |
+| Precios | $29 / $59 / $99 / +$39 por sucursal **aprobados como punto de partida**; se ajustarán más adelante (se guardan en tabla, no en el código). |
+| Tipos de negocio | **Barbería**, **Salón** y **Estética / Spa**. Un negocio puede marcar varios. Cada tipo agrupa sus propias categorías de servicio (ver 6.2). |
 
 ---
 
@@ -66,7 +68,9 @@
 
 ## 2. Modelo de ingresos
 
-### 2.1 Planes (propuesta, a validar con 5–10 salones)
+### 2.1 Planes (aprobados como punto de partida; se actualizarán)
+
+> Los precios y límites viven en la tabla `plans` (no en el código), para poder cambiarlos sin desplegar.
 
 | Plan | Profesionales | Precio/mes | Incluye |
 |---|---|---|---|
@@ -259,6 +263,8 @@ erDiagram
   profiles ||--o{ customers : "user_id (opcional)"
   salons ||--o{ professionals : ""
   salons ||--o{ services : ""
+  service_categories ||--o{ services : ""
+  plans ||--o{ subscriptions : ""
   salons ||--o{ salon_closures : ""
   salons ||--o{ live_devices : ""
   professionals ||--o{ professional_services : ""
@@ -283,7 +289,7 @@ Convenciones: `id uuid default gen_random_uuid()`, `created_at/updated_at timest
 |---|---|---|
 | `profiles` | `id` (= `auth.users.id`), `full_name`, `email citext`, `phone` (E.164), `locale` (`en`/`es`), `is_platform_admin bool` | Se crea por trigger al registrarse. |
 | `organizations` | `name`, `slug unique`, `owner_id → profiles` | El "negocio" del dueño. |
-| `salons` (sucursales) | `organization_id`, `name`, `slug unique`, `type` (`barbershop`, `hair_salon`, `beauty_salon`, `spa`, `nail_salon`), `zone` (enum: `grace_bay`, `downtown_provo`, `leeward`, `long_bay`, `turtle_cove`, `the_bight`, `chalk_sound`, `five_cays`, `blue_hills`, `kew_town`, `grand_turk`, `north_caicos`, `middle_caicos`, `south_caicos`, `salt_cay`, …), `address`, `phone`, `timezone default 'America/Grand_Turk'`, `currency default 'USD'`, `slot_step_min default 15`, `min_lead_time_min default 60`, `max_advance_days default 60`, `cancellation_window_hours default 24`, `no_show_block_enabled default false`, `no_show_threshold default 2`, `reminder_offsets_min int[] default {1440,120}`, `is_published` | Columna `search tsvector` para buscar por nombre. |
+| `salons` (sucursales) | `organization_id`, `name`, `slug unique`, `business_types business_type[]` (enum: `barbershop`, `salon`, `spa`; al menos uno — un negocio puede ser barbería y salón a la vez), `zone` (enum: `grace_bay`, `downtown_provo`, `leeward`, `long_bay`, `turtle_cove`, `the_bight`, `chalk_sound`, `five_cays`, `blue_hills`, `kew_town`, `grand_turk`, `north_caicos`, `middle_caicos`, `south_caicos`, `salt_cay`, …), `address`, `phone`, `timezone default 'America/Grand_Turk'`, `currency default 'USD'`, `slot_step_min default 15`, `min_lead_time_min default 60`, `max_advance_days default 60`, `cancellation_window_hours default 24`, `no_show_block_enabled default false`, `no_show_threshold default 2`, `reminder_offsets_min int[] default {1440,120}`, `is_published` | Columna `search tsvector` para buscar por nombre. |
 | `memberships` | `user_id`, `organization_id`, `salon_id` (nulo = todas las sucursales), `role` (`owner`, `admin`, `professional`, `display`) | Fuente única de permisos. `unique(user_id, organization_id, salon_id, role)`. |
 | `invitations` | `organization_id`, `salon_id`, `role`, `email`/`phone`, `token_hash`, `expires_at`, `professional_id` | Alta de admins y profesionales. |
 
@@ -292,7 +298,8 @@ Convenciones: `id uuid default gen_random_uuid()`, `created_at/updated_at timest
 | Tabla | Columnas principales | Notas |
 |---|---|---|
 | `professionals` | `salon_id`, `user_id` (nulo hasta aceptar la invitación), `first_name`, `last_name`, `public_name` (generado: "Carlos M."), `initials` (generado), `color_hex`, `title` (`barber`, `stylist`, `salonist`, `therapist`…), `bio_en/es`, `avatar_url`, `accepts_online`, `is_active`, `sort_order` | `unique(salon_id, color_hex)` → **color único por sucursal**. Paleta curada de 12 colores con buen contraste. |
-| `services` | `salon_id`, `name_en`, `name_es`, `description_en/es`, `category`, `duration_min`, `buffer_min default 0`, `price_cents`, `is_active` | `check (duration_min between 5 and 480)`. |
+| `service_categories` | `code` (PK), `business_type`, `name_en`, `name_es`, `sort_order` | Catálogo fijo de Breeze (seed), ver tabla 6.2.1. Lectura pública. |
+| `services` | `salon_id`, `category_code → service_categories`, `name_en`, `name_es`, `description_en/es`, `duration_min`, `buffer_min default 0`, `price_cents`, `is_active` | `check (duration_min between 5 and 480)`. La categoría debe pertenecer a uno de los `business_types` del salón (validado por trigger). |
 | `professional_services` | `professional_id`, `service_id`, `duration_min_override`, `price_cents_override` | PK compuesta. Un profesional puede tardar distinto. |
 | `working_hours` | `professional_id`, `weekday` (0–6), `start_time time`, `end_time time` | **Hora local** del salón; varias filas por día = horario partido. `check (end_time > start_time)`. |
 | `time_off` | `professional_id`, `starts_at`, `ends_at`, `reason` | Días/horas libres (UTC). |
@@ -313,10 +320,23 @@ Convenciones: `id uuid default gen_random_uuid()`, `created_at/updated_at timest
 |---|---|---|
 | `live_devices` | `salon_id`, `user_id` (sesión anónima), `name`, `locale`, `sound_enabled`, `pairing_code_hash`, `pairing_expires_at`, `paired_at`, `revoked_at`, `last_seen_at` | Al emparejarse se crea `memberships(role='display')`. |
 | `notification_jobs` | `appointment_id`, `kind` (`confirmation`, `reminder`, `cancellation`, `reschedule`), `channel` (`whatsapp`, `sms`, `email`), `scheduled_for`, `status` (`pending`, `sent`, `failed`, `skipped`), `attempts`, `provider`, `provider_message_id`, `error`, `locale` | Índice parcial `(scheduled_for) where status='pending'`. |
-| `subscriptions` | `organization_id unique`, `plan` (`solo`, `studio`, `salon`), `extra_branches`, `status` (`trialing`, `active`, `past_due`, `suspended`, `cancelled`), `trial_ends_at`, `current_period_end`, `billing_cycle` (`monthly`, `annual`), `message_quota` | |
+| `plans` | `code` (`solo`, `studio`, `salon`), `name`, `min_pros`, `max_pros`, `monthly_price_cents`, `annual_price_cents`, `extra_branch_price_cents`, `message_quota`, `features jsonb`, `is_active` | Precios editables por `platform_admin` sin tocar código. |
+| `subscriptions` | `organization_id unique`, `plan_code → plans`, `extra_branches`, `status` (`trialing`, `active`, `past_due`, `suspended`, `cancelled`), `trial_ends_at`, `current_period_end`, `billing_cycle` (`monthly`, `annual`), `message_quota` | |
 | `invoices` | `organization_id`, `number`, `period_start/end`, `amount_cents`, `status` (`open`, `paid`, `void`), `due_at` | |
 | `payments` | `invoice_id`, `method` (`bank_transfer`, `cash`, `other`), `amount_cents`, `reference`, `received_at`, `recorded_by` | Registro manual por `platform_admin`. |
 | `audit_log` | `actor_id`, `organization_id`, `action`, `entity`, `entity_id`, `diff jsonb`, `at` | Acciones sensibles (soporte, cambios de rol, pagos). |
+
+#### 6.2.1 Tipos de negocio y categorías de servicio (seed inicial)
+
+| Tipo (`business_type`) | EN / ES | Categorías (`service_categories`) | Ejemplos de servicios |
+|---|---|---|---|
+| `barbershop` | Barbershop / Barbería | Cortes · Barba y afeitado · Diseños y perfilado · Tratamientos capilares | Corte clásico, fade, corte + barba, afeitado con toalla caliente, perfilado de cejas, diseño |
+| `salon` | Salon / Salón | Cabello (corte y peinado) · Color · Trenzas y extensiones · Uñas · Maquillaje · Cejas y pestañas | Corte y blower, tinte, mechas, trenzas, extensiones, manicura, pedicura, acrílicas, gel, maquillaje de evento, lifting de pestañas |
+| `spa` | Spa & Esthetics / Estética y Spa | Masajes · Faciales · Depilación · Tratamientos corporales · Paquetes | Masaje relajante, descontracturante, piedras calientes, facial limpieza profunda, depilación con cera/láser, exfoliación corporal, paquete pareja |
+
+- En la **búsqueda** el cliente filtra por estos 3 tipos (y opcionalmente por categoría: "uñas", "masajes"…).
+- Al **crear un servicio**, el salón elige una categoría de sus tipos; el nombre es libre (EN/ES).
+- Las categorías se pueden ampliar después con una migración, sin tocar la lógica.
 
 ### 6.3 Funciones RPC (Postgres)
 
@@ -344,6 +364,7 @@ Funciones auxiliares (`security definer`, `stable`, `search_path = ''`):
 | `salons` | `SELECT` si `is_published` (vista `public_salons` con columnas públicas) | igual | `SELECT` su sucursal | CRUD en su organización | `SELECT` su sucursal |
 | `professionals` | `SELECT` activos, **solo columnas públicas** (`public_name`, `initials`, `color_hex`, `title`, `avatar_url`) mediante permisos por columna o vista | igual | `SELECT` su sucursal, `UPDATE` su perfil | CRUD | columnas públicas |
 | `services`, `professional_services` | `SELECT` activos de salones publicados | igual | `SELECT` | CRUD | `SELECT` |
+| `service_categories`, `plans` | `SELECT` | `SELECT` | `SELECT` | `SELECT` | `SELECT` (escritura solo `platform_admin`) |
 | `working_hours`, `time_off`, `salon_closures` | ✗ (se usa `get_busy_ranges`) | ✗ | `SELECT` los propios | CRUD | ✗ |
 | `customers` | ✗ | `SELECT/UPDATE` sus propias filas (`user_id = auth.uid()`) | `SELECT` clientes con cita con él | CRUD en su organización | ✗ |
 | `appointments` | ✗ | `SELECT` las suyas; escritura **solo vía RPC** | `SELECT` `professional_id = any(my_professional_ids())` | `SELECT` en su sucursal; escritura vía RPC | ✗ (usa `get_live_board` + Broadcast) |

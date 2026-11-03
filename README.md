@@ -1,6 +1,6 @@
 # Breeze
 
-Plataforma de reservas multi-salón para salones, spas, peluquerías y barberías en **Turks and Caicos**.
+Plataforma de reservas multi-salón para **barberías, salones y estética/spa** en **Turks and Caicos**.
 Zona horaria `America/Grand_Turk` · USD · Inglés y español.
 
 ## Partes

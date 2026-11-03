@@ -2,9 +2,12 @@
 import { FlaskConical } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 
+/** Solo en modo prototipo (sin Supabase). Con datos reales no se muestra. */
 export function PrototypeBanner() {
   const t = useTranslations("common");
+  if (isSupabaseConfigured()) return null;
   return (
     <div className="bg-ink text-white/90 text-xs">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5">

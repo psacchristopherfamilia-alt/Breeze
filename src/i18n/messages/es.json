@@ -32,7 +32,13 @@
     "tip2": "En otra pestaña, reserva en Coral Salon desde la app del cliente o crea una cita por teléfono en el panel.",
     "tip3": "Verás la alerta en Live al instante con el color del profesional. Activa el sonido con el botón del altavoz.",
     "reset": "Reiniciar datos del prototipo",
-    "resetDone": "Datos del prototipo reiniciados."
+    "resetDone": "Datos del prototipo reiniciados.",
+    "eyebrowLive": "Turks and Caicos",
+    "subtitleLive": "Reserva en barberías, salones y spas de Turks and Caicos en segundos. Sin llamadas ni esperas.",
+    "business": {
+      "title": "¿Tienes un salón, spa o barbería?",
+      "desc": "Registra tu negocio: agenda por profesional, reservas en línea, recordatorios y Breeze Live para tu TV."
+    }
   },
   "client": {
     "myBookings": "Mis citas",

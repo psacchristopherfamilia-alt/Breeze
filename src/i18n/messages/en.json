@@ -32,7 +32,13 @@
     "tip2": "In another tab, book at Coral Salon from the client app or create a phone booking in the panel.",
     "tip3": "Watch the alert appear on Live instantly with the professional's color. Turn on the sound with the speaker button.",
     "reset": "Reset prototype data",
-    "resetDone": "Prototype data reset."
+    "resetDone": "Prototype data reset.",
+    "eyebrowLive": "Turks and Caicos",
+    "subtitleLive": "Book barbershops, salons and spas across Turks and Caicos in seconds. No calls, no waiting.",
+    "business": {
+      "title": "Own a salon, spa or barbershop?",
+      "desc": "Register your business: agenda by professional, online bookings, reminders and Breeze Live for your TV."
+    }
   },
   "client": {
     "myBookings": "My bookings",

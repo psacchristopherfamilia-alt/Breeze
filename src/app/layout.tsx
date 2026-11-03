@@ -8,6 +8,10 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakart
 export const metadata: Metadata = {
   title: { default: "Breeze", template: "%s · Breeze" },
   description: "Book barbershops, salons and spas in Turks and Caicos.",
+  applicationName: "Breeze",
+  appleWebApp: { capable: true, title: "Breeze", statusBarStyle: "default" },
+  // Breeze ya trae su propio inglés/español: el traductor del navegador cambiaba la marca ("Brisa").
+  other: { google: "notranslate" },
 };
 
 export const viewport: Viewport = {
@@ -18,7 +22,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en" translate="no" className={`notranslate ${jakarta.variable}`}>
       <body className="min-h-dvh font-sans antialiased">
         <Providers>{children}</Providers>
       </body>

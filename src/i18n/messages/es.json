@@ -5,7 +5,10 @@
     "navPanel": "Panel del salón",
     "back": "Atrás",
     "continue": "Continuar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "delete": "Eliminar"
   },
   "hub": {
     "eyebrow": "Breeze · prototipo Fase 3",
@@ -91,7 +94,8 @@
     "nail_tech": "Manicurista",
     "makeup_artist": "Maquilladora",
     "esthetician": "Esteticista",
-    "massage_therapist": "Masajista"
+    "massage_therapist": "Masajista",
+    "other": "Otro"
   },
   "booking": {
     "notFound": "Salón no encontrado.",
@@ -194,14 +198,26 @@
   "panel": {
     "nav": {
       "agenda": "Agenda",
-      "professionals": "Profesionales"
+      "professionals": "Profesionales",
+      "services": "Servicios",
+      "settings": "Ajustes"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
     "otherDemo": "Otros salones de demo",
     "plan": {
       "title": "Plan Studio · prueba",
-      "body": "Quedan 11 días. Paga por transferencia o en efectivo."
+      "body": "Quedan 11 días. Paga por transferencia o en efectivo.",
+      "name": "Plan {plan}",
+      "status": {
+        "trialing": "prueba",
+        "active": "activo",
+        "past_due": "pago pendiente",
+        "suspended": "suspendido",
+        "cancelled": "cancelado"
+      },
+      "daysLeft": "{days, plural, one {Queda # día} other {Quedan # días}} de prueba gratis.",
+      "payHint": "Paga por transferencia o en efectivo."
     },
     "prevDay": "Día anterior",
     "nextDay": "Día siguiente",
@@ -227,14 +243,55 @@
       "privacy": "Solo para el personal. Breeze Live muestra únicamente el nombre y la inicial del apellido.",
       "complete": "Completada",
       "noShow": "No asistió",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "startedHint": "Márcala como completada o no asistió cuando haya empezado.",
+      "futureHint": "Puedes cancelarla antes de que empiece; se avisará al cliente."
     },
     "new": {
       "title": "Nueva cita por teléfono / sin cita",
       "pro": "Profesional",
       "service": "Servicio",
       "time": "Hora",
-      "save": "Guardar cita"
+      "save": "Guardar cita",
+      "noServices": "Este profesional aún no tiene servicios asignados."
+    },
+    "roles": {
+      "owner": "Dueño",
+      "admin": "Admin",
+      "professional": "Profesional"
+    },
+    "signOut": "Cerrar sesión",
+    "empty": {
+      "title": "Registra tu negocio",
+      "body": "Tu cuenta aún no pertenece a ningún salón. Crea tu negocio o pide a tu salón que te envíe una invitación."
+    },
+    "noPros": "Aún no hay profesionales. Añade a tu equipo en Profesionales.",
+    "needsSupabase": "Esta sección funciona con datos reales. Conecta Supabase (.env.local) para usarla.",
+    "errors": {
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "forbidden": "No tienes permiso para hacer eso.",
+      "invalid_form": "Revisa el formulario.",
+      "slot_taken": "Esa hora acaba de ocuparse.",
+      "color_taken": "Ese color ya lo usa otro profesional.",
+      "duplicate": "Eso ya existe.",
+      "invalid_hours": "Revisa el horario: cada tramo debe terminar después de empezar.",
+      "overlapping_hours": "Dos tramos se solapan el mismo día.",
+      "invalid_service": "Ese servicio no es de esta sucursal.",
+      "salon_incomplete": "Para publicar necesitas al menos un profesional con horario y un servicio asignado.",
+      "professional_already_linked": "Este profesional ya tiene cuenta.",
+      "email_or_phone_required": "Escribe un correo o teléfono válido.",
+      "too_soon": "Esa hora ya pasó.",
+      "outside_working_hours": "Fuera del horario del profesional.",
+      "not_started": "Todavía no ha empezado.",
+      "invalid_status": "Esa cita no se puede cambiar.",
+      "nothing_to_cancel": "Ya estaba cancelada.",
+      "phone_required": "Escribe el teléfono del cliente.",
+      "name_required": "Escribe el nombre del cliente.",
+      "service_not_offered": "Este profesional no ofrece ese servicio.",
+      "invalid_items": "Revisa el servicio.",
+      "not_found": "No encontrado.",
+      "invalid_range": "Revisa las fechas.",
+      "category_mismatch": "Esa categoría no corresponde a tu tipo de negocio."
     }
   },
   "pros": {
@@ -252,7 +309,39 @@
     "save": "Guardar profesional",
     "inviteNote": "En producción recibirá una invitación para crear su acceso y ver su propia agenda.",
     "hours": "Horario",
-    "off": "libre"
+    "off": "libre",
+    "empty": "Aún no hay profesionales. Añade el primero.",
+    "edit": "Editar",
+    "editTitle": "Editar profesional",
+    "inactive": "inactivo",
+    "noOnline": "sin reserva en línea",
+    "noServices": "Sin servicios asignados",
+    "timeOff": "Días libres",
+    "addTimeOff": "Añadir",
+    "linked": "Tiene su propio acceso",
+    "invited": "Invitación enviada a {contact}",
+    "invite": "Invitar para que vea su agenda",
+    "publicPreview": "Así lo verán los clientes y Breeze Live",
+    "acceptsOnline": "Acepta reservas en línea",
+    "active": "Activo",
+    "hoursTitle": "Horario semanal de {name}",
+    "hoursHint": "Hora de Turks and Caicos. Añade dos tramos para la pausa del almuerzo.",
+    "servicesTitle": "Servicios que ofrece {name}",
+    "noSalonServices": "Primero añade servicios en Servicios.",
+    "inviteTitle": "Invitar a {name}",
+    "inviteContact": "Su correo o móvil",
+    "inviteHint": "Debe registrarse con ese mismo correo o teléfono para aceptar.",
+    "createLink": "Crear enlace de invitación",
+    "inviteReady": "Comparte este enlace por WhatsApp o correo:",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "inviteNote7d": "El enlace sirve una sola vez y caduca en 7 días.",
+    "timeOffTitle": "Días libres de {name}",
+    "from": "Desde",
+    "to": "Hasta",
+    "reason": "Motivo (opcional)",
+    "reasonPlaceholder": "Vacaciones, formación…",
+    "timeOffHint": "Días completos. Los clientes no podrán reservar esos días."
   },
   "weekdays": {
     "0": "Dom",
@@ -371,5 +460,58 @@
     "notFoundTitle": "No encontramos la cita",
     "notFoundBody": "Puede que el enlace esté mal o que la cita se haya eliminado.",
     "explore": "Buscar un salón"
+  },
+  "services": {
+    "title": "Servicios",
+    "subtitle": "Lo que pueden reservar los clientes, cuánto dura y su precio.",
+    "add": "Añadir servicio",
+    "edit": "Editar servicio",
+    "empty": "Aún no hay servicios. Añade el primero.",
+    "category": "Categoría",
+    "nameEn": "Nombre (inglés)",
+    "nameEs": "Nombre (español)",
+    "nameEsHint": "Opcional: si lo dejas vacío se usa el nombre en inglés.",
+    "duration": "Minutos",
+    "buffer": "Min. prep.",
+    "price": "Precio (USD)",
+    "bufferHint": "Tiempo de preparación / limpieza tras el servicio: bloquea la agenda pero no se cobra.",
+    "bufferShort": "prep.",
+    "visible": "Visible para clientes",
+    "hidden": "oculto"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "published": "Tu salón está publicado",
+    "hidden": "Tu salón está oculto",
+    "publishedHint": "Los clientes pueden encontrarlo y reservar en línea.",
+    "hiddenHint": "Los clientes aún no lo ven. Publícalo cuando tu equipo y servicios estén listos.",
+    "publish": "Publicar",
+    "unpublish": "Ocultar",
+    "publishedOk": "¡Publicado! Los clientes ya pueden reservar.",
+    "unpublishedOk": "Oculto para los clientes.",
+    "business": "Datos del negocio",
+    "policies": "Políticas de reserva",
+    "fields": {
+      "name": "Nombre",
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "slotStep": "Tiempo entre horas ofrecidas",
+      "cancellationWindow": "Ventana de cancelación (horas)",
+      "minLead": "Antelación mínima (minutos)",
+      "maxAdvance": "Reservar hasta (días)",
+      "noShowBlock": "Bloquear la reserva en línea tras ausencias",
+      "noShowThreshold": "Ausencias antes de bloquear"
+    },
+    "hints": {
+      "cancellationWindow": "Los clientes pueden cancelar o reprogramar en línea hasta estas horas antes.",
+      "minLead": "P. ej. 60 = nadie reserva para la próxima hora.",
+      "maxAdvance": "Con cuánta antelación pueden reservar.",
+      "noShowThreshold": "El cliente aún puede reservar por teléfono."
+    },
+    "saved": "Guardado.",
+    "closures": "Cierres",
+    "closuresHint": "Festivos, días de huracán… Nadie puede reservar esos días.",
+    "closureReason": "Motivo (opcional)",
+    "addClosure": "Añadir"
   }
 }

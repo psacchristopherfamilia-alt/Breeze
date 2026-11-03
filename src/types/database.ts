@@ -617,6 +617,15 @@ isOneToOne: false
 "reschedule_by_guest_token":
 { Args: { "p_new_start": string,"p_token": string }; Returns: string
                            },
+"set_professional_services":
+{ Args: { "p_professional_id": string,"p_service_ids": (string)[] }; Returns: number
+                           },
+"set_salon_published":
+{ Args: { "p_published": boolean,"p_salon_id": string }; Returns: boolean
+                           },
+"set_working_hours":
+{ Args: { "p_hours": Json,"p_professional_id": string }; Returns: number
+                           },
 "staff_create_appointment":
 { Args: { "p_allow_outside_hours"?: boolean,"p_customer": Json,"p_items": Json,"p_salon_id": string,"p_source"?: Database["public"]['Enums']["booking_source"],"p_starts_at": string }; Returns: Json
                            }

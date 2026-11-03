@@ -5,7 +5,10 @@
     "navPanel": "Salon panel",
     "back": "Back",
     "continue": "Continue",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "delete": "Delete"
   },
   "hub": {
     "eyebrow": "Breeze · Phase 3 prototype",
@@ -91,7 +94,8 @@
     "nail_tech": "Nail technician",
     "makeup_artist": "Makeup artist",
     "esthetician": "Esthetician",
-    "massage_therapist": "Massage therapist"
+    "massage_therapist": "Massage therapist",
+    "other": "Other"
   },
   "booking": {
     "notFound": "Salon not found.",
@@ -194,14 +198,26 @@
   "panel": {
     "nav": {
       "agenda": "Agenda",
-      "professionals": "Professionals"
+      "professionals": "Professionals",
+      "services": "Services",
+      "settings": "Settings"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
     "otherDemo": "Other demo salons",
     "plan": {
       "title": "Studio plan · trial",
-      "body": "11 days left. Pay by bank transfer or cash."
+      "body": "11 days left. Pay by bank transfer or cash.",
+      "name": "{plan} plan",
+      "status": {
+        "trialing": "trial",
+        "active": "active",
+        "past_due": "payment due",
+        "suspended": "suspended",
+        "cancelled": "cancelled"
+      },
+      "daysLeft": "{days, plural, one {# day left} other {# days left}} of your free trial.",
+      "payHint": "Pay by bank transfer or cash."
     },
     "prevDay": "Previous day",
     "nextDay": "Next day",
@@ -227,14 +243,55 @@
       "privacy": "Staff only. Breeze Live shows just the first name and last initial.",
       "complete": "Completed",
       "noShow": "No-show",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "startedHint": "Mark it as completed or no-show once it has started.",
+      "futureHint": "You can cancel it before it starts; the client will be notified."
     },
     "new": {
       "title": "New phone / walk-in booking",
       "pro": "Professional",
       "service": "Service",
       "time": "Time",
-      "save": "Save booking"
+      "save": "Save booking",
+      "noServices": "This professional has no services assigned yet."
+    },
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "professional": "Professional"
+    },
+    "signOut": "Sign out",
+    "empty": {
+      "title": "Register your business",
+      "body": "Your account isn't part of any salon yet. Create your business, or ask your salon to send you an invitation."
+    },
+    "noPros": "No professionals yet. Add your team in Professionals.",
+    "needsSupabase": "This section works with real data. Connect Supabase (.env.local) to use it.",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "forbidden": "You don't have permission to do that.",
+      "invalid_form": "Please review the form.",
+      "slot_taken": "That time was just taken.",
+      "color_taken": "That color is already used by another professional.",
+      "duplicate": "That already exists.",
+      "invalid_hours": "Check the hours: each shift must end after it starts.",
+      "overlapping_hours": "Two shifts overlap on the same day.",
+      "invalid_service": "That service isn't from this location.",
+      "salon_incomplete": "To publish, you need at least one professional with hours and a service assigned.",
+      "professional_already_linked": "This professional already has an account.",
+      "email_or_phone_required": "Enter a valid email or phone.",
+      "too_soon": "That time has already passed.",
+      "outside_working_hours": "Outside this professional's hours.",
+      "not_started": "It hasn't started yet.",
+      "invalid_status": "That booking can't be changed.",
+      "nothing_to_cancel": "Already cancelled.",
+      "phone_required": "Enter the client's phone.",
+      "name_required": "Enter the client's name.",
+      "service_not_offered": "This professional doesn't offer that service.",
+      "invalid_items": "Check the service.",
+      "not_found": "Not found.",
+      "invalid_range": "Check the dates.",
+      "category_mismatch": "That category doesn't match your business type."
     }
   },
   "pros": {
@@ -252,7 +309,39 @@
     "save": "Save professional",
     "inviteNote": "In production they will get an invitation to create their login and see their own agenda.",
     "hours": "Hours",
-    "off": "off"
+    "off": "off",
+    "empty": "No professionals yet. Add the first one.",
+    "edit": "Edit",
+    "editTitle": "Edit professional",
+    "inactive": "inactive",
+    "noOnline": "no online booking",
+    "noServices": "No services assigned",
+    "timeOff": "Days off",
+    "addTimeOff": "Add",
+    "linked": "Has their own login",
+    "invited": "Invitation sent to {contact}",
+    "invite": "Invite to see their agenda",
+    "publicPreview": "This is how clients and Breeze Live will see them",
+    "acceptsOnline": "Accepts online bookings",
+    "active": "Active",
+    "hoursTitle": "{name}'s weekly hours",
+    "hoursHint": "Turks and Caicos time. Add two shifts for a lunch break.",
+    "servicesTitle": "Services {name} offers",
+    "noSalonServices": "Add services first in Services.",
+    "inviteTitle": "Invite {name}",
+    "inviteContact": "Their email or mobile",
+    "inviteHint": "They must sign up with this same email or phone to accept.",
+    "createLink": "Create invitation link",
+    "inviteReady": "Share this link by WhatsApp or email:",
+    "copy": "Copy",
+    "copied": "Copied",
+    "inviteNote7d": "The link works once and expires in 7 days.",
+    "timeOffTitle": "Days off for {name}",
+    "from": "From",
+    "to": "To",
+    "reason": "Reason (optional)",
+    "reasonPlaceholder": "Vacation, training…",
+    "timeOffHint": "Whole days. Clients won't be able to book those days."
   },
   "weekdays": {
     "0": "Sun",
@@ -371,5 +460,58 @@
     "notFoundTitle": "Booking not found",
     "notFoundBody": "The link may be wrong or the booking was removed.",
     "explore": "Find a salon"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "What clients can book, how long it takes and the price.",
+    "add": "Add service",
+    "edit": "Edit service",
+    "empty": "No services yet. Add the first one.",
+    "category": "Category",
+    "nameEn": "Name (English)",
+    "nameEs": "Name (Spanish)",
+    "nameEsHint": "Optional: if empty, the English name is used.",
+    "duration": "Minutes",
+    "buffer": "Prep min",
+    "price": "Price (USD)",
+    "bufferHint": "Prep / cleaning time after the service: blocks the agenda but isn't charged.",
+    "bufferShort": "prep",
+    "visible": "Visible to clients",
+    "hidden": "hidden"
+  },
+  "settings": {
+    "title": "Settings",
+    "published": "Your salon is published",
+    "hidden": "Your salon is hidden",
+    "publishedHint": "Clients can find it and book online.",
+    "hiddenHint": "Clients can't see it yet. Publish it when your team and services are ready.",
+    "publish": "Publish",
+    "unpublish": "Hide",
+    "publishedOk": "Published! Clients can now book.",
+    "unpublishedOk": "Hidden from clients.",
+    "business": "Business details",
+    "policies": "Booking policies",
+    "fields": {
+      "name": "Name",
+      "address": "Address",
+      "phone": "Phone",
+      "slotStep": "Time between slots",
+      "cancellationWindow": "Cancellation window (hours)",
+      "minLead": "Minimum notice (minutes)",
+      "maxAdvance": "Book up to (days ahead)",
+      "noShowBlock": "Block online booking after no-shows",
+      "noShowThreshold": "No-shows before blocking"
+    },
+    "hints": {
+      "cancellationWindow": "Clients can cancel or reschedule online until this many hours before.",
+      "minLead": "E.g. 60 = no bookings in the next hour.",
+      "maxAdvance": "How far ahead clients can book.",
+      "noShowThreshold": "The client can still book by phone."
+    },
+    "saved": "Saved.",
+    "closures": "Closures",
+    "closuresHint": "Holidays, hurricane days… No one can book on these days.",
+    "closureReason": "Reason (optional)",
+    "addClosure": "Add"
   }
 }

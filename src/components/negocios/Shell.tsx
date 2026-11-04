@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { LegalLinks } from "@/components/legal/LegalConsent";
 import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 
@@ -23,6 +24,7 @@ export function NegociosShell({ children }: { children: React.ReactNode }) {
           <Link href="/explore" className="font-bold text-glow underline-offset-2 hover:underline">
             {t("toClientsLink")}
           </Link>
+          <LegalLinks className="w-full pt-2" invert />
         </footer>
       </div>
     </main>

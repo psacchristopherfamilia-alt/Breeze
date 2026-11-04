@@ -1,3 +1,4 @@
+import { LegalLinks } from "@/components/legal/LegalConsent";
 import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import { NotConfiguredBanner } from "@/components/auth/ui";
@@ -14,6 +15,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="mt-8 space-y-4">
           {!isSupabaseConfigured() && <NotConfiguredBanner />}
           {children}
+          <LegalLinks className="justify-center" />
         </div>
       </div>
     </main>

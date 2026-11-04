@@ -170,7 +170,8 @@
       "nothing_to_cancel": "Esta cita ya estaba cancelada.",
       "nothing_to_reschedule": "Esta cita no se puede mover.",
       "not_found": "No encontramos la cita.",
-      "generic": "Algo salió mal. Inténtalo de nuevo."
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "captcha_failed": "No pudimos comprobar que eres una persona. Inténtalo de nuevo, por favor."
     },
     "deviceSaved": "Guardamos esta cita en este dispositivo.",
     "deviceSavedHint": "Cuando vuelvas verás el botón \"Mis citas\" para cambiarla o cancelarla.",
@@ -517,7 +518,8 @@
       "inviteUsed": "Esta invitación ya se usó.",
       "inviteExpired": "Esta invitación caducó. Pide una nueva al salón.",
       "inviteWrongAccount": "Esta invitación se envió a otro correo o teléfono.",
-      "generic": "Algo salió mal. Inténtalo de nuevo."
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "acceptTerms": "Debes aceptar los términos para registrar tu negocio."
     }
   },
   "guest": {
@@ -759,6 +761,17 @@
       "invalid_status": "Estado no válido.",
       "too_long": "Algún texto es demasiado largo.",
       "generic": "No se pudo completar. Inténtalo de nuevo."
+    }
+  },
+  "legal": {
+    "label": "Legal",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "businessTerms": "Términos para negocios",
+    "consent": {
+      "booking": "Al reservar aceptas los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy>.",
+      "signup": "Al crear tu cuenta aceptas los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy>.",
+      "business": "Acepto los <business>Términos para negocios</business>, los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy>."
     }
   }
 }

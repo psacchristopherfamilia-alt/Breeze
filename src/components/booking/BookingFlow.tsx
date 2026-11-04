@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { useAppLocale } from "@/components/Providers";
+import { LegalConsent } from "@/components/legal/LegalConsent";
 import { ClientHeader } from "@/components/ui/ClientHeader";
 import { ProBadge } from "@/components/ui/ProBadge";
 import { TypeIcon } from "@/components/ui/TypeIcon";
@@ -13,6 +14,7 @@ import type { BookingData, ConfirmRequest, ConfirmResult, PublicService } from "
 import { formatDuration } from "@/lib/format";
 import { CATEGORIES, formatPrice } from "@/lib/mock/data";
 import { addDaysKey, atLocal, formatDayLong, formatDayShort, formatTime, localDateKey, toTZ } from "@/lib/time";
+import { Turnstile } from "./Turnstile";
 
 type Step = "services" | "pro" | "time" | "details";
 const STEPS: Step[] = ["services", "pro", "time", "details"];
@@ -42,6 +44,8 @@ export interface BookingFlowProps {
   manageHref: (r: Extract<ConfirmResult, { ok: true }>) => string;
   /** Datos reales: tras reservar como invitado se ofrece crear cuenta (la cita ya quedó guardada en este dispositivo). */
   accountPrompt?: { href: string };
+  /** Clave pública de Cloudflare Turnstile: si existe, el invitado debe pasar el captcha antes de reservar. */
+  captchaSiteKey?: string;
 }
 
 const svcName = (s: PublicService, locale: "en" | "es") => (locale === "es" ? s.nameEs : s.nameEn);
@@ -57,6 +61,7 @@ export function BookingFlow({
   onConfirm,
   manageHref,
   accountPrompt,
+  captchaSiteKey,
 }: BookingFlowProps) {
   const t = useTranslations();
   const { locale } = useAppLocale();
@@ -72,6 +77,8 @@ export function BookingFlow({
   const [form, setForm] = useState({ first: "", last: "", phone: "", email: "", whatsapp: true });
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaReset, setCaptchaReset] = useState(0);
   const [done, setDone] = useState<Extract<ConfirmResult, { ok: true }> | null>(null);
 
   useEffect(() => {
@@ -107,7 +114,8 @@ export function BookingFlow({
   }, {});
 
   const useAccount = mode === "account" && (account ?? demoAccount);
-  const formValid = !!useAccount || (form.first.trim() && form.phone.replace(/\D/g, "").length >= 7);
+  const needsCaptcha = !!captchaSiteKey && !account && !useAccount;
+  const formValid = !!useAccount || (form.first.trim() && form.phone.replace(/\D/g, "").length >= 7 && (!needsCaptcha || !!captchaToken));
 
   async function confirm() {
     if (!slot) return;
@@ -118,6 +126,7 @@ export function BookingFlow({
     const req: ConfirmRequest = {
       items: chosen.map((s) => ({ serviceId: s.id, professionalId: slot.proId })),
       startsAt: slot.start.toISOString(),
+      captchaToken: needsCaptcha ? (captchaToken ?? undefined) : undefined,
       guest:
         account
           ? undefined
@@ -130,6 +139,7 @@ export function BookingFlow({
       if (r.ok) setDone(r);
       else {
         setError(r.error);
+        if (needsCaptcha) setCaptchaReset((n) => n + 1); // el token ya se usó: pedimos otro
         if (r.error === "slot_taken" || r.error === "outside_working_hours" || r.error === "too_soon") {
           setSlot(null);
           setStep("time");
@@ -468,11 +478,13 @@ export function BookingFlow({
                       <input type="checkbox" checked={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.checked })} className="size-4 accent-[#0e7c86]" />
                       {t("booking.whatsappOptIn")}
                     </label>
+                    {captchaSiteKey && <Turnstile siteKey={captchaSiteKey} onToken={setCaptchaToken} resetKey={captchaReset} lang={locale} />}
                   </div>
                 )}
               </>
             )}
             <p className="text-xs text-ink/50">{t("booking.policy", { hours: salon.cancellationWindowHours })}</p>
+            {!isReschedule && !useAccount && <p className="text-xs text-ink/50"><LegalConsent kind="booking" /></p>}
           </div>
         )}
       </main>

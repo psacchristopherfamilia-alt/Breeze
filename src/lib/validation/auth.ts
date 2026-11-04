@@ -42,6 +42,8 @@ export const salonSignUpSchema = signUpSchema.extend({
   zone: z.enum(ZONES, { message: "pickZone" }),
   salonPhone: z.string().optional().transform((v) => normalizePhone(v) ?? undefined),
   address: z.string().trim().max(200).optional(),
+  // Casilla "acepto los términos para negocios": obligatoria.
+  acceptTerms: z.literal("on", { message: "acceptTerms" }),
 });
 
 export type SalonSignUp = z.infer<typeof salonSignUpSchema>;

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useActionState } from "react";
 import { useAppLocale } from "@/components/Providers";
 import { Field, FormError, SubmitButton } from "@/components/auth/ui";
+import { LegalConsent } from "@/components/legal/LegalConsent";
 import { TypeIcon } from "@/components/ui/TypeIcon";
 import { ZONES } from "@/lib/validation/auth";
 import { signUpSalon } from "../../actions";
@@ -71,6 +72,13 @@ export default function SalonSignUpPage() {
         <div className="rounded-2xl bg-sand p-4 text-xs text-ink/70">
           <p className="font-bold text-ink">{t("auth.salon.trialTitle")}</p>
           <p className="mt-1">{t("auth.salon.trialBody")}</p>
+        </div>
+        <div>
+          <label className="flex items-start gap-2 text-sm">
+            <input type="checkbox" name="acceptTerms" defaultChecked={v("acceptTerms") === "on"} aria-invalid={!!f.acceptTerms} aria-describedby={f.acceptTerms ? "terms-err" : undefined} className="mt-0.5 size-4 shrink-0 accent-[#0e7c86]" />
+            <LegalConsent kind="business" />
+          </label>
+          {f.acceptTerms && <span id="terms-err" role="alert" className="mt-1 block text-xs font-semibold text-red-600">{t(`auth.errors.${f.acceptTerms}`)}</span>}
         </div>
         <SubmitButton>{t("auth.salon.submit")}</SubmitButton>
       </form>

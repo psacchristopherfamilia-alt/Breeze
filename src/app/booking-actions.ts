@@ -1,5 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { clientIp, verifyCaptcha } from "@/lib/captcha";
 import { bookingErrorKey, type ConfirmRequest, type ConfirmResult } from "@/lib/booking/types";
 import { normalizePhone } from "@/lib/phone";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
@@ -23,6 +25,10 @@ export async function confirmBooking(salonId: string, req: ConfirmRequest): Prom
     const phone = normalizePhone(g?.phone);
     if (!g?.firstName?.trim()) return { ok: false, error: "name_required" };
     if (!phone) return { ok: false, error: "phone_required" };
+    // Anti-bots: las reservas de invitado (sin cuenta) pasan por el captcha cuando está activado.
+    if (!(await verifyCaptcha(req.captchaToken, clientIp((await headers()).get("x-forwarded-for"))))) {
+      return { ok: false, error: "captcha_failed" };
+    }
     guest = {
       first_name: g.firstName.trim(),
       last_name: g.lastName?.trim() ?? "",

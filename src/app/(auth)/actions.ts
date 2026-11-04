@@ -1,6 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 import { appOrigin, finishPendingSalon, homeFor, safeNext } from "@/lib/auth/server";
+import { LEGAL } from "@/lib/legal/config";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 import { fieldErrors, formToObject, salonSignUpSchema, signInSchema, signUpSchema } from "@/lib/validation/auth";
@@ -67,7 +68,7 @@ export async function signUp(_: FormState, fd: FormData): Promise<FormState> {
     email,
     password,
     options: {
-      data: { full_name: fullName, phone, locale },
+      data: { full_name: fullName, phone, locale, terms_accepted_at: new Date().toISOString(), terms_version: LEGAL.version },
       emailRedirectTo: `${await appOrigin()}/auth/callback?next=${encodeURIComponent(next)}`,
     },
   });
@@ -90,6 +91,8 @@ export async function signUpSalon(_: FormState, fd: FormData): Promise<FormState
         full_name: d.fullName,
         phone: d.phone,
         locale: d.locale,
+        terms_accepted_at: new Date().toISOString(),
+        terms_version: LEGAL.version,
         pending_salon: {
           orgName: d.orgName,
           salonName: d.salonName,

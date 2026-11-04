@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Suspense, useActionState } from "react";
 import { useAppLocale } from "@/components/Providers";
 import { Field, FormError, SubmitButton } from "@/components/auth/ui";
+import { LegalConsent } from "@/components/legal/LegalConsent";
 import { signUp } from "../actions";
 
 export default function SignUpPage() {
@@ -36,6 +37,7 @@ function SignUpForm() {
         <Field name="phone" defaultValue={v("phone")} type="tel" label={t("fields.phone")} autoComplete="tel" placeholder="+1 649 …" hint={t("fields.phoneHint")} error={f.phone} />
         <Field name="password" type="password" label={t("fields.password")} autoComplete="new-password" hint={t("fields.passwordHint")} error={f.password} />
         <SubmitButton>{t("signup.submit")}</SubmitButton>
+        <p className="text-xs text-ink/50"><LegalConsent kind="signup" /></p>
         <p className="text-xs text-ink/50">{t("signup.guestNote")}</p>
       </form>
       <p className="mt-5 border-t border-breeze-100 pt-4 text-center text-sm">

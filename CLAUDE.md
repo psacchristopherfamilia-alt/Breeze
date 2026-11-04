@@ -74,6 +74,11 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Invitado: tras reservar, el token del enlace `/b/[token]` se guarda en `localStorage` (`breeze-guest-bookings`, `src/lib/booking/device.ts`, máx. 20). **Nunca se reconoce a nadie por IP** (hoteles y wifi compartida). Si luego inicia sesión, `ClaimDeviceBookings` llama a la RPC `claim_guest_bookings(tokens)` y las citas pasan a su cuenta (la sesión anónima de las TV no puede).
 - `signOut` recibe `to` (cliente → `/explore`, negocio → `/negocios`). La cabecera del cliente (`ClientHeader`) muestra "Mis citas" solo con cuenta o con citas guardadas en el dispositivo.
 
+## Antiabuso y legal
+- Captcha Turnstile solo para reservas de INVITADO: `src/lib/captcha.ts` (servidor, falla cerrado) + `components/booking/Turnstile.tsx`. Se activa con `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY`; sin ellas no hace nada. `confirmBooking` lo verifica antes de llamar a `book_appointment` (error `captcha_failed`).
+- Legal (BORRADOR): `/privacy`, `/terms`, `/business-terms` (`src/lib/legal/`). `config.ts` tiene los datos de la empresa y `reviewed: false` (muestra el aviso de borrador). **Antes de lanzar**: rellenar los [corchetes], revisión de un abogado de TCI y poner `reviewed: true`. Si cambia el producto (analítica, proveedores, datos), actualizar `content.ts` y subir `version`.
+- Registro de negocio exige la casilla `acceptTerms`; se guardan `terms_accepted_at` y `terms_version` en el `user_metadata`. Reservar y crear cuenta de cliente muestran el aviso de aceptación (`LegalConsent`).
+
 ## Reglas técnicas no negociables
 1. **Prohibido el doble booking**: exclusion constraint `gist` (`professional_id =`, `tstzrange(starts_at, blocked_until, '[)') &&`) sobre citas no canceladas. No basta la validación en frontend.
 2. Escritura de citas **solo vía RPC** (`book_appointment`, `reschedule_appointment`, `cancel_appointment`, `staff_create_appointment`).

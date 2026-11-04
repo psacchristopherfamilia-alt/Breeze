@@ -300,6 +300,27 @@
       "category_mismatch": "That category doesn't match your business type.",
       "invalid_code": "That code isn't valid or has expired. Check the screen.",
       "too_many_pending": "Too many screens waiting. Try again later."
+    },
+    "setup": {
+      "title": "Steps to start receiving bookings",
+      "hint": "Your branch is hidden. Complete these steps and publish it so clients can find and book you.",
+      "readyHint": "All set! Publish your branch so clients can find and book you.",
+      "done": "done",
+      "pending": "pending",
+      "steps": {
+        "service": "Add a service",
+        "professional": "Add a professional",
+        "assignment": "Assign a service to the professional",
+        "hours": "Set the professional's weekly hours",
+        "publish": "Publish your branch"
+      },
+      "go": {
+        "service": "Add service",
+        "professional": "Add professional",
+        "assignment": "Assign",
+        "hours": "Set hours",
+        "publish": "Publish"
+      }
     }
   },
   "pros": {

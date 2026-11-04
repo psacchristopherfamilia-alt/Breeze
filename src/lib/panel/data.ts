@@ -1,6 +1,7 @@
 import { weeklyHoursFromRows } from "../availability";
 import { createClient } from "../supabase/server";
 import { addDaysKey, atLocal } from "../time";
+import { computeSetupStatus, type SetupStatus } from "./setup";
 import type { AgendaAppt, AgendaPro, AgendaService } from "@/components/agenda/AgendaView";
 
 type Client = Awaited<ReturnType<typeof createClient>>;
@@ -118,4 +119,25 @@ export async function loadAgendaDay(supabase: Client, salonId: string, dateKey: 
     appointments,
     blocked,
   };
+}
+
+/** Qué le falta a una sucursal para recibir reservas (ver `computeSetupStatus`). RLS: solo mi sucursal. */
+export async function loadSetupStatus(supabase: Client, salonId: string): Promise<SetupStatus> {
+  const [{ data: salon }, { data: services }, { data: pros }, { data: links }] = await Promise.all([
+    supabase.from("salons").select("is_published").eq("id", salonId).single(),
+    supabase.from("services").select("id").eq("salon_id", salonId).eq("is_active", true),
+    supabase.from("professionals").select("id").eq("salon_id", salonId).eq("is_active", true),
+    supabase.from("professional_services").select("professional_id, service_id").eq("salon_id", salonId),
+  ]);
+  const proIds = (pros ?? []).map((p) => p.id);
+  const { data: hours } = proIds.length
+    ? await supabase.from("working_hours").select("professional_id").in("professional_id", proIds)
+    : { data: [] as { professional_id: string }[] };
+  return computeSetupStatus({
+    isPublished: !!salon?.is_published,
+    activeServiceIds: (services ?? []).map((s) => s.id),
+    activeProfessionalIds: proIds,
+    links: links ?? [],
+    professionalIdsWithHours: (hours ?? []).map((h) => h.professional_id),
+  });
 }

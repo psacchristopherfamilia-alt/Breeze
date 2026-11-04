@@ -193,14 +193,14 @@ isOneToOne: false
                   ]
                 },"invoices": {
                   Row: {
-                    "amount_cents": number,"created_at": string,"due_at": string,"id": string,"number": string,"organization_id": string,"period_end": string,"period_start": string,"status": Database["public"]['Enums']["invoice_status"]
+                    "amount_cents": number,"billing_cycle": Database["public"]['Enums']["billing_cycle"],"created_at": string,"due_at": string,"extra_branches": number,"id": string,"note": string | null,"number": string,"organization_id": string,"paid_at": string | null,"period_end": string,"period_start": string,"plan_code": string | null,"status": Database["public"]['Enums']["invoice_status"]
                   }
                   ComputedFields: never
                   Insert: {
-                    "amount_cents": number,"created_at"?: string,"due_at": string,"id"?: string,"number": string,"organization_id": string,"period_end": string,"period_start": string,"status"?: Database["public"]['Enums']["invoice_status"]
+                    "amount_cents": number,"billing_cycle"?: Database["public"]['Enums']["billing_cycle"],"created_at"?: string,"due_at": string,"extra_branches"?: number,"id"?: string,"note"?: string | null,"number": string,"organization_id": string,"paid_at"?: string | null,"period_end": string,"period_start": string,"plan_code"?: string | null,"status"?: Database["public"]['Enums']["invoice_status"]
                   }
                   Update: {
-                    "amount_cents"?: number,"created_at"?: string,"due_at"?: string,"id"?: string,"number"?: string,"organization_id"?: string,"period_end"?: string,"period_start"?: string,"status"?: Database["public"]['Enums']["invoice_status"]
+                    "amount_cents"?: number,"billing_cycle"?: Database["public"]['Enums']["billing_cycle"],"created_at"?: string,"due_at"?: string,"extra_branches"?: number,"id"?: string,"note"?: string | null,"number"?: string,"organization_id"?: string,"paid_at"?: string | null,"period_end"?: string,"period_start"?: string,"plan_code"?: string | null,"status"?: Database["public"]['Enums']["invoice_status"]
                   }
                   Relationships: [
                     {
@@ -209,6 +209,12 @@ isOneToOne: false
 isOneToOne: false
       referencedRelation: "organizations"
       referencedColumns: ["id"]
+    },{
+      foreignKeyName: "invoices_plan_code_fkey"
+      columns: ["plan_code"]
+isOneToOne: false
+      referencedRelation: "plans"
+      referencedColumns: ["code"]
     }
                   ]
                 },"live_devices": {
@@ -357,6 +363,20 @@ isOneToOne: false
                   }
                   Update: {
                     "annual_price_cents"?: number,"code"?: string,"extra_branch_price_cents"?: number,"features"?: NonNullable<Json>,"is_active"?: boolean,"max_pros"?: number | null,"message_quota"?: number,"min_pros"?: number,"monthly_price_cents"?: number,"name"?: string,"sort_order"?: number
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"platform_settings": {
+                  Row: {
+                    "account_number": string,"bank_name": string,"id": boolean,"instructions_en": string,"instructions_es": string,"payee_name": string,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "account_number"?: string,"bank_name"?: string,"id"?: boolean,"instructions_en"?: string,"instructions_es"?: string,"payee_name"?: string,"updated_at"?: string
+                  }
+                  Update: {
+                    "account_number"?: string,"bank_name"?: string,"id"?: boolean,"instructions_en"?: string,"instructions_es"?: string,"payee_name"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -627,6 +647,9 @@ isOneToOne: false
 "mark_appointment":
 { Args: { "p_appointment_id": string,"p_status": Database["public"]['Enums']["appointment_status"] }; Returns: undefined
                            },
+"my_billing":
+{ Args: { "p_organization_id": string }; Returns: Json
+                           },
 "my_bookings":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
@@ -637,6 +660,27 @@ isOneToOne: false
                            },
 "pair_live_device":
 { Args: { "p_code": string,"p_name"?: string,"p_salon_id": string }; Returns: string
+                           },
+"platform_create_invoice":
+{ Args: { "p_amount_cents"?: number,"p_cycle"?: Database["public"]['Enums']["billing_cycle"],"p_extra_branches"?: number,"p_note"?: string,"p_org": string,"p_plan_code"?: string }; Returns: Json
+                           },
+"platform_extend":
+{ Args: { "p_days": number,"p_org": string,"p_reason"?: string }; Returns: string
+                           },
+"platform_overview":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"platform_register_payment":
+{ Args: { "p_amount_cents"?: number,"p_invoice": string,"p_method": Database["public"]['Enums']["payment_method"],"p_received_at"?: string,"p_reference"?: string }; Returns: Json
+                           },
+"platform_save_settings":
+{ Args: { "p_account_number": string,"p_bank_name": string,"p_instructions_en": string,"p_instructions_es": string,"p_payee_name": string }; Returns: undefined
+                           },
+"platform_set_status":
+{ Args: { "p_org": string,"p_reason"?: string,"p_status": Database["public"]['Enums']["subscription_status"] }; Returns: undefined
+                           },
+"platform_void_invoice":
+{ Args: { "p_invoice": string,"p_reason"?: string }; Returns: undefined
                            },
 "request_live_pairing":
 { Args: { "p_salon_slug": string }; Returns: Json

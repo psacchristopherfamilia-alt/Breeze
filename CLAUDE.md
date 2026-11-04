@@ -51,6 +51,14 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Plantillas en `src/lib/notifications/templates.ts` (EN/ES, siempre "— Breeze"); proveedores en `providers.ts` (console, Resend, Twilio SMS/WhatsApp vía fetch, sin SDK); orden de canales y reintentos en `worker.ts`.
 - El enlace privado del invitado se adjunta con `attach_guest_link(token)` y se borra al enviar; la columna `link_token` no es legible por el panel.
 
+## Facturación manual (módulo 7)
+- Ciclo: prueba 14 días → el administrador genera la factura (`platform_create_invoice`) → el dueño paga por transferencia/efectivo → `platform_register_payment` deja el plan `active` hasta el fin del periodo (anual = 10 meses). Una sola factura abierta por negocio. Las sucursales extra salen de `subscriptions.extra_branches`.
+- Sin pago: `private.billing_sweep()` (pg_cron diario, 04:15 TCI) pone `past_due` a los 7 días del vencimiento y `suspended` a los 14. Suspendido = se apagan la reserva en línea (`book_appointment`) y Breeze Live (`get_live_board`); **nunca se borra nada** y la agenda del panel sigue. `private.org_can_book(org)` es la regla única (y corta a los 14 días aunque el barrido no haya corrido).
+- Administrador de plataforma: `profiles.is_platform_admin` (solo se pone por SQL, nunca desde la app). RPC `platform_overview`, `platform_create_invoice`, `platform_register_payment`, `platform_void_invoice`, `platform_extend` (cortesía/reactivar), `platform_set_status` (suspender/cancelar), `platform_save_settings`. Todas comprueban `private.is_platform_admin()` y dejan rastro en `audit_log`. UI en `/admin` (404 si no eres administrador).
+- Dueño: `my_billing(org)` (solo rol owner) → `/dashboard/billing` ("Plan y pagos": factura, datos para transferir, historial) y `BillingBanner` (aviso en todo el panel según `billingNotice()` en `src/lib/billing.ts`).
+- `platform_settings` (una fila: datos bancarios) no se lee ni escribe directamente; solo vía RPC. `invoices`/`payments` son de solo lectura para el dueño.
+- Estados que cuentan para el MRR: `active` y `past_due` (`monthlyRecurringCents`).
+
 ## Auth (Supabase)
 - Sin variables de Supabase → modo prototipo (datos falsos). `isSupabaseConfigured()` en `src/lib/supabase/env.ts`.
 - Clientes: `src/lib/supabase/server.ts` (server), `client.ts` (navegador), `session.ts` + `src/proxy.ts` (refresco de sesión y rutas protegidas; en Next 16 el middleware se llama `proxy`).

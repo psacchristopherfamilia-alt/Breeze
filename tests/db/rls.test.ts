@@ -126,6 +126,34 @@ describe("roles dentro de una organización", () => {
   });
 });
 
+describe("facturación: solo por RPC", () => {
+  it("los datos de pago de Breeze (platform_settings) no se leen ni se escriben directamente", async () => {
+    for (const who of [anon, user(ID.ownerA), user(ID.stranger)]) {
+      await as(pool, who, async (c) => {
+        expect(await attempt(c, () => c.query("select * from public.platform_settings"))).toBe("42501");
+        expect(await attempt(c, () => c.query("update public.platform_settings set payee_name = 'x'"))).toBe("42501");
+        expect(await attempt(c, () => c.query("insert into public.platform_settings (id) values (false)"))).toBe("42501");
+      });
+    }
+  });
+
+  it("el dueño no puede crear ni cambiar facturas ni pagos; el administrador de otro negocio no los ve", async () => {
+    await pool.query(
+      `insert into public.subscriptions (organization_id, plan_code) values ($1, 'studio') on conflict do nothing`,
+      [ID.orgA],
+    );
+    await as(pool, user(ID.ownerA), async (c) => {
+      expect(await attempt(c, () => c.query("insert into public.invoices (organization_id, number, period_start, period_end, amount_cents, due_at) values ($1, 'X-1', now(), now(), 100, now())", [ID.orgA]))).toBe("42501");
+      expect(await attempt(c, () => c.query("update public.invoices set status = 'paid'"))).toBe("42501");
+      expect(await attempt(c, () => c.query("insert into public.payments (invoice_id, organization_id, method, amount_cents, received_at) values (gen_random_uuid(), $1, 'cash', 100, now())", [ID.orgA]))).toBe("42501");
+      expect(await attempt(c, () => c.query("update public.subscriptions set status = 'active'"))).toBe("42501");
+    });
+    await as(pool, user(ID.ownerB), async (c) => {
+      expect((await c.query("select 1 from public.invoices where organization_id = $1", [ID.orgA])).rowCount).toBe(0);
+    });
+  });
+});
+
 describe("clientes", () => {
   it("Juan ve sus citas en las dos organizaciones, y nada de Ashley", async () => {
     expect(await as(pool, user(ID.juanUser), visibleAppointments)).toEqual(

@@ -12,6 +12,13 @@ beforeEach(async () => {
   c = await pool.connect();
   await c.query("begin");
   tv = await createAuthUser(c, { anonymous: true });
+  // Breeze Live exige un plan vigente (ver billing.test.ts para los estados del plan).
+  await c.query(
+    `insert into public.subscriptions (organization_id, plan_code, status, current_period_end)
+     values ($1, 'studio', 'active', now() + interval '20 days'), ($2, 'studio', 'active', now() + interval '20 days')
+     on conflict (organization_id) do update set status = 'active', current_period_end = excluded.current_period_end`,
+    [ID.orgA, ID.orgB],
+  );
 });
 afterEach(async () => {
   await c.query("rollback");

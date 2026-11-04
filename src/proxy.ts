@@ -2,7 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/session";
 
 /** Rutas que exigen sesión (cuando Supabase está configurado). */
-const PROTECTED = ["/dashboard", "/me", "/pro", "/onboarding"];
+// /me es pública: sin cuenta muestra las citas de invitado de este navegador.
+const PROTECTED = ["/dashboard", "/pro", "/onboarding"];
 
 export async function proxy(request: NextRequest) {
   const { response, user, configured } = await updateSession(request);
@@ -14,7 +15,9 @@ export async function proxy(request: NextRequest) {
   if (!user && PROTECTED.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    url.search = `?next=${encodeURIComponent(pathname + search)}`;
+    // El panel es de la puerta de negocios: su entrada lleva el aviso de negocio, no el de cliente.
+    const forBusiness = pathname === "/dashboard" || pathname.startsWith("/dashboard/");
+    url.search = `?${forBusiness ? "for=negocios&" : ""}next=${encodeURIComponent(pathname + search)}`;
     return NextResponse.redirect(url);
   }
   return response;

@@ -109,12 +109,13 @@ export async function signUpSalon(_: FormState, fd: FormData): Promise<FormState
   redirect("/dashboard?welcome=1");
 }
 
-export async function signOut() {
+/** Cierra la sesión. El formulario indica a dónde volver (`to`): el cliente a /explore, el negocio a /negocios. */
+export async function signOut(fd?: FormData) {
   if (isSupabaseConfigured()) {
     const supabase = await createClient();
     await supabase.auth.signOut();
   }
-  redirect("/login");
+  redirect(safeNext(fd?.get("to") ?? null) ?? "/explore");
 }
 
 const INVITE_ERRORS: Record<string, string> = {

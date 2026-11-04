@@ -40,6 +40,8 @@ export interface BookingFlowProps {
   onConfirm: (req: ConfirmRequest, proId: string) => Promise<ConfirmResult>;
   /** A dónde lleva "Gestionar mi cita" tras reservar. */
   manageHref: (r: Extract<ConfirmResult, { ok: true }>) => string;
+  /** Datos reales: tras reservar como invitado se ofrece crear cuenta (la cita ya quedó guardada en este dispositivo). */
+  accountPrompt?: { href: string };
 }
 
 const svcName = (s: PublicService, locale: "en" | "es") => (locale === "es" ? s.nameEs : s.nameEn);
@@ -54,6 +56,7 @@ export function BookingFlow({
   reschedule,
   onConfirm,
   manageHref,
+  accountPrompt,
 }: BookingFlowProps) {
   const t = useTranslations();
   const { locale } = useAppLocale();
@@ -198,6 +201,16 @@ export function BookingFlow({
             {done.guestToken && <p className="mt-2 font-semibold text-ink">{t("booking.guestLinkNote")}</p>}
             <p className="mt-2 text-xs italic text-ink/50">— Breeze</p>
           </div>
+          {done.guestToken && accountPrompt && (
+            <div className="mt-4 rounded-2xl bg-breeze-50 p-4 text-left text-sm text-ink/80 ring-1 ring-breeze-100">
+              <p>
+                <b className="text-ink">{t("booking.deviceSaved")}</b> {t("booking.deviceSavedHint")}
+              </p>
+              <Link href={accountPrompt.href} className="mt-3 block rounded-xl bg-white py-2.5 text-center font-bold text-lagoon ring-1 ring-breeze-200 hover:bg-breeze-100">
+                {t("booking.createAccountCta")}
+              </Link>
+            </div>
+          )}
           <div className="mt-6 flex flex-col gap-2">
             <Link href={manageHref(done)} className="rounded-2xl bg-lagoon px-5 py-3 font-bold text-white hover:bg-breeze-800">
               {t("booking.manage")}

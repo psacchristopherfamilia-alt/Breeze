@@ -147,11 +147,11 @@ describe("reservar", () => {
     expect(await attemptMsg(c, () => bookRpc([], at("10:00")))).toBe("invalid_items");
   });
 
-  it("no se puede reservar en un salón sin publicar, suspendido o con la prueba caducada", async () => {
+  it("no se puede reservar en un salón sin publicar, suspendido o con el pago vencido hace más de 14 días", async () => {
     for (const setup of [
       "update public.salons set is_published = false where id = $1",
       "update public.subscriptions set status = 'suspended' where organization_id = (select organization_id from public.salons where id = $1)",
-      "update public.subscriptions set trial_ends_at = now() - interval '1 day' where organization_id = (select organization_id from public.salons where id = $1)",
+      "update public.subscriptions set trial_ends_at = now() - interval '15 days' where organization_id = (select organization_id from public.salons where id = $1)",
     ]) {
       await c.query("savepoint s");
       await asSuperuser(c);
@@ -160,6 +160,16 @@ describe("reservar", () => {
       expect(await attemptMsg(c, () => bookRpc([item(CUT, ID.carlos)], at("10:00")))).toBe("salon_not_bookable");
       await c.query("rollback to savepoint s");
     }
+  });
+
+  it("con la prueba o el pago vencido hace pocos días aún se puede reservar (periodo de gracia)", async () => {
+    await asSuperuser(c);
+    await c.query(
+      "update public.subscriptions set trial_ends_at = now() - interval '5 days', status = 'past_due' where organization_id = (select organization_id from public.salons where id = $1)",
+      [ID.salonA1],
+    );
+    await switchTo(c, anon);
+    expect(await attemptMsg(c, () => bookRpc([item(CUT, ID.carlos)], at("10:00")))).toBeNull();
   });
 
   it("un invitado (sin verificar) puede tener como máximo 2 reservas futuras", async () => {

@@ -212,7 +212,8 @@
       "agenda": "Agenda",
       "professionals": "Profesionales",
       "services": "Servicios",
-      "settings": "Ajustes"
+      "settings": "Ajustes",
+      "billing": "Plan y pagos"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
@@ -229,7 +230,8 @@
         "cancelled": "cancelado"
       },
       "daysLeft": "{days, plural, one {Queda # día} other {Quedan # días}} de prueba gratis.",
-      "payHint": "Paga por transferencia o en efectivo."
+      "payHint": "Paga por transferencia o en efectivo.",
+      "manage": "Plan y pagos"
     },
     "prevDay": "Día anterior",
     "nextDay": "Día siguiente",
@@ -328,7 +330,15 @@
         "publish": "Publicar"
       }
     },
-    "tag": "Negocios"
+    "tag": "Negocios",
+    "notice": {
+      "trial_ending": "Tu prueba gratis termina en {days, plural, one {# día} other {# días}}. Paga para seguir recibiendo reservas.",
+      "trial_ended": "Tu prueba gratis terminó hace {days, plural, one {# día} other {# días}}. Paga cuanto antes para no perder las reservas en línea.",
+      "payment_due": "Tu pago venció hace {days, plural, one {# día} other {# días}}. Paga para mantener tu plan al día.",
+      "past_due": "Tienes un pago pendiente desde hace {days, plural, one {# día} other {# días}}. Pronto se pausarán las reservas en línea y Breeze Live.",
+      "suspended": "Tu plan está suspendido: las reservas en línea y Breeze Live están pausadas. Tu agenda y tus datos siguen aquí.",
+      "cta": "Ver plan y pagos"
+    }
   },
   "pros": {
     "title": "Profesionales",
@@ -625,6 +635,130 @@
       "haveAccount": "¿Ya eres parte de un equipo?",
       "signIn": "Entrar",
       "back": "Breeze Negocios"
+    }
+  },
+  "billing": {
+    "title": "Plan y pagos",
+    "plan": "Plan {plan}",
+    "priceMonthly": "{price} al mes",
+    "priceAnnual": "{price} al año",
+    "extraBranches": "{count, plural, one {# sucursal extra} other {# sucursales extra}} ({price} c/u al mes)",
+    "trialEnds": "La prueba gratis termina el {date}",
+    "activeUntil": "Activo hasta el {date}",
+    "periodEnded": "Tu periodo terminó el {date}",
+    "paused": "Las reservas en línea y Breeze Live están pausadas hasta que registremos tu pago. Tu agenda sigue visible.",
+    "openTitle": "Factura pendiente",
+    "invoiceNo": "Factura {number}",
+    "due": "Vence el {date}",
+    "howToPay": "Cómo pagar",
+    "payee": "A nombre de",
+    "bank": "Banco",
+    "account": "Cuenta",
+    "reference": "Referencia",
+    "noInstructions": "Escríbenos y te indicamos cómo pagar por transferencia o en efectivo. Usa el número de factura como referencia.",
+    "afterPay": "Cuando recibamos tu pago, tu plan se activa y verás aquí el pago registrado.",
+    "noInvoice": "No tienes ninguna factura pendiente. Te enviaremos la siguiente antes del vencimiento.",
+    "invoices": "Facturas",
+    "emptyInvoices": "Aún no hay facturas.",
+    "payments": "Pagos recibidos",
+    "invoiceStatus": {
+      "open": "pendiente",
+      "paid": "pagada",
+      "void": "anulada"
+    },
+    "method": {
+      "bank_transfer": "Transferencia",
+      "cash": "Efectivo",
+      "other": "Otro"
+    }
+  },
+  "admin": {
+    "tag": "Administración",
+    "title": "Negocios",
+    "signOut": "Salir",
+    "paused": "Reservas pausadas",
+    "annual": "anual",
+    "kpi": {
+      "businesses": "Negocios",
+      "trialing": "En prueba",
+      "active": "Activos",
+      "attention": "Pago pendiente o suspendidos",
+      "mrr": "Ingreso mensual (aprox.)"
+    },
+    "filters": {
+      "label": "Filtrar",
+      "all": "Todos",
+      "attention": "Necesitan atención",
+      "trialing": "En prueba",
+      "active": "Activos"
+    },
+    "empty": "No hay negocios en esta lista.",
+    "salons": "{published} de {total} sucursales publicadas",
+    "since": "desde {date}",
+    "trialEnds": "Fin de la prueba",
+    "periodEnds": "Pagado hasta",
+    "openInvoice": "Factura abierta",
+    "lastPayment": "Último pago",
+    "actions": {
+      "invoice": "Generar factura",
+      "payment": "Registrar pago",
+      "void": "Anular factura",
+      "extend": "Dar días",
+      "stop": "Suspender"
+    },
+    "done": {
+      "invoice": "Factura generada.",
+      "payment": "Pago registrado. El plan queda activo.",
+      "void": "Factura anulada.",
+      "extend": "Días añadidos.",
+      "stop": "Negocio suspendido. Sus datos siguen intactos.",
+      "settings": "Datos de pago guardados."
+    },
+    "forms": {
+      "plan": "Plan",
+      "cycle": "Ciclo",
+      "monthly": "Mensual",
+      "annual": "Anual (2 meses gratis)",
+      "extraBranches": "Sucursales extra",
+      "customAmount": "Importe a medida en $ (si está vacío: {auto})",
+      "note": "Nota (opcional)",
+      "createInvoice": "Generar factura",
+      "paymentFor": "Pago de la factura {number} ({amount})",
+      "method": "Método",
+      "reference": "Referencia de la transferencia o recibo",
+      "receivedOn": "Recibido el",
+      "paidAmount": "Importe recibido en $ (si está vacío: {amount})",
+      "registerPayment": "Registrar pago",
+      "extendHint": "Da más días a un negocio (alargar la prueba o esperar una transferencia). Si estaba con pago pendiente o suspendido, se reactiva.",
+      "days": "Días",
+      "reason": "Motivo (opcional)",
+      "extend": "Dar días",
+      "voidReason": "Motivo de la anulación (opcional)",
+      "stopReason": "Motivo (opcional). Se apagan las reservas en línea y Breeze Live; no se borra nada."
+    },
+    "settings": {
+      "title": "Datos para recibir pagos",
+      "hint": "Los ven los dueños en «Plan y pagos» junto a su factura.",
+      "payee": "A nombre de",
+      "bank": "Banco",
+      "account": "Número de cuenta",
+      "instructionsEs": "Instrucciones (español)",
+      "instructionsEn": "Instrucciones (inglés)",
+      "save": "Guardar"
+    },
+    "errors": {
+      "forbidden": "No tienes permiso para esto.",
+      "not_found": "No se encontró.",
+      "invoice_already_open": "Este negocio ya tiene una factura abierta: regístrala o anúlala primero.",
+      "invalid_plan": "Plan no válido.",
+      "invalid_amount": "Importe no válido.",
+      "invoice_not_open": "Esa factura ya no está abierta.",
+      "amount_too_low": "El importe recibido es menor que el de la factura.",
+      "invalid_date": "La fecha no puede ser futura.",
+      "invalid_days": "Escribe entre 1 y 365 días.",
+      "invalid_status": "Estado no válido.",
+      "too_long": "Algún texto es demasiado largo.",
+      "generic": "No se pudo completar. Inténtalo de nuevo."
     }
   }
 }

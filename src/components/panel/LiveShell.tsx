@@ -1,5 +1,5 @@
 "use client";
-import { Building2, CalendarDays, LogOut, MonitorPlay, Scissors, Settings, Users } from "lucide-react";
+import { Building2, CalendarDays, CreditCard, LogOut, MonitorPlay, Scissors, Settings, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -7,6 +7,8 @@ import { useTransition } from "react";
 import { signOut } from "@/app/(auth)/actions";
 import { switchSalon } from "@/app/dashboard/actions";
 import { Logo } from "@/components/ui/Logo";
+import type { BillingNotice } from "@/lib/billing";
+import { BillingBanner } from "./BillingBanner";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import type { PanelSalon } from "@/lib/panel/server";
 
@@ -22,12 +24,14 @@ export function LiveShell({
   current,
   isManager,
   subscription,
+  notice,
   children,
 }: {
   salons: PanelSalon[];
   current: PanelSalon;
   isManager: boolean;
   subscription: ShellSubscription | null;
+  notice: BillingNotice | null;
   children: React.ReactNode;
 }) {
   const t = useTranslations("panel");
@@ -39,6 +43,7 @@ export function LiveShell({
     { href: "/dashboard/professionals", icon: Users, label: t("nav.professionals"), show: isManager },
     { href: "/dashboard/services", icon: Scissors, label: t("nav.services"), show: isManager },
     { href: "/dashboard/settings", icon: Settings, label: t("nav.settings"), show: isManager },
+    { href: "/dashboard/billing", icon: CreditCard, label: t("nav.billing"), show: !!subscription }, // solo el dueño
     { href: `/live/${current.salonSlug}`, icon: MonitorPlay, label: "Breeze Live", show: true },
   ].filter((n) => n.show);
 
@@ -95,6 +100,7 @@ export function LiveShell({
               </p>
               {subscription.daysLeft !== null && <p className="mt-1">{t("plan.daysLeft", { days: subscription.daysLeft })}</p>}
               <p className="mt-1">{t("plan.payHint")}</p>
+              <Link href="/dashboard/billing" className="mt-2 inline-block font-bold text-lagoon underline underline-offset-2">{t("plan.manage")}</Link>
             </div>
           )}
         </div>
@@ -105,7 +111,10 @@ export function LiveShell({
           </button>
         </form>
       </aside>
-      <main className="min-w-0 flex-1">{children}</main>
+      <main className="min-w-0 flex-1">
+        {notice && <BillingBanner notice={notice} />}
+        {children}
+      </main>
     </div>
   );
 }

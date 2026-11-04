@@ -212,7 +212,8 @@
       "agenda": "Agenda",
       "professionals": "Professionals",
       "services": "Services",
-      "settings": "Settings"
+      "settings": "Settings",
+      "billing": "Plan & payments"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
@@ -229,7 +230,8 @@
         "cancelled": "cancelled"
       },
       "daysLeft": "{days, plural, one {# day left} other {# days left}} of your free trial.",
-      "payHint": "Pay by bank transfer or cash."
+      "payHint": "Pay by bank transfer or cash.",
+      "manage": "Plan & payments"
     },
     "prevDay": "Previous day",
     "nextDay": "Next day",
@@ -328,7 +330,15 @@
         "publish": "Publish"
       }
     },
-    "tag": "Negocios"
+    "tag": "Negocios",
+    "notice": {
+      "trial_ending": "Your free trial ends in {days, plural, one {# day} other {# days}}. Pay to keep receiving bookings.",
+      "trial_ended": "Your free trial ended {days, plural, one {# day} other {# days}} ago. Pay soon so you don't lose online bookings.",
+      "payment_due": "Your payment was due {days, plural, one {# day} other {# days}} ago. Pay to keep your plan up to date.",
+      "past_due": "You have had a payment pending for {days, plural, one {# day} other {# days}}. Online bookings and Breeze Live will be paused soon.",
+      "suspended": "Your plan is suspended: online bookings and Breeze Live are paused. Your agenda and data are still here.",
+      "cta": "View plan & payments"
+    }
   },
   "pros": {
     "title": "Professionals",
@@ -625,6 +635,130 @@
       "haveAccount": "Already part of a team?",
       "signIn": "Sign in",
       "back": "Breeze Negocios"
+    }
+  },
+  "billing": {
+    "title": "Plan & payments",
+    "plan": "{plan} plan",
+    "priceMonthly": "{price} per month",
+    "priceAnnual": "{price} per year",
+    "extraBranches": "{count, plural, one {# extra branch} other {# extra branches}} ({price} each per month)",
+    "trialEnds": "Your free trial ends on {date}",
+    "activeUntil": "Active until {date}",
+    "periodEnded": "Your period ended on {date}",
+    "paused": "Online bookings and Breeze Live are paused until we record your payment. Your agenda is still visible.",
+    "openTitle": "Pending invoice",
+    "invoiceNo": "Invoice {number}",
+    "due": "Due {date}",
+    "howToPay": "How to pay",
+    "payee": "Payee",
+    "bank": "Bank",
+    "account": "Account",
+    "reference": "Reference",
+    "noInstructions": "Message us and we'll tell you how to pay by bank transfer or in cash. Use the invoice number as the reference.",
+    "afterPay": "Once we receive your payment, your plan is activated and you'll see the payment recorded here.",
+    "noInvoice": "You have no pending invoice. We'll send the next one before it's due.",
+    "invoices": "Invoices",
+    "emptyInvoices": "No invoices yet.",
+    "payments": "Payments received",
+    "invoiceStatus": {
+      "open": "pending",
+      "paid": "paid",
+      "void": "void"
+    },
+    "method": {
+      "bank_transfer": "Bank transfer",
+      "cash": "Cash",
+      "other": "Other"
+    }
+  },
+  "admin": {
+    "tag": "Admin",
+    "title": "Businesses",
+    "signOut": "Sign out",
+    "paused": "Bookings paused",
+    "annual": "annual",
+    "kpi": {
+      "businesses": "Businesses",
+      "trialing": "On trial",
+      "active": "Active",
+      "attention": "Payment pending or suspended",
+      "mrr": "Monthly revenue (approx.)"
+    },
+    "filters": {
+      "label": "Filter",
+      "all": "All",
+      "attention": "Need attention",
+      "trialing": "On trial",
+      "active": "Active"
+    },
+    "empty": "No businesses in this list.",
+    "salons": "{published} of {total} branches published",
+    "since": "since {date}",
+    "trialEnds": "Trial ends",
+    "periodEnds": "Paid until",
+    "openInvoice": "Open invoice",
+    "lastPayment": "Last payment",
+    "actions": {
+      "invoice": "Create invoice",
+      "payment": "Record payment",
+      "void": "Void invoice",
+      "extend": "Add days",
+      "stop": "Suspend"
+    },
+    "done": {
+      "invoice": "Invoice created.",
+      "payment": "Payment recorded. The plan is now active.",
+      "void": "Invoice voided.",
+      "extend": "Days added.",
+      "stop": "Business suspended. Its data is untouched.",
+      "settings": "Payment details saved."
+    },
+    "forms": {
+      "plan": "Plan",
+      "cycle": "Cycle",
+      "monthly": "Monthly",
+      "annual": "Annual (2 months free)",
+      "extraBranches": "Extra branches",
+      "customAmount": "Custom amount in $ (if empty: {auto})",
+      "note": "Note (optional)",
+      "createInvoice": "Create invoice",
+      "paymentFor": "Payment for invoice {number} ({amount})",
+      "method": "Method",
+      "reference": "Transfer or receipt reference",
+      "receivedOn": "Received on",
+      "paidAmount": "Amount received in $ (if empty: {amount})",
+      "registerPayment": "Record payment",
+      "extendHint": "Give a business more days (extend the trial or wait for a transfer). If it was past due or suspended, it is reactivated.",
+      "days": "Days",
+      "reason": "Reason (optional)",
+      "extend": "Add days",
+      "voidReason": "Reason for voiding (optional)",
+      "stopReason": "Reason (optional). Online bookings and Breeze Live are switched off; nothing is deleted."
+    },
+    "settings": {
+      "title": "Payment details",
+      "hint": "Owners see these in \"Plan & payments\" next to their invoice.",
+      "payee": "Payee",
+      "bank": "Bank",
+      "account": "Account number",
+      "instructionsEs": "Instructions (Spanish)",
+      "instructionsEn": "Instructions (English)",
+      "save": "Save"
+    },
+    "errors": {
+      "forbidden": "You don't have permission to do this.",
+      "not_found": "Not found.",
+      "invoice_already_open": "This business already has an open invoice: record or void it first.",
+      "invalid_plan": "Invalid plan.",
+      "invalid_amount": "Invalid amount.",
+      "invoice_not_open": "That invoice is no longer open.",
+      "amount_too_low": "The amount received is lower than the invoice.",
+      "invalid_date": "The date can't be in the future.",
+      "invalid_days": "Enter between 1 and 365 days.",
+      "invalid_status": "Invalid status.",
+      "too_long": "Some text is too long.",
+      "generic": "Couldn't complete that. Please try again."
     }
   }
 }

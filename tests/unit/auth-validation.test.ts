@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { fieldErrors, formToObject, salonSignUpSchema, signUpSchema } from "@/lib/validation/auth";
 
 const base = { fullName: "Lucía Fernández", email: " Lucia@Example.com ", phone: "649 555 1234", password: "secreta123", locale: "es" };
+const salonBase = { ...base, acceptTerms: "on" };
 
 describe("registro de cliente", () => {
   it("normaliza correo y teléfono", () => {
@@ -24,7 +25,7 @@ describe("registro de cliente", () => {
 describe("alta de salón", () => {
   it("exige al menos un tipo de negocio y una zona válida", () => {
     const fd = new FormData();
-    Object.entries({ ...base, orgName: "Coral", salonName: "Coral Nails", zone: "atlantis" }).forEach(([k, v]) => fd.append(k, v));
+    Object.entries({ ...salonBase, orgName: "Coral", salonName: "Coral Nails", zone: "atlantis" }).forEach(([k, v]) => fd.append(k, v));
     const r = salonSignUpSchema.safeParse(formToObject(fd, ["businessTypes"]));
     expect(r.success).toBe(false);
     if (!r.success) expect(fieldErrors(r.error)).toMatchObject({ businessTypes: "pickBusinessType", zone: "pickZone" });
@@ -32,11 +33,22 @@ describe("alta de salón", () => {
 
   it("acepta varios tipos de negocio (barbería + salón)", () => {
     const fd = new FormData();
-    Object.entries({ ...base, orgName: "Tradewinds", salonName: "Tradewinds Five Cays", zone: "five_cays" }).forEach(([k, v]) => fd.append(k, v));
+    Object.entries({ ...salonBase, orgName: "Tradewinds", salonName: "Tradewinds Five Cays", zone: "five_cays" }).forEach(([k, v]) => fd.append(k, v));
     fd.append("businessTypes", "barbershop");
     fd.append("businessTypes", "salon");
     const r = salonSignUpSchema.parse(formToObject(fd, ["businessTypes"]));
     expect(r.businessTypes).toEqual(["barbershop", "salon"]);
     expect(r.salonPhone).toBeUndefined();
+  });
+
+  it("sin aceptar los términos no se puede registrar un negocio", () => {
+    const fd = new FormData();
+    Object.entries({ ...base, orgName: "Coral", salonName: "Coral Nails", zone: "grace_bay" }).forEach(([k, v]) => fd.append(k, v));
+    fd.append("businessTypes", "salon");
+    const r = salonSignUpSchema.safeParse(formToObject(fd, ["businessTypes"]));
+    expect(r.success).toBe(false);
+    if (!r.success) expect(fieldErrors(r.error)).toMatchObject({ acceptTerms: "acceptTerms" });
+    fd.append("acceptTerms", "on");
+    expect(salonSignUpSchema.safeParse(formToObject(fd, ["businessTypes"])).success).toBe(true);
   });
 });

@@ -49,6 +49,8 @@ export interface BookingData {
 export interface ConfirmRequest {
   items: { serviceId: string; professionalId: string }[];
   startsAt: string; // ISO UTC
+  /** Token del captcha (solo reservas de invitado cuando el captcha está activado). */
+  captchaToken?: string;
   guest?: { firstName: string; lastName: string; phone: string; email?: string; whatsapp: boolean; locale: "en" | "es" };
 }
 
@@ -85,7 +87,7 @@ export function bookingErrorKey(e: { code?: string; message?: string } | null | 
   const known = [
     "too_soon", "too_far", "outside_working_hours", "salon_not_bookable", "guest_limit", "customer_blocked",
     "phone_required", "name_required", "service_not_offered", "invalid_items", "outside_change_window",
-    "nothing_to_cancel", "nothing_to_reschedule", "not_found",
+    "nothing_to_cancel", "nothing_to_reschedule", "not_found", "captcha_failed",
   ];
   return known.includes(e.message ?? "") ? (e.message as string) : "generic";
 }

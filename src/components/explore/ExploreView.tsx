@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { ClientHeader } from "@/components/ui/ClientHeader";
+import { LegalLinks } from "@/components/legal/LegalConsent";
 import { ProBadge } from "@/components/ui/ProBadge";
 import { TypeIcon } from "@/components/ui/TypeIcon";
 import { BUSINESS_TYPES, formatPrice, type BusinessType, type Zone } from "@/lib/mock/data";
@@ -155,6 +156,7 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
           <Link href="/negocios" className="font-bold text-lagoon underline-offset-2 hover:underline">
             {t("client.businessLink")}
           </Link>
+          <LegalLinks className="w-full pt-2" />
         </footer>
       </main>
     </div>

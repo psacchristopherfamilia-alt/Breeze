@@ -45,6 +45,7 @@ export function LiveBooking({
         return r;
       }}
       accountPrompt={{ href: "/signup?next=/me" }}
+      captchaSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || undefined}
       manageHref={(r) => (r.guestToken ? `/b/${r.guestToken}` : "/me")}
     />
   );

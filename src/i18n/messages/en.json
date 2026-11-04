@@ -170,7 +170,8 @@
       "nothing_to_cancel": "This booking was already cancelled.",
       "nothing_to_reschedule": "This booking can't be moved.",
       "not_found": "Booking not found.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "captcha_failed": "We couldn't verify that you're a person. Please try again."
     },
     "deviceSaved": "We saved this booking on this device.",
     "deviceSavedHint": "When you come back you will see a \"My bookings\" button to change or cancel it.",
@@ -517,7 +518,8 @@
       "inviteUsed": "This invitation was already used.",
       "inviteExpired": "This invitation has expired. Ask the salon for a new one.",
       "inviteWrongAccount": "This invitation was sent to a different email or phone.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "acceptTerms": "You must accept the terms to register your business."
     }
   },
   "guest": {
@@ -759,6 +761,17 @@
       "invalid_status": "Invalid status.",
       "too_long": "Some text is too long.",
       "generic": "Couldn't complete that. Please try again."
+    }
+  },
+  "legal": {
+    "label": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "businessTerms": "Business terms",
+    "consent": {
+      "booking": "By booking you accept the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>.",
+      "signup": "By creating your account you accept the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>.",
+      "business": "I accept the <business>Business Terms</business>, the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>."
     }
   }
 }

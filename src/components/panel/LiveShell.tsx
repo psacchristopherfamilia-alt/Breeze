@@ -46,7 +46,10 @@ export function LiveShell({
     <div className="min-h-dvh bg-foam/50 lg:flex">
       <aside className="border-b border-breeze-100 bg-white lg:sticky lg:top-0 lg:flex lg:h-dvh lg:w-64 lg:shrink-0 lg:flex-col lg:border-b-0 lg:border-r">
         <div className="flex items-center justify-between px-4 py-3 lg:block lg:px-5 lg:py-6">
-          <Logo href="/dashboard" />
+          <span className="inline-flex items-center gap-2">
+            <Logo href="/dashboard" />
+            <span className="rounded-full border border-lagoon/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-lagoon">{t("tag")}</span>
+          </span>
           <div className="lg:hidden"><LocaleSwitcher /></div>
         </div>
         <div className="px-4 pb-3 lg:px-5">
@@ -96,6 +99,7 @@ export function LiveShell({
           )}
         </div>
         <form action={signOut} className="hidden px-5 pb-6 lg:block">
+          <input type="hidden" name="to" value="/negocios" />
           <button className="inline-flex items-center gap-2 text-sm font-semibold text-ink/50 hover:text-ink">
             <LogOut className="size-4" /> {t("signOut")}
           </button>

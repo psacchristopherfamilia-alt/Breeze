@@ -42,6 +42,10 @@ function SignUpForm() {
         {t("signup.haveAccount")}{" "}
         <Link href={`/login${next ? `?next=${encodeURIComponent(next)}` : ""}`} className="font-bold text-lagoon">{t("signup.login")}</Link>
       </p>
+      <p className="mt-2 text-center text-sm">
+        {t("login.isSalon")}{" "}
+        <Link href="/negocios" className="font-bold text-lagoon">{t("login.businessLink")}</Link>
+      </p>
     </section>
   );
 }

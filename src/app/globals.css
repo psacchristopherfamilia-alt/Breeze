@@ -7,6 +7,11 @@
   --color-lagoon: #0e7c86;
   --color-ink: #0f2a33;
 
+  /* Breeze Negocios: otro tono (azul marino y arena cálida) para que se note que es otra puerta. */
+  --color-marine: #0b2e36;
+  --color-marine-2: #123f49;
+  --color-glow: #f2bd8a;
+
   --color-breeze-50: #eefbfa;
   --color-breeze-100: #d5f4f2;
   --color-breeze-200: #ade8e5;

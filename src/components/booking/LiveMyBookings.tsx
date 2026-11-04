@@ -6,6 +6,7 @@ import { ClientHeader } from "@/components/ui/ClientHeader";
 import type { BookingSummary } from "@/lib/booking/types";
 import { useNow } from "@/lib/mock/store";
 import { BookingCard } from "./BookingCard";
+import { ClaimDeviceBookings } from "./ClaimDeviceBookings";
 
 export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
   const t = useTranslations();
@@ -19,6 +20,7 @@ export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
       <ClientHeader />
       <main className="mx-auto max-w-2xl px-4 py-8">
         <h1 className="text-3xl font-extrabold">{t("me.title")}</h1>
+        <ClaimDeviceBookings />
         {!now ? (
           <div className="mt-6 h-32 animate-pulse rounded-3xl bg-white" />
         ) : bookings.length === 0 ? (

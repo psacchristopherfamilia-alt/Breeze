@@ -21,7 +21,7 @@ export default function SalonSignUpPage() {
 
   return (
     <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-breeze-100 animate-fade-up">
-      <p className="text-xs font-bold uppercase tracking-widest text-breeze-600">{t("auth.salon.eyebrow")}</p>
+      <Link href="/negocios" className="text-xs font-bold text-lagoon hover:underline">← {t("auth.salon.eyebrow")}</Link>
       <h1 className="mt-1 text-2xl font-extrabold">{t("auth.salon.title")}</h1>
       <p className="mt-1 text-sm text-ink/60">{t("auth.salon.subtitle")}</p>
 

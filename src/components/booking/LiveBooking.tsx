@@ -1,6 +1,7 @@
 "use client";
 import { useMemo } from "react";
 import { confirmBooking, rescheduleBooking } from "@/app/booking-actions";
+import { saveDeviceToken } from "@/lib/booking/device";
 import type { BookingData } from "@/lib/booking/types";
 import { useNow } from "@/lib/mock/store";
 import { BookingFlow, type Account } from "./BookingFlow";
@@ -35,11 +36,15 @@ export function LiveBooking({
       account={account}
       loginHref={`/login?next=${next}`}
       reschedule={reschedule}
-      onConfirm={(req) =>
-        reschedule
-          ? rescheduleBooking({ groupId: reschedule.groupId, token: reschedule.token }, req.startsAt)
-          : confirmBooking(data.salon.id, req)
-      }
+      onConfirm={async (req) => {
+        const r = reschedule
+          ? await rescheduleBooking({ groupId: reschedule.groupId, token: reschedule.token }, req.startsAt)
+          : await confirmBooking(data.salon.id, req);
+        // Reserva de invitado: este navegador recuerda su enlace privado para mostrar "Mis citas".
+        if (r.ok && r.guestToken) saveDeviceToken(r.guestToken);
+        return r;
+      }}
+      accountPrompt={{ href: "/signup?next=/me" }}
       manageHref={(r) => (r.guestToken ? `/b/${r.guestToken}` : "/me")}
     />
   );

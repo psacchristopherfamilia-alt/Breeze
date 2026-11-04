@@ -32,17 +32,14 @@
     "tip2": "En otra pestaña, reserva en Coral Salon desde la app del cliente o crea una cita por teléfono en el panel.",
     "tip3": "Verás la alerta en Live al instante con el color del profesional. Activa el sonido con el botón del altavoz.",
     "reset": "Reiniciar datos del prototipo",
-    "resetDone": "Datos del prototipo reiniciados.",
-    "eyebrowLive": "Turks and Caicos",
-    "subtitleLive": "Reserva en barberías, salones y spas de Turks and Caicos en segundos. Sin llamadas ni esperas.",
-    "business": {
-      "title": "¿Tienes un salón, spa o barbería?",
-      "desc": "Registra tu negocio: agenda por profesional, reservas en línea, recordatorios y Breeze Live para tu TV."
-    }
+    "resetDone": "Datos del prototipo reiniciados."
   },
   "client": {
     "myBookings": "Mis citas",
-    "signIn": "Entrar"
+    "signIn": "Entrar",
+    "signOut": "Salir",
+    "forBusiness": "¿Tienes un negocio?",
+    "businessLink": "Breeze Negocios →"
   },
   "explore": {
     "title": "Encuentra tu próxima cita",
@@ -174,7 +171,10 @@
       "nothing_to_reschedule": "Esta cita no se puede mover.",
       "not_found": "No encontramos la cita.",
       "generic": "Algo salió mal. Inténtalo de nuevo."
-    }
+    },
+    "deviceSaved": "Guardamos esta cita en este dispositivo.",
+    "deviceSavedHint": "Cuando vuelvas verás el botón \"Mis citas\" para cambiarla o cancelarla.",
+    "createAccountCta": "Crear cuenta para verla en cualquier dispositivo"
   },
   "me": {
     "title": "Mis citas",
@@ -188,7 +188,13 @@
     "cancel": "Cancelar",
     "cancelConfirm": "¿Cancelar esta cita?",
     "windowPassed": "Quedan menos de {hours} h: para cambiarla, llama al salón al {phone}.",
-    "windowInfo": "Se permiten cambios hasta {hours} h antes."
+    "windowInfo": "Se permiten cambios hasta {hours} h antes.",
+    "guestEmpty": "Aún no tienes citas en este dispositivo.",
+    "guestOnlyHere": "Estas citas están guardadas solo en este dispositivo.",
+    "guestSaveHint": "Crea una cuenta para verlas en cualquier lugar.",
+    "guestCreateAccount": "Crear cuenta",
+    "guestHaveAccount": "Ya tengo cuenta",
+    "claimed": "{count, plural, one {Añadimos # cita de este dispositivo a tu cuenta.} other {Añadimos # citas de este dispositivo a tu cuenta.}}"
   },
   "status": {
     "booked": "Confirmada",
@@ -321,7 +327,8 @@
         "hours": "Poner horario",
         "publish": "Publicar"
       }
-    }
+    },
+    "tag": "Negocios"
   },
   "pros": {
     "title": "Profesionales",
@@ -437,7 +444,15 @@
       "noAccount": "¿Nuevo en Breeze?",
       "createAccount": "Crear una cuenta",
       "isSalon": "¿Tienes un salón, spa o barbería?",
-      "registerSalon": "Registra tu negocio"
+      "registerSalon": "Registra tu negocio",
+      "bizEyebrow": "Breeze Negocios",
+      "bizTitle": "Entra a tu panel",
+      "bizSubtitle": "Para dueños, administradores y equipo.",
+      "noBusiness": "¿Aún no tienes tu negocio en Breeze?",
+      "team": "¿Te invitaron a un equipo?",
+      "teamLink": "Únete a tu equipo",
+      "toClients": "¿Quieres reservar una cita? Breeze para clientes →",
+      "businessLink": "Breeze Negocios →"
     },
     "signup": {
       "title": "Crea tu cuenta",
@@ -448,7 +463,7 @@
       "login": "Entrar"
     },
     "salon": {
-      "eyebrow": "Breeze para negocios",
+      "eyebrow": "Breeze Negocios",
       "title": "Registra tu negocio",
       "subtitle": "Barberías, salones y spas en Turks and Caicos.",
       "you": "Tú (dueño)",
@@ -574,6 +589,42 @@
       "hint": "Se envían por WhatsApp (si el cliente aceptó), SMS o correo, firmados por Breeze. La confirmación y los avisos de cancelación se envían siempre.",
       "day": "24 horas antes",
       "twoHours": "2 horas antes"
+    }
+  },
+  "negocios": {
+    "tag": "Negocios",
+    "title": "Tu agenda, tu equipo y tu pantalla en vivo.",
+    "subtitle": "Para barberías, salones y spas de Turks and Caicos.",
+    "enter": {
+      "title": "Entrar a mi panel",
+      "desc": "Dueños y administradores"
+    },
+    "register": {
+      "title": "Registrar mi negocio",
+      "desc": "Crea tu cuenta y tu primera sucursal. 14 días de prueba gratis."
+    },
+    "team": {
+      "title": "Soy parte del equipo",
+      "desc": "Entra con tu invitación para ver tu agenda."
+    },
+    "perks": {
+      "agenda": "Agenda por colores para cada profesional",
+      "online": "Reservas en línea, sin dobles citas",
+      "reminders": "Recordatorios automáticos a tus clientes",
+      "live": "Breeze Live para la TV de tu local"
+    },
+    "toClients": "¿Quieres reservar una cita?",
+    "toClientsLink": "Breeze para clientes →",
+    "teamPage": {
+      "title": "Únete a tu equipo",
+      "body": "Tu dueño o administrador te envió un enlace de invitación por WhatsApp o correo. Pégalo aquí para unirte y ver tu agenda.",
+      "label": "Enlace de invitación",
+      "placeholder": "https://…/invite/…",
+      "invalid": "Ese enlace no parece una invitación de Breeze.",
+      "go": "Continuar",
+      "haveAccount": "¿Ya eres parte de un equipo?",
+      "signIn": "Entrar",
+      "back": "Breeze Negocios"
     }
   }
 }

@@ -31,7 +31,7 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Las exclusion constraints son `DEFERRABLE INITIALLY IMMEDIATE`: solo `private.reschedule_group` las difiere y las vuelve a comprobar (`set constraints … immediate`) antes de salir.
 - Regla de secuencia (varios servicios): cada uno empieza en fin + buffer del anterior. Idéntica en `planSequence()` (TS) y `private.plan_items()` (SQL).
 - La pantalla de reserva es una sola (`components/booking/BookingFlow.tsx`) con dos fuentes: `MockBooking` (prototipo) y `LiveBooking` (Supabase).
-- Invitados: token de 64 hex en el enlace `/b/[token]`; en BD solo su sha256. Máx. 2 reservas futuras por teléfono no verificado.
+- Invitados: token de 64 hex en el enlace `/b/[token]`; en BD solo su sha256. Máx. 2 reservas futuras por teléfono no verificado. `claim_guest_bookings` (authenticated) traspasa citas de invitado a una cuenta: 'claimed' | 'already' | 'not_found' | 'failed'.
 
 ## Panel (módulo 4)
 - RPC atómicas: `set_working_hours`, `set_professional_services`, `set_salon_published` (exige ≥1 profesional activo con horario y servicio). `is_published` NO se puede cambiar con UPDATE directo (GRANT por columnas).
@@ -58,6 +58,13 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Validación con zod en `src/lib/validation/` (compartida cliente/servidor). Teléfonos con `normalizePhone` (= `private.normalize_phone` en SQL).
 - Redirecciones solo internas con `safeNext`.
 - Sesiones anónimas ACTIVADAS solo para pantallas Breeze Live. Triggers `private.block_anonymous` en `organizations`, `memberships` (salvo rol `display`) y `customers` impiden que una sesión anónima cree negocios, acepte invitaciones o reserve.
+
+## Dos puertas (cliente / negocios)
+- Una sola app, dos entradas. **Cliente**: `/` → `/explore` (con Supabase; sin él, el hub del prototipo). **Breeze Negocios**: `/negocios` (dueños, administradores y equipo), con `/login?for=negocios`, `/signup/salon` y `/negocios/equipo` (pegar el enlace de invitación → `/invite/<token>`).
+- Misma cuenta para todo: ser dueño es tener una membresía, no otro tipo de usuario. `homeFor()` lleva a cada uno a su sitio (panel o `/me`). El cliente no ve nada de negocios salvo un enlace discreto "Breeze Negocios".
+- `/me` es pública. Sin cuenta lista las reservas de invitado de ESTE navegador; con cuenta, `my_bookings`.
+- Invitado: tras reservar, el token del enlace `/b/[token]` se guarda en `localStorage` (`breeze-guest-bookings`, `src/lib/booking/device.ts`, máx. 20). **Nunca se reconoce a nadie por IP** (hoteles y wifi compartida). Si luego inicia sesión, `ClaimDeviceBookings` llama a la RPC `claim_guest_bookings(tokens)` y las citas pasan a su cuenta (la sesión anónima de las TV no puede).
+- `signOut` recibe `to` (cliente → `/explore`, negocio → `/negocios`). La cabecera del cliente (`ClientHeader`) muestra "Mis citas" solo con cuenta o con citas guardadas en el dispositivo.
 
 ## Reglas técnicas no negociables
 1. **Prohibido el doble booking**: exclusion constraint `gist` (`professional_id =`, `tstzrange(starts_at, blocked_until, '[)') &&`) sobre citas no canceladas. No basta la validación en frontend.

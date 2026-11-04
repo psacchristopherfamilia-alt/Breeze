@@ -62,6 +62,7 @@ export function CreateBusiness() {
           </div>
         </section>
         <form action={signOut} className="mt-4 text-center">
+          <input type="hidden" name="to" value="/negocios" />
           <button className="text-sm font-semibold text-ink/50 underline">{t("panel.signOut")}</button>
         </form>
       </div>

@@ -594,6 +594,9 @@ isOneToOne: false
 "cancel_by_guest_token":
 { Args: { "p_reason"?: string,"p_token": string }; Returns: number
                            },
+"claim_guest_bookings":
+{ Args: { "p_tokens": (string)[] }; Returns: (string)[]
+                           },
 "claim_notification_jobs":
 { Args: { "p_limit"?: number }; Returns: Json[]
                            },

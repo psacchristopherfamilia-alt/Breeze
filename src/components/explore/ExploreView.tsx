@@ -149,6 +149,13 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
             </div>
           )}
         </section>
+
+        <footer className="mt-10 flex flex-wrap items-center justify-between gap-2 border-t border-breeze-100 pt-4 text-sm text-ink/60">
+          <span>{t("client.forBusiness")}</span>
+          <Link href="/negocios" className="font-bold text-lagoon underline-offset-2 hover:underline">
+            {t("client.businessLink")}
+          </Link>
+        </footer>
       </main>
     </div>
   );

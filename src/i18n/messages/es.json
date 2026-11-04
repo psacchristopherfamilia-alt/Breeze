@@ -300,6 +300,27 @@
       "category_mismatch": "Esa categoría no corresponde a tu tipo de negocio.",
       "invalid_code": "Ese código no es válido o caducó. Revisa la pantalla.",
       "too_many_pending": "Demasiadas pantallas esperando. Prueba más tarde."
+    },
+    "setup": {
+      "title": "Pasos para empezar a recibir reservas",
+      "hint": "Tu sucursal está oculta. Completa estos pasos y publícala para que los clientes te encuentren y reserven.",
+      "readyHint": "¡Todo listo! Publica tu sucursal para que los clientes te encuentren y reserven.",
+      "done": "hecho",
+      "pending": "pendiente",
+      "steps": {
+        "service": "Añade un servicio",
+        "professional": "Añade un profesional",
+        "assignment": "Asigna un servicio al profesional",
+        "hours": "Pon el horario semanal del profesional",
+        "publish": "Publica tu sucursal"
+      },
+      "go": {
+        "service": "Añadir servicio",
+        "professional": "Añadir profesional",
+        "assignment": "Asignar",
+        "hours": "Poner horario",
+        "publish": "Publicar"
+      }
     }
   },
   "pros": {

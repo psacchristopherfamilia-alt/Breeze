@@ -2,10 +2,23 @@
  * Aislamiento entre salones con Row Level Security: un salón jamás ve datos de otro,
  * un profesional solo ve su agenda, y lo público nunca expone teléfono, correo ni apellido.
  */
+import type pg from "pg";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { ID, anon, as, attempt, book, makePool, user } from "./support/db";
+import { ID, anon, as, asSuperuser, attempt, book, makePool, switchTo, user } from "./support/db";
 
 const pool = makePool();
+/** El catálogo público solo muestra negocios que pueden recibir reservas: les damos plan activo (se deshace con la transacción). */
+async function withActivePlans(c: pg.PoolClient) {
+  await asSuperuser(c);
+  await c.query(
+    `insert into public.subscriptions (organization_id, plan_code, status, current_period_end)
+     values ($1, 'studio', 'active', now() + interval '20 days'), ($2, 'solo', 'active', now() + interval '20 days')
+     on conflict (organization_id) do update set status = excluded.status, current_period_end = excluded.current_period_end`,
+    [ID.orgA, ID.orgB],
+  );
+  await switchTo(c, anon);
+}
+
 const DAY = "2027-01-12"; // martes
 const apps: Record<string, string> = {};
 
@@ -200,6 +213,7 @@ describe("clientes", () => {
 describe("visitante anónimo (catálogo público)", () => {
   it("ve salones publicados, servicios y profesionales con solo columnas públicas", async () => {
     await as(pool, anon, async (c) => {
+      await withActivePlans(c);
       expect((await c.query("select id from public.salons")).rowCount).toBe(3);
       expect((await c.query("select id from public.services")).rowCount).toBe(3);
       const pros = await c.query("select public_name, initials, color_hex from public.professionals order by public_name");
@@ -237,6 +251,7 @@ describe("visitante anónimo (catálogo público)", () => {
 describe("visitantes sin cuenta: catálogo público mínimo", () => {
   it("anon ve salones publicados pero no sus ajustes internos", async () => {
     await as(pool, anon, async (c) => {
+      await withActivePlans(c);
       const ok = await c.query("select id, name, slug, zone, phone from public.salons where is_published");
       expect(ok.rowCount).toBeGreaterThan(0);
       for (const col of ["organization_id", "no_show_threshold", "no_show_block_enabled", "reminder_offsets_min"]) {

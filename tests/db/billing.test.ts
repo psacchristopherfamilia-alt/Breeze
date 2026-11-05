@@ -250,6 +250,24 @@ describe("cortesías y parada manual", () => {
     expect((await c.query("select count(*)::int n from public.salons where organization_id = $1", [ID.orgB])).rows[0].n).toBeGreaterThan(0);
   });
 
+  it("un negocio suspendido desaparece del catálogo público, pero su personal lo sigue viendo", async () => {
+    const visible = async () => ({
+      salons: (await c.query("select 1 from public.salons where id = $1", [ID.salonB1])).rowCount,
+      services: (await c.query("select 1 from public.services where salon_id = $1", [ID.salonB1])).rowCount,
+    });
+    await asSuperuser(c);
+    await c.query("update public.salons set is_published = true where id = $1", [ID.salonB1]);
+    await switchTo(c, anon);
+    expect((await visible()).salons).toBe(1);
+
+    await asSuperuser(c);
+    await setSub(ID.orgB, "suspended", { period: "-30 days" });
+    await switchTo(c, anon);
+    expect(await visible()).toEqual({ salons: 0, services: 0 });
+    await switchTo(c, user(ID.ownerB));
+    expect((await visible()).salons).toBe(1);
+  });
+
   it("los datos de pago se guardan y tienen un máximo de longitud", async () => {
     await asAdmin();
     await c.query("select public.platform_save_settings('A', 'B', 'C', 'D', 'E')");

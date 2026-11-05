@@ -330,7 +330,8 @@
       "invalid_code": "That code isn't valid or has expired. Check the screen.",
       "too_many_pending": "Too many screens waiting. Try again later.",
       "payment_method_required": "Choose at least one way to get paid.",
-      "transfer_details_required": "Add the transfer details for bank transfers."
+      "transfer_details_required": "Add the transfer details for bank transfers.",
+      "services_required": "Pick at least one service."
     },
     "setup": {
       "title": "Steps to start receiving bookings",
@@ -867,5 +868,39 @@
     "seeSalons": "See salons",
     "home": "Back to start",
     "retry": "Try again"
+  },
+  "wizard": {
+    "step": "Step {a} of {b}",
+    "s1Title": "Your services",
+    "s1Hint": "Typical services for your business. Untick what you don't offer and adjust the prices. You can change everything later.",
+    "s1Have": "You already have services. Continue to set up the rest.",
+    "s2Title": "Your first professional",
+    "s2Hint": "This is who clients will book with. It can be you. You can add more people later.",
+    "s2Have": "You already have a professional. Continue to set the hours.",
+    "s3Title": "When do you work?",
+    "s3Hint": "Pick your open days and hours. Everyone starts with the same hours, and each professional can change theirs later.",
+    "opens": "Opens",
+    "closes": "Closes",
+    "everyDay": "Same hours every day",
+    "hoursLater": "Need different hours for someone? You can change them in Professionals.",
+    "s4Title": "Ready to open",
+    "s4Hint": "This is what we'll set up. You can publish now or save it and publish later.",
+    "sumServices": "{count} services added",
+    "sumServicesHave": "Your services are ready",
+    "sumPro": "{name} added as your first professional",
+    "sumProHave": "Your professional is ready",
+    "sumHours": "Open {days} days a week · {from} – {to}",
+    "publish": "Publish my salon",
+    "saveOnly": "Save without publishing",
+    "next": "Continue",
+    "back": "Back",
+    "skip": "Skip for now",
+    "publishedTitle": "Your salon is live!",
+    "publishedHint": "Print the QR for your mirror or counter, or share the link on WhatsApp.",
+    "viewPage": "See my booking page",
+    "goPanel": "Go to my panel",
+    "cta": "Set up your salon in 4 steps",
+    "ctaHint": "Services, your first professional and your hours. About 5 minutes.",
+    "ctaButton": "Start"
   }
 }

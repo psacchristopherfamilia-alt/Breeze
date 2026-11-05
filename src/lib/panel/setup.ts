@@ -35,3 +35,21 @@ export function computeSetupStatus(i: SetupInput): SetupStatus {
     isPublished: i.isPublished,
   };
 }
+
+export type HoursEntry = {
+  weekday: number;
+  start: string;
+  end: string;
+};
+
+/** Mismo tramo (p. ej. 09:00–18:00) para cada día elegido, sin repetidos y en orden lunes → domingo. */
+export function buildHours(days: number[], start: string, end: string): HoursEntry[] {
+  const order = [1, 2, 3, 4, 5, 6, 0];
+  const set = new Set(days.filter((d) => Number.isInteger(d) && d >= 0 && d <= 6));
+  return order.filter((d) => set.has(d)).map((weekday) => ({ weekday, start, end }));
+}
+
+/** El tramo es válido si abre antes de cerrar (formato HH:MM). */
+export function validRange(start: string, end: string): boolean {
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(start) && /^([01]\d|2[0-3]):[0-5]\d$/.test(end) && start < end;
+}

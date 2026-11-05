@@ -7,6 +7,7 @@ import type { SetupStatus } from "@/lib/panel/setup";
 /** "Pasos para empezar a recibir reservas": se ve en la agenda hasta que la sucursal se publica. */
 export function SetupChecklist({ status }: { status: SetupStatus }) {
   const t = useTranslations("panel.setup");
+  const tw = useTranslations("wizard");
   if (status.isPublished) return null;
 
   const steps = [
@@ -23,6 +24,15 @@ export function SetupChecklist({ status }: { status: SetupStatus }) {
     <section aria-labelledby="setup-title" className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-breeze-200">
       <h2 id="setup-title" className="text-lg font-extrabold">{t("title")}</h2>
       <p className="mt-1 text-sm text-ink/60">{t(ready ? "readyHint" : "hint")}</p>
+      {!status.hasService && !status.hasProfessional && (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-breeze-50 p-4">
+          <div>
+            <p className="font-bold">{tw("cta")}</p>
+            <p className="text-sm text-ink/60">{tw("ctaHint")}</p>
+          </div>
+          <Link href="/dashboard/setup" className="rounded-xl bg-lagoon px-5 py-2.5 text-sm font-bold text-white shadow hover:bg-breeze-800">{tw("ctaButton")}</Link>
+        </div>
+      )}
       <ol className="mt-4 space-y-2">
         {steps.map((s) => {
           const current = s.key === firstPending;

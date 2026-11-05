@@ -335,7 +335,13 @@
       "transfer_details_required": "Add the transfer details for bank transfers.",
       "services_required": "Pick at least one service.",
       "invalid_note": "Write something in the note (up to 1000 characters).",
-      "invalid_email": "Enter a valid email."
+      "invalid_email": "Enter a valid email.",
+      "photo_type": "Use a JPG, PNG or WebP photo.",
+      "photo_too_big": "That photo is too large (15 MB maximum).",
+      "photo_unreadable": "We couldn't read that photo. Try another one.",
+      "photo_upload_failed": "The upload failed. Check your connection and try again.",
+      "photo_limit": "You can have up to 9 photos in the gallery.",
+      "invalid_photo": "That photo isn't valid."
     },
     "setup": {
       "title": "Steps to start receiving bookings",
@@ -976,5 +982,30 @@
       "unsupported": "This browser can't show phone alerts. Try Chrome or Safari.",
       "error": "We couldn't turn on the alerts. Try again."
     }
+  },
+  "photos": {
+    "title": "Photos",
+    "hint": "Clients see these on your page. Photos are resized automatically, so any photo from your phone works.",
+    "logo": "Logo",
+    "addLogo": "Add logo",
+    "logoHint": "Square works best. It shows next to your name.",
+    "gallery": "Gallery",
+    "count": "{count} of {max}",
+    "dropHint": "Tap to add a photo or drop it here",
+    "full": "You reached the limit. Remove a photo to add another.",
+    "empty": "No photos yet. The first one you add becomes the cover.",
+    "cover": "Cover",
+    "makeCover": "Make cover",
+    "remove": "Remove",
+    "change": "Change",
+    "uploading": "Uploading…",
+    "photoN": "Salon photo {n}",
+    "removeN": "Remove photo {n}",
+    "proPhoto": "Photo",
+    "addPhoto": "Add photo",
+    "saveFirst": "Save first, then you can add a photo.",
+    "serviceHint": "Optional. Shows next to the service when clients book.",
+    "galleryLabel": "{name} photos",
+    "photoOf": "{name}, photo {n}"
   }
 }

@@ -10,7 +10,7 @@ type Client = Awaited<ReturnType<typeof createClient>>;
 export async function loadPros(supabase: Client, salonId: string, onlyActive = true) {
   let q = supabase
     .from("professionals")
-    .select("id, first_name, last_name, color_hex, title, is_active, accepts_online, sort_order, accepts_cash, accepts_card, accepts_transfer, payment_note")
+    .select("id, first_name, last_name, color_hex, title, is_active, accepts_online, sort_order, accepts_cash, accepts_card, accepts_transfer, payment_note, avatar_url")
     .eq("salon_id", salonId)
     .order("sort_order")
     .order("created_at");
@@ -35,6 +35,7 @@ export async function loadPros(supabase: Client, salonId: string, onlyActive = t
     acceptsCard: p.accepts_card,
     acceptsTransfer: p.accepts_transfer,
     paymentNote: p.payment_note ?? "",
+    photoPath: p.avatar_url,
     serviceIds: (links ?? []).filter((l) => l.professional_id === p.id).map((l) => l.service_id),
     hours: weeklyHoursFromRows(
       (hours ?? [])
@@ -48,7 +49,7 @@ export async function loadPros(supabase: Client, salonId: string, onlyActive = t
 export async function loadServices(supabase: Client, salonId: string, onlyActive = true) {
   let q = supabase
     .from("services")
-    .select("id, category_code, name_en, name_es, duration_min, buffer_min, price_cents, is_active, sort_order")
+    .select("id, category_code, name_en, name_es, duration_min, buffer_min, price_cents, is_active, sort_order, photo_path")
     .eq("salon_id", salonId)
     .order("sort_order")
     .order("created_at");
@@ -63,6 +64,7 @@ export async function loadServices(supabase: Client, salonId: string, onlyActive
     bufferMin: s.buffer_min,
     priceCents: s.price_cents,
     isActive: s.is_active,
+    photoPath: s.photo_path,
   }));
 }
 

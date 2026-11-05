@@ -13,6 +13,10 @@ export interface PublicSalon {
   rating?: number;
   reviews?: number;
   cover: [string, string];
+  /** Fotos reales del salón (URL pública). Sin ellas se usa el degradado `cover`. */
+  coverUrl?: string | null;
+  logoUrl?: string | null;
+  gallery?: string[];
   cancellationWindowHours: number;
   slotStepMin: number;
   minLeadMin: number;
@@ -27,6 +31,7 @@ export interface PublicService {
   durationMin: number;
   bufferMin: number;
   priceCents: number;
+  photoUrl?: string | null;
 }
 
 /** Profesional tal como lo ve el público: nombre + inicial del apellido, nunca más. */
@@ -48,6 +53,7 @@ export interface PublicPro {
   serviceIds: string[];
   hours: WeeklyHours;
   payment: ProPayment;
+  photoUrl?: string | null;
 }
 
 export interface BookingData {

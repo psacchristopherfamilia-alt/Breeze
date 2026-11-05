@@ -335,7 +335,13 @@
       "transfer_details_required": "Agrega los datos para transferir.",
       "services_required": "Elige al menos un servicio.",
       "invalid_note": "Escribe algo en la nota (hasta 1000 caracteres).",
-      "invalid_email": "Escribe un correo válido."
+      "invalid_email": "Escribe un correo válido.",
+      "photo_type": "Usa una foto JPG, PNG o WebP.",
+      "photo_too_big": "Esa foto es demasiado grande (máximo 15 MB).",
+      "photo_unreadable": "No pudimos leer esa foto. Prueba con otra.",
+      "photo_upload_failed": "No se pudo subir. Revisa tu conexión e inténtalo de nuevo.",
+      "photo_limit": "La galería admite hasta 9 fotos.",
+      "invalid_photo": "Esa foto no es válida."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -976,5 +982,30 @@
       "unsupported": "Este navegador no puede mostrar avisos en el teléfono. Prueba con Chrome o Safari.",
       "error": "No pudimos activar los avisos. Inténtalo de nuevo."
     }
+  },
+  "photos": {
+    "title": "Fotos",
+    "hint": "Tus clientes las ven en tu página. Las fotos se reducen solas, así que sirve cualquier foto del teléfono.",
+    "logo": "Logo",
+    "addLogo": "Añadir logo",
+    "logoHint": "Mejor si es cuadrado. Se ve junto a tu nombre.",
+    "gallery": "Galería",
+    "count": "{count} de {max}",
+    "dropHint": "Toca para añadir una foto o suéltala aquí",
+    "full": "Llegaste al límite. Quita una foto para añadir otra.",
+    "empty": "Todavía no hay fotos. La primera que añadas será la portada.",
+    "cover": "Portada",
+    "makeCover": "Hacer portada",
+    "remove": "Quitar",
+    "change": "Cambiar",
+    "uploading": "Subiendo…",
+    "photoN": "Foto {n} del salón",
+    "removeN": "Quitar la foto {n}",
+    "proPhoto": "Foto",
+    "addPhoto": "Añadir foto",
+    "saveFirst": "Guarda primero y luego podrás añadir una foto.",
+    "serviceHint": "Opcional. Se ve junto al servicio cuando el cliente reserva.",
+    "galleryLabel": "Fotos de {name}",
+    "photoOf": "{name}, foto {n}"
   }
 }

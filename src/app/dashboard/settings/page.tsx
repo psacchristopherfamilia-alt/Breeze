@@ -1,4 +1,5 @@
 import { LiveSettings } from "@/components/panel/LiveSettings";
+import { SalonPhotos } from "@/components/panel/SalonPhotos";
 import { PrototypeOnly } from "@/components/panel/PrototypeOnly";
 import { getPanelContext } from "@/lib/panel/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
@@ -9,18 +10,20 @@ export default async function SettingsPage() {
   const ctx = await getPanelContext();
   if (!ctx?.isManager) return null;
   const supabase = await createClient();
-  const [{ data: s }, { data: closures }, { data: devices }] = await Promise.all([
+  const [{ data: s }, { data: closures }, { data: devices }, { data: photos }] = await Promise.all([
     supabase
       .from("salons")
-      .select("id, name, slug, address, phone, zone, business_types, slot_step_min, min_lead_time_min, max_advance_days, cancellation_window_hours, no_show_block_enabled, no_show_threshold, reminder_offsets_min, is_published")
+      .select("id, name, slug, address, phone, zone, business_types, slot_step_min, min_lead_time_min, max_advance_days, cancellation_window_hours, no_show_block_enabled, no_show_threshold, reminder_offsets_min, is_published, logo_path, cover_path")
       .eq("id", ctx.current.salonId)
       .single(),
     supabase.from("salon_closures").select("id, starts_at, ends_at, reason_en").eq("salon_id", ctx.current.salonId).gt("ends_at", new Date().toISOString()).order("starts_at"),
     supabase.from("live_devices").select("id, name, paired_at, last_seen_at").eq("salon_id", ctx.current.salonId).not("paired_at", "is", null).is("revoked_at", null).order("paired_at"),
+    supabase.from("salon_photos").select("id, path").eq("salon_id", ctx.current.salonId).order("sort_order").order("created_at"),
   ]);
   if (!s) return null;
   return (
     <LiveSettings
+      photosSlot={<SalonPhotos salonId={s.id} name={s.name} logoPath={s.logo_path} coverPath={s.cover_path} photos={photos ?? []} />}
       salon={{
         id: s.id,
         slug: s.slug,

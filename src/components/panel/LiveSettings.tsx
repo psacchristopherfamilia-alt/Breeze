@@ -35,7 +35,9 @@ export function LiveSettings({
   salon,
   closures,
   devices,
+  photosSlot,
 }: {
+  photosSlot?: React.ReactNode;
   salon: Settings;
   closures: { id: string; start: string; end: string; reason: string | null }[];
   devices: { id: string; name: string; pairedAt: string; lastSeenAt: string | null }[];
@@ -84,6 +86,8 @@ export function LiveSettings({
       </section>
 
       {salon.isPublished && <SalonQr slug={salon.slug} name={salon.name} />}
+
+      {photosSlot}
 
       {/* Datos y políticas */}
       <section className="mt-5 space-y-4 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">

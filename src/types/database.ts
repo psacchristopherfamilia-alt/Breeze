@@ -507,16 +507,36 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
-                },"salons": {
+                },"salon_photos": {
                   Row: {
-                    "address": string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours": number,"created_at": string,"currency": string,"id": string,"is_published": boolean,"max_advance_days": number,"min_lead_time_min": number,"name": string,"no_show_block_enabled": boolean,"no_show_threshold": number,"organization_id": string,"phone": string | null,"reminder_offsets_min": (number)[],"search": unknown,"slot_step_min": number,"slug": string,"timezone": string,"updated_at": string,"zone": Database["public"]['Enums']["salon_zone"]
+                    "created_at": string,"id": string,"path": string,"salon_id": string,"sort_order": number
                   }
                   ComputedFields: never
                   Insert: {
-                    "address"?: string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"max_advance_days"?: number,"min_lead_time_min"?: number,"name": string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id": string,"phone"?: string | null,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug": string,"timezone"?: string,"updated_at"?: string,"zone": Database["public"]['Enums']["salon_zone"]
+                    "created_at"?: string,"id"?: string,"path": string,"salon_id": string,"sort_order"?: number
                   }
                   Update: {
-                    "address"?: string | null,"business_types"?: (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"max_advance_days"?: number,"min_lead_time_min"?: number,"name"?: string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id"?: string,"phone"?: string | null,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug"?: string,"timezone"?: string,"updated_at"?: string,"zone"?: Database["public"]['Enums']["salon_zone"]
+                    "created_at"?: string,"id"?: string,"path"?: string,"salon_id"?: string,"sort_order"?: number
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "salon_photos_salon_id_fkey"
+      columns: ["salon_id"]
+isOneToOne: false
+      referencedRelation: "salons"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"salons": {
+                  Row: {
+                    "address": string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours": number,"cover_path": string | null,"created_at": string,"currency": string,"id": string,"is_published": boolean,"logo_path": string | null,"max_advance_days": number,"min_lead_time_min": number,"name": string,"no_show_block_enabled": boolean,"no_show_threshold": number,"organization_id": string,"phone": string | null,"reminder_offsets_min": (number)[],"search": unknown,"slot_step_min": number,"slug": string,"timezone": string,"updated_at": string,"zone": Database["public"]['Enums']["salon_zone"]
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "address"?: string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"cover_path"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"logo_path"?: string | null,"max_advance_days"?: number,"min_lead_time_min"?: number,"name": string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id": string,"phone"?: string | null,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug": string,"timezone"?: string,"updated_at"?: string,"zone": Database["public"]['Enums']["salon_zone"]
+                  }
+                  Update: {
+                    "address"?: string | null,"business_types"?: (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"cover_path"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"logo_path"?: string | null,"max_advance_days"?: number,"min_lead_time_min"?: number,"name"?: string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id"?: string,"phone"?: string | null,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug"?: string,"timezone"?: string,"updated_at"?: string,"zone"?: Database["public"]['Enums']["salon_zone"]
                   }
                   Relationships: [
                     {
@@ -543,14 +563,14 @@ isOneToOne: false
                   ]
                 },"services": {
                   Row: {
-                    "buffer_min": number,"category_code": string,"created_at": string,"description_en": string | null,"description_es": string | null,"duration_min": number,"id": string,"is_active": boolean,"name_en": string,"name_es": string,"price_cents": number,"salon_id": string,"sort_order": number,"updated_at": string
+                    "buffer_min": number,"category_code": string,"created_at": string,"description_en": string | null,"description_es": string | null,"duration_min": number,"id": string,"is_active": boolean,"name_en": string,"name_es": string,"photo_path": string | null,"price_cents": number,"salon_id": string,"sort_order": number,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "buffer_min"?: number,"category_code": string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min": number,"id"?: string,"is_active"?: boolean,"name_en": string,"name_es": string,"price_cents": number,"salon_id": string,"sort_order"?: number,"updated_at"?: string
+                    "buffer_min"?: number,"category_code": string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min": number,"id"?: string,"is_active"?: boolean,"name_en": string,"name_es": string,"photo_path"?: string | null,"price_cents": number,"salon_id": string,"sort_order"?: number,"updated_at"?: string
                   }
                   Update: {
-                    "buffer_min"?: number,"category_code"?: string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min"?: number,"id"?: string,"is_active"?: boolean,"name_en"?: string,"name_es"?: string,"price_cents"?: number,"salon_id"?: string,"sort_order"?: number,"updated_at"?: string
+                    "buffer_min"?: number,"category_code"?: string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min"?: number,"id"?: string,"is_active"?: boolean,"name_en"?: string,"name_es"?: string,"photo_path"?: string | null,"price_cents"?: number,"salon_id"?: string,"sort_order"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     {

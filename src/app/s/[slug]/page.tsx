@@ -88,6 +88,7 @@ export default async function SalonPage({
     "@type": "HealthAndBeautyBusiness",
     name: data.salon.name,
     url: `${siteUrl()}/s/${slug}`,
+    ...(data.salon.coverUrl ? { image: data.salon.coverUrl } : {}),
     ...(data.salon.phone ? { telephone: data.salon.phone } : {}),
     ...(data.salon.address ? { address: { "@type": "PostalAddress", streetAddress: data.salon.address, addressCountry: "TC" } } : {}),
   };

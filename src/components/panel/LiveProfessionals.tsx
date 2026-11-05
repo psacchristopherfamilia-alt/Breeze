@@ -7,6 +7,8 @@ import { addTimeOff, deleteTimeOff, inviteProfessional, saveProfessional, setHou
 import { Modal } from "@/components/agenda/AgendaView";
 import { useAppLocale } from "@/components/Providers";
 import { ProBadge } from "@/components/ui/ProBadge";
+import { mediaUrl } from "@/lib/media";
+import { PhotoField } from "./PhotoField";
 import type { WeeklyHours } from "@/lib/availability";
 import { PRO_COLORS, withAlpha } from "@/lib/colors";
 import { formatPrice } from "@/lib/mock/data";
@@ -27,6 +29,7 @@ interface Pro {
   acceptsCard: boolean;
   acceptsTransfer: boolean;
   paymentNote: string;
+  photoPath: string | null;
   serviceIds: string[];
   hours: WeeklyHours;
 }
@@ -104,7 +107,7 @@ export function LiveProfessionals({
               <div className="h-2" style={{ backgroundColor: p.colorHex }} />
               <div className="p-5">
                 <div className="flex items-center gap-3">
-                  <ProBadge pro={p} size="lg" />
+                  <ProBadge pro={p} size="lg" photoUrl={mediaUrl(p.photoPath)} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-lg font-bold">{p.firstName} {p.lastName}</p>
                     <p className="text-sm text-ink/70">
@@ -281,6 +284,21 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
             })}
           </div>
         </div>
+        {pro ? (
+          <div>
+            <p className="mb-1 text-xs font-bold text-ink/70">{t("photos.proPhoto")}</p>
+            <PhotoField
+              salonId={salonId}
+              kind="pro"
+              targetId={pro.id}
+              path={pro.photoPath}
+              label={t("photos.addPhoto")}
+              fallback={<ProBadge pro={{ firstName: f.firstName || "?", lastName: f.lastName || "?", colorHex: f.colorHex }} size="lg" />}
+            />
+          </div>
+        ) : (
+          <p className="text-xs text-ink/70">{t("photos.saveFirst")}</p>
+        )}
         <div className="flex items-center gap-3 rounded-2xl bg-foam p-3">
           <ProBadge pro={{ firstName: f.firstName || "?", lastName: f.lastName || "?", colorHex: f.colorHex }} size="lg" />
           <div>

@@ -546,7 +546,12 @@
     "bufferHint": "Tiempo de preparación / limpieza tras el servicio: bloquea la agenda pero no se cobra.",
     "bufferShort": "prep.",
     "visible": "Visible para clientes",
-    "hidden": "oculto"
+    "hidden": "oculto",
+    "suggestedOpen": "+ Añadir servicios sugeridos",
+    "suggestedTitle": "Empieza con servicios sugeridos",
+    "suggestedHint": "Servicios típicos de tu tipo de negocio. Desmarca lo que no ofreces y ajusta los precios. Después puedes editar todo.",
+    "suggestedAdd": "Añadir {count} servicios",
+    "suggestedClose": "Cerrar"
   },
   "settings": {
     "title": "Ajustes",

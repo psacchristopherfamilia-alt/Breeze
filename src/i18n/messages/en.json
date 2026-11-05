@@ -546,7 +546,12 @@
     "bufferHint": "Prep / cleaning time after the service: blocks the agenda but isn't charged.",
     "bufferShort": "prep",
     "visible": "Visible to clients",
-    "hidden": "hidden"
+    "hidden": "hidden",
+    "suggestedOpen": "+ Add suggested services",
+    "suggestedTitle": "Start with suggested services",
+    "suggestedHint": "Typical services for your type of business. Untick what you don't offer and adjust the prices. You can edit everything later.",
+    "suggestedAdd": "Add {count} services",
+    "suggestedClose": "Close"
   },
   "settings": {
     "title": "Settings",

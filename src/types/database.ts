@@ -409,14 +409,14 @@ isOneToOne: false
                   ]
                 },"professionals": {
                   Row: {
-                    "accepts_online": boolean,"avatar_url": string | null,"bio_en": string | null,"bio_es": string | null,"color_hex": string,"created_at": string,"first_name": string,"id": string,"initials": string | null,"is_active": boolean,"last_name": string,"public_name": string | null,"salon_id": string,"sort_order": number,"title": Database["public"]['Enums']["pro_title"],"updated_at": string
+                    "accepts_card": boolean,"accepts_cash": boolean,"accepts_online": boolean,"accepts_transfer": boolean,"avatar_url": string | null,"bio_en": string | null,"bio_es": string | null,"color_hex": string,"created_at": string,"first_name": string,"id": string,"initials": string | null,"is_active": boolean,"last_name": string,"payment_note": string | null,"public_name": string | null,"salon_id": string,"sort_order": number,"title": Database["public"]['Enums']["pro_title"],"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "accepts_online"?: boolean,"avatar_url"?: string | null,"bio_en"?: string | null,"bio_es"?: string | null,"color_hex": string,"created_at"?: string,"first_name": string,"id"?: string,"initials"?: never,"is_active"?: boolean,"last_name"?: string,"public_name"?: never,"salon_id": string,"sort_order"?: number,"title"?: Database["public"]['Enums']["pro_title"],"updated_at"?: string
+                    "accepts_card"?: boolean,"accepts_cash"?: boolean,"accepts_online"?: boolean,"accepts_transfer"?: boolean,"avatar_url"?: string | null,"bio_en"?: string | null,"bio_es"?: string | null,"color_hex": string,"created_at"?: string,"first_name": string,"id"?: string,"initials"?: never,"is_active"?: boolean,"last_name"?: string,"payment_note"?: string | null,"public_name"?: never,"salon_id": string,"sort_order"?: number,"title"?: Database["public"]['Enums']["pro_title"],"updated_at"?: string
                   }
                   Update: {
-                    "accepts_online"?: boolean,"avatar_url"?: string | null,"bio_en"?: string | null,"bio_es"?: string | null,"color_hex"?: string,"created_at"?: string,"first_name"?: string,"id"?: string,"initials"?: never,"is_active"?: boolean,"last_name"?: string,"public_name"?: never,"salon_id"?: string,"sort_order"?: number,"title"?: Database["public"]['Enums']["pro_title"],"updated_at"?: string
+                    "accepts_card"?: boolean,"accepts_cash"?: boolean,"accepts_online"?: boolean,"accepts_transfer"?: boolean,"avatar_url"?: string | null,"bio_en"?: string | null,"bio_es"?: string | null,"color_hex"?: string,"created_at"?: string,"first_name"?: string,"id"?: string,"initials"?: never,"is_active"?: boolean,"last_name"?: string,"payment_note"?: string | null,"public_name"?: never,"salon_id"?: string,"sort_order"?: number,"title"?: Database["public"]['Enums']["pro_title"],"updated_at"?: string
                   }
                   Relationships: [
                     {

@@ -10,7 +10,7 @@ type Client = Awaited<ReturnType<typeof createClient>>;
 export async function loadPros(supabase: Client, salonId: string, onlyActive = true) {
   let q = supabase
     .from("professionals")
-    .select("id, first_name, last_name, color_hex, title, is_active, accepts_online, sort_order")
+    .select("id, first_name, last_name, color_hex, title, is_active, accepts_online, sort_order, accepts_cash, accepts_card, accepts_transfer, payment_note")
     .eq("salon_id", salonId)
     .order("sort_order")
     .order("created_at");
@@ -31,6 +31,10 @@ export async function loadPros(supabase: Client, salonId: string, onlyActive = t
     title: p.title as string,
     isActive: p.is_active,
     acceptsOnline: p.accepts_online,
+    acceptsCash: p.accepts_cash,
+    acceptsCard: p.accepts_card,
+    acceptsTransfer: p.accepts_transfer,
+    paymentNote: p.payment_note ?? "",
     serviceIds: (links ?? []).filter((l) => l.professional_id === p.id).map((l) => l.service_id),
     hours: weeklyHoursFromRows(
       (hours ?? [])

@@ -14,6 +14,13 @@ test("un invitado reserva un corte y después esa hora ya no está libre", async
   await slots.first().click();
   await page.getByRole("button", { name: "Continue" }).click();
 
+  // Antes de confirmar, el cliente ve cómo pagará a ese profesional.
+  await expect(page.getByText("How you'll pay")).toBeVisible();
+  await expect(page.getByText("Cash", { exact: true })).toBeVisible();
+  await expect(page.getByText("Card", { exact: true })).toBeVisible();
+  await expect(page.getByText("Bank transfer", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Demo Bank/)).toBeVisible();
+
   await page.getByRole("button", { name: "Continue as guest" }).click();
   const [firstName, lastName] = await page.locator("input[type=text]").all();
   await firstName.fill("Ashley");
@@ -23,6 +30,8 @@ test("un invitado reserva un corte y después esa hora ya no está libre", async
   await page.getByRole("button", { name: "Confirm booking" }).click();
 
   await expect(page.getByText(/booked|confirmed|you're all set/i).first()).toBeVisible();
+  // La confirmación repite los datos de pago.
+  await expect(page.getByText(/Demo Bank/)).toBeVisible();
 
   // Misma profesional, mismo día: la hora reservada ya no se ofrece (nunca hay doble reserva).
   await page.goto("/s/island-fade");

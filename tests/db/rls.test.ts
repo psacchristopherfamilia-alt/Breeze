@@ -284,3 +284,22 @@ describe("dos negocios: ninguno toca al otro, ni llamando a las funciones", () =
     });
   });
 });
+
+describe("marca de administrador de la plataforma", () => {
+  it("cada persona solo lee la suya y no puede ponérsela", async () => {
+    await as(pool, user(ID.ownerA), async (c) => {
+      await asSuperuser(c);
+      await c.query("update public.profiles set is_platform_admin = true where id = $1", [ID.ownerA]);
+      await switchTo(c, user(ID.ownerA));
+      const mine = await c.query("select is_platform_admin from public.profiles where id = $1", [ID.ownerA]);
+      expect(mine.rows[0].is_platform_admin).toBe(true);
+      // No ve el perfil de otra persona.
+      expect((await c.query("select 1 from public.profiles where id = $1", [ID.ownerB])).rowCount).toBe(0);
+    });
+    await as(pool, user(ID.ownerB), async (c) => {
+      const mine = await c.query("select is_platform_admin from public.profiles where id = $1", [ID.ownerB]);
+      expect(mine.rows[0].is_platform_admin).toBe(false);
+      expect(await attempt(c, () => c.query("update public.profiles set is_platform_admin = true where id = $1", [ID.ownerB]))).toBe("42501");
+    });
+  });
+});

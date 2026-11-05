@@ -93,12 +93,19 @@ const proSchema = z.object({
   colorHex: z.enum(PRO_COLORS.map((c) => c.hex) as [string, ...string[]]),
   isActive: z.boolean().default(true),
   acceptsOnline: z.boolean().default(true),
+  acceptsCash: z.boolean().default(true),
+  acceptsCard: z.boolean().default(false),
+  acceptsTransfer: z.boolean().default(false),
+  paymentNote: z.string().trim().max(400).default(""),
 });
 
 export async function saveProfessional(input: z.input<typeof proSchema>): Promise<Result<{ id?: string }>> {
   const p = proSchema.safeParse(input);
   if (!p.success) return { ok: false, error: "invalid_form" };
   const d = p.data;
+  // Al menos una forma de pago, y la transferencia necesita sus datos.
+  if (!d.acceptsCash && !d.acceptsCard && !d.acceptsTransfer) return { ok: false, error: "payment_method_required" };
+  if (d.acceptsTransfer && !d.paymentNote) return { ok: false, error: "transfer_details_required" };
   const row = {
     first_name: d.firstName,
     last_name: d.lastName,
@@ -106,6 +113,10 @@ export async function saveProfessional(input: z.input<typeof proSchema>): Promis
     color_hex: d.colorHex,
     is_active: d.isActive,
     accepts_online: d.acceptsOnline,
+    accepts_cash: d.acceptsCash,
+    accepts_card: d.acceptsCard,
+    accepts_transfer: d.acceptsTransfer,
+    payment_note: d.paymentNote || null,
   };
   const supabase = await createClient();
   if (d.id) {

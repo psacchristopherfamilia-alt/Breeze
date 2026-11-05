@@ -40,6 +40,7 @@ export function mockBookingData(slug: string): BookingData | null {
       title: p.title,
       serviceIds: p.serviceIds,
       hours: p.hours,
+      payment: p.payment ?? { cash: true, card: false, transfer: false, note: null },
     })),
   };
 }

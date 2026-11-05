@@ -175,7 +175,15 @@
     },
     "deviceSaved": "Guardamos esta cita en este dispositivo.",
     "deviceSavedHint": "Cuando vuelvas verás el botón \"Mis citas\" para cambiarla o cancelarla.",
-    "createAccountCta": "Crear cuenta para verla en cualquier dispositivo"
+    "createAccountCta": "Crear cuenta para verla en cualquier dispositivo",
+    "payTitle": "Cómo pagarás",
+    "payDirect": "Le pagas directamente a {name}. Breeze no te cobra nada.",
+    "pay": {
+      "cash": "Efectivo",
+      "card": "Tarjeta",
+      "transfer": "Transferencia"
+    },
+    "payTransferDetails": "Datos para transferir"
   },
   "me": {
     "title": "Mis citas",
@@ -220,7 +228,8 @@
       "professionals": "Profesionales",
       "services": "Servicios",
       "settings": "Ajustes",
-      "billing": "Plan y pagos"
+      "billing": "Plan y pagos",
+      "admin": "Administración"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
@@ -314,7 +323,9 @@
       "invalid_range": "Revisa las fechas.",
       "category_mismatch": "Esa categoría no corresponde a tu tipo de negocio.",
       "invalid_code": "Ese código no es válido o caducó. Revisa la pantalla.",
-      "too_many_pending": "Demasiadas pantallas esperando. Prueba más tarde."
+      "too_many_pending": "Demasiadas pantallas esperando. Prueba más tarde.",
+      "payment_method_required": "Elige al menos una forma de cobrar.",
+      "transfer_details_required": "Agrega los datos para transferir."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -394,7 +405,12 @@
     "to": "Hasta",
     "reason": "Motivo (opcional)",
     "reasonPlaceholder": "Vacaciones, formación…",
-    "timeOffHint": "Días completos. Los clientes no podrán reservar esos días."
+    "timeOffHint": "Días completos. Los clientes no podrán reservar esos días.",
+    "paymentTitle": "Cómo cobra este profesional",
+    "paymentHint": "Los clientes lo ven al reservar. Breeze no cobra ni procesa pagos.",
+    "transferDetails": "Datos para transferir",
+    "transferPlaceholder": "Banco, número de cuenta, nombre y a dónde enviar el comprobante",
+    "transferPublic": "Lo ve cualquiera que abra tu página de reservas. No escribas nada que no le darías a un cliente."
   },
   "weekdays": {
     "0": "Dom",

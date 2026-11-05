@@ -19,7 +19,17 @@ export async function appOrigin(): Promise<string> {
 /** A dónde va cada usuario al entrar: personal del salón → panel; cliente → sus citas. */
 export async function homeFor(supabase: Client): Promise<string> {
   const { data } = await supabase.rpc("my_context");
-  return data && data.length > 0 ? "/dashboard" : "/me";
+  if (data && data.length > 0) return "/dashboard";
+  // El administrador de la plataforma sin negocio propio entra directo a su panel.
+  return (await isPlatformAdmin(supabase)) ? "/admin" : "/me";
+}
+
+/** ¿La sesión actual es de administrador de la plataforma? (profiles.is_platform_admin; solo se pone por SQL). */
+export async function isPlatformAdmin(supabase: Client): Promise<boolean> {
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user || auth.user.is_anonymous) return false;
+  const { data } = await supabase.from("profiles").select("is_platform_admin").eq("id", auth.user.id).maybeSingle();
+  return data?.is_platform_admin === true;
 }
 
 /**

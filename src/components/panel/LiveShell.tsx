@@ -1,5 +1,5 @@
 "use client";
-import { Building2, CalendarDays, CreditCard, LogOut, MonitorPlay, Scissors, Settings, Users } from "lucide-react";
+import { Building2, CalendarDays, CreditCard, LogOut, MonitorPlay, Scissors, Settings, ShieldCheck, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -23,6 +23,7 @@ export function LiveShell({
   salons,
   current,
   isManager,
+  isAdmin = false,
   subscription,
   notice,
   children,
@@ -30,6 +31,8 @@ export function LiveShell({
   salons: PanelSalon[];
   current: PanelSalon;
   isManager: boolean;
+  /** Administrador de la plataforma: ve el enlace a /admin (nadie más lo ve). */
+  isAdmin?: boolean;
   subscription: ShellSubscription | null;
   notice: BillingNotice | null;
   children: React.ReactNode;
@@ -45,6 +48,7 @@ export function LiveShell({
     { href: "/dashboard/settings", icon: Settings, label: t("nav.settings"), show: isManager },
     { href: "/dashboard/billing", icon: CreditCard, label: t("nav.billing"), show: !!subscription }, // solo el dueño
     { href: `/live/${current.salonSlug}`, icon: MonitorPlay, label: "Breeze Live", show: true },
+    { href: "/admin", icon: ShieldCheck, label: t("nav.admin"), show: isAdmin },
   ].filter((n) => n.show);
 
   return (

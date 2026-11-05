@@ -1,3 +1,4 @@
+import { isPlatformAdmin } from "@/lib/auth/server";
 import { DashboardShell } from "@/components/agenda/DashboardShell";
 import { CreateBusiness } from "@/components/panel/CreateBusiness";
 import { LiveShell, type ShellSubscription } from "@/components/panel/LiveShell";
@@ -11,6 +12,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   const ctx = await getPanelContext();
   if (!ctx) return <CreateBusiness />;
+
+  const supabaseForRole = await createClient();
+  const isAdmin = await isPlatformAdmin(supabaseForRole);
 
   let subscription: ShellSubscription | null = null;
   let notice: BillingNotice | null = null;
@@ -31,7 +35,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <LiveShell salons={ctx.salons} current={ctx.current} isManager={ctx.isManager} subscription={subscription} notice={notice}>
+    <LiveShell salons={ctx.salons} current={ctx.current} isManager={ctx.isManager} isAdmin={isAdmin} subscription={subscription} notice={notice}>
       {children}
     </LiveShell>
   );

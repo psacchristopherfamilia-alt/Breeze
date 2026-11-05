@@ -195,7 +195,13 @@
     "guestSaveHint": "Create an account to see them anywhere.",
     "guestCreateAccount": "Create account",
     "guestHaveAccount": "I already have an account",
-    "claimed": "{count, plural, one {We added # booking from this device to your account.} other {We added # bookings from this device to your account.}}"
+    "claimed": "{count, plural, one {We added # booking from this device to your account.} other {We added # bookings from this device to your account.}}",
+    "privacyTitle": "Your data",
+    "privacyHint": "Download everything Breeze keeps about you, or delete your account. Past bookings stay with the business without your personal details; upcoming ones are cancelled.",
+    "downloadData": "Download my data",
+    "deleteAccount": "Delete my account",
+    "deleteWarning": "This can't be undone. Your upcoming bookings will be cancelled and your account removed.",
+    "deleteConfirm": "Yes, delete my account"
   },
   "status": {
     "booked": "Confirmed",
@@ -519,7 +525,8 @@
       "inviteExpired": "This invitation has expired. Ask the salon for a new one.",
       "inviteWrongAccount": "This invitation was sent to a different email or phone.",
       "generic": "Something went wrong. Please try again.",
-      "acceptTerms": "You must accept the terms to register your business."
+      "acceptTerms": "You must accept the terms to register your business.",
+      "accountOwnerCannotDelete": "You own a business on Breeze. Contact us to close the business first."
     }
   },
   "guest": {

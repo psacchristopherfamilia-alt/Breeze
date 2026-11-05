@@ -195,7 +195,13 @@
     "guestSaveHint": "Crea una cuenta para verlas en cualquier lugar.",
     "guestCreateAccount": "Crear cuenta",
     "guestHaveAccount": "Ya tengo cuenta",
-    "claimed": "{count, plural, one {Añadimos # cita de este dispositivo a tu cuenta.} other {Añadimos # citas de este dispositivo a tu cuenta.}}"
+    "claimed": "{count, plural, one {Añadimos # cita de este dispositivo a tu cuenta.} other {Añadimos # citas de este dispositivo a tu cuenta.}}",
+    "privacyTitle": "Tus datos",
+    "privacyHint": "Descarga todo lo que Breeze guarda de ti, o borra tu cuenta. Las citas pasadas se quedan en el negocio sin tus datos personales; las próximas se cancelan.",
+    "downloadData": "Descargar mis datos",
+    "deleteAccount": "Borrar mi cuenta",
+    "deleteWarning": "No se puede deshacer. Tus próximas citas se cancelarán y tu cuenta se eliminará.",
+    "deleteConfirm": "Sí, borrar mi cuenta"
   },
   "status": {
     "booked": "Confirmada",
@@ -519,7 +525,8 @@
       "inviteExpired": "Esta invitación caducó. Pide una nueva al salón.",
       "inviteWrongAccount": "Esta invitación se envió a otro correo o teléfono.",
       "generic": "Algo salió mal. Inténtalo de nuevo.",
-      "acceptTerms": "Debes aceptar los términos para registrar tu negocio."
+      "acceptTerms": "Debes aceptar los términos para registrar tu negocio.",
+      "accountOwnerCannotDelete": "Eres dueño de un negocio en Breeze. Escríbenos para cerrar primero el negocio."
     }
   },
   "guest": {

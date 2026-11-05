@@ -1,5 +1,6 @@
 "use client";
 import { Banknote, CalendarClock, Receipt } from "lucide-react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAppLocale } from "@/components/Providers";
 import { billingDate, type OwnerBilling } from "@/lib/billing";
@@ -102,6 +103,9 @@ export function BillingView({ data }: { data: OwnerBilling }) {
                   <span className="block text-xs text-ink/50">{dateOf(i.period_start, locale)} – {dateOf(i.period_end, locale)}</span>
                 </span>
                 <span className="flex items-center gap-3">
+                  {i.status !== "void" && (
+                    <Link href={`/dashboard/billing/${i.number}`} className="text-xs font-bold text-lagoon hover:underline">{t("viewDocument")}</Link>
+                  )}
                   <b>{formatPrice(i.amount_cents)}</b>
                   <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${i.status === "paid" ? "bg-green-50 text-green-700" : i.status === "void" ? "bg-ink/5 text-ink/50" : "bg-amber-50 text-amber-800"}`}>{t(`invoiceStatus.${i.status}`)}</span>
                 </span>

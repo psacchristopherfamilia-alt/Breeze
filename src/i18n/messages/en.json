@@ -691,7 +691,19 @@
       "bank_transfer": "Bank transfer",
       "cash": "Cash",
       "other": "Other"
-    }
+    },
+    "print": "Print / Save as PDF",
+    "receiptTitle": "Receipt",
+    "invoiceTitle": "Invoice",
+    "billedTo": "Billed to",
+    "paidOn": "Paid on",
+    "dueOn": "Due on",
+    "concept": "Concept",
+    "amount": "Amount",
+    "total": "Total",
+    "paidNote": "Paid. Thank you!",
+    "useReference": "Please use {number} as the payment reference.",
+    "viewDocument": "View / print"
   },
   "admin": {
     "tag": "Admin",

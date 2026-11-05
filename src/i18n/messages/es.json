@@ -691,7 +691,19 @@
       "bank_transfer": "Transferencia",
       "cash": "Efectivo",
       "other": "Otro"
-    }
+    },
+    "print": "Imprimir / Guardar como PDF",
+    "receiptTitle": "Recibo",
+    "invoiceTitle": "Factura",
+    "billedTo": "Facturado a",
+    "paidOn": "Pagada el",
+    "dueOn": "Vence el",
+    "concept": "Concepto",
+    "amount": "Importe",
+    "total": "Total",
+    "paidNote": "Pagado. ¡Gracias!",
+    "useReference": "Usa {number} como referencia del pago.",
+    "viewDocument": "Ver / imprimir"
   },
   "admin": {
     "tag": "Administración",

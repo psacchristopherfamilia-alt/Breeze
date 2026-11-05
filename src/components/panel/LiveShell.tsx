@@ -1,5 +1,5 @@
 "use client";
-import { Building2, CalendarDays, CreditCard, LogOut, MonitorPlay, Scissors, Settings, ShieldCheck, Users } from "lucide-react";
+import { Building2, CalendarDays, Contact, CreditCard, LogOut, MonitorPlay, Scissors, Settings, ShieldCheck, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -43,6 +43,7 @@ export function LiveShell({
 
   const nav = [
     { href: "/dashboard", icon: CalendarDays, label: t("nav.agenda"), show: true },
+    { href: "/dashboard/clients", icon: Contact, label: t("nav.clients"), show: true },
     { href: "/dashboard/professionals", icon: Users, label: t("nav.professionals"), show: isManager },
     { href: "/dashboard/services", icon: Scissors, label: t("nav.services"), show: isManager },
     { href: "/dashboard/settings", icon: Settings, label: t("nav.settings"), show: isManager },

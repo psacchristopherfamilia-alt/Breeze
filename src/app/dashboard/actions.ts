@@ -268,6 +268,64 @@ export async function addServiceTemplates(input: z.input<typeof templatesSchema>
   return error ? fail(error) : done();
 }
 
+// ─── Ficha del cliente ─────────────────────────────────────────────────────
+
+const customerSchema = z.object({
+  id: uuid,
+  firstName: z.string().trim().min(1).max(60),
+  lastName: z.string().trim().max(60),
+  phone: z.string(),
+  email: z.string().trim().max(200),
+  locale: z.enum(["en", "es"]),
+  whatsappOptIn: z.boolean(),
+  marketingOptIn: z.boolean(),
+});
+
+/** Corrige los datos de contacto y los permisos de un cliente. Solo dueño/administrador (lo exige la RLS). */
+export async function saveCustomer(input: z.input<typeof customerSchema>): Promise<Result> {
+  const p = customerSchema.safeParse(input);
+  if (!p.success) return { ok: false, error: "invalid_form" };
+  const d = p.data;
+  const phone = normalizePhone(d.phone);
+  if (!phone) return { ok: false, error: "phone_required" };
+  if (d.email && !z.string().email().safeParse(d.email).success) return { ok: false, error: "invalid_email" };
+  const supabase = await createClient();
+  const { error, count } = await supabase
+    .from("customers")
+    .update(
+      { first_name: d.firstName, last_name: d.lastName, phone, email: d.email || null, locale: d.locale, whatsapp_opt_in: d.whatsappOptIn, marketing_opt_in: d.marketingOptIn },
+      { count: "exact" },
+    )
+    .eq("id", d.id);
+  if (error) return fail(error);
+  if (!count) return { ok: false, error: "forbidden" };
+  revalidatePath("/dashboard/clients", "layout");
+  return { ok: true };
+}
+
+/** Nueva nota privada. El autor y su nombre los pone la base de datos. */
+export async function addCustomerNote(customerId: string, body: string): Promise<Result> {
+  const text = z.string().trim().min(1).max(1000).safeParse(body);
+  if (!text.success) return { ok: false, error: "invalid_note" };
+  const supabase = await createClient();
+  const { data: customer } = await supabase.from("customers").select("organization_id").eq("id", uuid.parse(customerId)).maybeSingle();
+  if (!customer) return { ok: false, error: "forbidden" };
+  const { error } = await supabase.from("customer_notes").insert({ customer_id: customerId, organization_id: customer.organization_id, body: text.data });
+  if (error) return fail(error);
+  revalidatePath(`/dashboard/clients/${customerId}`);
+  return { ok: true };
+}
+
+/** Solo su autor puede borrar una nota (la RLS lo exige). */
+export async function deleteCustomerNote(noteId: string, customerId: string): Promise<Result> {
+  const supabase = await createClient();
+  const { error, count } = await supabase.from("customer_notes").delete({ count: "exact" }).eq("id", uuid.parse(noteId));
+  if (error) return fail(error);
+  if (!count) return { ok: false, error: "forbidden" };
+  revalidatePath(`/dashboard/clients/${uuid.parse(customerId)}`);
+  return { ok: true };
+}
+
 // ─── Asistente de arranque ─────────────────────────────────────────────────
 
 const setupSchema = z.object({

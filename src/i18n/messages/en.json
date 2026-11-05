@@ -234,7 +234,8 @@
       "services": "Services",
       "settings": "Settings",
       "billing": "Plan & payments",
-      "admin": "Administration"
+      "admin": "Administration",
+      "clients": "Clients"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
@@ -280,7 +281,8 @@
       "noShow": "No-show",
       "cancel": "Cancel",
       "startedHint": "Mark it as completed or no-show once it has started.",
-      "futureHint": "You can cancel it before it starts; the client will be notified."
+      "futureHint": "You can cancel it before it starts; the client will be notified.",
+      "viewClient": "View client file"
     },
     "new": {
       "title": "New phone / walk-in booking",
@@ -331,7 +333,9 @@
       "too_many_pending": "Too many screens waiting. Try again later.",
       "payment_method_required": "Choose at least one way to get paid.",
       "transfer_details_required": "Add the transfer details for bank transfers.",
-      "services_required": "Pick at least one service."
+      "services_required": "Pick at least one service.",
+      "invalid_note": "Write something in the note (up to 1000 characters).",
+      "invalid_email": "Enter a valid email."
     },
     "setup": {
       "title": "Steps to start receiving bookings",
@@ -902,5 +906,54 @@
     "cta": "Set up your salon in 4 steps",
     "ctaHint": "Services, your first professional and your hours. About 5 minutes.",
     "ctaButton": "Start"
+  },
+  "clients": {
+    "title": "Clients",
+    "subtitleManager": "Everyone who has booked with your business.",
+    "subtitlePro": "The clients you take care of.",
+    "search": "Search by name or phone",
+    "count": "{count, plural, =0 {No clients} one {# client} other {# clients}}",
+    "resultsFor": "{count, plural, =0 {No matches} one {# match} other {# matches}} for “{q}”",
+    "noMatches": "Nobody matches that search.",
+    "empty": "No clients yet. They show up here after their first booking.",
+    "visits": "{count, plural, =0 {No visits yet} one {# visit} other {# visits}}",
+    "lastVisit": "last visit {when}",
+    "nextVisit": "next {when}",
+    "ago": {
+      "today": "today",
+      "yesterday": "yesterday",
+      "days": "{count} days ago",
+      "weeks": "{count, plural, one {# week} other {# weeks}} ago",
+      "months": "{count, plural, one {# month} other {# months}} ago",
+      "years": "{count, plural, one {# year} other {# years}} ago"
+    },
+    "contact": "Contact and permissions",
+    "edit": "Edit",
+    "save": "Save",
+    "phone": "Phone",
+    "email": "Email",
+    "language": "Language",
+    "lang": {
+      "en": "English",
+      "es": "Spanish"
+    },
+    "whatsapp": "Accepts WhatsApp reminders",
+    "marketing": "Accepts promotions",
+    "yes": "Yes",
+    "no": "No",
+    "call": "Call",
+    "editOnlyManagers": "Only the owner or an administrator can change these details.",
+    "notes": "Private notes",
+    "notesPrivate": "The client never sees these",
+    "noNotes": "No notes yet.",
+    "newNote": "New note",
+    "notePlaceholder": "Write a note: allergies, preferred style, anything that helps next time…",
+    "saveNote": "Save note",
+    "deleteNote": "Delete",
+    "confirmDelete": "Yes, delete",
+    "unknownAuthor": "Former team member",
+    "history": "Visit history",
+    "noHistory": "No visits yet.",
+    "upcoming": "Upcoming"
   }
 }

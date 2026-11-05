@@ -127,6 +127,32 @@ isOneToOne: false
       referencedColumns: ["id","organization_id"]
     }
                   ]
+                },"customer_notes": {
+                  Row: {
+                    "author_id": string | null,"author_name": string,"body": string,"created_at": string,"customer_id": string,"id": string,"organization_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "author_id"?: string | null,"author_name"?: string,"body": string,"created_at"?: string,"customer_id": string,"id"?: string,"organization_id": string
+                  }
+                  Update: {
+                    "author_id"?: string | null,"author_name"?: string,"body"?: string,"created_at"?: string,"customer_id"?: string,"id"?: string,"organization_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "customer_notes_author_id_fkey"
+      columns: ["author_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "customer_notes_customer_id_organization_id_fkey"
+      columns: ["customer_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "customers"
+      referencedColumns: ["id","organization_id"]
+    }
+                  ]
                 },"customers": {
                   Row: {
                     "created_at": string,"email": string | null,"first_name": string,"id": string,"is_blocked": boolean,"last_name": string,"locale": Database["public"]['Enums']["app_locale"],"marketing_opt_in": boolean,"no_show_count": number,"notes": string | null,"organization_id": string,"phone": string,"updated_at": string,"user_id": string | null,"whatsapp_opt_in": boolean
@@ -711,6 +737,11 @@ isOneToOne: false
                            },
 "staff_create_appointment":
 { Args: { "p_allow_outside_hours"?: boolean,"p_customer": Json,"p_items": Json,"p_salon_id": string,"p_source"?: Database["public"]['Enums']["booking_source"],"p_starts_at": string }; Returns: Json
+                           },
+"staff_customers":
+{ Args: { "p_limit"?: number,"p_organization_id": string,"p_query"?: string }; Returns: {
+              "customer_id": string,"email": string,"first_name": string,"last_name": string,"last_visit": string,"next_visit": string,"phone": string,"visits": number
+            }[]
                            }
           }
           Enums: {

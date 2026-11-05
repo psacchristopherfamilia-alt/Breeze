@@ -233,3 +233,39 @@ describe("visitante anónimo (catálogo público)", () => {
     }
   });
 });
+
+describe("visitantes sin cuenta: catálogo público mínimo", () => {
+  it("anon ve salones publicados pero no sus ajustes internos", async () => {
+    await as(pool, anon, async (c) => {
+      const ok = await c.query("select id, name, slug, zone, phone from public.salons where is_published");
+      expect(ok.rowCount).toBeGreaterThan(0);
+      for (const col of ["organization_id", "no_show_threshold", "no_show_block_enabled", "reminder_offsets_min"]) {
+        expect(await attempt(c, () => c.query(`select ${col} from public.salons`))).toBe("42501");
+      }
+      expect(await attempt(c, () => c.query("select * from public.salons"))).toBe("42501");
+    });
+  });
+});
+
+describe("dos negocios: ninguno toca al otro, ni llamando a las funciones", () => {
+  it("el dueño de A no puede leer facturación, cambiar estado ni crear citas en B", async () => {
+    await as(pool, user(ID.ownerA), async (c) => {
+      expect(await attempt(c, () => c.query("select public.my_billing($1)", [ID.orgB]))).toBe("42501");
+      expect(await attempt(c, () => c.query("select public.platform_overview()"))).toBe("42501");
+      expect(await attempt(c, () => c.query("select public.platform_set_status($1, 'suspended')", [ID.orgB]))).toBe("42501");
+      expect(await attempt(c, () => c.query("select public.get_live_board($1)", [ID.salonB1]))).toBe("42501");
+      expect(await attempt(c, () => c.query("select public.set_salon_published($1, false)", [ID.salonB1]))).not.toBeNull();
+      expect(await attempt(c, () => c.query("select public.set_working_hours($1, '[]'::jsonb)", [ID.marcus]))).not.toBeNull();
+      expect(await attempt(c, () => c.query("select public.create_invitation($1, 'admin', $2, null, 'x@y.com', null)", [ID.orgB, ID.salonB1]))).not.toBeNull();
+    });
+  });
+
+  it("el dueño de B no ve citas, clientes ni miembros de A", async () => {
+    await as(pool, user(ID.ownerB), async (c) => {
+      expect((await c.query("select 1 from public.appointments where salon_id in ($1,$2)", [ID.salonA1, ID.salonA2])).rowCount).toBe(0);
+      expect((await c.query("select 1 from public.customers where organization_id = $1", [ID.orgA])).rowCount).toBe(0);
+      expect((await c.query("select 1 from public.memberships where organization_id = $1", [ID.orgA])).rowCount).toBe(0);
+      expect((await c.query("select 1 from public.notification_jobs where salon_id in ($1,$2)", [ID.salonA1, ID.salonA2])).rowCount).toBe(0);
+    });
+  });
+});

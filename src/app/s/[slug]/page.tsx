@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LiveBooking } from "@/components/booking/LiveBooking";
 import { MockBooking } from "@/components/booking/MockBooking";
 import type { Account } from "@/components/booking/BookingFlow";
 import { loadBookingData, loadSchedule } from "@/lib/booking/server";
+import { siteUrl } from "@/lib/site";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 
@@ -10,6 +12,25 @@ interface BookingJson {
   booking_group_id: string;
   salon: { slug: string };
   items: { service_id: string; starts_at: string; status: string; professional: { id: string } }[];
+}
+
+const TYPE_EN: Record<string, string> = { barbershop: "Barbershop", salon: "Salon", spa: "Spa" };
+
+/** Título y vista previa al compartir por salón (solo datos públicos). */
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  if (!isSupabaseConfigured()) return {};
+  const supabase = await createClient();
+  const { data: s } = await supabase.from("salons").select("name, zone, business_types").eq("slug", slug).maybeSingle();
+  if (!s) return { robots: { index: false } };
+  const kind = (s.business_types ?? []).map((t) => TYPE_EN[t] ?? t).join(" · ");
+  const description = `Book online at ${s.name}${kind ? ` (${kind})` : ""} in Turks and Caicos.`;
+  return {
+    title: s.name,
+    description,
+    alternates: { canonical: `/s/${slug}` },
+    openGraph: { title: s.name, description, type: "website", url: `/s/${slug}` },
+  };
 }
 
 /**
@@ -62,7 +83,18 @@ export default async function SalonPage({
     : null;
   const own = new Set(active.map((i) => `${i.professional.id}|${new Date(i.starts_at).getTime()}`));
 
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    name: data.salon.name,
+    url: `${siteUrl()}/s/${slug}`,
+    ...(data.salon.phone ? { telephone: data.salon.phone } : {}),
+    ...(data.salon.address ? { address: { "@type": "PostalAddress", streetAddress: data.salon.address, addressCountry: "TC" } } : {}),
+  };
+
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
     <LiveBooking
       data={data}
       account={account}
@@ -71,5 +103,6 @@ export default async function SalonPage({
         .filter((b) => !own.has(`${b.professionalId}|${b.start.getTime()}`))
         .map((b) => ({ professionalId: b.professionalId, start: b.start.toISOString(), end: b.end.toISOString() }))}
     />
+    </>
   );
 }

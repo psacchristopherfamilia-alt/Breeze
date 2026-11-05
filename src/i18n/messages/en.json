@@ -183,7 +183,12 @@
       "card": "Card",
       "transfer": "Bank transfer"
     },
-    "payTransferDetails": "Transfer details"
+    "payTransferDetails": "Transfer details",
+    "addToCalendar": "Add to calendar",
+    "directions": "Directions",
+    "callSalon": "Call the salon",
+    "calGoogle": "Google Calendar",
+    "calFile": "Apple Calendar / .ics file"
   },
   "me": {
     "title": "My bookings",

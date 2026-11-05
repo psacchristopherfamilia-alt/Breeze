@@ -183,7 +183,12 @@
       "card": "Tarjeta",
       "transfer": "Transferencia"
     },
-    "payTransferDetails": "Datos para transferir"
+    "payTransferDetails": "Datos para transferir",
+    "addToCalendar": "Añadir al calendario",
+    "directions": "Cómo llegar",
+    "callSalon": "Llamar al salón",
+    "calGoogle": "Google Calendar",
+    "calFile": "Calendario de Apple / archivo .ics"
   },
   "me": {
     "title": "Mis citas",

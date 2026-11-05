@@ -14,6 +14,7 @@ import type { BookingData, ConfirmRequest, ConfirmResult, PublicService } from "
 import { formatDuration } from "@/lib/format";
 import { CATEGORIES, formatPrice } from "@/lib/mock/data";
 import { addDaysKey, atLocal, formatDayLong, formatDayShort, formatTime, localDateKey, toTZ } from "@/lib/time";
+import { ConfirmActions } from "./ConfirmActions";
 import { PaymentInfo } from "./PaymentInfo";
 import { Turnstile } from "./Turnstile";
 
@@ -204,6 +205,19 @@ export function BookingFlow({
             <p className="mt-4 border-t border-breeze-100 pt-3 text-sm font-semibold first-letter:uppercase">{formatDayLong(slot.start, locale)}</p>
             <p className="text-xs text-ink/50">{t("booking.tzNote")}</p>
           </div>
+          <ConfirmActions
+            event={{
+              title: `${chosen.map((s) => svcName(s, locale)).join(" + ")} · ${salon.name}`,
+              start: plan[0].start,
+              end: plan[plan.length - 1].end,
+              location: [salon.name, salon.address].filter(Boolean).join(", "),
+              description: `${pro.firstName} ${pro.lastName.charAt(0)}. — Breeze`,
+            }}
+            uid={`${salon.id}-${slot.start.getTime()}-${pro.id}`}
+            salonName={salon.name}
+            address={salon.address}
+            phone={salon.phone}
+          />
           <div className="mt-4 text-left">
             <PaymentInfo payment={pro.payment} name={pro.firstName} />
           </div>

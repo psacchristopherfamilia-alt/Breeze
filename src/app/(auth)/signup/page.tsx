@@ -27,7 +27,7 @@ function SignUpForm() {
   return (
     <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-breeze-100 animate-fade-up">
       <h1 className="text-2xl font-extrabold">{t("signup.title")}</h1>
-      <p className="mt-1 text-sm text-ink/60">{t("signup.subtitle")}</p>
+      <p className="mt-1 text-sm text-ink/70">{t("signup.subtitle")}</p>
       <form action={action} className="mt-5 space-y-3" noValidate>
         <input type="hidden" name="next" value={next} />
         <input type="hidden" name="locale" value={locale} />
@@ -37,8 +37,8 @@ function SignUpForm() {
         <Field name="phone" defaultValue={v("phone")} type="tel" label={t("fields.phone")} autoComplete="tel" placeholder="+1 649 …" hint={t("fields.phoneHint")} error={f.phone} />
         <Field name="password" type="password" label={t("fields.password")} autoComplete="new-password" hint={t("fields.passwordHint")} error={f.password} />
         <SubmitButton>{t("signup.submit")}</SubmitButton>
-        <p className="text-xs text-ink/50"><LegalConsent kind="signup" /></p>
-        <p className="text-xs text-ink/50">{t("signup.guestNote")}</p>
+        <p className="text-xs text-ink/70"><LegalConsent kind="signup" /></p>
+        <p className="text-xs text-ink/70">{t("signup.guestNote")}</p>
       </form>
       <p className="mt-5 border-t border-breeze-100 pt-4 text-center text-sm">
         {t("signup.haveAccount")}{" "}

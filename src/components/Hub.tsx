@@ -39,7 +39,7 @@ export function Hub() {
                 <Icon className="size-6" />
               </span>
               <h2 className="mt-5 text-xl font-bold">{t(`${key}.title`)}</h2>
-              <p className="mt-1 text-sm text-ink/60">{t(`${key}.desc`)}</p>
+              <p className="mt-1 text-sm text-ink/70">{t(`${key}.desc`)}</p>
               <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-lagoon">
                 {t("open")} <ArrowRight className="size-4 transition group-hover:translate-x-1" />
               </span>
@@ -59,7 +59,7 @@ export function Hub() {
               resetPrototype();
               alert(t("resetDone"));
             }}
-            className="mt-4 text-xs font-semibold text-ink/50 underline hover:text-ink"
+            className="mt-4 text-xs font-semibold text-ink/70 underline hover:text-ink"
           >
             {t("reset")}
           </button>

@@ -35,7 +35,7 @@ export function MyPrivacy() {
   return (
     <section className="mt-10 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">
       <h2 className="font-bold">{t("me.privacyTitle")}</h2>
-      <p className="mt-1 text-sm text-ink/60">{t("me.privacyHint")}</p>
+      <p className="mt-1 text-sm text-ink/70">{t("me.privacyHint")}</p>
       <div className="mt-4 flex flex-wrap gap-2">
         <button onClick={download} disabled={pending} className="inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-2 text-sm font-bold ring-1 ring-breeze-200 hover:bg-breeze-50 disabled:opacity-50">
           <Download className="size-4" /> {t("me.downloadData")}

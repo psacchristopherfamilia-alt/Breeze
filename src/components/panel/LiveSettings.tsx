@@ -55,9 +55,9 @@ export function LiveSettings({
   };
   const numField = (k: "minLeadTimeMin" | "maxAdvanceDays" | "cancellationWindowHours" | "noShowThreshold", label: string, hint: string) => (
     <label className="block">
-      <span className="text-xs font-bold text-ink/60">{label}</span>
+      <span className="text-xs font-bold text-ink/70">{label}</span>
       <input type="number" min={0} value={f[k]} onChange={(e) => setF({ ...f, [k]: Number(e.target.value) })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100" />
-      <span className="mt-1 block text-xs text-ink/40">{hint}</span>
+      <span className="mt-1 block text-xs text-ink/70">{hint}</span>
     </label>
   );
 
@@ -73,7 +73,7 @@ export function LiveSettings({
           {salon.isPublished ? <Eye className="size-6 text-lagoon" /> : <EyeOff className="size-6 text-amber-700" />}
           <div>
             <p className="font-bold">{t(salon.isPublished ? "settings.published" : "settings.hidden")}</p>
-            <p className="text-sm text-ink/60">{t(salon.isPublished ? "settings.publishedHint" : "settings.hiddenHint")}</p>
+            <p className="text-sm text-ink/70">{t(salon.isPublished ? "settings.publishedHint" : "settings.hiddenHint")}</p>
             {salon.isPublished && <Link href={`/s/${salon.slug}`} target="_blank" className="text-sm font-semibold text-lagoon underline">/s/{salon.slug}</Link>}
           </div>
         </div>
@@ -91,18 +91,18 @@ export function LiveSettings({
         <div className="grid gap-3 sm:grid-cols-2">
           {(["name", "address", "phone"] as const).map((k) => (
             <label key={k} className={`block ${k === "name" ? "sm:col-span-2" : ""}`}>
-              <span className="text-xs font-bold text-ink/60">{t(`settings.fields.${k}`)}</span>
+              <span className="text-xs font-bold text-ink/70">{t(`settings.fields.${k}`)}</span>
               <input value={f[k]} onChange={(e) => setF({ ...f, [k]: e.target.value })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100" />
             </label>
           ))}
           <label className="block">
-            <span className="text-xs font-bold text-ink/60">{t("auth.fields.zone")}</span>
+            <span className="text-xs font-bold text-ink/70">{t("auth.fields.zone")}</span>
             <select value={f.zone} onChange={(e) => setF({ ...f, zone: e.target.value })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100">
               {ZONES.map((z) => <option key={z} value={z}>{t(`zones.${z}`)}</option>)}
             </select>
           </label>
           <label className="block">
-            <span className="text-xs font-bold text-ink/60">{t("settings.fields.slotStep")}</span>
+            <span className="text-xs font-bold text-ink/70">{t("settings.fields.slotStep")}</span>
             <select value={f.slotStepMin} onChange={(e) => setF({ ...f, slotStepMin: Number(e.target.value) })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100">
               {[5, 10, 15, 20, 30, 60].map((m) => <option key={m} value={m}>{m} min</option>)}
             </select>
@@ -130,7 +130,7 @@ export function LiveSettings({
         {f.noShowBlockEnabled && numField("noShowThreshold", t("settings.fields.noShowThreshold"), t("settings.hints.noShowThreshold"))}
 
         <h2 className="pt-2 font-bold">{t("settings.reminders.title")}</h2>
-        <p className="-mt-2 text-sm text-ink/60">{t("settings.reminders.hint")}</p>
+        <p className="-mt-2 text-sm text-ink/70">{t("settings.reminders.hint")}</p>
         {[1440, 120].map((m) => (
           <Toggle key={m} label={t(m === 1440 ? "settings.reminders.day" : "settings.reminders.twoHours")}
             checked={f.reminderOffsetsMin.includes(m)}
@@ -152,13 +152,13 @@ export function LiveSettings({
       {/* Cierres */}
       <section className="mt-5 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">
         <h2 className="flex items-center gap-2 font-bold"><CalendarX className="size-4 text-lagoon" /> {t("settings.closures")}</h2>
-        <p className="text-sm text-ink/60">{t("settings.closuresHint")}</p>
+        <p className="text-sm text-ink/70">{t("settings.closuresHint")}</p>
         <ul className="mt-3 space-y-1 text-sm">
-          {closures.length === 0 && <li className="text-ink/40">—</li>}
+          {closures.length === 0 && <li className="text-ink/70">—</li>}
           {closures.map((c) => (
             <li key={c.id} className="flex items-center justify-between rounded-xl bg-foam px-3 py-2">
-              <span>{formatDayShort(new Date(c.start), locale)} → {formatDayShort(new Date(new Date(c.end).getTime() - 1), locale)}{c.reason && <span className="text-ink/50"> · {c.reason}</span>}</span>
-              <button aria-label={t("common.delete")} onClick={() => start(async () => report(await deleteClosure(c.id), t("settings.saved")))} className="text-ink/40 hover:text-red-600"><Trash2 className="size-4" /></button>
+              <span>{formatDayShort(new Date(c.start), locale)} → {formatDayShort(new Date(new Date(c.end).getTime() - 1), locale)}{c.reason && <span className="text-ink/70"> · {c.reason}</span>}</span>
+              <button aria-label={t("common.delete")} onClick={() => start(async () => report(await deleteClosure(c.id), t("settings.saved")))} className="text-ink/70 hover:text-red-600"><Trash2 className="size-4" /></button>
             </li>
           ))}
         </ul>
@@ -181,14 +181,14 @@ export function LiveSettings({
       {/* Pantallas Breeze Live */}
       <section className="mt-5 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">
         <h2 className="flex items-center gap-2 font-bold"><MonitorPlay className="size-4 text-lagoon" /> {t("settings.screens.title")}</h2>
-        <p className="text-sm text-ink/60">{t("settings.screens.hint", { url: `/live/${salon.slug}` })}</p>
+        <p className="text-sm text-ink/70">{t("settings.screens.hint", { url: `/live/${salon.slug}` })}</p>
         <ul className="mt-3 space-y-1 text-sm">
-          {devices.length === 0 && <li className="text-ink/40">{t("settings.screens.none")}</li>}
+          {devices.length === 0 && <li className="text-ink/70">{t("settings.screens.none")}</li>}
           {devices.map((d) => (
             <li key={d.id} className="flex items-center justify-between rounded-xl bg-foam px-3 py-2">
               <span className="inline-flex items-center gap-2">
                 <Tv className="size-4 text-lagoon" /> <b>{d.name}</b>
-                <span className="text-ink/50">
+                <span className="text-ink/70">
                   · {d.lastSeenAt ? t("settings.screens.lastSeen", { when: `${formatDayShort(new Date(d.lastSeenAt), locale)} ${formatTime(new Date(d.lastSeenAt))}` }) : t("settings.screens.neverSeen")}
                 </span>
               </span>

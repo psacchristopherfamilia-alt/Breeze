@@ -105,7 +105,7 @@ export function AgendaView(props: AgendaViewProps) {
     <div className="p-4 lg:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-ink/50">{salon.name}</p>
+          <p className="text-sm font-semibold text-ink/70">{salon.name}</p>
           <h1 className="text-2xl font-extrabold first-letter:uppercase">{formatDayLong(atLocal(dateKey, "12:00"), locale)}</h1>
         </div>
         <div className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export function AgendaView(props: AgendaViewProps) {
             <button onClick={() => onDateChange(addDaysKey(dateKey, -1))} className="p-2 hover:text-lagoon" aria-label={t("panel.prevDay")}>
               <ChevronLeft className="size-5" />
             </button>
-            <button onClick={() => onDateChange(localDateKey(now))} className={`px-3 text-sm font-bold ${isToday ? "text-lagoon" : "text-ink/60 hover:text-ink"}`}>
+            <button onClick={() => onDateChange(localDateKey(now))} className={`px-3 text-sm font-bold ${isToday ? "text-lagoon" : "text-ink/70 hover:text-ink"}`}>
               {t("panel.today")}
             </button>
             <button onClick={() => onDateChange(addDaysKey(dateKey, 1))} className="p-2 hover:text-lagoon" aria-label={t("panel.nextDay")}>
@@ -145,7 +145,7 @@ export function AgendaView(props: AgendaViewProps) {
           [t("panel.kpi.noShows"), dayApps.filter((a) => a.status === "no_show").length],
         ].map(([label, value]) => (
           <div key={String(label)} className="rounded-2xl bg-white p-4 ring-1 ring-breeze-100">
-            <p className="text-xs font-semibold text-ink/50">{label}</p>
+            <p className="text-xs font-semibold text-ink/70">{label}</p>
             <p className="mt-1 text-2xl font-extrabold">{value}</p>
           </div>
         ))}
@@ -153,7 +153,7 @@ export function AgendaView(props: AgendaViewProps) {
 
       {pros.length > 1 && (
         <div className="mt-5 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wide text-ink/40">{t("panel.filter")}</span>
+          <span className="text-xs font-bold uppercase tracking-wide text-ink/70">{t("panel.filter")}</span>
           {pros.map((p) => {
             const on = !hidden.includes(p.id);
             const count = dayApps.filter((a) => a.professionalId === p.id).length;
@@ -186,7 +186,7 @@ export function AgendaView(props: AgendaViewProps) {
       )}
 
       {pros.length === 0 ? (
-        <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/60 ring-1 ring-breeze-100">{t("panel.noPros")}</p>
+        <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/70 ring-1 ring-breeze-100">{t("panel.noPros")}</p>
       ) : (
         <div className="mt-4 overflow-x-auto rounded-3xl bg-white ring-1 ring-breeze-100">
           <div className="flex min-w-fit">
@@ -194,7 +194,7 @@ export function AgendaView(props: AgendaViewProps) {
               <div className="h-16 border-b border-breeze-100" />
               <div className="relative" style={{ height: (END_H - START_H) * 60 * PX }}>
                 {hours.map((h) => (
-                  <span key={h} className="absolute right-2 -translate-y-2 text-[11px] font-semibold text-ink/40" style={{ top: (h - START_H) * 60 * PX }}>
+                  <span key={h} className="absolute right-2 -translate-y-2 text-[11px] font-semibold text-ink/70" style={{ top: (h - START_H) * 60 * PX }}>
                     {h > 12 ? h - 12 : h} {h >= 12 ? "PM" : "AM"}
                   </span>
                 ))}
@@ -211,7 +211,7 @@ export function AgendaView(props: AgendaViewProps) {
                     <ProBadge pro={p} size="md" />
                     <div className="min-w-0">
                       <p className="truncate text-sm font-bold">{p.firstName} {p.lastName.charAt(0)}.</p>
-                      <p className="truncate text-xs text-ink/50">{t(`titles.${p.title}`)} · {apps.length}</p>
+                      <p className="truncate text-xs text-ink/70">{t(`titles.${p.title}`)} · {apps.length}</p>
                     </div>
                   </div>
                   <div className="relative bg-ink/[0.035]" style={{ height: (END_H - START_H) * 60 * PX }}>
@@ -225,14 +225,14 @@ export function AgendaView(props: AgendaViewProps) {
                       const end = localDateKey(o.end) === dateKey ? minutesOfDay(o.end) : END_H * 60;
                       const startMin = localDateKey(o.start) === dateKey ? minutesOfDay(o.start) : START_H * 60;
                       return (
-                        <div key={i} className="bg-buffer absolute inset-x-0 z-[1] grid place-items-start bg-ink/5 p-1 text-[10px] font-bold text-ink/40"
+                        <div key={i} className="bg-buffer absolute inset-x-0 z-[1] grid place-items-start bg-ink/5 p-1 text-[10px] font-bold text-ink/70"
                           style={{ top: localDateKey(o.start) === dateKey ? top : 0, height: Math.max(0, (end - startMin) * PX) }}>
                           {t("panel.dayOff")}
                         </div>
                       );
                     })}
                     {work.length === 0 && off.length === 0 && (
-                      <p className="absolute inset-x-0 top-6 text-center text-xs font-semibold text-ink/40">{t("panel.dayOff")}</p>
+                      <p className="absolute inset-x-0 top-6 text-center text-xs font-semibold text-ink/70">{t("panel.dayOff")}</p>
                     )}
                     {hours.map((h) => (
                       <div key={h} className="absolute inset-x-0 border-t border-dashed border-breeze-100" style={{ top: (h - START_H) * 60 * PX }} />
@@ -256,7 +256,7 @@ export function AgendaView(props: AgendaViewProps) {
                               {a.status === "no_show" && <span className="ml-1 rounded bg-red-600 px-1 text-[9px] text-white">NO-SHOW</span>}
                             </p>
                             <p className="truncate font-semibold text-ink">{a.customerName}</p>
-                            {h > 44 && <p className="truncate text-ink/60">{svcName(a)}</p>}
+                            {h > 44 && <p className="truncate text-ink/70">{svcName(a)}</p>}
                           </button>
                           {bufMin > 0 && <div className="bg-buffer mx-1 rounded-b" style={{ height: bufMin * PX - 1 }} title={t("panel.buffer")} />}
                         </div>
@@ -274,7 +274,7 @@ export function AgendaView(props: AgendaViewProps) {
           </div>
         </div>
       )}
-      <p className="mt-3 flex items-center gap-2 text-xs text-ink/50">
+      <p className="mt-3 flex items-center gap-2 text-xs text-ink/70">
         <span className="bg-buffer inline-block h-3 w-6 rounded ring-1 ring-ink/10" /> {t("panel.bufferLegend")} ·
         <Phone className="size-3" /> {t("panel.phoneLegend")}
       </p>
@@ -346,22 +346,22 @@ function DetailModal({ a, pro, now, actions, onClose }: { a: AgendaAppt; pro: Ag
           <ProBadge pro={pro} size="md" />
           <div>
             <p className="font-bold">{locale === "es" ? a.serviceNameEs : a.serviceNameEn}</p>
-            <p className="text-ink/60">
+            <p className="text-ink/70">
               {formatTime(s)} – {formatTime(new Date(a.endsAt))} · {formatDuration(durMin)} · {formatPrice(a.priceCents)}
             </p>
           </div>
         </div>
         <dl className="grid grid-cols-2 gap-2">
-          <dt className="text-ink/50">{t("panel.detail.phone")}</dt>
+          <dt className="text-ink/70">{t("panel.detail.phone")}</dt>
           <dd className="font-semibold">{a.customerPhone || "—"}</dd>
-          <dt className="text-ink/50">{t("panel.detail.source")}</dt>
+          <dt className="text-ink/70">{t("panel.detail.source")}</dt>
           <dd className="font-semibold">{t(`sources.${a.source}`)}</dd>
-          <dt className="text-ink/50">{t("panel.detail.status")}</dt>
+          <dt className="text-ink/70">{t("panel.detail.status")}</dt>
           <dd className="font-semibold">{t(`status.${a.status}`)}</dd>
-          <dt className="text-ink/50">{t("panel.detail.with")}</dt>
+          <dt className="text-ink/70">{t("panel.detail.with")}</dt>
           <dd className="font-semibold">{pro.firstName} {pro.lastName}</dd>
         </dl>
-        <p className="rounded-xl bg-breeze-50 px-3 py-2 text-xs text-ink/60">{t("panel.detail.privacy")}</p>
+        <p className="rounded-xl bg-breeze-50 px-3 py-2 text-xs text-ink/70">{t("panel.detail.privacy")}</p>
         {error && <p role="alert" className="rounded-xl bg-red-50 px-3 py-2 font-semibold text-red-700">{t(`panel.errors.${error}`)}</p>}
         {a.status === "booked" && (
           <div className="grid grid-cols-3 gap-2 pt-2">
@@ -376,7 +376,7 @@ function DetailModal({ a, pro, now, actions, onClose }: { a: AgendaAppt; pro: Ag
             </button>
           </div>
         )}
-        {a.status === "booked" && <p className="text-xs text-ink/40">{started ? t("panel.detail.startedHint") : t("panel.detail.futureHint")}</p>}
+        {a.status === "booked" && <p className="text-xs text-ink/70">{started ? t("panel.detail.startedHint") : t("panel.detail.futureHint")}</p>}
       </div>
     </Modal>
   );
@@ -453,13 +453,13 @@ function NewBookingModal({
       <div className="space-y-4 text-sm">
         <div className="grid grid-cols-2 rounded-xl bg-foam p-1">
           {(["phone", "walk_in"] as const).map((s) => (
-            <button key={s} onClick={() => setSource(s)} className={`rounded-lg py-1.5 font-bold ${source === s ? "bg-white shadow-sm" : "text-ink/50"}`}>
+            <button key={s} onClick={() => setSource(s)} className={`rounded-lg py-1.5 font-bold ${source === s ? "bg-white shadow-sm" : "text-ink/70"}`}>
               {t(`sources.${s}`)}
             </button>
           ))}
         </div>
         <div>
-          <p className="mb-1.5 text-xs font-bold text-ink/60">{t("panel.new.pro")}</p>
+          <p className="mb-1.5 text-xs font-bold text-ink/70">{t("panel.new.pro")}</p>
           <div className="flex flex-wrap gap-2">
             {pros.map((p) => (
               <button
@@ -481,7 +481,7 @@ function NewBookingModal({
           <p className="rounded-xl bg-amber-50 p-3 text-amber-800">{t("panel.new.noServices")}</p>
         ) : (
           <label className="block">
-            <span className="text-xs font-bold text-ink/60">{t("panel.new.service")}</span>
+            <span className="text-xs font-bold text-ink/70">{t("panel.new.service")}</span>
             <select
               value={svc?.id}
               onChange={(e) => {
@@ -499,11 +499,11 @@ function NewBookingModal({
           </label>
         )}
         <div>
-          <p className="mb-1.5 text-xs font-bold text-ink/60">
+          <p className="mb-1.5 text-xs font-bold text-ink/70">
             {t("panel.new.time")} · <span>{formatDayLong(atLocal(dateKey, "12:00"), locale)}</span>
           </p>
           {slots.length === 0 ? (
-            <p className="rounded-xl bg-foam p-3 text-ink/60">{t("booking.noSlots")}</p>
+            <p className="rounded-xl bg-foam p-3 text-ink/70">{t("booking.noSlots")}</p>
           ) : (
             <div className="grid max-h-40 grid-cols-4 gap-1.5 overflow-y-auto">
               {slots.map((s) => (

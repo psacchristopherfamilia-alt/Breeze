@@ -48,7 +48,7 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
       <main className="mx-auto max-w-3xl px-4 pb-16">
         <section className="pt-8">
           <h1 className="text-3xl font-extrabold tracking-tight">{t("explore.title")}</h1>
-          <p className="mt-1 text-ink/60">{t("explore.subtitle")}</p>
+          <p className="mt-1 text-ink/70">{t("explore.subtitle")}</p>
 
           <label className="mt-5 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-breeze-100 focus-within:ring-2 focus-within:ring-breeze-400">
             <Search className="size-5 text-breeze-600" />
@@ -93,7 +93,7 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
           </div>
         </section>
 
-        <p className="mt-6 text-sm font-medium text-ink/50">{t("explore.results", { count: results.length })}</p>
+        <p className="mt-6 text-sm font-medium text-ink/70">{t("explore.results", { count: results.length })}</p>
 
         <section className="mt-3 grid gap-4 sm:grid-cols-2">
           {results.map((s) => {
@@ -121,11 +121,11 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
                     {s.rating !== undefined && (
                       <span className="inline-flex shrink-0 items-center gap-1 text-sm font-bold">
                         <Star className="size-4 fill-amber-400 text-amber-400" /> {s.rating.toFixed(1)}
-                        <span className="font-normal text-ink/40">({s.reviews})</span>
+                        <span className="font-normal text-ink/70">({s.reviews})</span>
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 inline-flex items-center gap-1 text-sm text-ink/60">
+                  <p className="mt-1 inline-flex items-center gap-1 text-sm text-ink/70">
                     <MapPin className="size-3.5" /> {t(`zones.${s.zone}`)}
                   </p>
                   <div className="mt-3 flex items-center justify-between">
@@ -135,7 +135,7 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
                       ))}
                     </div>
                     {s.fromCents !== null && (
-                      <span className="text-sm text-ink/60">
+                      <span className="text-sm text-ink/70">
                         {t("explore.from")} <b className="text-ink">{formatPrice(s.fromCents)}</b>
                       </span>
                     )}
@@ -145,13 +145,13 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
             );
           })}
           {results.length === 0 && (
-            <div className="col-span-full rounded-3xl bg-white p-10 text-center text-ink/60 ring-1 ring-breeze-100">
+            <div className="col-span-full rounded-3xl bg-white p-10 text-center text-ink/70 ring-1 ring-breeze-100">
               {t("explore.empty")}
             </div>
           )}
         </section>
 
-        <footer className="mt-10 flex flex-wrap items-center justify-between gap-2 border-t border-breeze-100 pt-4 text-sm text-ink/60">
+        <footer className="mt-10 flex flex-wrap items-center justify-between gap-2 border-t border-breeze-100 pt-4 text-sm text-ink/70">
           <span>{t("client.forBusiness")}</span>
           <Link href="/negocios" className="font-bold text-lagoon underline-offset-2 hover:underline">
             {t("client.businessLink")}

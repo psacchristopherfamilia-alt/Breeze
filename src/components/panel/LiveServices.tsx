@@ -41,16 +41,16 @@ export function LiveServices({
     <div className="p-4 lg:p-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-ink/50">{salon.name}</p>
+          <p className="text-sm font-semibold text-ink/70">{salon.name}</p>
           <h1 className="text-2xl font-extrabold">{t("services.title")}</h1>
-          <p className="mt-1 text-sm text-ink/60">{t("services.subtitle")}</p>
+          <p className="mt-1 text-sm text-ink/70">{t("services.subtitle")}</p>
         </div>
         <button onClick={() => setEditing("new")} className="inline-flex items-center gap-1.5 rounded-xl bg-lagoon px-4 py-2 text-sm font-bold text-white shadow hover:bg-breeze-800">
           <Plus className="size-4" /> {t("services.add")}
         </button>
       </div>
 
-      {services.length === 0 && <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/60 ring-1 ring-breeze-100">{t("services.empty")}</p>}
+      {services.length === 0 && <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/70 ring-1 ring-breeze-100">{t("services.empty")}</p>}
 
       <SuggestedServices salonId={salon.id} types={[...new Set(categories.map((c) => c.type))]} services={services} onDone={() => router.refresh()} />
 
@@ -59,7 +59,7 @@ export function LiveServices({
           .filter((c) => services.some((s) => s.categoryCode === c.code))
           .map((c) => (
             <section key={c.code}>
-              <h2 className="mb-2 flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-ink/50">
+              <h2 className="mb-2 flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-ink/70">
                 <TypeIcon type={c.type} className="size-3.5" /> {t(`categories.${c.code}`)}
               </h2>
               <div className="overflow-hidden rounded-2xl bg-white ring-1 ring-breeze-100">
@@ -67,14 +67,14 @@ export function LiveServices({
                   <div key={s.id} className={`flex items-center gap-3 border-b border-breeze-50 px-4 py-3 last:border-0 ${s.isActive ? "" : "opacity-50"}`}>
                     <div className="flex-1">
                       <p className="font-semibold">{locale === "es" ? s.nameEs : s.nameEn}</p>
-                      <p className="inline-flex items-center gap-1 text-xs text-ink/50">
+                      <p className="inline-flex items-center gap-1 text-xs text-ink/70">
                         <Clock className="size-3" /> {formatDuration(s.durationMin)}
                         {s.bufferMin > 0 && ` + ${s.bufferMin} min ${t("services.bufferShort")}`}
                         {!s.isActive && ` · ${t("services.hidden")}`}
                       </p>
                     </div>
                     <span className="font-bold">{formatPrice(s.priceCents)}</span>
-                    <button aria-label={t("pros.edit")} onClick={() => setEditing(s)} className="grid size-8 place-items-center rounded-full text-ink/50 hover:bg-breeze-50 hover:text-lagoon">
+                    <button aria-label={t("pros.edit")} onClick={() => setEditing(s)} className="grid size-8 place-items-center rounded-full text-ink/70 hover:bg-breeze-50 hover:text-lagoon">
                       <Pencil className="size-4" />
                     </button>
                   </div>
@@ -134,10 +134,10 @@ function ServiceDialog({ salonId, service, categories, onClose }: { salonId: str
 
   const field = (k: "nameEn" | "nameEs" | "durationMin" | "bufferMin" | "price", label: string, type = "text", hint?: string) => (
     <label className="block">
-      <span className="text-xs font-bold text-ink/60">{label}</span>
+      <span className="text-xs font-bold text-ink/70">{label}</span>
       <input type={type} inputMode={type === "number" ? "decimal" : undefined} value={f[k]} onChange={(e) => setF({ ...f, [k]: e.target.value })}
         className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 outline-none ring-1 ring-breeze-100 focus:ring-2 focus:ring-breeze-400" />
-      {hint && <span className="mt-1 block text-xs text-ink/40">{hint}</span>}
+      {hint && <span className="mt-1 block text-xs text-ink/70">{hint}</span>}
     </label>
   );
 
@@ -145,7 +145,7 @@ function ServiceDialog({ salonId, service, categories, onClose }: { salonId: str
     <Modal title={service ? t("services.edit") : t("services.add")} onClose={onClose}>
       <div className="space-y-3 text-sm">
         <label className="block">
-          <span className="text-xs font-bold text-ink/60">{t("services.category")}</span>
+          <span className="text-xs font-bold text-ink/70">{t("services.category")}</span>
           <select value={f.categoryCode} onChange={(e) => setF({ ...f, categoryCode: e.target.value })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100">
             {categories.map((c) => <option key={c.code} value={c.code}>{t(`types.${c.type}`)} · {t(`categories.${c.code}`)}</option>)}
           </select>
@@ -157,7 +157,7 @@ function ServiceDialog({ salonId, service, categories, onClose }: { salonId: str
           {field("bufferMin", t("services.buffer"), "number")}
           {field("price", t("services.price"), "number")}
         </div>
-        <p className="text-xs text-ink/40">{t("services.bufferHint")}</p>
+        <p className="text-xs text-ink/70">{t("services.bufferHint")}</p>
         <Toggle label={t("services.visible")} checked={f.isActive} onChange={(v) => setF({ ...f, isActive: v })} />
       </div>
       {error && <p role="alert" className="mt-4 rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">{t(`panel.errors.${error}`)}</p>}
@@ -209,16 +209,16 @@ function SuggestedServices({ salonId, types, services, onDone }: { salonId: stri
   return (
     <section className="mt-4 rounded-3xl bg-white p-4 ring-1 ring-breeze-100 lg:p-6">
       <h2 className="text-lg font-extrabold">{t("services.suggestedTitle")}</h2>
-      <p className="mt-1 text-sm text-ink/60">{t("services.suggestedHint")}</p>
+      <p className="mt-1 text-sm text-ink/70">{t("services.suggestedHint")}</p>
       <div className="mt-3 divide-y divide-breeze-50">
         {options.map((o) => (
           <label key={o.key} className="flex items-center gap-3 py-2 text-sm">
             <input type="checkbox" checked={isOn(o.key)} onChange={(e) => setPicked({ ...picked, [o.key]: e.target.checked })} className="size-4 accent-lagoon" />
             <span className="flex-1">
               <span className="font-semibold">{locale === "es" ? o.nameEs : o.nameEn}</span>
-              <span className="ml-2 text-xs text-ink/50">{t(`categories.${o.category}`)} · {formatDuration(o.durationMin)}</span>
+              <span className="ml-2 text-xs text-ink/70">{t(`categories.${o.category}`)} · {formatDuration(o.durationMin)}</span>
             </span>
-            <span className="text-ink/50">$</span>
+            <span className="text-ink/70">$</span>
             <input
               inputMode="decimal"
               aria-label={t("services.price")}
@@ -235,7 +235,7 @@ function SuggestedServices({ salonId, types, services, onDone }: { salonId: stri
           {t("services.suggestedAdd", { count: chosen.length })}
         </button>
         {services.length > 0 && (
-          <button onClick={() => setOpen(false)} className="text-sm font-semibold text-ink/60 hover:underline">
+          <button onClick={() => setOpen(false)} className="text-sm font-semibold text-ink/70 hover:underline">
             {t("services.suggestedClose")}
           </button>
         )}

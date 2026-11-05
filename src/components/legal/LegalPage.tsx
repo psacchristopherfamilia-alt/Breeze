@@ -25,11 +25,11 @@ export function LegalPage({ doc }: { doc: LegalDocId }) {
           <p role="note" className="mb-6 rounded-2xl bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900 ring-1 ring-amber-200">{DRAFT_NOTICE[locale]}</p>
         )}
         <h1 className="text-3xl font-extrabold">{d.title}</h1>
-        <p className="mt-1 text-sm text-ink/50">{labels.updated}: {LEGAL.updated}</p>
+        <p className="mt-1 text-sm text-ink/70">{labels.updated}: {LEGAL.updated}</p>
         <p className="mt-4 text-ink/80">{f(d.intro)}</p>
 
         <nav aria-label={labels.contents} className="mt-6 rounded-2xl bg-white p-4 ring-1 ring-breeze-100">
-          <p className="text-xs font-bold uppercase tracking-wide text-ink/50">{labels.contents}</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-ink/70">{labels.contents}</p>
           <ol className="mt-2 grid gap-1 text-sm sm:grid-cols-2">
             {d.sections.map((s) => (
               <li key={s.id}><a href={`#${s.id}`} className="text-lagoon hover:underline">{s.heading}</a></li>
@@ -49,7 +49,7 @@ export function LegalPage({ doc }: { doc: LegalDocId }) {
         </div>
 
         <footer className="mt-12 border-t border-breeze-100 pt-4 text-sm">
-          <p className="font-bold text-ink/60">{labels.others}</p>
+          <p className="font-bold text-ink/70">{labels.others}</p>
           <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
             {(Object.keys(LEGAL_PATH) as LegalDocId[]).filter((k) => k !== doc).map((k) => (
               <li key={k}><Link href={LEGAL_PATH[k]} className="font-bold text-lagoon hover:underline">{labels.docs[k]}</Link></li>

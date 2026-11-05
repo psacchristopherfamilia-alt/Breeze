@@ -181,15 +181,15 @@ export function BookingFlow({
         <main className="mx-auto max-w-md px-4 py-10 text-center animate-fade-up">
           <CheckCircle2 className="mx-auto size-16 text-breeze-500" />
           <h1 className="mt-4 text-3xl font-extrabold">{t(isReschedule ? "booking.rescheduledTitle" : "booking.doneTitle")}</h1>
-          <p className="mt-2 text-ink/60">{t("booking.doneSubtitle")}</p>
+          <p className="mt-2 text-ink/70">{t("booking.doneSubtitle")}</p>
           <div className="mt-6 rounded-3xl bg-white p-5 text-left shadow-sm ring-1 ring-breeze-100">
             <p className="font-bold">{salon.name}</p>
-            {salon.address && <p className="text-sm text-ink/60">{salon.address}</p>}
+            {salon.address && <p className="text-sm text-ink/70">{salon.address}</p>}
             <div className="mt-4 flex items-center gap-3 rounded-2xl p-3" style={{ backgroundColor: withAlpha(pro.colorHex, 0.08) }}>
               <ProBadge pro={pro} size="md" />
               <div>
                 <p className="font-semibold">{pro.firstName} {pro.lastName.charAt(0)}.</p>
-                <p className="text-sm text-ink/60">{t(`titles.${pro.title}`)}</p>
+                <p className="text-sm text-ink/70">{t(`titles.${pro.title}`)}</p>
               </div>
             </div>
             <ul className="mt-4 space-y-2">
@@ -198,12 +198,12 @@ export function BookingFlow({
                   <span>
                     <b>{formatTime(plan[i].start)}</b> · {svcName(s, locale)}
                   </span>
-                  <span className="text-ink/60">{formatPrice(s.priceCents)}</span>
+                  <span className="text-ink/70">{formatPrice(s.priceCents)}</span>
                 </li>
               ))}
             </ul>
             <p className="mt-4 border-t border-breeze-100 pt-3 text-sm font-semibold first-letter:uppercase">{formatDayLong(slot.start, locale)}</p>
-            <p className="text-xs text-ink/50">{t("booking.tzNote")}</p>
+            <p className="text-xs text-ink/70">{t("booking.tzNote")}</p>
           </div>
           <ConfirmActions
             event={{
@@ -227,7 +227,7 @@ export function BookingFlow({
             </p>
             <p className="mt-1">{t("booking.reminderBody", { hours: salon.cancellationWindowHours })}</p>
             {done.guestToken && <p className="mt-2 font-semibold text-ink">{t("booking.guestLinkNote")}</p>}
-            <p className="mt-2 text-xs italic text-ink/50">— Breeze</p>
+            <p className="mt-2 text-xs italic text-ink/70">— Breeze</p>
           </div>
           {done.guestToken && accountPrompt && (
             <div className="mt-4 rounded-2xl bg-breeze-50 p-4 text-left text-sm text-ink/80 ring-1 ring-breeze-100">
@@ -268,7 +268,7 @@ export function BookingFlow({
             ))}
           </div>
           <h1 className="mt-2 text-2xl font-extrabold">{salon.name}</h1>
-          <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/60">
+          <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/70">
             <span className="inline-flex items-center gap-1"><MapPin className="size-3.5" /> {t(`zones.${salon.zone}`)}</span>
             {salon.rating !== undefined && (
               <span className="inline-flex items-center gap-1"><Star className="size-3.5 fill-amber-400 text-amber-400" /> {salon.rating} ({salon.reviews})</span>
@@ -283,12 +283,12 @@ export function BookingFlow({
               <li key={s} className="flex flex-1 items-center gap-2">
                 <span
                   className={`grid size-6 shrink-0 place-items-center rounded-full ${
-                    i < stepIndex ? "bg-breeze-500 text-white" : i === stepIndex ? "bg-lagoon text-white" : "bg-white text-ink/40 ring-1 ring-breeze-100"
+                    i < stepIndex ? "bg-breeze-500 text-white" : i === stepIndex ? "bg-lagoon text-white" : "bg-white text-ink/70 ring-1 ring-breeze-100"
                   }`}
                 >
                   {i < stepIndex ? <Check className="size-3.5" /> : i + 1}
                 </span>
-                <span className={`hidden sm:inline ${i === stepIndex ? "text-ink" : "text-ink/40"}`}>{t(`booking.steps.${s}`)}</span>
+                <span className={`hidden sm:inline ${i === stepIndex ? "text-ink" : "text-ink/70"}`}>{t(`booking.steps.${s}`)}</span>
                 {i < visibleSteps.length - 1 && <span className="h-px flex-1 bg-breeze-200" />}
               </li>
             ))}
@@ -308,11 +308,11 @@ export function BookingFlow({
 
         {step === "services" && (
           <div className="mt-4 space-y-6 animate-fade-up">
-            <p className="text-sm text-ink/60">{t("booking.multiHint")}</p>
-            {services.length === 0 && <p className="rounded-2xl bg-white p-6 text-center text-ink/60 ring-1 ring-breeze-100">{t("booking.noServices")}</p>}
+            <p className="text-sm text-ink/70">{t("booking.multiHint")}</p>
+            {services.length === 0 && <p className="rounded-2xl bg-white p-6 text-center text-ink/70 ring-1 ring-breeze-100">{t("booking.noServices")}</p>}
             {Object.entries(byCategory).map(([cat, list]) => (
               <section key={cat}>
-                <h3 className="mb-2 flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-ink/50">
+                <h3 className="mb-2 flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-ink/70">
                   <TypeIcon type={CATEGORIES[cat as keyof typeof CATEGORIES]} className="size-3.5" />
                   {t(`categories.${cat}`)}
                 </h3>
@@ -333,7 +333,7 @@ export function BookingFlow({
                         </span>
                         <span className="flex-1">
                           <span className="block font-semibold">{svcName(v, locale)}</span>
-                          <span className="inline-flex items-center gap-1 text-sm text-ink/50">
+                          <span className="inline-flex items-center gap-1 text-sm text-ink/70">
                             <Clock className="size-3.5" /> {formatDuration(v.durationMin)}
                           </span>
                         </span>
@@ -350,7 +350,7 @@ export function BookingFlow({
         {step === "pro" && (
           <div className="mt-4 grid gap-3 sm:grid-cols-2 animate-fade-up">
             {eligible.length === 0 && (
-              <p className="col-span-full rounded-2xl bg-white p-6 text-center text-ink/60 ring-1 ring-breeze-100">{t("booking.noPro")}</p>
+              <p className="col-span-full rounded-2xl bg-white p-6 text-center text-ink/70 ring-1 ring-breeze-100">{t("booking.noPro")}</p>
             )}
             {eligible.length > 0 && (
               <button
@@ -364,7 +364,7 @@ export function BookingFlow({
                 </span>
                 <span>
                   <span className="block font-bold">{t("booking.anyPro")}</span>
-                  <span className="text-sm text-ink/50">{t("booking.anyProHint")}</span>
+                  <span className="text-sm text-ink/70">{t("booking.anyProHint")}</span>
                 </span>
               </button>
             )}
@@ -380,7 +380,7 @@ export function BookingFlow({
                   <ProBadge pro={p} size="lg" />
                   <span>
                     <span className="block font-bold">{p.firstName} {p.lastName.charAt(0)}.</span>
-                    <span className="text-sm text-ink/50">{t(`titles.${p.title}`)}</span>
+                    <span className="text-sm text-ink/70">{t(`titles.${p.title}`)}</span>
                   </span>
                 </button>
               );
@@ -417,17 +417,17 @@ export function BookingFlow({
                     );
                   })}
                 </div>
-                <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-ink/50">
+                <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-ink/70">
                   <Globe2 className="size-3.5" /> {t("booking.tzNote")} · {t("booking.blockNote", { min: totalMin })}
                 </p>
                 {daySlots.length === 0 ? (
-                  <p className="mt-4 rounded-2xl bg-white p-6 text-center text-ink/60 ring-1 ring-breeze-100">{t("booking.noSlots")}</p>
+                  <p className="mt-4 rounded-2xl bg-white p-6 text-center text-ink/70 ring-1 ring-breeze-100">{t("booking.noSlots")}</p>
                 ) : (
                   (["morning", "afternoon", "evening"] as const).map(
                     (g) =>
                       groups[g].length > 0 && (
                         <section key={g} className="mt-4">
-                          <h3 className="mb-2 text-sm font-bold text-ink/50">{t(`booking.${g}`)}</h3>
+                          <h3 className="mb-2 text-sm font-bold text-ink/70">{t(`booking.${g}`)}</h3>
                           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                             {groups[g].map((s) => {
                               const on = slot?.start.getTime() === s.start.getTime();
@@ -460,7 +460,7 @@ export function BookingFlow({
               <ProBadge pro={proOf(slot.proId)} size="md" />
               <div className="text-sm">
                 <p className="font-bold first-letter:uppercase">{formatDayLong(slot.start, locale)} · {formatTime(slot.start)}</p>
-                <p className="text-ink/60">{t("booking.with", { name: proOf(slot.proId).firstName })} · {formatDuration(serviceMin)}</p>
+                <p className="text-ink/70">{t("booking.with", { name: proOf(slot.proId).firstName })} · {formatDuration(serviceMin)}</p>
               </div>
             </div>
 
@@ -472,7 +472,7 @@ export function BookingFlow({
               <>
                 <div className="grid grid-cols-2 rounded-2xl bg-white p-1 ring-1 ring-breeze-100">
                   {(["guest", "account"] as const).map((m) => (
-                    <button key={m} onClick={() => setMode(m)} className={`rounded-xl py-2 text-sm font-bold ${mode === m ? "bg-lagoon text-white" : "text-ink/60"}`}>
+                    <button key={m} onClick={() => setMode(m)} className={`rounded-xl py-2 text-sm font-bold ${mode === m ? "bg-lagoon text-white" : "text-ink/70"}`}>
                       {t(`booking.mode.${m}`)}
                     </button>
                   ))}
@@ -487,7 +487,7 @@ export function BookingFlow({
                   )
                 ) : (
                   <div className="space-y-3 rounded-2xl bg-white p-4 ring-1 ring-breeze-100">
-                    <p className="text-sm text-ink/60">{t("booking.guestHint")}</p>
+                    <p className="text-sm text-ink/70">{t("booking.guestHint")}</p>
                     <div className="grid grid-cols-2 gap-3">
                       <Field label={t("booking.first")} value={form.first} onChange={(v) => setForm({ ...form, first: v })} autoComplete="given-name" />
                       <Field label={t("booking.last")} value={form.last} onChange={(v) => setForm({ ...form, last: v })} autoComplete="family-name" />
@@ -503,8 +503,8 @@ export function BookingFlow({
                 )}
               </>
             )}
-            <p className="text-xs text-ink/50">{t("booking.policy", { hours: salon.cancellationWindowHours })}</p>
-            {!isReschedule && !useAccount && <p className="text-xs text-ink/50"><LegalConsent kind="booking" /></p>}
+            <p className="text-xs text-ink/70">{t("booking.policy", { hours: salon.cancellationWindowHours })}</p>
+            {!isReschedule && !useAccount && <p className="text-xs text-ink/70"><LegalConsent kind="booking" /></p>}
           </div>
         )}
       </main>
@@ -514,7 +514,7 @@ export function BookingFlow({
           <div className="text-sm">
             <p className="font-bold">{selected.length ? t("booking.summary", { count: selected.length }) : t("booking.pickServices")}</p>
             {selected.length > 0 && (
-              <p className="text-ink/60">
+              <p className="text-ink/70">
                 {formatDuration(serviceMin)} · <b className="text-ink">{formatPrice(totalCents)}</b>
               </p>
             )}
@@ -539,8 +539,8 @@ function AccountCard({ account, note }: { account: Account; note: string }) {
       <UserRound className="size-8 text-lagoon" />
       <div>
         <p className="font-bold">{account.name}</p>
-        <p className="text-ink/60">{[account.email, account.phone].filter(Boolean).join(" · ")}</p>
-        <p className="mt-1 text-xs text-ink/50">{note}</p>
+        <p className="text-ink/70">{[account.email, account.phone].filter(Boolean).join(" · ")}</p>
+        <p className="mt-1 text-xs text-ink/70">{note}</p>
       </div>
     </div>
   );
@@ -563,7 +563,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-xs font-bold text-ink/60">{label}</span>
+      <span className="text-xs font-bold text-ink/70">{label}</span>
       <input
         type={type}
         value={value}

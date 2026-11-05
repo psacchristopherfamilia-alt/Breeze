@@ -52,7 +52,7 @@ export function ConfirmActions({ event, uid, salonName, address, phone }: { even
           </button>
         </div>
       )}
-      {phone && <p className="mt-2 text-center text-xs text-ink/50">{phone}</p>}
+      {phone && <p className="mt-2 text-center text-xs text-ink/70">{phone}</p>}
     </div>
   );
 }

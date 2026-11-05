@@ -28,7 +28,7 @@ function LoginForm() {
     <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-breeze-100 animate-fade-up">
       {forBusiness && <p className="text-xs font-bold uppercase tracking-widest text-breeze-600">{t("login.bizEyebrow")}</p>}
       <h1 className="text-2xl font-extrabold">{t(forBusiness ? "login.bizTitle" : "login.title")}</h1>
-      <p className="mt-1 text-sm text-ink/60">{t(forBusiness ? "login.bizSubtitle" : "login.subtitle")}</p>
+      <p className="mt-1 text-sm text-ink/70">{t(forBusiness ? "login.bizSubtitle" : "login.subtitle")}</p>
       <form action={action} className="mt-5 space-y-3" noValidate>
         <input type="hidden" name="next" value={next} />
         <FormError error={state?.error ?? linkError} />

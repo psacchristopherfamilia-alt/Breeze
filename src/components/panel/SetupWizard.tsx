@@ -104,7 +104,7 @@ export function SetupWizard({
         <section className="rounded-3xl bg-white p-6 text-center ring-1 ring-breeze-100">
           <span className="mx-auto grid size-14 place-items-center rounded-full bg-breeze-50 text-breeze-500"><Check className="size-8" strokeWidth={3} /></span>
           <h1 className="mt-3 text-2xl font-extrabold">{t("publishedTitle")}</h1>
-          <p className="mt-1 text-ink/60">{t("publishedHint")}</p>
+          <p className="mt-1 text-ink/70">{t("publishedHint")}</p>
           <div className="mt-5 text-left"><SalonQr slug={salon.slug} name={salon.name} /></div>
           <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:justify-center">
             <Link href={`/s/${salon.slug}`} target="_blank" className="rounded-2xl bg-lagoon px-5 py-3 font-bold text-white hover:bg-breeze-800">{t("viewPage")}</Link>
@@ -118,8 +118,8 @@ export function SetupWizard({
   const field = "mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100";
   return (
     <div className="mx-auto max-w-xl p-4 lg:p-8">
-      <p className="text-sm font-semibold text-ink/50">{salon.name}</p>
-      <p className="mt-1 text-xs font-bold uppercase tracking-wide text-ink/50">{t("step", { a: step, b: 4 })}</p>
+      <p className="text-sm font-semibold text-ink/70">{salon.name}</p>
+      <p className="mt-1 text-xs font-bold uppercase tracking-wide text-ink/70">{t("step", { a: step, b: 4 })}</p>
       <div className="mt-2 flex gap-1.5" role="progressbar" aria-valuemin={1} aria-valuemax={4} aria-valuenow={step} aria-label={t("step", { a: step, b: 4 })}>
         {[1, 2, 3, 4].map((i) => <span key={i} className={`h-1.5 flex-1 rounded-full ${i <= step ? "bg-breeze-500" : "bg-breeze-100"}`} />)}
       </div>
@@ -128,7 +128,7 @@ export function SetupWizard({
         {step === 1 && (
           <>
             <h1 className="text-2xl font-extrabold">{t("s1Title")}</h1>
-            <p className="mt-1 text-sm text-ink/60">{hasServices ? t("s1Have") : t("s1Hint")}</p>
+            <p className="mt-1 text-sm text-ink/70">{hasServices ? t("s1Have") : t("s1Hint")}</p>
             {!hasServices && (
               <div className="mt-3 divide-y divide-breeze-50">
                 {options.map((o) => (
@@ -136,9 +136,9 @@ export function SetupWizard({
                     <input type="checkbox" checked={!!picked[o.key]} onChange={(e) => setPicked({ ...picked, [o.key]: e.target.checked })} className="size-4 accent-lagoon" />
                     <span className="min-w-0 flex-1">
                       <span className="font-semibold">{locale === "es" ? o.nameEs : o.nameEn}</span>
-                      <span className="ml-2 text-xs text-ink/50">{formatDuration(o.durationMin)}</span>
+                      <span className="ml-2 text-xs text-ink/70">{formatDuration(o.durationMin)}</span>
                     </span>
-                    <span className="text-ink/50">$</span>
+                    <span className="text-ink/70">$</span>
                     <input
                       inputMode="decimal"
                       aria-label={`${locale === "es" ? o.nameEs : o.nameEn} (USD)`}
@@ -156,21 +156,21 @@ export function SetupWizard({
         {step === 2 && (
           <>
             <h1 className="text-2xl font-extrabold">{t("s2Title")}</h1>
-            <p className="mt-1 text-sm text-ink/60">{hasPro ? t("s2Have") : t("s2Hint")}</p>
+            <p className="mt-1 text-sm text-ink/70">{hasPro ? t("s2Have") : t("s2Hint")}</p>
             {!hasPro && (
               <div className="mt-4 space-y-4 text-sm">
                 <div className="grid grid-cols-2 gap-3">
-                  <label className="block"><span className="text-xs font-bold text-ink/60">{tt("booking.first")}</span>
+                  <label className="block"><span className="text-xs font-bold text-ink/70">{tt("booking.first")}</span>
                     <input value={pro.firstName} onChange={(e) => setPro({ ...pro, firstName: e.target.value })} className={field} autoComplete="given-name" /></label>
-                  <label className="block"><span className="text-xs font-bold text-ink/60">{tt("booking.last")}</span>
+                  <label className="block"><span className="text-xs font-bold text-ink/70">{tt("booking.last")}</span>
                     <input value={pro.lastName} onChange={(e) => setPro({ ...pro, lastName: e.target.value })} className={field} autoComplete="family-name" /></label>
                 </div>
-                <label className="block"><span className="text-xs font-bold text-ink/60">{tt("pros.role")}</span>
+                <label className="block"><span className="text-xs font-bold text-ink/70">{tt("pros.role")}</span>
                   <select value={pro.title} onChange={(e) => setPro({ ...pro, title: e.target.value as (typeof TITLES)[number] })} className={field}>
                     {TITLES.map((ti) => <option key={ti} value={ti}>{tt(`titles.${ti}`)}</option>)}
                   </select></label>
                 <div>
-                  <p className="text-xs font-bold text-ink/60">{tt("pros.color")}</p>
+                  <p className="text-xs font-bold text-ink/70">{tt("pros.color")}</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {PRO_COLORS.map((c) => (
                       <button key={c.key} type="button" onClick={() => setPro({ ...pro, colorHex: c.hex })} aria-pressed={pro.colorHex === c.hex} aria-label={c[locale]}
@@ -182,17 +182,17 @@ export function SetupWizard({
                 </div>
                 <div className="flex items-center gap-3 rounded-2xl bg-foam p-3">
                   <ProBadge pro={{ firstName: pro.firstName || "?", lastName: pro.lastName || "?", colorHex: pro.colorHex }} size="lg" />
-                  <div><p className="font-bold">{proName || tt("pros.namePlaceholder")}</p><p className="text-xs text-ink/50">{tt("pros.publicPreview")}</p></div>
+                  <div><p className="font-bold">{proName || tt("pros.namePlaceholder")}</p><p className="text-xs text-ink/70">{tt("pros.publicPreview")}</p></div>
                 </div>
                 <div className="space-y-2 rounded-2xl bg-foam p-3">
-                  <p className="text-xs font-bold text-ink/60">{tt("pros.paymentTitle")}</p>
+                  <p className="text-xs font-bold text-ink/70">{tt("pros.paymentTitle")}</p>
                   <Toggle label={tt("booking.pay.cash")} checked={pro.acceptsCash} onChange={(v) => setPro({ ...pro, acceptsCash: v })} />
                   <Toggle label={tt("booking.pay.card")} checked={pro.acceptsCard} onChange={(v) => setPro({ ...pro, acceptsCard: v })} />
                   <Toggle label={tt("booking.pay.transfer")} checked={pro.acceptsTransfer} onChange={(v) => setPro({ ...pro, acceptsTransfer: v })} />
                   {pro.acceptsTransfer && (
-                    <label className="block"><span className="text-xs font-bold text-ink/60">{tt("pros.transferDetails")}</span>
+                    <label className="block"><span className="text-xs font-bold text-ink/70">{tt("pros.transferDetails")}</span>
                       <textarea value={pro.paymentNote} maxLength={400} rows={3} onChange={(e) => setPro({ ...pro, paymentNote: e.target.value })} placeholder={tt("pros.transferPlaceholder")} className="mt-1 w-full rounded-xl bg-white px-3 py-2.5 ring-1 ring-breeze-100" />
-                      <span className="mt-1 block text-xs text-ink/40">{tt("pros.transferPublic")}</span></label>
+                      <span className="mt-1 block text-xs text-ink/70">{tt("pros.transferPublic")}</span></label>
                   )}
                 </div>
               </div>
@@ -203,33 +203,33 @@ export function SetupWizard({
         {step === 3 && (
           <>
             <h1 className="text-2xl font-extrabold">{t("s3Title")}</h1>
-            <p className="mt-1 text-sm text-ink/60">{t("s3Hint")}</p>
+            <p className="mt-1 text-sm text-ink/70">{t("s3Hint")}</p>
             <div className="mt-4 grid grid-cols-7 gap-1.5" role="group" aria-label={t("s3Title")}>
               {DAY_ORDER.map((d) => {
                 const on = days.includes(d);
                 return (
                   <button key={d} type="button" aria-pressed={on} onClick={() => setDays(on ? days.filter((x) => x !== d) : [...days, d])}
-                    className={`min-w-0 rounded-xl py-2.5 text-xs font-bold ring-2 ${on ? "bg-breeze-50 text-lagoon ring-breeze-400" : "bg-white text-ink/50 ring-breeze-100"}`}>
+                    className={`min-w-0 rounded-xl py-2.5 text-xs font-bold ring-2 ${on ? "bg-breeze-50 text-lagoon ring-breeze-400" : "bg-white text-ink/70 ring-breeze-100"}`}>
                     {tt(`weekdays.${d}`)}
                   </button>
                 );
               })}
             </div>
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-              <label className="block"><span className="text-xs font-bold text-ink/60">{t("opens")}</span>
+              <label className="block"><span className="text-xs font-bold text-ink/70">{t("opens")}</span>
                 <select value={start} onChange={(e) => setStart(e.target.value)} className={field}>{OPEN_TIMES.map((h) => <option key={h} value={h}>{fmt12(h)}</option>)}</select></label>
-              <label className="block"><span className="text-xs font-bold text-ink/60">{t("closes")}</span>
+              <label className="block"><span className="text-xs font-bold text-ink/70">{t("closes")}</span>
                 <select value={end} onChange={(e) => setEnd(e.target.value)} className={field}>{CLOSE_TIMES.map((h) => <option key={h} value={h}>{fmt12(h)}</option>)}</select></label>
             </div>
             <button type="button" onClick={() => setDays([0, 1, 2, 3, 4, 5, 6])} className="mt-3 w-full rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-lagoon ring-1 ring-breeze-200 hover:bg-breeze-50">{t("everyDay")}</button>
-            <p className="mt-3 text-xs text-ink/50">{t("hoursLater")}</p>
+            <p className="mt-3 text-xs text-ink/70">{t("hoursLater")}</p>
           </>
         )}
 
         {step === 4 && (
           <>
             <h1 className="text-2xl font-extrabold">{t("s4Title")}</h1>
-            <p className="mt-1 text-sm text-ink/60">{t("s4Hint")}</p>
+            <p className="mt-1 text-sm text-ink/70">{t("s4Hint")}</p>
             <ul className="mt-4 space-y-2 text-sm font-semibold">
               {[
                 serviceCount === null ? t("sumServicesHave") : t("sumServices", { count: serviceCount }),
@@ -247,7 +247,7 @@ export function SetupWizard({
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         {step > 1 ? <button type="button" onClick={() => { setError(null); setStep(step - 1); }} className="rounded-xl bg-white px-4 py-2.5 text-sm font-bold ring-1 ring-breeze-200 hover:bg-breeze-50">{t("back")}</button> : <span />}
-        <Link href="/dashboard" className="text-sm font-semibold text-ink/60 hover:underline">{t("skip")}</Link>
+        <Link href="/dashboard" className="text-sm font-semibold text-ink/70 hover:underline">{t("skip")}</Link>
         {step < 4 ? (
           <button type="button" disabled={!stepOk} onClick={() => setStep(step + 1)} className="rounded-xl bg-lagoon px-6 py-2.5 text-sm font-bold text-white shadow hover:bg-breeze-800 disabled:opacity-50">{t("next")}</button>
         ) : (

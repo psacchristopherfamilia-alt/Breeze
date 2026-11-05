@@ -201,7 +201,7 @@ export function LiveStatusScreen({ phase }: { phase: Exclude<Phase, { kind: "boa
               </span>
             ))}
           </div>
-          <p className="mt-6 inline-flex items-center gap-2 text-sm text-ink/50"><MonitorPlay className="size-4" /> {t("pair.waiting")}</p>
+          <p className="mt-6 inline-flex items-center gap-2 text-sm text-ink/70"><MonitorPlay className="size-4" /> {t("pair.waiting")}</p>
         </>
       )}
       {phase.kind === "error" && <p className="mt-8 max-w-md text-lg font-semibold text-ink/70">{t(`pair.errors.${phase.key}`)}</p>}

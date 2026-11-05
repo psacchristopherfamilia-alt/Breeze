@@ -24,7 +24,7 @@ export default function SalonSignUpPage() {
     <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-breeze-100 animate-fade-up">
       <Link href="/negocios" className="text-xs font-bold text-lagoon hover:underline">← {t("auth.salon.eyebrow")}</Link>
       <h1 className="mt-1 text-2xl font-extrabold">{t("auth.salon.title")}</h1>
-      <p className="mt-1 text-sm text-ink/60">{t("auth.salon.subtitle")}</p>
+      <p className="mt-1 text-sm text-ink/70">{t("auth.salon.subtitle")}</p>
 
       <form action={action} className="mt-5 space-y-5" noValidate>
         <input type="hidden" name="locale" value={locale} />
@@ -43,7 +43,7 @@ export default function SalonSignUpPage() {
           <Field name="orgName" defaultValue={v("orgName")} label={t("auth.fields.orgName")} hint={t("auth.fields.orgNameHint")} error={f.orgName} />
           <Field name="salonName" defaultValue={v("salonName")} label={t("auth.fields.salonName")} hint={t("auth.fields.salonNameHint")} error={f.salonName} />
           <div>
-            <span className="text-xs font-bold text-ink/60">{t("auth.fields.businessTypes")}</span>
+            <span className="text-xs font-bold text-ink/70">{t("auth.fields.businessTypes")}</span>
             <div className="mt-1 grid grid-cols-3 gap-2">
               {TYPES.map((ty) => (
                 <label key={ty} className="flex cursor-pointer flex-col items-center gap-1 rounded-xl bg-foam p-3 text-center text-xs font-bold ring-1 ring-breeze-100 has-[:checked]:bg-breeze-50 has-[:checked]:ring-2 has-[:checked]:ring-breeze-500">
@@ -56,7 +56,7 @@ export default function SalonSignUpPage() {
             {f.businessTypes && <span className="mt-1 block text-xs font-semibold text-red-600">{t(`auth.errors.${f.businessTypes}`)}</span>}
           </div>
           <label className="block">
-            <span className="flex items-center gap-1 text-xs font-bold text-ink/60"><MapPin className="size-3.5" /> {t("auth.fields.zone")}</span>
+            <span className="flex items-center gap-1 text-xs font-bold text-ink/70"><MapPin className="size-3.5" /> {t("auth.fields.zone")}</span>
             <select key={v("zone") ?? ""} name="zone" defaultValue={v("zone") ?? ""} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100 outline-none focus:ring-2 focus:ring-breeze-400">
               <option value="" disabled>{t("auth.fields.zonePlaceholder")}</option>
               {ZONES.map((z) => (

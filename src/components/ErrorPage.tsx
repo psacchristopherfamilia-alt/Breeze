@@ -42,7 +42,7 @@ export function ErrorPage({ kind, onRetry }: { kind: ErrorKind; onRetry?: () => 
             </Link>
           </div>
         </div>
-        <p className="pb-2 text-center text-xs italic text-ink/50">— Breeze</p>
+        <p className="pb-2 text-center text-xs italic text-ink/70">— Breeze</p>
       </div>
     </main>
   );

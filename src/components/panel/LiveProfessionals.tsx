@@ -83,16 +83,16 @@ export function LiveProfessionals({
     <div className="p-4 lg:p-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-ink/50">{salon.name}</p>
+          <p className="text-sm font-semibold text-ink/70">{salon.name}</p>
           <h1 className="text-2xl font-extrabold">{t("pros.title")}</h1>
-          <p className="mt-1 text-sm text-ink/60">{t("pros.subtitle")}</p>
+          <p className="mt-1 text-sm text-ink/70">{t("pros.subtitle")}</p>
         </div>
         <button onClick={() => setDialog({ kind: "pro", pro: null })} className="inline-flex items-center gap-1.5 rounded-xl bg-lagoon px-4 py-2 text-sm font-bold text-white shadow hover:bg-breeze-800">
           <Plus className="size-4" /> {t("pros.add")}
         </button>
       </div>
 
-      {pros.length === 0 && <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/60 ring-1 ring-breeze-100">{t("pros.empty")}</p>}
+      {pros.length === 0 && <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/70 ring-1 ring-breeze-100">{t("pros.empty")}</p>}
 
       <section className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {pros.map((p) => {
@@ -107,7 +107,7 @@ export function LiveProfessionals({
                   <ProBadge pro={p} size="lg" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-lg font-bold">{p.firstName} {p.lastName}</p>
-                    <p className="text-sm text-ink/50">
+                    <p className="text-sm text-ink/70">
                       {t(`titles.${p.title}`)}
                       {!p.isActive && ` · ${t("pros.inactive")}`}
                       {p.isActive && !p.acceptsOnline && ` · ${t("pros.noOnline")}`}
@@ -127,7 +127,7 @@ export function LiveProfessionals({
                     {WEEK.map((d) => {
                       const h = p.hours[d];
                       return (
-                        <div key={d} className={`rounded-lg py-1.5 ${h ? "font-bold" : "text-ink/30"}`} style={h ? { backgroundColor: withAlpha(p.colorHex, 0.1), color: p.colorHex } : { backgroundColor: "#f2fbfb" }}>
+                        <div key={d} className={`rounded-lg py-1.5 ${h ? "font-bold" : "text-ink/70"}`} style={h ? { backgroundColor: withAlpha(p.colorHex, 0.1), color: p.colorHex } : { backgroundColor: "#f2fbfb" }}>
                           {t(`weekdays.${d}`)}
                           <span className="block font-normal">{h ? `${h[0][0].replace(":00", "")}–${h[h.length - 1][1].replace(":00", "")}` : t("pros.off")}</span>
                         </div>
@@ -138,16 +138,16 @@ export function LiveProfessionals({
 
                 <Section icon={<CalendarOff className="size-3.5" />} title={t("pros.timeOff")} onEdit={() => setDialog({ kind: "off", pro: p })} editLabel={t("pros.addTimeOff")} editIcon={<Plus className="size-3.5" />}>
                   {offs.length === 0 ? (
-                    <p className="text-sm text-ink/40">—</p>
+                    <p className="text-sm text-ink/70">—</p>
                   ) : (
                     <ul className="space-y-1 text-sm">
                       {offs.map((o) => (
                         <li key={o.id} className="flex items-center justify-between gap-2">
                           <span>
                             {formatDayShort(new Date(o.start), locale)} → {formatDayShort(new Date(new Date(o.end).getTime() - 1), locale)}
-                            {o.reason && <span className="text-ink/50"> · {o.reason}</span>}
+                            {o.reason && <span className="text-ink/70"> · {o.reason}</span>}
                           </span>
-                          <button aria-label={t("common.delete")} disabled={pending} onClick={() => start(async () => { await deleteTimeOff(o.id); router.refresh(); })} className="text-ink/40 hover:text-red-600">
+                          <button aria-label={t("common.delete")} disabled={pending} onClick={() => start(async () => { await deleteTimeOff(o.id); router.refresh(); })} className="text-ink/70 hover:text-red-600">
                             <Trash2 className="size-3.5" />
                           </button>
                         </li>
@@ -160,7 +160,7 @@ export function LiveProfessionals({
                   {isLinked ? (
                     <p className="inline-flex items-center gap-1.5 font-semibold text-lagoon"><UserCheck className="size-4" /> {t("pros.linked")}</p>
                   ) : invite ? (
-                    <p className="inline-flex items-center gap-1.5 text-ink/60"><Mail className="size-4" /> {t("pros.invited", { contact: invite.contact })}</p>
+                    <p className="inline-flex items-center gap-1.5 text-ink/70"><Mail className="size-4" /> {t("pros.invited", { contact: invite.contact })}</p>
                   ) : (
                     <button onClick={() => setDialog({ kind: "invite", pro: p })} className="inline-flex items-center gap-1.5 font-semibold text-lagoon hover:underline">
                       <Link2 className="size-4" /> {t("pros.invite")}
@@ -184,7 +184,7 @@ export function LiveProfessionals({
 
 function IconBtn({ label, onClick, children }: { label: string; onClick: () => void; children: React.ReactNode }) {
   return (
-    <button aria-label={label} title={label} onClick={onClick} className="grid size-8 place-items-center rounded-full text-ink/50 hover:bg-breeze-50 hover:text-lagoon">
+    <button aria-label={label} title={label} onClick={onClick} className="grid size-8 place-items-center rounded-full text-ink/70 hover:bg-breeze-50 hover:text-lagoon">
       {children}
     </button>
   );
@@ -194,7 +194,7 @@ function Section({ icon, title, onEdit, editLabel, editIcon, children }: { icon:
   return (
     <div className="mt-4">
       <div className="flex items-center justify-between">
-        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-ink/40">{icon} {title}</p>
+        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-ink/70">{icon} {title}</p>
         <button onClick={onEdit} className="inline-flex items-center gap-1 text-xs font-semibold text-lagoon hover:underline">{editIcon ?? <Pencil className="size-3" />} {editLabel}</button>
       </div>
       <div className="mt-1.5">{children}</div>
@@ -252,14 +252,14 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
           <Input label={t("booking.last")} value={f.lastName} onChange={(v) => setF({ ...f, lastName: v })} />
         </div>
         <label className="block">
-          <span className="text-xs font-bold text-ink/60">{t("pros.role")}</span>
+          <span className="text-xs font-bold text-ink/70">{t("pros.role")}</span>
           <select value={f.title} onChange={(e) => setF({ ...f, title: e.target.value as (typeof TITLES)[number] })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100">
             {TITLES.map((ti) => <option key={ti} value={ti}>{t(`titles.${ti}`)}</option>)}
           </select>
         </label>
         <div>
-          <p className="text-xs font-bold text-ink/60">{t("pros.color")}</p>
-          <p className="text-xs text-ink/40">{t("pros.colorHint")}</p>
+          <p className="text-xs font-bold text-ink/70">{t("pros.color")}</p>
+          <p className="text-xs text-ink/70">{t("pros.colorHint")}</p>
           <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4">
             {PRO_COLORS.map((c) => {
               const owner = taken.find((p) => p.colorHex === c.hex);
@@ -272,7 +272,7 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
                   <span className={`grid size-7 shrink-0 place-items-center rounded-full text-[10px] font-extrabold text-white ${owner ? "opacity-35" : ""}`} style={{ backgroundColor: c.hex }}>
                     {owner ? `${owner.firstName[0]}${owner.lastName[0] ?? ""}` : on ? <Check className="size-4" /> : ""}
                   </span>
-                  <span className={owner ? "text-ink/35" : ""}>
+                  <span className={owner ? "text-ink/70" : ""}>
                     {c[locale]}
                     {owner && <span className="flex items-center gap-0.5 text-[10px] font-normal"><Lock className="size-2.5" /> {owner.firstName}</span>}
                   </span>
@@ -285,18 +285,18 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
           <ProBadge pro={{ firstName: f.firstName || "?", lastName: f.lastName || "?", colorHex: f.colorHex }} size="lg" />
           <div>
             <p className="font-bold">{f.firstName || t("pros.namePlaceholder")} {f.lastName.charAt(0)}{f.lastName && "."}</p>
-            <p className="text-xs text-ink/50">{t("pros.publicPreview")}</p>
+            <p className="text-xs text-ink/70">{t("pros.publicPreview")}</p>
           </div>
         </div>
         <div className="space-y-2 rounded-2xl bg-foam p-3">
-          <p className="text-xs font-bold text-ink/60">{t("pros.paymentTitle")}</p>
-          <p className="text-xs text-ink/50">{t("pros.paymentHint")}</p>
+          <p className="text-xs font-bold text-ink/70">{t("pros.paymentTitle")}</p>
+          <p className="text-xs text-ink/70">{t("pros.paymentHint")}</p>
           <Toggle label={t("booking.pay.cash")} checked={f.acceptsCash} onChange={(v) => setF({ ...f, acceptsCash: v })} />
           <Toggle label={t("booking.pay.card")} checked={f.acceptsCard} onChange={(v) => setF({ ...f, acceptsCard: v })} />
           <Toggle label={t("booking.pay.transfer")} checked={f.acceptsTransfer} onChange={(v) => setF({ ...f, acceptsTransfer: v })} />
           {f.acceptsTransfer && (
             <label className="block">
-              <span className="text-xs font-bold text-ink/60">{t("pros.transferDetails")}</span>
+              <span className="text-xs font-bold text-ink/70">{t("pros.transferDetails")}</span>
               <textarea
                 value={f.paymentNote}
                 maxLength={400}
@@ -305,7 +305,7 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
                 placeholder={t("pros.transferPlaceholder")}
                 className="mt-1 w-full rounded-xl bg-white px-3 py-2.5 ring-1 ring-breeze-100"
               />
-              <span className="mt-1 block text-xs text-ink/40">{t("pros.transferPublic")}</span>
+              <span className="mt-1 block text-xs text-ink/70">{t("pros.transferPublic")}</span>
             </label>
           )}
         </div>
@@ -325,19 +325,19 @@ function HoursDialog({ pro, onClose }: { pro: Pro; onClose: () => void }) {
 
   return (
     <Modal title={t("pros.hoursTitle", { name: pro.firstName })} onClose={onClose}>
-      <p className="mb-3 text-xs text-ink/50">{t("pros.hoursHint")}</p>
+      <p className="mb-3 text-xs text-ink/70">{t("pros.hoursHint")}</p>
       <div className="space-y-2 text-sm">
         {WEEK.map((d) => (
           <div key={d} className="flex items-start gap-3 rounded-xl bg-foam p-2">
             <span className="w-10 pt-2 text-xs font-bold">{t(`weekdays.${d}`)}</span>
             <div className="flex-1 space-y-1.5">
-              {rows[d].length === 0 && <p className="pt-2 text-xs text-ink/40">{t("pros.off")}</p>}
+              {rows[d].length === 0 && <p className="pt-2 text-xs text-ink/70">{t("pros.off")}</p>}
               {rows[d].map(([s, e], i) => (
                 <div key={i} className="flex items-center gap-1.5">
                   <input type="time" value={s} onChange={(ev) => set(d, i, 0, ev.target.value)} aria-label={`${t(`weekdays.${d}`)} start`} className="rounded-lg bg-white px-2 py-1 ring-1 ring-breeze-100" />
                   <span>–</span>
                   <input type="time" value={e} onChange={(ev) => set(d, i, 1, ev.target.value)} aria-label={`${t(`weekdays.${d}`)} end`} className="rounded-lg bg-white px-2 py-1 ring-1 ring-breeze-100" />
-                  <button aria-label={t("common.delete")} onClick={() => setRows({ ...rows, [d]: rows[d].filter((_, j) => j !== i) })} className="p-1 text-ink/40 hover:text-red-600"><Trash2 className="size-3.5" /></button>
+                  <button aria-label={t("common.delete")} onClick={() => setRows({ ...rows, [d]: rows[d].filter((_, j) => j !== i) })} className="p-1 text-ink/70 hover:text-red-600"><Trash2 className="size-3.5" /></button>
                 </div>
               ))}
             </div>
@@ -358,7 +358,7 @@ function ServicesDialog({ pro, services, onClose }: { pro: Pro; services: Servic
   const [ids, setIds] = useState<string[]>(pro.serviceIds);
   return (
     <Modal title={t("pros.servicesTitle", { name: pro.firstName })} onClose={onClose}>
-      {services.length === 0 && <p className="text-sm text-ink/60">{t("pros.noSalonServices")}</p>}
+      {services.length === 0 && <p className="text-sm text-ink/70">{t("pros.noSalonServices")}</p>}
       <div className="space-y-2">
         {services.map((s) => {
           const on = ids.includes(s.id);
@@ -366,7 +366,7 @@ function ServicesDialog({ pro, services, onClose }: { pro: Pro; services: Servic
             <label key={s.id} className={`flex cursor-pointer items-center gap-3 rounded-xl p-3 text-sm ring-1 ${on ? "bg-breeze-50 ring-breeze-400" : "ring-breeze-100"}`}>
               <input type="checkbox" checked={on} onChange={() => setIds(on ? ids.filter((x) => x !== s.id) : [...ids, s.id])} className="size-4 accent-[#0e7c86]" />
               <span className="flex-1 font-semibold">{locale === "es" ? s.nameEs : s.nameEn}</span>
-              <span className="text-ink/50">{s.durationMin} min · {formatPrice(s.priceCents)}</span>
+              <span className="text-ink/70">{s.durationMin} min · {formatPrice(s.priceCents)}</span>
             </label>
           );
         })}
@@ -393,13 +393,13 @@ function InviteDialog({ pro, salon, onClose }: { pro: Pro; salon: { id: string; 
               {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />} {copied ? t("pros.copied") : t("pros.copy")}
             </button>
           </div>
-          <p className="text-xs text-ink/50">{t("pros.inviteNote7d")}</p>
+          <p className="text-xs text-ink/70">{t("pros.inviteNote7d")}</p>
           <button onClick={onClose} className="w-full rounded-xl py-2.5 font-bold text-lagoon ring-1 ring-breeze-100">{t("common.close")}</button>
         </div>
       ) : (
         <>
           <Input label={t("pros.inviteContact")} value={contact} onChange={setContact} placeholder="carlos@email.com / +1 649 …" />
-          <p className="mt-2 text-xs text-ink/50">{t("pros.inviteHint")}</p>
+          <p className="mt-2 text-xs text-ink/70">{t("pros.inviteHint")}</p>
           <Footer pending={pending} error={error} label={t("pros.createLink")}
             onSave={() => run(async () => {
               const r = await inviteProfessional(salon.organizationId, salon.id, pro.id, contact);
@@ -423,7 +423,7 @@ function TimeOffDialog({ pro, onClose }: { pro: Pro; onClose: () => void }) {
         <Input type="date" label={t("pros.to")} value={f.to} onChange={(v) => setF({ ...f, to: v })} />
       </div>
       <div className="mt-3"><Input label={t("pros.reason")} value={f.reason} onChange={(v) => setF({ ...f, reason: v })} placeholder={t("pros.reasonPlaceholder")} /></div>
-      <p className="mt-2 text-xs text-ink/50">{t("pros.timeOffHint")}</p>
+      <p className="mt-2 text-xs text-ink/70">{t("pros.timeOffHint")}</p>
       <Footer pending={pending} error={error}
         onSave={() => run(() => (f.from && f.to
           ? addTimeOff(pro.id, atLocal(f.from, "00:00").toISOString(), atLocal(addDaysKey(f.to, 1), "00:00").toISOString(), f.reason)
@@ -435,7 +435,7 @@ function TimeOffDialog({ pro, onClose }: { pro: Pro; onClose: () => void }) {
 function Input({ label, value, onChange, type = "text", placeholder }: { label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string }) {
   return (
     <label className="block">
-      <span className="text-xs font-bold text-ink/60">{label}</span>
+      <span className="text-xs font-bold text-ink/70">{label}</span>
       <input type={type} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 outline-none ring-1 ring-breeze-100 focus:ring-2 focus:ring-breeze-400" />
     </label>
   );

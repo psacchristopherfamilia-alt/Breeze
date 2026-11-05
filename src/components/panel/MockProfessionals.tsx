@@ -52,9 +52,9 @@ export function MockProfessionals() {
     <div className="p-4 lg:p-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm font-semibold text-ink/50">{salon.name}</p>
+          <p className="text-sm font-semibold text-ink/70">{salon.name}</p>
           <h1 className="text-2xl font-extrabold">{t("pros.title")}</h1>
-          <p className="mt-1 text-sm text-ink/60">{t("pros.subtitle")}</p>
+          <p className="mt-1 text-sm text-ink/70">{t("pros.subtitle")}</p>
         </div>
         {!adding && (
           <button onClick={() => setAdding(true)} className="inline-flex items-center gap-1.5 rounded-xl bg-lagoon px-4 py-2 text-sm font-bold text-white shadow hover:bg-breeze-800">
@@ -72,7 +72,7 @@ export function MockProfessionals() {
                 <Input label={t("booking.last")} value={draft.last} onChange={(v) => setDraft({ ...draft, last: v })} />
               </div>
               <label className="block">
-                <span className="text-xs font-bold text-ink/60">{t("pros.role")}</span>
+                <span className="text-xs font-bold text-ink/70">{t("pros.role")}</span>
                 <select value={draft.title} onChange={(e) => setDraft({ ...draft, title: e.target.value as ProTitle })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100">
                   {TITLES.map((ti) => (
                     <option key={ti} value={ti}>{t(`titles.${ti}`)}</option>
@@ -81,8 +81,8 @@ export function MockProfessionals() {
               </label>
 
               <div>
-                <p className="text-xs font-bold text-ink/60">{t("pros.color")}</p>
-                <p className="text-xs text-ink/40">{t("pros.colorHint")}</p>
+                <p className="text-xs font-bold text-ink/70">{t("pros.color")}</p>
+                <p className="text-xs text-ink/70">{t("pros.colorHint")}</p>
                 <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 xl:grid-cols-6">
                   {PRO_COLORS.map((c) => {
                     const owner = taken.get(c.key);
@@ -100,7 +100,7 @@ export function MockProfessionals() {
                         <span className={`grid size-7 shrink-0 place-items-center rounded-full text-[10px] font-extrabold text-white ${owner ? "opacity-35" : ""}`} style={{ backgroundColor: c.hex }}>
                           {owner ? initials(owner.firstName, owner.lastName) : on ? <Check className="size-4" /> : ""}
                         </span>
-                        <span className={owner ? "text-ink/35" : ""}>
+                        <span className={owner ? "text-ink/70" : ""}>
                           {c[locale]}
                           {owner && (
                             <span className="flex items-center gap-0.5 text-[10px] font-normal">
@@ -115,7 +115,7 @@ export function MockProfessionals() {
               </div>
 
               <div>
-                <p className="text-xs font-bold text-ink/60">{t("pros.services")}</p>
+                <p className="text-xs font-bold text-ink/70">{t("pros.services")}</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {services.map((v) => {
                     const on = draft.services.includes(v.id);
@@ -135,14 +135,14 @@ export function MockProfessionals() {
 
             {/* Vista previa: así se verá en agenda y en Breeze Live */}
             <aside className="rounded-2xl bg-foam p-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-ink/40">{t("pros.preview")}</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-ink/70">{t("pros.preview")}</p>
               {draft.color ? (
                 <div className="mt-3 space-y-3">
                   <div className="flex items-center gap-3">
                     <ProBadge pro={{ firstName: draft.first || "?", lastName: draft.last || "?", color: draft.color }} size="lg" />
                     <div>
                       <p className="font-bold">{draft.first || t("pros.namePlaceholder")} {draft.last.charAt(0)}{draft.last && "."}</p>
-                      <p className="text-xs text-ink/50">{t(`titles.${draft.title}`)}</p>
+                      <p className="text-xs text-ink/70">{t(`titles.${draft.title}`)}</p>
                     </div>
                   </div>
                   <div className="rounded-lg border-l-4 px-2 py-1.5 text-xs" style={{ borderColor: colorOf(draft.color).hex, backgroundColor: withAlpha(colorOf(draft.color).hex, 0.13) }}>
@@ -151,19 +151,19 @@ export function MockProfessionals() {
                   </div>
                 </div>
               ) : (
-                <p className="mt-3 text-sm text-ink/50">{t("pros.pickColor")}</p>
+                <p className="mt-3 text-sm text-ink/70">{t("pros.pickColor")}</p>
               )}
             </aside>
           </div>
           <div className="mt-5 flex justify-end gap-2">
-            <button onClick={() => setAdding(false)} className="rounded-xl px-4 py-2 text-sm font-semibold text-ink/60 hover:bg-foam">
+            <button onClick={() => setAdding(false)} className="rounded-xl px-4 py-2 text-sm font-semibold text-ink/70 hover:bg-foam">
               {t("common.cancel")}
             </button>
             <button onClick={save} disabled={!valid} className="rounded-xl bg-lagoon px-5 py-2 text-sm font-bold text-white disabled:opacity-40">
               {t("pros.save")}
             </button>
           </div>
-          <p className="mt-2 text-right text-xs text-ink/40">{t("pros.inviteNote")}</p>
+          <p className="mt-2 text-right text-xs text-ink/70">{t("pros.inviteNote")}</p>
         </section>
       )}
 
@@ -178,26 +178,26 @@ export function MockProfessionals() {
                   <ProBadge pro={p} size="lg" />
                   <div>
                     <p className="text-lg font-bold">{p.firstName} {p.lastName}</p>
-                    <p className="text-sm text-ink/50">{t(`titles.${p.title}`)}</p>
+                    <p className="text-sm text-ink/70">{t(`titles.${p.title}`)}</p>
                   </div>
                   <span className="ml-auto rounded-full px-2.5 py-1 text-xs font-bold" style={{ color: c.hex, backgroundColor: withAlpha(c.hex, 0.1) }}>
                     {c[locale]}
                   </span>
                 </div>
-                <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-ink/40">
+                <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-ink/70">
                   <Scissors className="size-3.5" /> {t("pros.services")} ({p.serviceIds.length})
                 </p>
                 <p className="mt-1 text-sm text-ink/70">
                   {p.serviceIds.map((id) => services.find((s) => s.id === id)).filter(Boolean).map((s) => serviceName(s!, locale)).join(" · ") || "—"}
                 </p>
-                <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-ink/40">
+                <p className="mt-4 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-ink/70">
                   <Clock className="size-3.5" /> {t("pros.hours")}
                 </p>
                 <div className="mt-2 grid grid-cols-7 gap-1 text-center text-[10px]">
                   {WEEKDAYS.map((d) => {
                     const h = p.hours[d];
                     return (
-                      <div key={d} className={`rounded-lg py-1.5 ${h ? "font-bold" : "text-ink/30"}`} style={h ? { backgroundColor: withAlpha(c.hex, 0.1), color: c.hex } : { backgroundColor: "#f2fbfb" }}>
+                      <div key={d} className={`rounded-lg py-1.5 ${h ? "font-bold" : "text-ink/70"}`} style={h ? { backgroundColor: withAlpha(c.hex, 0.1), color: c.hex } : { backgroundColor: "#f2fbfb" }}>
                         {t(`weekdays.${d}`)}
                         <span className="block font-normal">{h ? h[0][0].replace(":00", "") + "–" + h[h.length - 1][1].replace(":00", "") : t("pros.off")}</span>
                       </div>
@@ -216,7 +216,7 @@ export function MockProfessionals() {
 function Input({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <label className="block">
-      <span className="text-xs font-bold text-ink/60">{label}</span>
+      <span className="text-xs font-bold text-ink/70">{label}</span>
       <input value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 outline-none ring-1 ring-breeze-100 focus:ring-2 focus:ring-breeze-400" />
     </label>
   );

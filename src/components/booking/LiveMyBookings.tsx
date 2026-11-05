@@ -26,23 +26,23 @@ export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
           <div className="mt-6 h-32 animate-pulse rounded-3xl bg-white" />
         ) : bookings.length === 0 ? (
           <div className="mt-6 rounded-3xl bg-white p-10 text-center ring-1 ring-breeze-100">
-            <p className="text-ink/60">{t("me.empty")}</p>
+            <p className="text-ink/70">{t("me.empty")}</p>
             <Link href="/explore" className="mt-4 inline-flex items-center gap-1 rounded-2xl bg-lagoon px-5 py-3 font-bold text-white">
               <Plus className="size-4" /> {t("me.bookNow")}
             </Link>
           </div>
         ) : (
           <>
-            <h2 className="mt-6 text-sm font-bold uppercase tracking-wide text-ink/50">{t("me.upcoming")}</h2>
+            <h2 className="mt-6 text-sm font-bold uppercase tracking-wide text-ink/70">{t("me.upcoming")}</h2>
             <div className="mt-2 space-y-3">
-              {upcoming.length === 0 && <p className="text-sm text-ink/50">{t("me.noneUpcoming")}</p>}
+              {upcoming.length === 0 && <p className="text-sm text-ink/70">{t("me.noneUpcoming")}</p>}
               {upcoming.map((b) => (
                 <BookingCard key={b.booking_group_id} booking={b} now={now} />
               ))}
             </div>
             {history.length > 0 && (
               <>
-                <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/50">{t("me.history")}</h2>
+                <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/70">{t("me.history")}</h2>
                 <div className="mt-2 space-y-3 opacity-70">
                   {history.map((b) => (
                     <BookingCard key={b.booking_group_id} booking={b} now={now} />

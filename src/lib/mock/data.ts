@@ -97,6 +97,8 @@ export interface Professional {
   color: ProColorKey;
   serviceIds: string[];
   hours: WeeklyHours;
+  /** Cómo cobra (por defecto, solo efectivo). */
+  payment?: { cash: boolean; card: boolean; transfer: boolean; note: string | null };
 }
 
 export interface Service {
@@ -290,7 +292,7 @@ export const SERVICES: Service[] = [
 
 export const PROFESSIONALS: Professional[] = [
   // Island Fade
-  { id: "p11", salonId: "s1", firstName: "Carlos", lastName: "Martínez", title: "barber", color: "blue", serviceIds: ["v101", "v102", "v103", "v104", "v105"], hours: MON_SAT(BARBER_LONG) },
+  { id: "p11", salonId: "s1", firstName: "Carlos", lastName: "Martínez", title: "barber", color: "blue", serviceIds: ["v101", "v102", "v103", "v104", "v105"], hours: MON_SAT(BARBER_LONG), payment: { cash: true, card: true, transfer: true, note: "Demo Bank · Account 000-123 · Send the receipt by WhatsApp" } },
   { id: "p12", salonId: "s1", firstName: "Andre", lastName: "Williams", title: "barber", color: "red", serviceIds: ["v101", "v102", "v103", "v105", "v106"], hours: MON_SAT(BARBER_LONG) },
   { id: "p13", salonId: "s1", firstName: "Luis", lastName: "Gómez", title: "barber", color: "green", serviceIds: ["v101", "v103", "v104", "v106"], hours: { ...MON_SAT(SPLIT), 0: [["10:00", "14:00"]] } },
   // Coral Salon

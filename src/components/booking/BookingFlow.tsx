@@ -14,6 +14,7 @@ import type { BookingData, ConfirmRequest, ConfirmResult, PublicService } from "
 import { formatDuration } from "@/lib/format";
 import { CATEGORIES, formatPrice } from "@/lib/mock/data";
 import { addDaysKey, atLocal, formatDayLong, formatDayShort, formatTime, localDateKey, toTZ } from "@/lib/time";
+import { PaymentInfo } from "./PaymentInfo";
 import { Turnstile } from "./Turnstile";
 
 type Step = "services" | "pro" | "time" | "details";
@@ -202,6 +203,9 @@ export function BookingFlow({
             </ul>
             <p className="mt-4 border-t border-breeze-100 pt-3 text-sm font-semibold first-letter:uppercase">{formatDayLong(slot.start, locale)}</p>
             <p className="text-xs text-ink/50">{t("booking.tzNote")}</p>
+          </div>
+          <div className="mt-4 text-left">
+            <PaymentInfo payment={pro.payment} name={pro.firstName} />
           </div>
           <div className="mt-4 rounded-2xl bg-white/70 p-4 text-left text-sm text-ink/70 ring-1 ring-breeze-100">
             <p className="inline-flex items-center gap-2 font-semibold text-ink">
@@ -445,6 +449,8 @@ export function BookingFlow({
                 <p className="text-ink/60">{t("booking.with", { name: proOf(slot.proId).firstName })} · {formatDuration(serviceMin)}</p>
               </div>
             </div>
+
+            <PaymentInfo payment={proOf(slot.proId).payment} name={proOf(slot.proId).firstName} />
 
             {account ? (
               <AccountCard account={account} note={t("booking.signedIn")} />

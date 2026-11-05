@@ -30,6 +30,15 @@ export interface PublicService {
 }
 
 /** Profesional tal como lo ve el público: nombre + inicial del apellido, nunca más. */
+/** Cómo cobra el profesional. Breeze no procesa pagos: solo se muestra al cliente al reservar. */
+export interface ProPayment {
+  cash: boolean;
+  card: boolean;
+  transfer: boolean;
+  /** Datos para transferir (banco, cuenta, a quién enviar el comprobante). Obligatorio si acepta transferencia. */
+  note: string | null;
+}
+
 export interface PublicPro {
   id: string;
   firstName: string;
@@ -38,6 +47,7 @@ export interface PublicPro {
   title: ProTitle;
   serviceIds: string[];
   hours: WeeklyHours;
+  payment: ProPayment;
 }
 
 export interface BookingData {

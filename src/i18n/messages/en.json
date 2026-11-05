@@ -175,7 +175,15 @@
     },
     "deviceSaved": "We saved this booking on this device.",
     "deviceSavedHint": "When you come back you will see a \"My bookings\" button to change or cancel it.",
-    "createAccountCta": "Create an account to see it on any device"
+    "createAccountCta": "Create an account to see it on any device",
+    "payTitle": "How you'll pay",
+    "payDirect": "You pay {name} directly. Breeze doesn't charge anything.",
+    "pay": {
+      "cash": "Cash",
+      "card": "Card",
+      "transfer": "Bank transfer"
+    },
+    "payTransferDetails": "Transfer details"
   },
   "me": {
     "title": "My bookings",
@@ -220,7 +228,8 @@
       "professionals": "Professionals",
       "services": "Services",
       "settings": "Settings",
-      "billing": "Plan & payments"
+      "billing": "Plan & payments",
+      "admin": "Administration"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
@@ -314,7 +323,9 @@
       "invalid_range": "Check the dates.",
       "category_mismatch": "That category doesn't match your business type.",
       "invalid_code": "That code isn't valid or has expired. Check the screen.",
-      "too_many_pending": "Too many screens waiting. Try again later."
+      "too_many_pending": "Too many screens waiting. Try again later.",
+      "payment_method_required": "Choose at least one way to get paid.",
+      "transfer_details_required": "Add the transfer details for bank transfers."
     },
     "setup": {
       "title": "Steps to start receiving bookings",
@@ -394,7 +405,12 @@
     "to": "To",
     "reason": "Reason (optional)",
     "reasonPlaceholder": "Vacation, training…",
-    "timeOffHint": "Whole days. Clients won't be able to book those days."
+    "timeOffHint": "Whole days. Clients won't be able to book those days.",
+    "paymentTitle": "How this professional gets paid",
+    "paymentHint": "Clients see this when they book. Breeze doesn't charge or process payments.",
+    "transferDetails": "Transfer details",
+    "transferPlaceholder": "Bank, account number, name, and where to send the receipt",
+    "transferPublic": "Visible to anyone who opens your booking page. Don't write anything you wouldn't give a client."
   },
   "weekdays": {
     "0": "Sun",

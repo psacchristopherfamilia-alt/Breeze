@@ -24,7 +24,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
       .order("sort_order"),
     supabase
       .from("professionals")
-      .select("id, public_name, color_hex, title, accepts_online, sort_order")
+      .select("id, public_name, color_hex, title, accepts_online, sort_order, accepts_cash, accepts_card, accepts_transfer, payment_note")
       .eq("salon_id", s.id)
       .eq("is_active", true)
       .eq("accepts_online", true)
@@ -69,6 +69,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
         title: p.title as ProTitle,
         serviceIds: (links.data ?? []).filter((l) => l.professional_id === p.id).map((l) => l.service_id),
         hours: {},
+        payment: { cash: p.accepts_cash, card: p.accepts_card, transfer: p.accepts_transfer, note: p.payment_note },
       };
     }),
   };

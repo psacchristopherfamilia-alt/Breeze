@@ -23,6 +23,10 @@ interface Pro {
   title: string;
   isActive: boolean;
   acceptsOnline: boolean;
+  acceptsCash: boolean;
+  acceptsCard: boolean;
+  acceptsTransfer: boolean;
+  paymentNote: string;
   serviceIds: string[];
   hours: WeeklyHours;
 }
@@ -234,6 +238,10 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
     colorHex: pro?.colorHex ?? PRO_COLORS.find((c) => !taken.some((p) => p.colorHex === c.hex))?.hex ?? PRO_COLORS[0].hex,
     isActive: pro?.isActive ?? true,
     acceptsOnline: pro?.acceptsOnline ?? true,
+    acceptsCash: pro?.acceptsCash ?? true,
+    acceptsCard: pro?.acceptsCard ?? false,
+    acceptsTransfer: pro?.acceptsTransfer ?? false,
+    paymentNote: pro?.paymentNote ?? "",
   });
 
   return (
@@ -279,6 +287,27 @@ function ProDialog({ salonId, pro, taken, onClose }: { salonId: string; pro: Pro
             <p className="font-bold">{f.firstName || t("pros.namePlaceholder")} {f.lastName.charAt(0)}{f.lastName && "."}</p>
             <p className="text-xs text-ink/50">{t("pros.publicPreview")}</p>
           </div>
+        </div>
+        <div className="space-y-2 rounded-2xl bg-foam p-3">
+          <p className="text-xs font-bold text-ink/60">{t("pros.paymentTitle")}</p>
+          <p className="text-xs text-ink/50">{t("pros.paymentHint")}</p>
+          <Toggle label={t("booking.pay.cash")} checked={f.acceptsCash} onChange={(v) => setF({ ...f, acceptsCash: v })} />
+          <Toggle label={t("booking.pay.card")} checked={f.acceptsCard} onChange={(v) => setF({ ...f, acceptsCard: v })} />
+          <Toggle label={t("booking.pay.transfer")} checked={f.acceptsTransfer} onChange={(v) => setF({ ...f, acceptsTransfer: v })} />
+          {f.acceptsTransfer && (
+            <label className="block">
+              <span className="text-xs font-bold text-ink/60">{t("pros.transferDetails")}</span>
+              <textarea
+                value={f.paymentNote}
+                maxLength={400}
+                rows={3}
+                onChange={(e) => setF({ ...f, paymentNote: e.target.value })}
+                placeholder={t("pros.transferPlaceholder")}
+                className="mt-1 w-full rounded-xl bg-white px-3 py-2.5 ring-1 ring-breeze-100"
+              />
+              <span className="mt-1 block text-xs text-ink/40">{t("pros.transferPublic")}</span>
+            </label>
+          )}
         </div>
         <Toggle label={t("pros.acceptsOnline")} checked={f.acceptsOnline} onChange={(v) => setF({ ...f, acceptsOnline: v })} />
         {pro && <Toggle label={t("pros.active")} checked={f.isActive} onChange={(v) => setF({ ...f, isActive: v })} />}

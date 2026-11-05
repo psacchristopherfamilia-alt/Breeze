@@ -13,7 +13,7 @@ Plan completo: `docs/PLAN.md` (fuente de verdad para esquema, roles, flujos y ca
 Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realtime, Edge Functions, pg_cron). next-intl, @date-fns/tz, zod, Vitest, pgTAP, Playwright.
 
 ## Comandos
-- `pnpm dev` · `pnpm typecheck` · `pnpm test` (unitarios) · `pnpm test:db` (Postgres real)
+- `pnpm dev` · `pnpm typecheck` · `pnpm test` (unitarios) · `pnpm test:db` (Postgres real) · `pnpm test:e2e` (navegador, Playwright)
 - `pnpm exec supabase start` · `pnpm exec supabase db reset` · `pnpm db:types`
 - `pnpm test:db` crea una BD desechable en `TEST_DATABASE_URL` (por defecto `postgres://postgres:postgres@localhost:54322/postgres`, el Postgres de `supabase start`), aplica `tests/db/support/supabase-shim.sql` + `supabase/migrations/*` + `fixtures.sql`, y la borra al terminar.
 
@@ -105,3 +105,4 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - **Factura/recibo**: `/dashboard/billing/[number]` (solo dueño, imprimible → «Guardar como PDF»).
 - **Derechos de datos** (cliente con cuenta): RPC `export_my_data()` y `delete_my_account()` (cancela citas futuras, anonimiza ficha y citas pasadas, borra el usuario; un dueño de negocio no puede borrarse: `owner_cannot_delete`). UI en `/me` (`MyPrivacy`).
 - **CI**: `.github/workflows/ci.yml` (tipos, pruebas unitarias, pruebas de BD con Postgres 16 en el puerto 54322, build).
+- **Pruebas de navegador** (`tests/e2e/`, Playwright 1.63 fijada): corren sobre la app construida en modo prototipo (sin Supabase), en escritorio y móvil. Cubren páginas públicas sin desbordes, precios, `robots`/`sitemap`/imagen al compartir y la reserva de un invitado de principio a fin (la hora reservada deja de ofrecerse). Localmente, con Chromium ya instalado: `PW_CHROMIUM_PATH=/opt/pw-browsers/chromium pnpm test:e2e`. En CI se instala con `playwright install --with-deps chromium`. Lo que depende de Supabase real (RLS, doble reserva, derechos de datos) lo cubre `pnpm test:db`.

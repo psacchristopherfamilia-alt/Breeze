@@ -1,5 +1,5 @@
 "use client";
-import { Bell, CalendarPlus, CalendarX2, CalendarClock, Volume2, VolumeX } from "lucide-react";
+import { Bell, CalendarPlus, CalendarX2, CalendarClock, Star, Volume2, VolumeX } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -8,9 +8,9 @@ import { alertText, type AlertKind, type AlertRow } from "@/lib/alerts";
 import { createClient } from "@/lib/supabase/client";
 import { PushSetup } from "./PushSetup";
 
-const ICON: Record<AlertKind, typeof Bell> = { booked: CalendarPlus, rescheduled: CalendarClock, cancelled: CalendarX2 };
+const ICON: Record<AlertKind, typeof Bell> = { booked: CalendarPlus, rescheduled: CalendarClock, cancelled: CalendarX2, review: Star };
 const SOUND_KEY = "breeze-alert-sound";
-const COLS = "id, kind, customer_display, service_en, service_es, pro_name, starts_at, created_at, read_at";
+const COLS = "id, kind, customer_display, service_en, service_es, pro_name, starts_at, rating, created_at, read_at";
 
 /** Dos notas suaves. Los navegadores solo dejan sonar tras algún toque del usuario; si no, se ignora. */
 function chime() {
@@ -158,7 +158,7 @@ export function AlertsBell({ userId }: { userId: string }) {
               const Icon = ICON[a.kind];
               return (
                 <li key={a.id} className={`border-b border-breeze-50 last:border-0 ${a.read_at ? "" : "bg-breeze-50/60"}`}>
-                  <Link href={`/dashboard?date=${txt.dateKey}`} onClick={() => { void markRead([a.id]); setOpen(false); }} className="flex gap-3 px-4 py-3 hover:bg-breeze-50">
+                  <Link href={txt.href} onClick={() => { void markRead([a.id]); setOpen(false); }} className="flex gap-3 px-4 py-3 hover:bg-breeze-50">
                     <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-breeze-50 text-lagoon"><Icon className="size-4" /></span>
                     <span className="min-w-0 flex-1 text-sm">
                       <span className="block font-bold">{txt.title}{!a.read_at && <span className="sr-only"> ({t("unread")})</span>}</span>

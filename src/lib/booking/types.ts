@@ -1,5 +1,6 @@
 import type { BusyRange, WeeklyHours } from "../availability";
 import type { BusinessType, CategoryCode, ProTitle, Zone } from "../mock/data";
+import type { SalonReviews } from "../reviews";
 
 /** Datos que necesita la pantalla de reserva, vengan del prototipo o de Supabase. */
 export interface PublicSalon {
@@ -54,12 +55,16 @@ export interface PublicPro {
   hours: WeeklyHours;
   payment: ProPayment;
   photoUrl?: string | null;
+  /** Promedio de sus reseñas (solo desde 3). */
+  rating?: { avg: number; count: number };
 }
 
 export interface BookingData {
   salon: PublicSalon;
   services: PublicService[];
   pros: PublicPro[];
+  /** Reseñas verificadas (solo datos reales). */
+  reviews?: SalonReviews;
 }
 
 export interface ConfirmRequest {

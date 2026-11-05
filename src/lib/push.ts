@@ -22,7 +22,7 @@ export interface PushResult {
 /** Lo que se muestra en el teléfono. `url` abre la agenda del día de la cita. */
 export function pushPayload(alert: AlertRow, locale: "en" | "es") {
   const t = alertText(alert, locale);
-  return { title: t.title, body: t.body, url: `/dashboard?date=${t.dateKey}`, tag: alert.id };
+  return { title: t.title, body: t.body, url: t.href, tag: alert.id };
 }
 
 /** Envía un aviso a todos los teléfonos de una persona; un fallo en uno no afecta a los demás. */

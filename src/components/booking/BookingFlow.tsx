@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAppLocale } from "@/components/Providers";
 import { LegalConsent } from "@/components/legal/LegalConsent";
 import { ClientHeader } from "@/components/ui/ClientHeader";
+import { ReviewsList } from "@/components/reviews/ReviewsList";
 import { ProBadge } from "@/components/ui/ProBadge";
 import { TypeIcon } from "@/components/ui/TypeIcon";
 import { planSequence, slotsForPros, totalBlockMinutes, type BusyRange } from "@/lib/availability";
@@ -284,6 +285,9 @@ export function BookingFlow({
             {salon.rating !== undefined && (
               <span className="inline-flex items-center gap-1"><Star className="size-3.5 fill-amber-400 text-amber-400" /> {salon.rating} ({salon.reviews})</span>
             )}
+            {salon.rating === undefined && data.reviews && (
+              <span className="rounded-full bg-breeze-50 px-2 py-0.5 text-xs font-bold text-lagoon">{t("reviews.new")}</span>
+            )}
           </p>
           {!isReschedule && salon.gallery && salon.gallery.length > 1 && (
             <ul className="-mx-5 mt-4 flex snap-x gap-2 overflow-x-auto px-5 pb-1 no-scrollbar" aria-label={t("photos.galleryLabel", { name: salon.name })}>
@@ -369,6 +373,7 @@ export function BookingFlow({
                 </div>
               </section>
             ))}
+            {data.reviews && <ReviewsList salonId={salon.id} reviews={data.reviews} />}
           </div>
         )}
 
@@ -406,6 +411,11 @@ export function BookingFlow({
                   <span>
                     <span className="block font-bold">{p.firstName} {p.lastName.charAt(0)}.</span>
                     <span className="text-sm text-ink/70">{t(`titles.${p.title}`)}</span>
+                    {p.rating && (
+                      <span className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-ink/70">
+                        <Star className="size-3 fill-amber-400 text-amber-400" aria-hidden="true" /> {p.rating.avg.toFixed(1)} ({p.rating.count})
+                      </span>
+                    )}
                   </span>
                 </button>
               );

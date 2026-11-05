@@ -235,7 +235,8 @@
       "settings": "Settings",
       "billing": "Plan & payments",
       "admin": "Administration",
-      "clients": "Clients"
+      "clients": "Clients",
+      "reviews": "Reviews"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
@@ -341,7 +342,10 @@
       "photo_unreadable": "We couldn't read that photo. Try another one.",
       "photo_upload_failed": "The upload failed. Check your connection and try again.",
       "photo_limit": "You can have up to 9 photos in the gallery.",
-      "invalid_photo": "That photo isn't valid."
+      "invalid_photo": "That photo isn't valid.",
+      "reply_too_long": "The reply is too long (500 characters maximum).",
+      "reason_required": "Tell us the reason (3 to 300 characters).",
+      "already_reported": "That review was already reported."
     },
     "setup": {
       "title": "Steps to start receiving bookings",
@@ -823,7 +827,19 @@
       "invalid_days": "Enter between 1 and 365 days.",
       "invalid_status": "Invalid status.",
       "too_long": "Some text is too long.",
-      "generic": "Couldn't complete that. Please try again."
+      "generic": "Couldn't complete that. Please try again.",
+      "invalid_action": "Invalid action."
+    },
+    "reviews": {
+      "title": "Reported reviews",
+      "hint": "Salons can reply to and report reviews. Only you can hide one, and only if it breaks the rules: insults, personal data, spam, or someone who wasn't a client.",
+      "empty": "No reported reviews.",
+      "reportedOn": "Reported on {date}",
+      "reason": "Reason",
+      "noComment": "No comment, stars only.",
+      "salonReply": "Salon reply",
+      "hide": "Hide review",
+      "keep": "Keep it visible"
     }
   },
   "legal": {
@@ -1007,5 +1023,95 @@
     "serviceHint": "Optional. Shows next to the service when clients book.",
     "galleryLabel": "{name} photos",
     "photoOf": "{name}, photo {n}"
+  },
+  "reviews": {
+    "title": "How was your visit?",
+    "titleWithPro": "How was your visit with {pro}?",
+    "ratingLegend": "Your rating",
+    "starsLabel": "{count, plural, one {# star} other {# stars}}",
+    "tapStar": "Tap a star",
+    "rating": {
+      "1": "Very poor",
+      "2": "Poor",
+      "3": "Okay",
+      "4": "Good",
+      "5": "Excellent"
+    },
+    "commentOptional": "Comment (optional)",
+    "commentRequired": "Tell us what happened",
+    "placeholder": "Share something useful for other clients",
+    "placeholderLow": "What could the salon do better?",
+    "publicNote": "It will appear as \"{name}\". Your phone and email are never shown.",
+    "anonymous": "Customer",
+    "publish": "Publish review",
+    "update": "Update review",
+    "thanksTitle": "Thank you!",
+    "thanksBody": "Your review is now on the {salon} page.",
+    "seePage": "See the page",
+    "state": {
+      "too_early": {
+        "title": "Not yet",
+        "body": "You can leave your review once your appointment at {salon} is over."
+      },
+      "not_reviewable": {
+        "title": "This visit can't be reviewed",
+        "body": "Cancelled appointments and no-shows can't be reviewed."
+      },
+      "expired": {
+        "title": "This link has expired",
+        "body": "Reviews can be left up to 14 days after the visit."
+      },
+      "reviewed": {
+        "title": "Thanks for your review",
+        "body": "Your review of {salon} is already published. It can't be edited anymore."
+      }
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "not_found": "We couldn't find that visit.",
+      "too_early": "Your appointment isn't over yet.",
+      "not_reviewable": "This visit can't be reviewed.",
+      "expired": "This link has expired.",
+      "invalid_rating": "Pick a rating from 1 to 5 stars.",
+      "comment_required": "Please tell us what happened.",
+      "comment_too_long": "The comment is too long (500 characters maximum).",
+      "review_hidden": "This review was hidden and can't be edited."
+    },
+    "title2": "Reviews",
+    "summary": "{count, plural, one {# review} other {# reviews}}",
+    "new": "New",
+    "fromClients": "Verified reviews from clients who visited",
+    "empty": "No reviews yet.",
+    "more": "Show more",
+    "reply": "Reply from the salon",
+    "forService": "{service}",
+    "ago": "{when}",
+    "cta": "Leave a review",
+    "edit": "Your review: {count} ★ · Edit"
+  },
+  "reviewsPanel": {
+    "title": "Reviews",
+    "subtitleManager": "What clients say about your salon. You can reply to each one and report any that break the rules.",
+    "subtitlePro": "Reviews from your own clients.",
+    "all": "All",
+    "unanswered": "No reply yet",
+    "low": "1 to 3 stars",
+    "empty": "No reviews yet. After a visit, clients get a link to review it.",
+    "noMatch": "Nothing here.",
+    "reply": "Reply",
+    "editReply": "Edit reply",
+    "yourReply": "Your reply",
+    "replyPlaceholder": "Thank the client or explain what you'll improve",
+    "send": "Send reply",
+    "remove": "Remove reply",
+    "cancel": "Cancel",
+    "report": "Report",
+    "reportTitle": "Why are you reporting it?",
+    "reportHint": "Reviews are only hidden if they break the rules (insults, personal data, spam, or not a real client). Disliking a review is not a reason. Breeze will review your report.",
+    "reportPlaceholder": "E.g. offensive language, this person never visited",
+    "sendReport": "Send report",
+    "reported": "Reported, under review",
+    "reportedReason": "Your reason: {reason}",
+    "count": "{count, plural, one {# review} other {# reviews}}"
   }
 }

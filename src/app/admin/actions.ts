@@ -10,7 +10,7 @@ export type AdminResult = { ok: true } | { ok: false; error: string };
 const uuid = z.string().uuid();
 const KNOWN = [
   "forbidden", "not_found", "invoice_already_open", "invalid_plan", "invalid_amount", "invoice_not_open",
-  "amount_too_low", "invalid_date", "invalid_days", "invalid_status", "too_long",
+  "amount_too_low", "invalid_date", "invalid_days", "invalid_status", "too_long", "invalid_action",
 ];
 const fail = (e: { code?: string; message?: string }): AdminResult => ({
   ok: false,
@@ -90,5 +90,13 @@ export async function saveSettings(s: {
     p_payee_name: s.payeeName, p_bank_name: s.bankName, p_account_number: s.accountNumber,
     p_instructions_en: s.instructionsEn, p_instructions_es: s.instructionsEs,
   });
+  return error ? fail(error) : done();
+}
+
+/** Reseñas reportadas por los salones: 'hide' la oculta (no se borra) y 'keep' la deja visible. */
+export async function moderateReview(reviewId: string, action: "hide" | "keep"): Promise<AdminResult> {
+  if (action !== "hide" && action !== "keep") return { ok: false, error: "generic" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("platform_moderate_review", { p_review_id: uuid.parse(reviewId), p_action: action });
   return error ? fail(error) : done();
 }

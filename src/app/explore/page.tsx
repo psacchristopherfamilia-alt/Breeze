@@ -2,6 +2,7 @@ import { ExploreView, type ExploreSalon } from "@/components/explore/ExploreView
 import { coverFor } from "@/lib/booking/types";
 import { colorOf } from "@/lib/colors";
 import { mediaUrl } from "@/lib/media";
+import { showRating } from "@/lib/reviews";
 import { SALONS, prosOf, servicesOf, type BusinessType, type Zone } from "@/lib/mock/data";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
@@ -34,7 +35,7 @@ async function liveSalons(): Promise<ExploreSalon[]> {
   const supabase = await createClient();
   // RLS: solo salones publicados y columnas públicas.
   const [{ data: salons }, { data: pros }, { data: services }] = await Promise.all([
-    supabase.from("salons").select("id, slug, name, business_types, zone, cover_path").eq("is_published", true).order("name"),
+    supabase.from("salons").select("id, slug, name, business_types, zone, cover_path, rating_avg, rating_count").eq("is_published", true).order("name"),
     supabase.from("professionals").select("id, salon_id, public_name, color_hex, sort_order").eq("is_active", true).order("sort_order"),
     supabase.from("services").select("salon_id, name_en, name_es, price_cents").eq("is_active", true),
   ]);
@@ -47,6 +48,7 @@ async function liveSalons(): Promise<ExploreSalon[]> {
       businessTypes: s.business_types as BusinessType[],
       zone: s.zone as Zone,
       cover: coverFor(s.id),
+      ...(showRating(s.rating_count) ? { rating: Number(s.rating_avg), reviews: s.rating_count } : {}),
       coverUrl: mediaUrl(s.cover_path),
       pros: (pros ?? [])
         .filter((p) => p.salon_id === s.id)

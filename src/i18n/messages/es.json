@@ -235,7 +235,8 @@
       "settings": "Ajustes",
       "billing": "Plan y pagos",
       "admin": "Administración",
-      "clients": "Clientes"
+      "clients": "Clientes",
+      "reviews": "Reseñas"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
@@ -341,7 +342,10 @@
       "photo_unreadable": "No pudimos leer esa foto. Prueba con otra.",
       "photo_upload_failed": "No se pudo subir. Revisa tu conexión e inténtalo de nuevo.",
       "photo_limit": "La galería admite hasta 9 fotos.",
-      "invalid_photo": "Esa foto no es válida."
+      "invalid_photo": "Esa foto no es válida.",
+      "reply_too_long": "La respuesta es demasiado larga (máximo 500 caracteres).",
+      "reason_required": "Cuéntanos el motivo (de 3 a 300 caracteres).",
+      "already_reported": "Esa reseña ya fue reportada."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -823,7 +827,19 @@
       "invalid_days": "Escribe entre 1 y 365 días.",
       "invalid_status": "Estado no válido.",
       "too_long": "Algún texto es demasiado largo.",
-      "generic": "No se pudo completar. Inténtalo de nuevo."
+      "generic": "No se pudo completar. Inténtalo de nuevo.",
+      "invalid_action": "Acción no válida."
+    },
+    "reviews": {
+      "title": "Reseñas reportadas",
+      "hint": "Los salones pueden responder y reportar reseñas. Solo tú puedes ocultar una, y solo si incumple las reglas: insultos, datos personales, spam o alguien que no fue cliente.",
+      "empty": "No hay reseñas reportadas.",
+      "reportedOn": "Reportada el {date}",
+      "reason": "Motivo",
+      "noComment": "Sin comentario, solo estrellas.",
+      "salonReply": "Respuesta del salón",
+      "hide": "Ocultar reseña",
+      "keep": "Mantener visible"
     }
   },
   "legal": {
@@ -1007,5 +1023,95 @@
     "serviceHint": "Opcional. Se ve junto al servicio cuando el cliente reserva.",
     "galleryLabel": "Fotos de {name}",
     "photoOf": "{name}, foto {n}"
+  },
+  "reviews": {
+    "title": "¿Cómo te fue?",
+    "titleWithPro": "¿Cómo te fue con {pro}?",
+    "ratingLegend": "Tu valoración",
+    "starsLabel": "{count, plural, one {# estrella} other {# estrellas}}",
+    "tapStar": "Toca una estrella",
+    "rating": {
+      "1": "Muy mala",
+      "2": "Floja",
+      "3": "Regular",
+      "4": "Buena",
+      "5": "Excelente"
+    },
+    "commentOptional": "Comentario (opcional)",
+    "commentRequired": "Cuéntanos qué pasó",
+    "placeholder": "Cuenta algo útil para otros clientes",
+    "placeholderLow": "¿Qué podría mejorar el salón?",
+    "publicNote": "Se mostrará como \"{name}\". Tu teléfono y tu correo nunca se publican.",
+    "anonymous": "Cliente",
+    "publish": "Publicar reseña",
+    "update": "Actualizar reseña",
+    "thanksTitle": "¡Gracias!",
+    "thanksBody": "Tu reseña ya aparece en la página de {salon}.",
+    "seePage": "Ver la página",
+    "state": {
+      "too_early": {
+        "title": "Todavía no",
+        "body": "Podrás dejar tu reseña cuando termine tu cita en {salon}."
+      },
+      "not_reviewable": {
+        "title": "Esta visita no se puede reseñar",
+        "body": "Las citas canceladas o a las que no se asistió no se pueden reseñar."
+      },
+      "expired": {
+        "title": "Este enlace caducó",
+        "body": "Se puede opinar hasta 14 días después de la visita."
+      },
+      "reviewed": {
+        "title": "Gracias por tu reseña",
+        "body": "Tu reseña de {salon} ya está publicada. Ya no se puede editar."
+      }
+    },
+    "errors": {
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "not_found": "No encontramos esa visita.",
+      "too_early": "Tu cita todavía no ha terminado.",
+      "not_reviewable": "Esta visita no se puede reseñar.",
+      "expired": "Este enlace caducó.",
+      "invalid_rating": "Elige de 1 a 5 estrellas.",
+      "comment_required": "Cuéntanos qué pasó.",
+      "comment_too_long": "El comentario es demasiado largo (máximo 500 caracteres).",
+      "review_hidden": "Esta reseña fue ocultada y no se puede editar."
+    },
+    "title2": "Reseñas",
+    "summary": "{count, plural, one {# reseña} other {# reseñas}}",
+    "new": "Nuevo",
+    "fromClients": "Reseñas verificadas de clientes que visitaron el salón",
+    "empty": "Todavía no hay reseñas.",
+    "more": "Ver más",
+    "reply": "Respuesta del salón",
+    "forService": "{service}",
+    "ago": "{when}",
+    "cta": "Dejar una reseña",
+    "edit": "Tu reseña: {count} ★ · Editar"
+  },
+  "reviewsPanel": {
+    "title": "Reseñas",
+    "subtitleManager": "Lo que dicen los clientes de tu salón. Puedes responder a cada una y reportar las que incumplan las reglas.",
+    "subtitlePro": "Reseñas de tus propios clientes.",
+    "all": "Todas",
+    "unanswered": "Sin responder",
+    "low": "1 a 3 estrellas",
+    "empty": "Todavía no hay reseñas. Después de cada visita, el cliente recibe un enlace para opinar.",
+    "noMatch": "No hay nada aquí.",
+    "reply": "Responder",
+    "editReply": "Editar respuesta",
+    "yourReply": "Tu respuesta",
+    "replyPlaceholder": "Agradece al cliente o explica qué vas a mejorar",
+    "send": "Enviar respuesta",
+    "remove": "Quitar respuesta",
+    "cancel": "Cancelar",
+    "report": "Reportar",
+    "reportTitle": "¿Por qué la reportas?",
+    "reportHint": "Una reseña solo se oculta si incumple las reglas (insultos, datos personales, spam o alguien que no fue cliente). Que no te guste no es un motivo. Breeze revisará tu reporte.",
+    "reportPlaceholder": "Ej. lenguaje ofensivo, esta persona nunca vino",
+    "sendReport": "Enviar reporte",
+    "reported": "Reportada, en revisión",
+    "reportedReason": "Tu motivo: {reason}",
+    "count": "{count, plural, one {# reseña} other {# reseñas}}"
   }
 }

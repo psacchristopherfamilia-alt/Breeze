@@ -1,5 +1,5 @@
 "use client";
-import { CalendarClock, CalendarX2, Loader2, Phone } from "lucide-react";
+import { CalendarClock, CalendarX2, Loader2, Phone, Star } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
@@ -12,7 +12,7 @@ import { formatPrice } from "@/lib/mock/data";
 import { formatDayLong, formatTime } from "@/lib/time";
 
 /** Tarjeta de una reserva real con cancelar / reprogramar (respeta la ventana de cancelación). */
-export function BookingCard({ booking, token, now }: { booking: BookingSummary; token?: string; now: Date }) {
+export function BookingCard({ booking, token, now, review }: { booking: BookingSummary; token?: string; now: Date; review?: { state: "ok" | "reviewed"; rating?: number | null } }) {
   const t = useTranslations();
   const { locale } = useAppLocale();
   const [state, action] = useActionState(cancelBookingAction, undefined);
@@ -48,6 +48,15 @@ export function BookingCard({ booking, token, now }: { booking: BookingSummary; 
         <span className="text-ink/70">{items.map((i) => (locale === "es" ? i.service_name_es : i.service_name_en)).join(" + ")}</span>
       </div>
       <p className="mt-1 text-sm text-ink/70">{formatPrice(total)} · {t("me.payAtSalon")}</p>
+
+      {review && (
+        <div className="mt-4 border-t border-breeze-100 pt-4">
+          <Link href={`/r/${token ?? booking.booking_group_id}`} className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-amber-50 py-2.5 text-sm font-bold text-amber-900 hover:bg-amber-100">
+            <Star className="size-4" aria-hidden="true" />
+            {review.state === "reviewed" ? t("reviews.edit", { count: review.rating ?? 0 }) : t("reviews.cta")}
+          </Link>
+        </div>
+      )}
 
       {state?.error && <p role="alert" className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">{t(`booking.errors.${state.error}`)}</p>}
 

@@ -636,3 +636,22 @@ export async function setServicePhoto(salonId: string, serviceId: string, path: 
   if (old?.photo_path && old.photo_path !== path) await removeFiles(supabase, [old.photo_path]);
   return done();
 }
+
+// ─── Reseñas ───────────────────────────────────────────────────────────────
+// Solo dueño/administrador responden o reportan (la RPC lo comprueba). Reportar NO oculta: manda la reseña a la cola del administrador.
+
+export async function replyReview(reviewId: string, text: string): Promise<Result> {
+  if (text.length > 500) return { ok: false, error: "reply_too_long" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("reply_review", { p_review_id: uuid.parse(reviewId), p_reply: text.trim() });
+  return error ? fail(error) : done();
+}
+
+export async function reportReview(reviewId: string, reason: string): Promise<Result> {
+  const r = reason.trim();
+  if (r.length < 3 || r.length > 300) return { ok: false, error: "reason_required" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("report_review", { p_review_id: uuid.parse(reviewId), p_reason: r });
+  if (error?.message === "invalid_status") return { ok: false, error: "already_reported" };
+  return error ? fail(error) : done();
+}

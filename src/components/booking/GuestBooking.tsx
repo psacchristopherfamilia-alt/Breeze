@@ -7,7 +7,7 @@ import type { BookingSummary } from "@/lib/booking/types";
 import { useNow } from "@/lib/mock/store";
 import { BookingCard } from "./BookingCard";
 
-export function GuestBooking({ booking, token }: { booking: BookingSummary | null; token: string }) {
+export function GuestBooking({ booking, token, review }: { booking: BookingSummary | null; token: string; review?: { state: "ok" | "reviewed"; rating?: number | null } }) {
   const t = useTranslations("guest");
   const now = useNow();
   return (
@@ -18,7 +18,7 @@ export function GuestBooking({ booking, token }: { booking: BookingSummary | nul
           <>
             <h1 className="text-2xl font-extrabold">{t("title", { name: booking.customer_display })}</h1>
             <p className="mt-1 text-sm text-ink/70">{t("subtitle")}</p>
-            <div className="mt-5">{now && <BookingCard booking={booking} token={token} now={now} />}</div>
+            <div className="mt-5">{now && <BookingCard booking={booking} token={token} now={now} review={review} />}</div>
             <p className="mt-4 text-xs text-ink/70">{t("keepLink")}</p>
           </>
         ) : (

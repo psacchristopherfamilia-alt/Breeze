@@ -2,6 +2,7 @@ import type { BusyRange } from "../availability";
 import { weeklyHoursFromRows } from "../availability";
 import type { CategoryCode, ProTitle, Zone, BusinessType } from "../mock/data";
 import { mediaUrl } from "../media";
+import { showRating, type SalonReviews } from "../reviews";
 import { createClient } from "../supabase/server";
 import { coverFor, type BookingData, type PublicSalon } from "./types";
 
@@ -16,7 +17,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
     .maybeSingle();
   if (!s) return null;
 
-  const [services, pros, links, photos] = await Promise.all([
+  const [services, pros, links, photos, reviewsRes] = await Promise.all([
     supabase
       .from("services")
       .select("id, category_code, name_en, name_es, duration_min, buffer_min, price_cents, sort_order, photo_path")
@@ -32,7 +33,9 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
       .order("sort_order"),
     supabase.from("professional_services").select("professional_id, service_id").eq("salon_id", s.id),
     supabase.from("salon_photos").select("path").eq("salon_id", s.id).order("sort_order").order("created_at"),
+    supabase.rpc("get_salon_reviews", { p_salon_id: s.id, p_limit: 10, p_offset: 0 }),
   ]);
+  const reviews = (reviewsRes.data as unknown as SalonReviews | null) ?? undefined;
 
   const salon: PublicSalon = {
     id: s.id,
@@ -43,6 +46,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
     address: s.address,
     phone: s.phone,
     cover: coverFor(s.id),
+    ...(reviews && showRating(reviews.count) ? { rating: Number(reviews.avg), reviews: reviews.count } : {}),
     coverUrl: mediaUrl(s.cover_path),
     logoUrl: mediaUrl(s.logo_path),
     gallery: (photos.data ?? []).map((p) => mediaUrl(p.path)).filter((u): u is string => !!u),
@@ -54,6 +58,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
 
   return {
     salon,
+    reviews,
     services: (services.data ?? []).map((v) => ({
       id: v.id,
       category: v.category_code as CategoryCode,
@@ -77,6 +82,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
         hours: {},
         payment: { cash: p.accepts_cash, card: p.accepts_card, transfer: p.accepts_transfer, note: p.payment_note },
         photoUrl: mediaUrl(p.avatar_url),
+        rating: ((r) => (r && showRating(r.count) ? { avg: Number(r.avg), count: Number(r.count) } : undefined))(reviews?.pros.find((x) => x.id === p.id)),
       };
     }),
   };

@@ -95,3 +95,13 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 - Nunca secretos en el código: `.env.local` (ignorado) + `.env.example`. `service_role` solo en servidor/Edge Functions.
 - Avisar al usuario antes de instalar dependencias, borrar archivos o crear repositorios remotos.
 - Explicar todo en español, sencillo y directo.
+
+## Salida a venta (módulo 8)
+- **Catálogo público**: `anon` solo lee columnas públicas de `salons` (GRANT por columnas; sin `organization_id`, `no_show_*` ni `reminder_offsets_min`). Un negocio que no puede reservar (`private.org_can_book`, o sea suspendido) desaparece del catálogo, de `/explore` y de su página: `private.is_published_salon` y la política de `salons` lo exigen. Los tests de catálogo público dan plan activo a los negocios (`withActivePlans`).
+- **Servicios sugeridos**: `src/lib/panel/service-templates.ts` (30 servicios por tipo de negocio, precios orientativos en USD) + acción `addServiceTemplates` + bloque en `LiveServices`.
+- **QR del salón**: `components/panel/SalonQr.tsx` (librería `qrcode`, se genera en el navegador) en Ajustes.
+- **SEO**: `src/lib/site.ts` (`siteUrl()`), `robots.ts`, `sitemap.ts` (salones publicados), `opengraph-image.tsx`, `generateMetadata` + JSON-LD en `/s/[slug]`. `/b/[token]` no se indexa.
+- **Precios**: `/negocios/precios` (planes de la tabla `plans`, respaldo en `src/lib/plans.ts`).
+- **Factura/recibo**: `/dashboard/billing/[number]` (solo dueño, imprimible → «Guardar como PDF»).
+- **Derechos de datos** (cliente con cuenta): RPC `export_my_data()` y `delete_my_account()` (cancela citas futuras, anonimiza ficha y citas pasadas, borra el usuario; un dueño de negocio no puede borrarse: `owner_cannot_delete`). UI en `/me` (`MyPrivacy`).
+- **CI**: `.github/workflows/ci.yml` (tipos, pruebas unitarias, pruebas de BD con Postgres 16 en el puerto 54322, build).

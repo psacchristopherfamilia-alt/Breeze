@@ -655,7 +655,8 @@
       "haveAccount": "Already part of a team?",
       "signIn": "Sign in",
       "back": "Breeze Negocios"
-    }
+    },
+    "pricing": "See pricing"
   },
   "billing": {
     "title": "Plan & payments",
@@ -791,5 +792,30 @@
       "signup": "By creating your account you accept the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>.",
       "business": "I accept the <business>Business Terms</business>, the <terms>Terms of Use</terms> and the <privacy>Privacy Policy</privacy>."
     }
+  },
+  "pricing": {
+    "title": "Simple pricing for your shop",
+    "subtitle": "One flat price per month. Start with 14 days free, no card needed.",
+    "cycle": "Billing cycle",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "annualNote": "Pay for 10 months, use 12.",
+    "perMonth": "/ month",
+    "perYear": "/ year",
+    "pros": "For {min}–{max} professionals",
+    "prosOpen": "For {min}+ professionals",
+    "cta": "Start free trial",
+    "features": {
+      "agenda": "Color-coded agenda per professional",
+      "online": "Online bookings, never double-booked",
+      "reminders": "Automatic email reminders",
+      "live": "Breeze Live for your shop TV",
+      "whatsapp": "SMS and WhatsApp reminders ({count} messages / month)",
+      "reports": "Reports"
+    },
+    "extraBranch": "Extra branch: {price} / month each.",
+    "trial": "14-day free trial. If you stop paying, bookings pause after 14 days. We never delete your data.",
+    "billing": "We invoice you directly: pay by bank transfer or cash. No online payments needed.",
+    "noLock": "No contracts. Cancel any time."
   }
 }

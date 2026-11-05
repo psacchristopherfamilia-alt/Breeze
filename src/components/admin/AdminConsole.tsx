@@ -36,7 +36,7 @@ function needsAttention(o: PlatformOrg, now: number): boolean {
   return ms < 0 || (o.status === "trialing" && ms < 3 * 86_400_000);
 }
 
-export function AdminConsole({ data }: { data: PlatformOverview }) {
+export function AdminConsole({ data, reviewsSlot }: { data: PlatformOverview; reviewsSlot?: React.ReactNode }) {
   const t = useTranslations("admin");
   const tp = useTranslations("panel.plan");
   const { locale } = useAppLocale();
@@ -88,6 +88,7 @@ export function AdminConsole({ data }: { data: PlatformOverview }) {
 
       <main className="mx-auto max-w-5xl px-4 py-6">
         <h1 className="text-2xl font-extrabold">{t("title")}</h1>
+        {reviewsSlot}
 
         <dl className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
           {[

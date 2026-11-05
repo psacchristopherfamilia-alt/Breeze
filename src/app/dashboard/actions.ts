@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { z } from "zod";
 import { appOrigin } from "@/lib/auth/server";
 import { PRO_COLORS } from "@/lib/colors";
+import { MEDIA_BUCKET, isPathInSalon } from "@/lib/media";
 import { SALON_COOKIE, panelErrorKey } from "@/lib/panel/server";
 import { normalizePhone } from "@/lib/phone";
 import { buildHours, validRange } from "@/lib/panel/setup";
@@ -539,5 +540,118 @@ export async function pairLiveDevice(salonId: string, code: string, name: string
 export async function revokeLiveDevice(deviceId: string): Promise<Result> {
   const supabase = await createClient();
   const { error } = await supabase.rpc("revoke_live_device", { p_device_id: uuid.parse(deviceId) });
+  return error ? fail(error) : done();
+}
+
+// ─── Fotos ─────────────────────────────────────────────────────────────────
+// El navegador reduce y sube el archivo a Storage (RLS: solo dueño/admin en la carpeta de su salón);
+// aquí solo se guarda la RUTA en la base de datos y se limpian los archivos que dejan de usarse.
+
+type Supa = Awaited<ReturnType<typeof createClient>>;
+const photoErr = (e: { code?: string; message?: string }) =>
+  ({ ok: false, error: e.message === "photo_limit" ? "photo_limit" : e.code === "23514" ? "invalid_photo" : panelErrorKey(e) }) as const;
+/** Borra archivos que ya nadie usa (si falla no pasa nada grave: queda un archivo huérfano). */
+async function removeFiles(supabase: Supa, paths: (string | null | undefined)[]) {
+  const list = paths.filter((p): p is string => !!p);
+  if (list.length) await supabase.storage.from(MEDIA_BUCKET).remove(list);
+}
+const photoPath = (salonId: string, path: string | null) => path === null || isPathInSalon(path, salonId);
+
+/** Añade una foto a la galería. La primera pasa a ser la portada. */
+export async function addSalonPhoto(salonId: string, path: string): Promise<Result> {
+  const sid = uuid.parse(salonId);
+  if (!photoPath(sid, path)) return { ok: false, error: "invalid_photo" };
+  const supabase = await createClient();
+  const { data: last } = await supabase.from("salon_photos").select("sort_order").eq("salon_id", sid).order("sort_order", { ascending: false }).limit(1).maybeSingle();
+  const { error } = await supabase.from("salon_photos").insert({ salon_id: sid, path, sort_order: (last?.sort_order ?? -1) + 1 });
+  if (error) {
+    await removeFiles(supabase, [path]);
+    return photoErr(error);
+  }
+  const { data: s } = await supabase.from("salons").select("cover_path").eq("id", sid).single();
+  if (s && !s.cover_path) await supabase.from("salons").update({ cover_path: path }).eq("id", sid);
+  return done();
+}
+
+export async function removeSalonPhoto(salonId: string, photoId: string): Promise<Result> {
+  const sid = uuid.parse(salonId);
+  const supabase = await createClient();
+  const { data: row } = await supabase.from("salon_photos").select("path").eq("id", uuid.parse(photoId)).eq("salon_id", sid).maybeSingle();
+  if (!row) return { ok: false, error: "not_found" };
+  const { error } = await supabase.from("salon_photos").delete().eq("id", uuid.parse(photoId)).eq("salon_id", sid);
+  if (error) return fail(error);
+  // Si era la portada, la siguiente foto de la galería toma su lugar.
+  const { data: s } = await supabase.from("salons").select("cover_path").eq("id", sid).single();
+  if (s?.cover_path === row.path) {
+    const { data: next } = await supabase.from("salon_photos").select("path").eq("salon_id", sid).order("sort_order").limit(1).maybeSingle();
+    await supabase.from("salons").update({ cover_path: next?.path ?? null }).eq("id", sid);
+  }
+  await removeFiles(supabase, [row.path]);
+  return done();
+}
+
+/** La portada es siempre una foto de la galería. */
+export async function setSalonCover(salonId: string, photoId: string): Promise<Result> {
+  const sid = uuid.parse(salonId);
+  const supabase = await createClient();
+  const { data: row } = await supabase.from("salon_photos").select("path").eq("id", uuid.parse(photoId)).eq("salon_id", sid).maybeSingle();
+  if (!row) return { ok: false, error: "not_found" };
+  const { error, count } = await supabase.from("salons").update({ cover_path: row.path }, { count: "exact" }).eq("id", sid);
+  if (error) return fail(error);
+  return count ? done() : { ok: false, error: "forbidden" };
+}
+
+export async function setSalonLogo(salonId: string, path: string | null): Promise<Result> {
+  const sid = uuid.parse(salonId);
+  if (!photoPath(sid, path)) return { ok: false, error: "invalid_photo" };
+  const supabase = await createClient();
+  const { data: old } = await supabase.from("salons").select("logo_path").eq("id", sid).maybeSingle();
+  const { error, count } = await supabase.from("salons").update({ logo_path: path }, { count: "exact" }).eq("id", sid);
+  if (error) return photoErr(error);
+  if (!count) return { ok: false, error: "forbidden" };
+  if (old?.logo_path && old.logo_path !== path) await removeFiles(supabase, [old.logo_path]);
+  return done();
+}
+
+export async function setProPhoto(salonId: string, professionalId: string, path: string | null): Promise<Result> {
+  const sid = uuid.parse(salonId);
+  if (!photoPath(sid, path)) return { ok: false, error: "invalid_photo" };
+  const supabase = await createClient();
+  const { data: old } = await supabase.from("professionals").select("avatar_url").eq("id", uuid.parse(professionalId)).eq("salon_id", sid).maybeSingle();
+  const { error, count } = await supabase.from("professionals").update({ avatar_url: path }, { count: "exact" }).eq("id", uuid.parse(professionalId)).eq("salon_id", sid);
+  if (error) return photoErr(error);
+  if (!count) return { ok: false, error: "forbidden" };
+  if (old?.avatar_url && old.avatar_url !== path) await removeFiles(supabase, [old.avatar_url]);
+  return done();
+}
+
+export async function setServicePhoto(salonId: string, serviceId: string, path: string | null): Promise<Result> {
+  const sid = uuid.parse(salonId);
+  if (!photoPath(sid, path)) return { ok: false, error: "invalid_photo" };
+  const supabase = await createClient();
+  const { data: old } = await supabase.from("services").select("photo_path").eq("id", uuid.parse(serviceId)).eq("salon_id", sid).maybeSingle();
+  const { error, count } = await supabase.from("services").update({ photo_path: path }, { count: "exact" }).eq("id", uuid.parse(serviceId)).eq("salon_id", sid);
+  if (error) return photoErr(error);
+  if (!count) return { ok: false, error: "forbidden" };
+  if (old?.photo_path && old.photo_path !== path) await removeFiles(supabase, [old.photo_path]);
+  return done();
+}
+
+// ─── Reseñas ───────────────────────────────────────────────────────────────
+// Solo dueño/administrador responden o reportan (la RPC lo comprueba). Reportar NO oculta: manda la reseña a la cola del administrador.
+
+export async function replyReview(reviewId: string, text: string): Promise<Result> {
+  if (text.length > 500) return { ok: false, error: "reply_too_long" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("reply_review", { p_review_id: uuid.parse(reviewId), p_reply: text.trim() });
+  return error ? fail(error) : done();
+}
+
+export async function reportReview(reviewId: string, reason: string): Promise<Result> {
+  const r = reason.trim();
+  if (r.length < 3 || r.length > 300) return { ok: false, error: "reason_required" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("report_review", { p_review_id: uuid.parse(reviewId), p_reason: r });
+  if (error?.message === "invalid_status") return { ok: false, error: "already_reported" };
   return error ? fail(error) : done();
 }

@@ -1,6 +1,8 @@
 import type { BusyRange } from "../availability";
 import { weeklyHoursFromRows } from "../availability";
 import type { CategoryCode, ProTitle, Zone, BusinessType } from "../mock/data";
+import { mediaUrl } from "../media";
+import { showRating, type SalonReviews } from "../reviews";
 import { createClient } from "../supabase/server";
 import { coverFor, type BookingData, type PublicSalon } from "./types";
 
@@ -10,27 +12,30 @@ type Client = Awaited<ReturnType<typeof createClient>>;
 export async function loadBookingData(supabase: Client, slug: string): Promise<BookingData | null> {
   const { data: s } = await supabase
     .from("salons")
-    .select("id, slug, name, business_types, zone, address, phone, cancellation_window_hours, slot_step_min, min_lead_time_min, max_advance_days")
+    .select("id, slug, name, business_types, zone, address, phone, cancellation_window_hours, slot_step_min, min_lead_time_min, max_advance_days, logo_path, cover_path")
     .eq("slug", slug)
     .maybeSingle();
   if (!s) return null;
 
-  const [services, pros, links] = await Promise.all([
+  const [services, pros, links, photos, reviewsRes] = await Promise.all([
     supabase
       .from("services")
-      .select("id, category_code, name_en, name_es, duration_min, buffer_min, price_cents, sort_order")
+      .select("id, category_code, name_en, name_es, duration_min, buffer_min, price_cents, sort_order, photo_path")
       .eq("salon_id", s.id)
       .eq("is_active", true)
       .order("sort_order"),
     supabase
       .from("professionals")
-      .select("id, public_name, color_hex, title, accepts_online, sort_order, accepts_cash, accepts_card, accepts_transfer, payment_note")
+      .select("id, public_name, color_hex, title, accepts_online, sort_order, accepts_cash, accepts_card, accepts_transfer, payment_note, avatar_url")
       .eq("salon_id", s.id)
       .eq("is_active", true)
       .eq("accepts_online", true)
       .order("sort_order"),
     supabase.from("professional_services").select("professional_id, service_id").eq("salon_id", s.id),
+    supabase.from("salon_photos").select("path").eq("salon_id", s.id).order("sort_order").order("created_at"),
+    supabase.rpc("get_salon_reviews", { p_salon_id: s.id, p_limit: 10, p_offset: 0 }),
   ]);
+  const reviews = (reviewsRes.data as unknown as SalonReviews | null) ?? undefined;
 
   const salon: PublicSalon = {
     id: s.id,
@@ -41,6 +46,10 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
     address: s.address,
     phone: s.phone,
     cover: coverFor(s.id),
+    ...(reviews && showRating(reviews.count) ? { rating: Number(reviews.avg), reviews: reviews.count } : {}),
+    coverUrl: mediaUrl(s.cover_path),
+    logoUrl: mediaUrl(s.logo_path),
+    gallery: (photos.data ?? []).map((p) => mediaUrl(p.path)).filter((u): u is string => !!u),
     cancellationWindowHours: s.cancellation_window_hours,
     slotStepMin: s.slot_step_min,
     minLeadMin: s.min_lead_time_min,
@@ -49,6 +58,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
 
   return {
     salon,
+    reviews,
     services: (services.data ?? []).map((v) => ({
       id: v.id,
       category: v.category_code as CategoryCode,
@@ -57,6 +67,7 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
       durationMin: v.duration_min,
       bufferMin: v.buffer_min,
       priceCents: v.price_cents,
+      photoUrl: mediaUrl(v.photo_path),
     })),
     pros: (pros.data ?? []).map((p) => {
       // public_name = "Carlos M." → nombre + inicial (nunca el apellido completo)
@@ -70,6 +81,8 @@ export async function loadBookingData(supabase: Client, slug: string): Promise<B
         serviceIds: (links.data ?? []).filter((l) => l.professional_id === p.id).map((l) => l.service_id),
         hours: {},
         payment: { cash: p.accepts_cash, card: p.accepts_card, transfer: p.accepts_transfer, note: p.payment_note },
+        photoUrl: mediaUrl(p.avatar_url),
+        rating: ((r) => (r && showRating(r.count) ? { avg: Number(r.avg), count: Number(r.count) } : undefined))(reviews?.pros.find((x) => x.id === p.id)),
       };
     }),
   };

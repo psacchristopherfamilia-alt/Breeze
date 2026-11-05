@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAppLocale } from "@/components/Providers";
 import { LegalConsent } from "@/components/legal/LegalConsent";
 import { ClientHeader } from "@/components/ui/ClientHeader";
+import { ReviewsList } from "@/components/reviews/ReviewsList";
 import { ProBadge } from "@/components/ui/ProBadge";
 import { TypeIcon } from "@/components/ui/TypeIcon";
 import { planSequence, slotsForPros, totalBlockMinutes, type BusyRange } from "@/lib/availability";
@@ -186,7 +187,7 @@ export function BookingFlow({
             <p className="font-bold">{salon.name}</p>
             {salon.address && <p className="text-sm text-ink/70">{salon.address}</p>}
             <div className="mt-4 flex items-center gap-3 rounded-2xl p-3" style={{ backgroundColor: withAlpha(pro.colorHex, 0.08) }}>
-              <ProBadge pro={pro} size="md" />
+              <ProBadge pro={pro} size="md" photoUrl={pro.photoUrl} />
               <div>
                 <p className="font-semibold">{pro.firstName} {pro.lastName.charAt(0)}.</p>
                 <p className="text-sm text-ink/70">{t(`titles.${pro.title}`)}</p>
@@ -257,7 +258,12 @@ export function BookingFlow({
   return (
     <div className="min-h-dvh bg-foam/40 pb-32">
       <ClientHeader />
-      <div className="h-32 sm:h-40" style={{ background: `linear-gradient(135deg, ${salon.cover[0]}, ${salon.cover[1]})` }} />
+      <div className="relative h-32 overflow-hidden sm:h-40" style={{ background: `linear-gradient(135deg, ${salon.cover[0]}, ${salon.cover[1]})` }}>
+        {salon.coverUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={salon.coverUrl} alt="" className="absolute inset-0 size-full object-cover" />
+        )}
+      </div>
       <main className="mx-auto -mt-12 max-w-2xl px-4">
         <section className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-breeze-100">
           <div className="flex flex-wrap gap-1.5">
@@ -267,13 +273,32 @@ export function BookingFlow({
               </span>
             ))}
           </div>
-          <h1 className="mt-2 text-2xl font-extrabold">{salon.name}</h1>
+          <div className="mt-2 flex items-center gap-3">
+            {salon.logoUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={salon.logoUrl} alt="" className="size-12 shrink-0 rounded-2xl object-cover ring-1 ring-breeze-100" />
+            )}
+            <h1 className="text-2xl font-extrabold">{salon.name}</h1>
+          </div>
           <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/70">
             <span className="inline-flex items-center gap-1"><MapPin className="size-3.5" /> {t(`zones.${salon.zone}`)}</span>
             {salon.rating !== undefined && (
               <span className="inline-flex items-center gap-1"><Star className="size-3.5 fill-amber-400 text-amber-400" /> {salon.rating} ({salon.reviews})</span>
             )}
+            {salon.rating === undefined && data.reviews && (
+              <span className="rounded-full bg-breeze-50 px-2 py-0.5 text-xs font-bold text-lagoon">{t("reviews.new")}</span>
+            )}
           </p>
+          {!isReschedule && salon.gallery && salon.gallery.length > 1 && (
+            <ul className="-mx-5 mt-4 flex snap-x gap-2 overflow-x-auto px-5 pb-1 no-scrollbar" aria-label={t("photos.galleryLabel", { name: salon.name })}>
+              {salon.gallery.map((u, i) => (
+                <li key={u} className="shrink-0 snap-start">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={u} alt={t("photos.photoOf", { name: salon.name, n: i + 1 })} loading="lazy" className="h-24 w-32 rounded-xl object-cover ring-1 ring-breeze-100" />
+                </li>
+              ))}
+            </ul>
+          )}
           {isReschedule && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-800">{t("booking.rescheduling")}</p>}
         </section>
 
@@ -331,6 +356,10 @@ export function BookingFlow({
                         <span className={`grid size-6 shrink-0 place-items-center rounded-lg ${on ? "bg-breeze-500 text-white" : "ring-1 ring-breeze-200"}`}>
                           {on && <Check className="size-4" />}
                         </span>
+                        {v.photoUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={v.photoUrl} alt="" loading="lazy" className="size-12 shrink-0 rounded-xl object-cover" />
+                        )}
                         <span className="flex-1">
                           <span className="block font-semibold">{svcName(v, locale)}</span>
                           <span className="inline-flex items-center gap-1 text-sm text-ink/70">
@@ -344,6 +373,7 @@ export function BookingFlow({
                 </div>
               </section>
             ))}
+            {data.reviews && <ReviewsList salonId={salon.id} reviews={data.reviews} />}
           </div>
         )}
 
@@ -377,10 +407,15 @@ export function BookingFlow({
                   className="flex items-center gap-3 rounded-2xl bg-white p-4 text-left ring-1 ring-breeze-100 transition hover:ring-breeze-300"
                   style={on ? { boxShadow: `0 0 0 2px ${p.colorHex}`, backgroundColor: withAlpha(p.colorHex, 0.05) } : undefined}
                 >
-                  <ProBadge pro={p} size="lg" />
+                  <ProBadge pro={p} size="lg" photoUrl={p.photoUrl} />
                   <span>
                     <span className="block font-bold">{p.firstName} {p.lastName.charAt(0)}.</span>
                     <span className="text-sm text-ink/70">{t(`titles.${p.title}`)}</span>
+                    {p.rating && (
+                      <span className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-ink/70">
+                        <Star className="size-3 fill-amber-400 text-amber-400" aria-hidden="true" /> {p.rating.avg.toFixed(1)} ({p.rating.count})
+                      </span>
+                    )}
                   </span>
                 </button>
               );
@@ -457,7 +492,7 @@ export function BookingFlow({
         {step === "details" && slot && (
           <div className="mt-4 space-y-4 animate-fade-up">
             <div className="flex items-center gap-3 rounded-2xl bg-white p-4 ring-1 ring-breeze-100">
-              <ProBadge pro={proOf(slot.proId)} size="md" />
+              <ProBadge pro={proOf(slot.proId)} size="md" photoUrl={proOf(slot.proId).photoUrl} />
               <div className="text-sm">
                 <p className="font-bold first-letter:uppercase">{formatDayLong(slot.start, locale)} · {formatTime(slot.start)}</p>
                 <p className="text-ink/70">{t("booking.with", { name: proOf(slot.proId).firstName })} · {formatDuration(serviceMin)}</p>

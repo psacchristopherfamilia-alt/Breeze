@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
   const { data: alert } = await supabase
     .from("staff_alerts")
-    .select("id, user_id, kind, customer_display, service_en, service_es, pro_name, starts_at, created_at, read_at")
+    .select("id, user_id, kind, customer_display, service_en, service_es, pro_name, starts_at, rating, created_at, read_at")
     .eq("id", body.data.alert_id)
     .maybeSingle();
   if (!alert) return NextResponse.json({ sent: 0, reason: "alert_not_found" });

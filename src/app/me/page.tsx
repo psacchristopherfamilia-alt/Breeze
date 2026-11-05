@@ -15,5 +15,9 @@ export default async function MyBookingsPage() {
   const { data: auth } = await supabase.auth.getUser();
   if (!auth.user || auth.user.is_anonymous) return <GuestMyBookings />;
   const { data } = await supabase.rpc("my_bookings");
-  return <LiveMyBookings bookings={(data as BookingSummary[] | null) ?? []} />;
+  const { data: states } = await supabase.rpc("my_review_states");
+  const reviewStates = Object.fromEntries(
+    ((states as { booking_group_id: string; state: "ok" | "reviewed"; rating: number | null }[] | null) ?? []).map((s) => [s.booking_group_id, { state: s.state, rating: s.rating }]),
+  );
+  return <LiveMyBookings bookings={(data as BookingSummary[] | null) ?? []} reviewStates={reviewStates} />;
 }

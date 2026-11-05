@@ -16,7 +16,7 @@ const alert: AlertRow = {
 
 describe("texto de los avisos", () => {
   it("en inglés y español, con la hora de Turks and Caicos y sin datos privados", () => {
-    expect(alertText(alert, "en")).toEqual({ title: "New booking", body: "Ashley T. · Classic cut with Carlos M. · Thu, Nov 5, 12:30 PM", dateKey: "2026-11-05" });
+    expect(alertText(alert, "en")).toEqual({ title: "New booking", body: "Ashley T. · Classic cut with Carlos M. · Thu, Nov 5, 12:30 PM", dateKey: "2026-11-05", href: "/dashboard?date=2026-11-05" });
     expect(alertText({ ...alert, kind: "cancelled" }, "es")).toMatchObject({ title: "Reserva cancelada", body: expect.stringContaining("Corte clásico con Carlos M.") });
     expect(alertText({ ...alert, kind: "rescheduled" }, "es").title).toBe("Reserva cambiada");
   });

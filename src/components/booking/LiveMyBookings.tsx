@@ -9,7 +9,7 @@ import { BookingCard } from "./BookingCard";
 import { ClaimDeviceBookings } from "./ClaimDeviceBookings";
 import { MyPrivacy } from "./MyPrivacy";
 
-export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
+export function LiveMyBookings({ bookings, reviewStates = {} }: { bookings: BookingSummary[]; reviewStates?: Record<string, { state: "ok" | "reviewed"; rating: number | null }> }) {
   const t = useTranslations();
   const now = useNow();
   const isUpcoming = (b: BookingSummary) => !!now && b.items.some((i) => i.status === "booked" && new Date(i.starts_at) > now);
@@ -37,7 +37,7 @@ export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
             <div className="mt-2 space-y-3">
               {upcoming.length === 0 && <p className="text-sm text-ink/70">{t("me.noneUpcoming")}</p>}
               {upcoming.map((b) => (
-                <BookingCard key={b.booking_group_id} booking={b} now={now} />
+                <BookingCard key={b.booking_group_id} booking={b} now={now} review={reviewStates[b.booking_group_id]} />
               ))}
             </div>
             {history.length > 0 && (
@@ -45,7 +45,7 @@ export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
                 <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/70">{t("me.history")}</h2>
                 <div className="mt-2 space-y-3 opacity-70">
                   {history.map((b) => (
-                    <BookingCard key={b.booking_group_id} booking={b} now={now} />
+                    <BookingCard key={b.booking_group_id} booking={b} now={now} review={reviewStates[b.booking_group_id]} />
                   ))}
                 </div>
               </>

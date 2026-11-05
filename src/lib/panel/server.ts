@@ -71,7 +71,7 @@ export function panelErrorKey(e: { code?: string; message?: string } | null | un
   const known = [
     "forbidden", "invalid_hours", "overlapping_hours", "invalid_service", "salon_incomplete", "professional_already_linked",
     "email_or_phone_required", "too_soon", "outside_working_hours", "not_started", "invalid_status", "nothing_to_cancel",
-    "phone_required", "name_required", "service_not_offered", "invalid_items", "not_found",
+    "phone_required", "name_required", "service_not_offered", "invalid_items", "not_found", "reply_too_long", "reason_required",
   ];
   return known.includes(e.message ?? "") ? (e.message as string) : "generic";
 }

@@ -487,6 +487,56 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"reviews": {
+                  Row: {
+                    "author_name": string,"booking_group_id": string,"comment": string | null,"created_at": string,"id": string,"moderated_at": string | null,"moderated_by": string | null,"organization_id": string,"professional_id": string | null,"rating": number,"replied_at": string | null,"replied_by": string | null,"reply": string | null,"reported_at": string | null,"reported_by": string | null,"reported_reason": string | null,"salon_id": string,"service_en": string,"service_es": string,"status": Database["public"]['Enums']["review_status"],"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "author_name"?: string,"booking_group_id": string,"comment"?: string | null,"created_at"?: string,"id"?: string,"moderated_at"?: string | null,"moderated_by"?: string | null,"organization_id": string,"professional_id"?: string | null,"rating": number,"replied_at"?: string | null,"replied_by"?: string | null,"reply"?: string | null,"reported_at"?: string | null,"reported_by"?: string | null,"reported_reason"?: string | null,"salon_id": string,"service_en"?: string,"service_es"?: string,"status"?: Database["public"]['Enums']["review_status"],"updated_at"?: string
+                  }
+                  Update: {
+                    "author_name"?: string,"booking_group_id"?: string,"comment"?: string | null,"created_at"?: string,"id"?: string,"moderated_at"?: string | null,"moderated_by"?: string | null,"organization_id"?: string,"professional_id"?: string | null,"rating"?: number,"replied_at"?: string | null,"replied_by"?: string | null,"reply"?: string | null,"reported_at"?: string | null,"reported_by"?: string | null,"reported_reason"?: string | null,"salon_id"?: string,"service_en"?: string,"service_es"?: string,"status"?: Database["public"]['Enums']["review_status"],"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "reviews_booking_group_id_salon_id_fkey"
+      columns: ["booking_group_id","salon_id"]
+isOneToOne: false
+      referencedRelation: "booking_groups"
+      referencedColumns: ["id","salon_id"]
+    },{
+      foreignKeyName: "reviews_moderated_by_fkey"
+      columns: ["moderated_by"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reviews_professional_id_fkey"
+      columns: ["professional_id"]
+isOneToOne: false
+      referencedRelation: "professionals"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reviews_replied_by_fkey"
+      columns: ["replied_by"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reviews_reported_by_fkey"
+      columns: ["reported_by"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "reviews_salon_id_organization_id_fkey"
+      columns: ["salon_id","organization_id"]
+isOneToOne: false
+      referencedRelation: "salons"
+      referencedColumns: ["id","organization_id"]
+    }
+                  ]
                 },"salon_closures": {
                   Row: {
                     "created_at": string,"ends_at": string,"id": string,"reason_en": string | null,"reason_es": string | null,"salon_id": string,"starts_at": string
@@ -507,16 +557,36 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
-                },"salons": {
+                },"salon_photos": {
                   Row: {
-                    "address": string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours": number,"created_at": string,"currency": string,"id": string,"is_published": boolean,"max_advance_days": number,"min_lead_time_min": number,"name": string,"no_show_block_enabled": boolean,"no_show_threshold": number,"organization_id": string,"phone": string | null,"reminder_offsets_min": (number)[],"search": unknown,"slot_step_min": number,"slug": string,"timezone": string,"updated_at": string,"zone": Database["public"]['Enums']["salon_zone"]
+                    "created_at": string,"id": string,"path": string,"salon_id": string,"sort_order": number
                   }
                   ComputedFields: never
                   Insert: {
-                    "address"?: string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"max_advance_days"?: number,"min_lead_time_min"?: number,"name": string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id": string,"phone"?: string | null,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug": string,"timezone"?: string,"updated_at"?: string,"zone": Database["public"]['Enums']["salon_zone"]
+                    "created_at"?: string,"id"?: string,"path": string,"salon_id": string,"sort_order"?: number
                   }
                   Update: {
-                    "address"?: string | null,"business_types"?: (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"max_advance_days"?: number,"min_lead_time_min"?: number,"name"?: string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id"?: string,"phone"?: string | null,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug"?: string,"timezone"?: string,"updated_at"?: string,"zone"?: Database["public"]['Enums']["salon_zone"]
+                    "created_at"?: string,"id"?: string,"path"?: string,"salon_id"?: string,"sort_order"?: number
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "salon_photos_salon_id_fkey"
+      columns: ["salon_id"]
+isOneToOne: false
+      referencedRelation: "salons"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"salons": {
+                  Row: {
+                    "address": string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours": number,"cover_path": string | null,"created_at": string,"currency": string,"id": string,"is_published": boolean,"logo_path": string | null,"max_advance_days": number,"min_lead_time_min": number,"name": string,"no_show_block_enabled": boolean,"no_show_threshold": number,"organization_id": string,"phone": string | null,"rating_avg": number | null,"rating_count": number,"reminder_offsets_min": (number)[],"search": unknown,"slot_step_min": number,"slug": string,"timezone": string,"updated_at": string,"zone": Database["public"]['Enums']["salon_zone"]
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "address"?: string | null,"business_types": (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"cover_path"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"logo_path"?: string | null,"max_advance_days"?: number,"min_lead_time_min"?: number,"name": string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id": string,"phone"?: string | null,"rating_avg"?: number | null,"rating_count"?: number,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug": string,"timezone"?: string,"updated_at"?: string,"zone": Database["public"]['Enums']["salon_zone"]
+                  }
+                  Update: {
+                    "address"?: string | null,"business_types"?: (Database["public"]['Enums']["business_type"])[],"cancellation_window_hours"?: number,"cover_path"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"is_published"?: boolean,"logo_path"?: string | null,"max_advance_days"?: number,"min_lead_time_min"?: number,"name"?: string,"no_show_block_enabled"?: boolean,"no_show_threshold"?: number,"organization_id"?: string,"phone"?: string | null,"rating_avg"?: number | null,"rating_count"?: number,"reminder_offsets_min"?: (number)[],"search"?: never,"slot_step_min"?: number,"slug"?: string,"timezone"?: string,"updated_at"?: string,"zone"?: Database["public"]['Enums']["salon_zone"]
                   }
                   Relationships: [
                     {
@@ -543,14 +613,14 @@ isOneToOne: false
                   ]
                 },"services": {
                   Row: {
-                    "buffer_min": number,"category_code": string,"created_at": string,"description_en": string | null,"description_es": string | null,"duration_min": number,"id": string,"is_active": boolean,"name_en": string,"name_es": string,"price_cents": number,"salon_id": string,"sort_order": number,"updated_at": string
+                    "buffer_min": number,"category_code": string,"created_at": string,"description_en": string | null,"description_es": string | null,"duration_min": number,"id": string,"is_active": boolean,"name_en": string,"name_es": string,"photo_path": string | null,"price_cents": number,"salon_id": string,"sort_order": number,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "buffer_min"?: number,"category_code": string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min": number,"id"?: string,"is_active"?: boolean,"name_en": string,"name_es": string,"price_cents": number,"salon_id": string,"sort_order"?: number,"updated_at"?: string
+                    "buffer_min"?: number,"category_code": string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min": number,"id"?: string,"is_active"?: boolean,"name_en": string,"name_es": string,"photo_path"?: string | null,"price_cents": number,"salon_id": string,"sort_order"?: number,"updated_at"?: string
                   }
                   Update: {
-                    "buffer_min"?: number,"category_code"?: string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min"?: number,"id"?: string,"is_active"?: boolean,"name_en"?: string,"name_es"?: string,"price_cents"?: number,"salon_id"?: string,"sort_order"?: number,"updated_at"?: string
+                    "buffer_min"?: number,"category_code"?: string,"created_at"?: string,"description_en"?: string | null,"description_es"?: string | null,"duration_min"?: number,"id"?: string,"is_active"?: boolean,"name_en"?: string,"name_es"?: string,"photo_path"?: string | null,"price_cents"?: number,"salon_id"?: string,"sort_order"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -569,14 +639,14 @@ isOneToOne: false
                   ]
                 },"staff_alerts": {
                   Row: {
-                    "booking_group_id": string | null,"created_at": string,"customer_display": string,"id": string,"kind": string,"pro_name": string,"read_at": string | null,"salon_id": string,"service_en": string,"service_es": string,"starts_at": string,"user_id": string
+                    "booking_group_id": string | null,"created_at": string,"customer_display": string,"id": string,"kind": string,"pro_name": string,"rating": number | null,"read_at": string | null,"salon_id": string,"service_en": string,"service_es": string,"starts_at": string,"user_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "booking_group_id"?: string | null,"created_at"?: string,"customer_display"?: string,"id"?: string,"kind": string,"pro_name"?: string,"read_at"?: string | null,"salon_id": string,"service_en"?: string,"service_es"?: string,"starts_at": string,"user_id": string
+                    "booking_group_id"?: string | null,"created_at"?: string,"customer_display"?: string,"id"?: string,"kind": string,"pro_name"?: string,"rating"?: number | null,"read_at"?: string | null,"salon_id": string,"service_en"?: string,"service_es"?: string,"starts_at": string,"user_id": string
                   }
                   Update: {
-                    "booking_group_id"?: string | null,"created_at"?: string,"customer_display"?: string,"id"?: string,"kind"?: string,"pro_name"?: string,"read_at"?: string | null,"salon_id"?: string,"service_en"?: string,"service_es"?: string,"starts_at"?: string,"user_id"?: string
+                    "booking_group_id"?: string | null,"created_at"?: string,"customer_display"?: string,"id"?: string,"kind"?: string,"pro_name"?: string,"rating"?: number | null,"read_at"?: string | null,"salon_id"?: string,"service_en"?: string,"service_es"?: string,"starts_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     {
@@ -725,6 +795,12 @@ isOneToOne: false
 "get_public_schedule":
 { Args: { "p_from": string,"p_salon_id": string,"p_to": string }; Returns: Json
                            },
+"get_review_request":
+{ Args: { "p_ref": string }; Returns: Json
+                           },
+"get_salon_reviews":
+{ Args: { "p_limit"?: number,"p_offset"?: number,"p_salon_id": string }; Returns: Json
+                           },
 "live_device_status":
 { Args: { "p_salon_slug": string }; Returns: Json
                            },
@@ -742,6 +818,9 @@ isOneToOne: false
               "organization_id": string,"organization_name": string,"organization_slug": string,"professional_id": string,"role": Database["public"]['Enums']["member_role"],"salon_id": string,"salon_name": string,"salon_slug": string
             }[]
                            },
+"my_review_states":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "pair_live_device":
 { Args: { "p_code": string,"p_name"?: string,"p_salon_id": string }; Returns: string
                            },
@@ -751,11 +830,17 @@ isOneToOne: false
 "platform_extend":
 { Args: { "p_days": number,"p_org": string,"p_reason"?: string }; Returns: string
                            },
+"platform_moderate_review":
+{ Args: { "p_action": string,"p_review_id": string }; Returns: undefined
+                           },
 "platform_overview":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
 "platform_register_payment":
 { Args: { "p_amount_cents"?: number,"p_invoice": string,"p_method": Database["public"]['Enums']["payment_method"],"p_received_at"?: string,"p_reference"?: string }; Returns: Json
+                           },
+"platform_reported_reviews":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            },
 "platform_save_settings":
 { Args: { "p_account_number": string,"p_bank_name": string,"p_instructions_en": string,"p_instructions_es": string,"p_payee_name": string }; Returns: undefined
@@ -768,6 +853,12 @@ isOneToOne: false
                            },
 "remove_push_subscription":
 { Args: { "p_endpoint": string }; Returns: undefined
+                           },
+"reply_review":
+{ Args: { "p_reply": string,"p_review_id": string }; Returns: undefined
+                           },
+"report_review":
+{ Args: { "p_reason": string,"p_review_id": string }; Returns: undefined
                            },
 "request_live_pairing":
 { Args: { "p_salon_slug": string }; Returns: Json
@@ -800,10 +891,16 @@ isOneToOne: false
 { Args: { "p_limit"?: number,"p_organization_id": string,"p_query"?: string }; Returns: {
               "customer_id": string,"email": string,"first_name": string,"last_name": string,"last_visit": string,"next_visit": string,"phone": string,"visits": number
             }[]
+                           },
+"staff_reviews":
+{ Args: { "p_limit"?: number,"p_offset"?: number,"p_salon_id": string }; Returns: Json
+                           },
+"submit_review":
+{ Args: { "p_comment"?: string,"p_rating": number,"p_ref": string }; Returns: Json
                            }
           }
           Enums: {
-            "app_locale": "en"|"es","appointment_event_type": "created"|"rescheduled"|"cancelled"|"completed"|"no_show"|"status_changed","appointment_status": "booked"|"completed"|"cancelled"|"no_show","billing_cycle": "monthly"|"annual","booking_source": "online"|"phone"|"walk_in","business_type": "barbershop"|"salon"|"spa","invoice_status": "open"|"paid"|"void","member_role": "owner"|"admin"|"professional"|"display","notification_channel": "whatsapp"|"sms"|"email","notification_kind": "confirmation"|"reminder"|"cancellation"|"reschedule","notification_status": "pending"|"sent"|"failed"|"skipped","payment_method": "bank_transfer"|"cash"|"other","pro_title": "barber"|"stylist"|"nail_tech"|"makeup_artist"|"esthetician"|"massage_therapist"|"other","salon_zone": "grace_bay"|"downtown_provo"|"leeward"|"long_bay"|"turtle_cove"|"the_bight"|"chalk_sound"|"five_cays"|"blue_hills"|"kew_town"|"grand_turk"|"north_caicos"|"middle_caicos"|"south_caicos"|"salt_cay","subscription_status": "trialing"|"active"|"past_due"|"suspended"|"cancelled"
+            "app_locale": "en"|"es","appointment_event_type": "created"|"rescheduled"|"cancelled"|"completed"|"no_show"|"status_changed","appointment_status": "booked"|"completed"|"cancelled"|"no_show","billing_cycle": "monthly"|"annual","booking_source": "online"|"phone"|"walk_in","business_type": "barbershop"|"salon"|"spa","invoice_status": "open"|"paid"|"void","member_role": "owner"|"admin"|"professional"|"display","notification_channel": "whatsapp"|"sms"|"email","notification_kind": "confirmation"|"reminder"|"cancellation"|"reschedule","notification_status": "pending"|"sent"|"failed"|"skipped","payment_method": "bank_transfer"|"cash"|"other","pro_title": "barber"|"stylist"|"nail_tech"|"makeup_artist"|"esthetician"|"massage_therapist"|"other","review_status": "visible"|"reported"|"hidden","salon_zone": "grace_bay"|"downtown_provo"|"leeward"|"long_bay"|"turtle_cove"|"the_bight"|"chalk_sound"|"five_cays"|"blue_hills"|"kew_town"|"grand_turk"|"north_caicos"|"middle_caicos"|"south_caicos"|"salt_cay","subscription_status": "trialing"|"active"|"past_due"|"suspended"|"cancelled"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -919,7 +1016,7 @@ export type CompositeTypes<
 export const Constants = {
   "public": {
           Enums: {
-            "app_locale": ["en", "es"],"appointment_event_type": ["created", "rescheduled", "cancelled", "completed", "no_show", "status_changed"],"appointment_status": ["booked", "completed", "cancelled", "no_show"],"billing_cycle": ["monthly", "annual"],"booking_source": ["online", "phone", "walk_in"],"business_type": ["barbershop", "salon", "spa"],"invoice_status": ["open", "paid", "void"],"member_role": ["owner", "admin", "professional", "display"],"notification_channel": ["whatsapp", "sms", "email"],"notification_kind": ["confirmation", "reminder", "cancellation", "reschedule"],"notification_status": ["pending", "sent", "failed", "skipped"],"payment_method": ["bank_transfer", "cash", "other"],"pro_title": ["barber", "stylist", "nail_tech", "makeup_artist", "esthetician", "massage_therapist", "other"],"salon_zone": ["grace_bay", "downtown_provo", "leeward", "long_bay", "turtle_cove", "the_bight", "chalk_sound", "five_cays", "blue_hills", "kew_town", "grand_turk", "north_caicos", "middle_caicos", "south_caicos", "salt_cay"],"subscription_status": ["trialing", "active", "past_due", "suspended", "cancelled"]
+            "app_locale": ["en", "es"],"appointment_event_type": ["created", "rescheduled", "cancelled", "completed", "no_show", "status_changed"],"appointment_status": ["booked", "completed", "cancelled", "no_show"],"billing_cycle": ["monthly", "annual"],"booking_source": ["online", "phone", "walk_in"],"business_type": ["barbershop", "salon", "spa"],"invoice_status": ["open", "paid", "void"],"member_role": ["owner", "admin", "professional", "display"],"notification_channel": ["whatsapp", "sms", "email"],"notification_kind": ["confirmation", "reminder", "cancellation", "reschedule"],"notification_status": ["pending", "sent", "failed", "skipped"],"payment_method": ["bank_transfer", "cash", "other"],"pro_title": ["barber", "stylist", "nail_tech", "makeup_artist", "esthetician", "massage_therapist", "other"],"review_status": ["visible", "reported", "hidden"],"salon_zone": ["grace_bay", "downtown_provo", "leeward", "long_bay", "turtle_cove", "the_bight", "chalk_sound", "five_cays", "blue_hills", "kew_town", "grand_turk", "north_caicos", "middle_caicos", "south_caicos", "salt_cay"],"subscription_status": ["trialing", "active", "past_due", "suspended", "cancelled"]
           }
         }
 } as const

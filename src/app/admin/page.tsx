@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AdminConsole } from "@/components/admin/AdminConsole";
+import { ReportedReviews, type ReportedReview } from "@/components/admin/ReportedReviews";
 import type { PlatformOverview } from "@/lib/billing";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
@@ -10,5 +11,6 @@ export default async function AdminPage() {
   const supabase = await createClient();
   const { data, error } = await supabase.rpc("platform_overview");
   if (error || !data) notFound(); // no revelamos que existe
-  return <AdminConsole data={data as unknown as PlatformOverview} />;
+  const { data: reported } = await supabase.rpc("platform_reported_reviews");
+  return <AdminConsole data={data as unknown as PlatformOverview} reviewsSlot={<ReportedReviews reviews={(reported as unknown as ReportedReview[] | null) ?? []} />} />;
 }

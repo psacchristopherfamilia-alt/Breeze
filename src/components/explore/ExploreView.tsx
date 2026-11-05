@@ -20,6 +20,7 @@ export interface ExploreSalon {
   rating?: number;
   reviews?: number;
   cover: [string, string];
+  coverUrl?: string | null;
   pros: { id: string; firstName: string; lastName: string; colorHex: string }[];
   fromCents: number | null;
   searchText: string;
@@ -104,9 +105,13 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
                 className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-breeze-100 transition hover:-translate-y-0.5 hover:shadow-lg animate-fade-up"
               >
                 <div
-                  className="relative h-28"
+                  className="relative h-28 overflow-hidden"
                   style={{ background: `linear-gradient(135deg, ${s.cover[0]}, ${s.cover[1]})` }}
                 >
+                  {s.coverUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={s.coverUrl} alt="" loading="lazy" className="absolute inset-0 size-full object-cover" />
+                  )}
                   <div className="absolute inset-x-0 bottom-0 flex gap-1.5 p-3">
                     {s.businessTypes.map((ty) => (
                       <span key={ty} className="inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-ink">

@@ -28,7 +28,7 @@ export function Field({
   const id = `f-${name}`;
   return (
     <label htmlFor={id} className="block">
-      <span className="text-xs font-bold text-ink/60">{label}</span>
+      <span className="text-xs font-bold text-ink/70">{label}</span>
       <input
         id={id}
         name={name}
@@ -46,7 +46,7 @@ export function Field({
       {error ? (
         <span id={`${id}-err`} className="mt-1 block text-xs font-semibold text-red-600">{t(error)}</span>
       ) : hint ? (
-        <span className="mt-1 block text-xs text-ink/40">{hint}</span>
+        <span className="mt-1 block text-xs text-ink/70">{hint}</span>
       ) : null}
     </label>
   );

@@ -20,7 +20,7 @@ const STATUS_STYLE: Record<string, string> = {
   active: "bg-green-50 text-green-700",
   past_due: "bg-amber-50 text-amber-800",
   suspended: "bg-red-50 text-red-700",
-  cancelled: "bg-ink/5 text-ink/60",
+  cancelled: "bg-ink/5 text-ink/70",
 };
 
 const field = "mt-1 w-full rounded-xl bg-white px-3 py-2 text-sm ring-1 ring-breeze-200 outline-none focus:ring-2 focus:ring-breeze-400";
@@ -78,7 +78,7 @@ export function AdminConsole({ data }: { data: PlatformOverview }) {
             <LocaleSwitcher />
             <form action={signOut}>
               <input type="hidden" name="to" value="/negocios" />
-              <button className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink/50 hover:text-ink" aria-label={t("signOut")}>
+              <button className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink/70 hover:text-ink" aria-label={t("signOut")}>
                 <LogOut className="size-4" />
               </button>
             </form>
@@ -98,7 +98,7 @@ export function AdminConsole({ data }: { data: PlatformOverview }) {
             [t("kpi.mrr"), formatPrice(mrr)],
           ].map(([k, v]) => (
             <div key={k} className="rounded-2xl bg-white p-4 ring-1 ring-breeze-100">
-              <dt className="text-xs font-semibold text-ink/50">{k}</dt>
+              <dt className="text-xs font-semibold text-ink/70">{k}</dt>
               <dd className="mt-1 text-2xl font-extrabold">{v}</dd>
             </div>
           ))}
@@ -124,7 +124,7 @@ export function AdminConsole({ data }: { data: PlatformOverview }) {
         )}
 
         <ul className="mt-4 space-y-3">
-          {shown.length === 0 && <li className="rounded-2xl bg-white p-8 text-center text-ink/50 ring-1 ring-breeze-100">{t("empty")}</li>}
+          {shown.length === 0 && <li className="rounded-2xl bg-white p-8 text-center text-ink/70 ring-1 ring-breeze-100">{t("empty")}</li>}
           {shown.map((o) => {
             const end = o.current_period_end ?? o.trial_ends_at;
             const isOpen = open?.id === o.id ? open.kind : null;
@@ -134,22 +134,22 @@ export function AdminConsole({ data }: { data: PlatformOverview }) {
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div className="min-w-0">
                     <p className="truncate text-lg font-extrabold">{o.name}</p>
-                    <p className="truncate text-sm text-ink/60">{o.owner_name ? `${o.owner_name} · ` : ""}{o.owner_email}</p>
-                    <p className="mt-1 text-xs text-ink/50">
+                    <p className="truncate text-sm text-ink/70">{o.owner_name ? `${o.owner_name} · ` : ""}{o.owner_email}</p>
+                    <p className="mt-1 text-xs text-ink/70">
                       {t("salons", { published: o.published_salons, total: o.salons })} · {t("since", { date: billingDate(o.created_at, locale) })}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     {o.status && <span className={`rounded-full px-3 py-1 text-xs font-bold ${STATUS_STYLE[o.status]}`}>{tp(`status.${o.status}`)}</span>}
-                    <span className="text-xs text-ink/50">{plan?.name ?? o.plan_code}{o.billing_cycle === "annual" ? ` · ${t("annual")}` : ""}</span>
+                    <span className="text-xs text-ink/70">{plan?.name ?? o.plan_code}{o.billing_cycle === "annual" ? ` · ${t("annual")}` : ""}</span>
                     {!o.can_book && <span className="text-xs font-bold text-red-700">{t("paused")}</span>}
                   </div>
                 </div>
 
                 <dl className="mt-3 grid gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
-                  <div><dt className="text-xs text-ink/50">{o.status === "trialing" ? t("trialEnds") : t("periodEnds")}</dt><dd className="font-semibold">{end ? billingDate(end, locale) : "—"}</dd></div>
-                  <div><dt className="text-xs text-ink/50">{t("openInvoice")}</dt><dd className="font-semibold">{o.open_invoice ? `${o.open_invoice.number} · ${formatPrice(o.open_invoice.amount_cents)}` : "—"}</dd></div>
-                  <div><dt className="text-xs text-ink/50">{t("lastPayment")}</dt><dd className="font-semibold">{o.last_payment ? `${formatPrice(o.last_payment.amount_cents)} · ${billingDate(o.last_payment.received_at, locale)}` : "—"}</dd></div>
+                  <div><dt className="text-xs text-ink/70">{o.status === "trialing" ? t("trialEnds") : t("periodEnds")}</dt><dd className="font-semibold">{end ? billingDate(end, locale) : "—"}</dd></div>
+                  <div><dt className="text-xs text-ink/70">{t("openInvoice")}</dt><dd className="font-semibold">{o.open_invoice ? `${o.open_invoice.number} · ${formatPrice(o.open_invoice.amount_cents)}` : "—"}</dd></div>
+                  <div><dt className="text-xs text-ink/70">{t("lastPayment")}</dt><dd className="font-semibold">{o.last_payment ? `${formatPrice(o.last_payment.amount_cents)} · ${billingDate(o.last_payment.received_at, locale)}` : "—"}</dd></div>
                 </dl>
 
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -221,24 +221,24 @@ function InvoiceForm({
   const id = `inv-${org.id}`;
   return (
     <form className="grid gap-3 sm:grid-cols-2" onSubmit={(e) => { e.preventDefault(); onSubmit({ cycle, extraBranches: extra, planCode, amount, note }); }}>
-      <label htmlFor={`${id}-plan`} className="text-xs font-bold text-ink/60">{t("plan")}
+      <label htmlFor={`${id}-plan`} className="text-xs font-bold text-ink/70">{t("plan")}
         <select id={`${id}-plan`} className={field} value={planCode} onChange={(e) => setPlanCode(e.target.value)}>
           {plans.map((x) => <option key={x.code} value={x.code}>{x.name}</option>)}
         </select>
       </label>
-      <label htmlFor={`${id}-cycle`} className="text-xs font-bold text-ink/60">{t("cycle")}
+      <label htmlFor={`${id}-cycle`} className="text-xs font-bold text-ink/70">{t("cycle")}
         <select id={`${id}-cycle`} className={field} value={cycle} onChange={(e) => setCycle(e.target.value as "monthly" | "annual")}>
           <option value="monthly">{t("monthly")}</option>
           <option value="annual">{t("annual")}</option>
         </select>
       </label>
-      <label htmlFor={`${id}-extra`} className="text-xs font-bold text-ink/60">{t("extraBranches")}
+      <label htmlFor={`${id}-extra`} className="text-xs font-bold text-ink/70">{t("extraBranches")}
         <input id={`${id}-extra`} type="number" min={0} max={50} className={field} value={extra} onChange={(e) => setExtra(Number(e.target.value))} />
       </label>
-      <label htmlFor={`${id}-amount`} className="text-xs font-bold text-ink/60">{t("customAmount", { auto: formatPrice(auto) })}
+      <label htmlFor={`${id}-amount`} className="text-xs font-bold text-ink/70">{t("customAmount", { auto: formatPrice(auto) })}
         <input id={`${id}-amount`} inputMode="decimal" placeholder="—" className={field} value={amount} onChange={(e) => setAmount(e.target.value)} />
       </label>
-      <label htmlFor={`${id}-note`} className="text-xs font-bold text-ink/60 sm:col-span-2">{t("note")}
+      <label htmlFor={`${id}-note`} className="text-xs font-bold text-ink/70 sm:col-span-2">{t("note")}
         <input id={`${id}-note`} maxLength={300} className={field} value={note} onChange={(e) => setNote(e.target.value)} />
       </label>
       <div className="sm:col-span-2"><button className={primary} disabled={pending}>{t("createInvoice")}</button></div>
@@ -265,18 +265,18 @@ function PaymentForm({
   return (
     <form className="grid gap-3 sm:grid-cols-2" onSubmit={(e) => { e.preventDefault(); onSubmit({ method, reference, receivedOn, amount }); }}>
       <p className="text-sm sm:col-span-2"><Banknote className="mr-1 inline size-4 text-lagoon" />{t("paymentFor", { number: invoice.number, amount: formatPrice(invoice.amount_cents) })}</p>
-      <label htmlFor={`${id}-method`} className="text-xs font-bold text-ink/60">{t("method")}
+      <label htmlFor={`${id}-method`} className="text-xs font-bold text-ink/70">{t("method")}
         <select id={`${id}-method`} className={field} value={method} onChange={(e) => setMethod(e.target.value as typeof method)}>
           {(["bank_transfer", "cash", "other"] as const).map((m) => <option key={m} value={m}>{tm(m)}</option>)}
         </select>
       </label>
-      <label htmlFor={`${id}-ref`} className="text-xs font-bold text-ink/60">{t("reference")}
+      <label htmlFor={`${id}-ref`} className="text-xs font-bold text-ink/70">{t("reference")}
         <input id={`${id}-ref`} maxLength={120} className={field} value={reference} onChange={(e) => setReference(e.target.value)} />
       </label>
-      <label htmlFor={`${id}-date`} className="text-xs font-bold text-ink/60">{t("receivedOn")}
+      <label htmlFor={`${id}-date`} className="text-xs font-bold text-ink/70">{t("receivedOn")}
         <input id={`${id}-date`} type="date" max={localDateKey(new Date())} className={field} value={receivedOn} onChange={(e) => setReceivedOn(e.target.value)} />
       </label>
-      <label htmlFor={`${id}-amount`} className="text-xs font-bold text-ink/60">{t("paidAmount", { amount: formatPrice(invoice.amount_cents) })}
+      <label htmlFor={`${id}-amount`} className="text-xs font-bold text-ink/70">{t("paidAmount", { amount: formatPrice(invoice.amount_cents) })}
         <input id={`${id}-amount`} inputMode="decimal" placeholder="—" className={field} value={amount} onChange={(e) => setAmount(e.target.value)} />
       </label>
       <div className="sm:col-span-2"><button className={primary} disabled={pending}>{t("registerPayment")}</button></div>
@@ -291,10 +291,10 @@ function ExtendForm({ pending, onSubmit }: { pending: boolean; onSubmit: (days: 
   return (
     <form className="grid gap-3 sm:grid-cols-2" onSubmit={(e) => { e.preventDefault(); onSubmit(days, reason); }}>
       <p className="text-sm sm:col-span-2">{t("extendHint")}</p>
-      <label className="text-xs font-bold text-ink/60">{t("days")}
+      <label className="text-xs font-bold text-ink/70">{t("days")}
         <input type="number" min={1} max={365} className={field} value={days} onChange={(e) => setDays(Number(e.target.value))} />
       </label>
-      <label className="text-xs font-bold text-ink/60">{t("reason")}
+      <label className="text-xs font-bold text-ink/70">{t("reason")}
         <input maxLength={300} className={field} value={reason} onChange={(e) => setReason(e.target.value)} />
       </label>
       <div className="sm:col-span-2"><button className={primary} disabled={pending}>{t("extend")}</button></div>
@@ -306,7 +306,7 @@ function ReasonForm({ label, submit, pending, onSubmit }: { label: string; submi
   const [reason, setReason] = useState("");
   return (
     <form className="flex flex-wrap items-end gap-3" onSubmit={(e) => { e.preventDefault(); onSubmit(reason); }}>
-      <label className="min-w-0 flex-1 text-xs font-bold text-ink/60">{label}
+      <label className="min-w-0 flex-1 text-xs font-bold text-ink/70">{label}
         <input maxLength={300} className={field} value={reason} onChange={(e) => setReason(e.target.value)} />
       </label>
       <button className={primary} disabled={pending}>{submit}</button>
@@ -332,13 +332,13 @@ function SettingsForm({
   return (
     <details className="mt-8 rounded-2xl bg-white p-4 ring-1 ring-breeze-100">
       <summary className="flex cursor-pointer items-center gap-2 font-extrabold"><Settings2 className="size-5 text-lagoon" /> {t("title")}</summary>
-      <p className="mt-2 text-sm text-ink/60">{t("hint")}</p>
+      <p className="mt-2 text-sm text-ink/70">{t("hint")}</p>
       <form className="mt-3 grid gap-3 sm:grid-cols-2" onSubmit={(e) => { e.preventDefault(); onSubmit(v); }}>
-        <label htmlFor="set-payee" className="text-xs font-bold text-ink/60">{t("payee")}<input id="set-payee" maxLength={200} className={field} value={v.payeeName} onChange={set("payeeName")} /></label>
-        <label htmlFor="set-bank" className="text-xs font-bold text-ink/60">{t("bank")}<input id="set-bank" maxLength={200} className={field} value={v.bankName} onChange={set("bankName")} /></label>
-        <label htmlFor="set-account" className="text-xs font-bold text-ink/60 sm:col-span-2">{t("account")}<input id="set-account" maxLength={200} className={field} value={v.accountNumber} onChange={set("accountNumber")} /></label>
-        <label htmlFor="set-es" className="text-xs font-bold text-ink/60">{t("instructionsEs")}<textarea id="set-es" rows={3} maxLength={1000} className={field} value={v.instructionsEs} onChange={set("instructionsEs")} /></label>
-        <label htmlFor="set-en" className="text-xs font-bold text-ink/60">{t("instructionsEn")}<textarea id="set-en" rows={3} maxLength={1000} className={field} value={v.instructionsEn} onChange={set("instructionsEn")} /></label>
+        <label htmlFor="set-payee" className="text-xs font-bold text-ink/70">{t("payee")}<input id="set-payee" maxLength={200} className={field} value={v.payeeName} onChange={set("payeeName")} /></label>
+        <label htmlFor="set-bank" className="text-xs font-bold text-ink/70">{t("bank")}<input id="set-bank" maxLength={200} className={field} value={v.bankName} onChange={set("bankName")} /></label>
+        <label htmlFor="set-account" className="text-xs font-bold text-ink/70 sm:col-span-2">{t("account")}<input id="set-account" maxLength={200} className={field} value={v.accountNumber} onChange={set("accountNumber")} /></label>
+        <label htmlFor="set-es" className="text-xs font-bold text-ink/70">{t("instructionsEs")}<textarea id="set-es" rows={3} maxLength={1000} className={field} value={v.instructionsEs} onChange={set("instructionsEs")} /></label>
+        <label htmlFor="set-en" className="text-xs font-bold text-ink/70">{t("instructionsEn")}<textarea id="set-en" rows={3} maxLength={1000} className={field} value={v.instructionsEn} onChange={set("instructionsEn")} /></label>
         <div className="sm:col-span-2"><button className={primary} disabled={pending}>{t("save")}</button></div>
       </form>
     </details>

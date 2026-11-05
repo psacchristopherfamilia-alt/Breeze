@@ -33,6 +33,15 @@ test("un invitado reserva un corte y después esa hora ya no está libre", async
   // La confirmación repite los datos de pago.
   await expect(page.getByText(/Demo Bank/)).toBeVisible();
 
+  // Y ayuda a llegar: mapa, teléfono y calendario.
+  const directions = page.getByRole("link", { name: "Directions" });
+  await expect(directions).toHaveAttribute("href", /google\.com\/maps\/search\/\?api=1&query=Island%20Fade%20Barbershop/);
+  await expect(page.getByRole("link", { name: "Call the salon" })).toHaveAttribute("href", /^tel:\+1649/);
+  await page.getByRole("button", { name: "Add to calendar" }).click();
+  await expect(page.getByRole("link", { name: "Google Calendar" })).toHaveAttribute("href", /calendar\.google\.com\/calendar\/render\?action=TEMPLATE/);
+  const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /\.ics file/ }).click()]);
+  expect(download.suggestedFilename()).toBe("breeze-booking.ics");
+
   // Misma profesional, mismo día: la hora reservada ya no se ofrece (nunca hay doble reserva).
   await page.goto("/s/island-fade");
   await page.getByRole("button", { name: /Classic cut/ }).click();

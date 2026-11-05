@@ -35,7 +35,7 @@ export function BookingCard({ booking, token, now }: { booking: BookingSummary; 
         </div>
         <span
           className={`rounded-full px-2.5 py-1 text-xs font-bold ${
-            status === "cancelled" ? "bg-red-50 text-red-700" : active ? "bg-breeze-50 text-lagoon" : "bg-ink/5 text-ink/60"
+            status === "cancelled" ? "bg-red-50 text-red-700" : active ? "bg-breeze-50 text-lagoon" : "bg-ink/5 text-ink/70"
           }`}
         >
           {t(`status.${status}`)}
@@ -44,10 +44,10 @@ export function BookingCard({ booking, token, now }: { booking: BookingSummary; 
       <p className="mt-2 text-sm font-semibold">{booking.salon.name}</p>
       <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
         <ProBadge pro={{ firstName: pf, lastName: pl.join(" "), colorHex: pro.color_hex }} size="sm" showName />
-        <span className="text-ink/40">·</span>
+        <span className="text-ink/70">·</span>
         <span className="text-ink/70">{items.map((i) => (locale === "es" ? i.service_name_es : i.service_name_en)).join(" + ")}</span>
       </div>
-      <p className="mt-1 text-sm text-ink/60">{formatPrice(total)} · {t("me.payAtSalon")}</p>
+      <p className="mt-1 text-sm text-ink/70">{formatPrice(total)} · {t("me.payAtSalon")}</p>
 
       {state?.error && <p role="alert" className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">{t(`booking.errors.${state.error}`)}</p>}
 
@@ -67,7 +67,7 @@ export function BookingCard({ booking, token, now }: { booking: BookingSummary; 
               {t("me.windowPassed", { hours: booking.salon.cancellation_window_hours, phone: booking.salon.phone ?? "" })}
             </p>
           )}
-          <p className="mt-2 text-xs text-ink/40">{t("me.windowInfo", { hours: booking.salon.cancellation_window_hours })}</p>
+          <p className="mt-2 text-xs text-ink/70">{t("me.windowInfo", { hours: booking.salon.cancellation_window_hours })}</p>
         </div>
       )}
     </article>

@@ -13,8 +13,17 @@ test.describe("páginas públicas", () => {
     });
   }
 
-  test("una página que no existe da 404", async ({ page }) => {
+  test("una página que no existe da 404 con la marca y una salida", async ({ page }) => {
     expect((await page.goto("/no-existe-esta-pagina"))?.status()).toBe(404);
+    await expect(page.getByRole("heading", { name: "We couldn't find that page" })).toBeVisible();
+    await page.getByRole("link", { name: "See salons" }).click();
+    await expect(page).toHaveURL(/\/explore$/);
+  });
+
+  test("el 404 también sale en español", async ({ page }) => {
+    await page.goto("/no-existe-esta-pagina");
+    await page.getByRole("button", { name: "ES" }).click();
+    await expect(page.getByRole("heading", { name: "No encontramos esa página" })).toBeVisible();
   });
 });
 

@@ -108,7 +108,7 @@ export function LiveBoardView({
   const [dark, setDark] = useState(false);
   const bg = dark ? "bg-[#06232a] text-white" : "bg-breeze-sky text-ink";
   const card = dark ? "bg-white/[0.06] ring-white/10" : "bg-white ring-breeze-100";
-  const muted = dark ? "text-white/50" : "text-ink/50";
+  const muted = dark ? "text-white/50" : "text-ink/70";
   const active = items.filter((i) => i.status !== "cancelled").sort((a, b) => a.startsAt.localeCompare(b.startsAt));
   const svc = (i: LiveItem) => (locale === "es" ? i.serviceNameEs : i.serviceNameEn);
 
@@ -207,7 +207,7 @@ export function LiveBoardView({
                     b: (chunks) => <b style={{ color: pro.colorHex }}>{chunks}</b>,
                   })}
                 </p>
-                <p className="mt-1 text-sm text-ink/50">{svc(item)}</p>
+                <p className="mt-1 text-sm text-ink/70">{svc(item)}</p>
               </div>
               <span className="absolute bottom-0 left-0 h-1 origin-left" style={{ backgroundColor: pro.colorHex, width: "100%", animation: `shrink ${ALERT_MS}ms linear forwards` }} />
             </div>
@@ -227,7 +227,7 @@ function CtrlButton({ children, onClick, label, on, dark }: { children: React.Re
       aria-label={label}
       aria-pressed={on}
       className={`grid size-9 place-items-center rounded-full transition ${
-        on ? "bg-breeze-500 text-white" : dark ? "bg-white/10 text-white/80 hover:bg-white/20" : "bg-white text-ink/60 ring-1 ring-breeze-100 hover:text-lagoon"
+        on ? "bg-breeze-500 text-white" : dark ? "bg-white/10 text-white/80 hover:bg-white/20" : "bg-white text-ink/70 ring-1 ring-breeze-100 hover:text-lagoon"
       }`}
     >
       {children}

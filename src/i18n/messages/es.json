@@ -183,7 +183,12 @@
       "card": "Tarjeta",
       "transfer": "Transferencia"
     },
-    "payTransferDetails": "Datos para transferir"
+    "payTransferDetails": "Datos para transferir",
+    "addToCalendar": "Añadir al calendario",
+    "directions": "Cómo llegar",
+    "callSalon": "Llamar al salón",
+    "calGoogle": "Google Calendar",
+    "calFile": "Calendario de Apple / archivo .ics"
   },
   "me": {
     "title": "Mis citas",
@@ -325,7 +330,8 @@
       "invalid_code": "Ese código no es válido o caducó. Revisa la pantalla.",
       "too_many_pending": "Demasiadas pantallas esperando. Prueba más tarde.",
       "payment_method_required": "Elige al menos una forma de cobrar.",
-      "transfer_details_required": "Agrega los datos para transferir."
+      "transfer_details_required": "Agrega los datos para transferir.",
+      "services_required": "Elige al menos un servicio."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -845,5 +851,56 @@
     "trial": "14 días de prueba gratis. Si dejas de pagar, las reservas se pausan a los 14 días. Nunca borramos tus datos.",
     "billing": "Te facturamos directamente: pagas por transferencia bancaria o en efectivo. No hace falta pagar en línea.",
     "noLock": "Sin contratos. Cancelas cuando quieras."
+  },
+  "errors": {
+    "notfound": {
+      "title": "No encontramos esa página",
+      "body": "Puede que el enlace esté mal escrito o desactualizado."
+    },
+    "unavailable": {
+      "title": "Este salón no está disponible por el momento",
+      "body": "Puede estar cerrado temporalmente o sin recibir reservas ahora. Mira otros salones."
+    },
+    "error": {
+      "title": "Algo falló de nuestro lado",
+      "body": "Tus datos están a salvo. Inténtalo de nuevo en un momento."
+    },
+    "seeSalons": "Ver salones",
+    "home": "Volver al inicio",
+    "retry": "Intentar de nuevo"
+  },
+  "wizard": {
+    "step": "Paso {a} de {b}",
+    "s1Title": "Tus servicios",
+    "s1Hint": "Servicios típicos de tu negocio. Desmarca lo que no ofreces y ajusta los precios. Después puedes cambiar todo.",
+    "s1Have": "Ya tienes servicios. Continúa para configurar el resto.",
+    "s2Title": "Tu primer profesional",
+    "s2Hint": "Es con quien reservarán los clientes. Puedes ser tú. Más personas se añaden después.",
+    "s2Have": "Ya tienes un profesional. Continúa para poner el horario.",
+    "s3Title": "¿Cuándo trabajas?",
+    "s3Hint": "Elige los días y las horas que abres. Todos empiezan con el mismo horario y cada profesional puede cambiar el suyo después.",
+    "opens": "Abre",
+    "closes": "Cierra",
+    "everyDay": "Mismo horario todos los días",
+    "hoursLater": "¿Alguien con otro horario? Lo cambias en Profesionales.",
+    "s4Title": "Listo para abrir",
+    "s4Hint": "Esto es lo que vamos a dejar configurado. Puedes publicar ya o guardarlo y publicar después.",
+    "sumServices": "{count} servicios añadidos",
+    "sumServicesHave": "Tus servicios están listos",
+    "sumPro": "{name} añadido como tu primer profesional",
+    "sumProHave": "Tu profesional está listo",
+    "sumHours": "Abres {days} días a la semana · {from} – {to}",
+    "publish": "Publicar mi salón",
+    "saveOnly": "Guardar sin publicar",
+    "next": "Continuar",
+    "back": "Atrás",
+    "skip": "Saltar por ahora",
+    "publishedTitle": "¡Tu salón ya está publicado!",
+    "publishedHint": "Imprime el QR para el espejo o el mostrador, o comparte el enlace por WhatsApp.",
+    "viewPage": "Ver mi página de reservas",
+    "goPanel": "Ir a mi panel",
+    "cta": "Configura tu salón en 4 pasos",
+    "ctaHint": "Servicios, tu primer profesional y tu horario. Unos 5 minutos.",
+    "ctaButton": "Empezar"
   }
 }

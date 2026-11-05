@@ -77,7 +77,7 @@ export function LiveShell({
               ))}
             </select>
           </label>
-          <p className="mt-1 px-1 text-xs text-ink/40">
+          <p className="mt-1 px-1 text-xs text-ink/70">
             {current.organizationName} · {current.roles.map((r) => t(`roles.${r}`)).join(", ")}
           </p>
         </div>
@@ -110,7 +110,7 @@ export function LiveShell({
         </div>
         <form action={signOut} className="hidden px-5 pb-6 lg:block">
           <input type="hidden" name="to" value="/negocios" />
-          <button className="inline-flex items-center gap-2 text-sm font-semibold text-ink/50 hover:text-ink">
+          <button className="inline-flex items-center gap-2 text-sm font-semibold text-ink/70 hover:text-ink">
             <LogOut className="size-4" /> {t("signOut")}
           </button>
         </form>

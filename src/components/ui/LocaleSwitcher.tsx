@@ -21,7 +21,7 @@ export function LocaleSwitcher({ invert = false }: { invert?: boolean }) {
                 : "bg-white text-lagoon shadow-sm"
               : invert
                 ? "text-white/80 hover:text-white"
-                : "text-ink/50 hover:text-ink"
+                : "text-ink/70 hover:text-ink"
           }`}
         >
           {l}

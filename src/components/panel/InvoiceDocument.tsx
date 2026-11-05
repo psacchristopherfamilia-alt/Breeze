@@ -45,7 +45,7 @@ export function InvoiceDocument({
         <header className="flex items-start justify-between gap-4">
           <div>
             <p className="text-2xl font-extrabold text-lagoon">Breeze</p>
-            <p className="text-sm text-ink/60">Turks and Caicos</p>
+            <p className="text-sm text-ink/70">Turks and Caicos</p>
           </div>
           <div className="text-right">
             <h1 className="text-xl font-extrabold uppercase tracking-wide">{t(paid ? "receiptTitle" : "invoiceTitle")}</h1>
@@ -55,18 +55,18 @@ export function InvoiceDocument({
 
         <dl className="mt-8 grid grid-cols-2 gap-4 text-sm">
           <div>
-            <dt className="text-xs font-bold uppercase text-ink/50">{t("billedTo")}</dt>
+            <dt className="text-xs font-bold uppercase text-ink/70">{t("billedTo")}</dt>
             <dd className="mt-1 font-semibold">{business}</dd>
           </div>
           <div>
-            <dt className="text-xs font-bold uppercase text-ink/50">{t(paid ? "paidOn" : "dueOn")}</dt>
+            <dt className="text-xs font-bold uppercase text-ink/70">{t(paid ? "paidOn" : "dueOn")}</dt>
             <dd className="mt-1 font-semibold">{fullDate(paid && invoice.paid_at ? invoice.paid_at : invoice.due_at, locale)}</dd>
           </div>
         </dl>
 
         <table className="mt-8 w-full text-sm">
           <thead>
-            <tr className="border-b border-breeze-100 text-left text-xs uppercase text-ink/50">
+            <tr className="border-b border-breeze-100 text-left text-xs uppercase text-ink/70">
               <th className="py-2">{t("concept")}</th>
               <th className="py-2 text-right">{t("amount")}</th>
             </tr>
@@ -75,7 +75,7 @@ export function InvoiceDocument({
             <tr>
               <td className="py-3">
                 <b>{plan ? `Breeze ${plan}` : "Breeze"}</b>
-                <span className="block text-xs text-ink/60">{fullDate(invoice.period_start, locale)} – {fullDate(invoice.period_end, locale)}</span>
+                <span className="block text-xs text-ink/70">{fullDate(invoice.period_start, locale)} – {fullDate(invoice.period_end, locale)}</span>
               </td>
               <td className="py-3 text-right font-semibold">{formatPrice(invoice.amount_cents)}</td>
             </tr>
@@ -97,7 +97,7 @@ export function InvoiceDocument({
 
         {instructions && (
           <div className="mt-6 rounded-2xl bg-foam p-4 text-sm ring-1 ring-breeze-100">
-            <p className="text-xs font-bold uppercase text-ink/50">{t("howToPay")}</p>
+            <p className="text-xs font-bold uppercase text-ink/70">{t("howToPay")}</p>
             <p className="mt-2 font-semibold">{instructions.payee_name}</p>
             <p>{instructions.bank_name} · {instructions.account_number}</p>
             {notes && <p className="mt-2 whitespace-pre-line text-ink/70">{notes}</p>}

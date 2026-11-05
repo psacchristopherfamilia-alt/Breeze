@@ -24,7 +24,7 @@ export function LegalConsent({ kind, className }: { kind: "booking" | "signup" |
 /** Enlaces cortos a los documentos legales (pies de página). */
 export function LegalLinks({ className = "", invert = false }: { className?: string; invert?: boolean }) {
   const t = useTranslations("legal");
-  const cls = invert ? "text-white/60 hover:text-white" : "text-ink/50 hover:text-ink";
+  const cls = invert ? "text-white/60 hover:text-white" : "text-ink/70 hover:text-ink";
   return (
     <nav aria-label={t("label")} className={`flex flex-wrap gap-x-4 gap-y-1 text-xs ${className}`}>
       <Link href={LEGAL_PATH.privacy} className={cls}>{t("privacy")}</Link>

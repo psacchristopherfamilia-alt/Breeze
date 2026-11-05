@@ -6,6 +6,7 @@ import { appOrigin } from "@/lib/auth/server";
 import { PRO_COLORS } from "@/lib/colors";
 import { SALON_COOKIE, panelErrorKey } from "@/lib/panel/server";
 import { normalizePhone } from "@/lib/phone";
+import { buildHours, validRange } from "@/lib/panel/setup";
 import { createClient } from "@/lib/supabase/server";
 import { ZONES } from "@/lib/validation/auth";
 
@@ -20,6 +21,8 @@ const done = (): Result => {
   return { ok: true };
 };
 const fail = (e: { code?: string; message?: string } | null): Result => ({ ok: false, error: panelErrorKey(e) });
+/** Solo el error (para acciones cuyo éxito lleva datos propios). */
+const bad = (e: { code?: string; message?: string } | null): { ok: false; error: string } => ({ ok: false, error: panelErrorKey(e) });
 const uuid = z.string().uuid();
 
 // ─── Contexto ──────────────────────────────────────────────────────────────
@@ -228,21 +231,18 @@ export async function saveService(input: z.input<typeof serviceSchema>): Promise
   return error ? fail(error) : done();
 }
 
+const serviceItemSchema = z.object({
+  categoryCode: z.string().min(2),
+  nameEn: z.string().trim().min(2).max(120),
+  nameEs: z.string().trim().min(2).max(120),
+  durationMin: z.number().int().min(5).max(480),
+  bufferMin: z.number().int().min(0).max(120),
+  priceCents: z.number().int().min(0).max(10_000_00),
+});
+
 const templatesSchema = z.object({
   salonId: uuid,
-  items: z
-    .array(
-      z.object({
-        categoryCode: z.string().min(2),
-        nameEn: z.string().trim().min(2).max(120),
-        nameEs: z.string().trim().min(2).max(120),
-        durationMin: z.number().int().min(5).max(480),
-        bufferMin: z.number().int().min(0).max(120),
-        priceCents: z.number().int().min(0).max(10_000_00),
-      }),
-    )
-    .min(1)
-    .max(40),
+  items: z.array(serviceItemSchema).min(1).max(40),
 });
 
 /** Alta rápida: crea varios servicios sugeridos de una vez (RLS exige ser dueño/admin del salón). */
@@ -266,6 +266,104 @@ export async function addServiceTemplates(input: z.input<typeof templatesSchema>
   );
   if (error?.code === "23514") return { ok: false, error: "category_mismatch" };
   return error ? fail(error) : done();
+}
+
+// ─── Asistente de arranque ─────────────────────────────────────────────────
+
+const setupSchema = z.object({
+  salonId: uuid,
+  services: z.array(serviceItemSchema).max(40),
+  pro: z.object({
+    firstName: z.string().trim().min(1).max(60),
+    lastName: z.string().trim().max(60),
+    title: z.enum(["barber", "stylist", "nail_tech", "makeup_artist", "esthetician", "massage_therapist", "other"]),
+    colorHex: z.enum(PRO_COLORS.map((c) => c.hex) as [string, ...string[]]),
+    acceptsCash: z.boolean(),
+    acceptsCard: z.boolean(),
+    acceptsTransfer: z.boolean(),
+    paymentNote: z.string().trim().max(400),
+  }),
+  days: z.array(z.number().int().min(0).max(6)).min(1).max(7),
+  start: z.string(),
+  end: z.string(),
+  publish: z.boolean(),
+});
+
+/**
+ * Deja el salón listo en un solo paso: servicios sugeridos, primer profesional (con su forma de cobro),
+ * servicios asignados y horario; y publica si se pide. Solo crea lo que falta (si ya hay servicios o un
+ * profesional activo, los usa), así que repetirlo tras un fallo no duplica nada.
+ */
+export async function completeSetup(input: z.input<typeof setupSchema>): Promise<Result<{ published: boolean }>> {
+  const p = setupSchema.safeParse(input);
+  if (!p.success) return { ok: false, error: "invalid_form" };
+  const d = p.data;
+  if (!validRange(d.start, d.end)) return { ok: false, error: "invalid_hours" };
+  if (!d.pro.acceptsCash && !d.pro.acceptsCard && !d.pro.acceptsTransfer) return { ok: false, error: "payment_method_required" };
+  if (d.pro.acceptsTransfer && !d.pro.paymentNote) return { ok: false, error: "transfer_details_required" };
+
+  const supabase = await createClient();
+
+  // 1. Servicios
+  const { data: existing } = await supabase.from("services").select("id").eq("salon_id", d.salonId).eq("is_active", true);
+  let serviceIds = (existing ?? []).map((s) => s.id);
+  if (serviceIds.length === 0) {
+    if (d.services.length === 0) return { ok: false, error: "services_required" };
+    const { data, error } = await supabase
+      .from("services")
+      .insert(
+        d.services.map((s, i) => ({
+          salon_id: d.salonId,
+          category_code: s.categoryCode,
+          name_en: s.nameEn,
+          name_es: s.nameEs,
+          duration_min: s.durationMin,
+          buffer_min: s.bufferMin,
+          price_cents: s.priceCents,
+          sort_order: i,
+        })),
+      )
+      .select("id");
+    if (error) return error.code === "23514" ? { ok: false, error: "category_mismatch" } : bad(error);
+    serviceIds = (data ?? []).map((s) => s.id);
+  }
+
+  // 2. Profesional
+  const { data: pros } = await supabase.from("professionals").select("id").eq("salon_id", d.salonId).eq("is_active", true).order("created_at").limit(1);
+  let proId = pros?.[0]?.id;
+  if (!proId) {
+    const { data, error } = await supabase
+      .from("professionals")
+      .insert({
+        salon_id: d.salonId,
+        first_name: d.pro.firstName,
+        last_name: d.pro.lastName,
+        title: d.pro.title,
+        color_hex: d.pro.colorHex,
+        accepts_cash: d.pro.acceptsCash,
+        accepts_card: d.pro.acceptsCard,
+        accepts_transfer: d.pro.acceptsTransfer,
+        payment_note: d.pro.paymentNote || null,
+      })
+      .select("id")
+      .single();
+    if (error) return bad(error.code === "23505" ? { code: "23505", message: "color" } : error);
+    proId = data.id;
+  }
+
+  // 3. Servicios del profesional y 4. horario
+  const link = await supabase.rpc("set_professional_services", { p_professional_id: proId, p_service_ids: serviceIds });
+  if (link.error) return bad(link.error);
+  const hours = await supabase.rpc("set_working_hours", { p_professional_id: proId, p_hours: buildHours(d.days, d.start, d.end) });
+  if (hours.error) return bad(hours.error);
+
+  // 5. Publicar (si se pidió)
+  if (d.publish) {
+    const pub = await supabase.rpc("set_salon_published", { p_salon_id: d.salonId, p_published: true });
+    if (pub.error) return bad(pub.error);
+  }
+  revalidatePath("/dashboard", "layout");
+  return { ok: true, published: d.publish };
 }
 
 // ─── Ajustes y publicación ─────────────────────────────────────────────────

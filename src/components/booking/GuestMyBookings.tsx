@@ -67,7 +67,7 @@ export function GuestMyBookings() {
           <div className="mt-6 h-32 animate-pulse rounded-3xl bg-white" />
         ) : items.length === 0 ? (
           <div className="mt-6 rounded-3xl bg-white p-10 text-center ring-1 ring-breeze-100">
-            <p className="text-ink/60">{t("me.guestEmpty")}</p>
+            <p className="text-ink/70">{t("me.guestEmpty")}</p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
               <Link href="/explore" className="inline-flex items-center gap-1 rounded-2xl bg-lagoon px-5 py-3 font-bold text-white">
                 <Plus className="size-4" /> {t("me.bookNow")}
@@ -89,16 +89,16 @@ export function GuestMyBookings() {
               </div>
             </div>
 
-            <h2 className="mt-6 text-sm font-bold uppercase tracking-wide text-ink/50">{t("me.upcoming")}</h2>
+            <h2 className="mt-6 text-sm font-bold uppercase tracking-wide text-ink/70">{t("me.upcoming")}</h2>
             <div className="mt-2 space-y-3">
-              {upcoming.length === 0 && <p className="text-sm text-ink/50">{t("me.noneUpcoming")}</p>}
+              {upcoming.length === 0 && <p className="text-sm text-ink/70">{t("me.noneUpcoming")}</p>}
               {upcoming.map((i) => (
                 <BookingCard key={i.booking.booking_group_id} booking={i.booking} token={i.token} now={now} />
               ))}
             </div>
             {history.length > 0 && (
               <>
-                <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/50">{t("me.history")}</h2>
+                <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-ink/70">{t("me.history")}</h2>
                 <div className="mt-2 space-y-3 opacity-70">
                   {history.map((i) => (
                     <BookingCard key={i.booking.booking_group_id} booking={i.booking} token={i.token} now={now} />

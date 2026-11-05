@@ -33,14 +33,14 @@ export function SalonQr({ slug, name }: { slug: string; name: string }) {
   return (
     <section className="mt-5 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">
       <h2 className="font-bold">{t("settings.qrTitle")}</h2>
-      <p className="mt-1 text-sm text-ink/60">{t("settings.qrHint")}</p>
+      <p className="mt-1 text-sm text-ink/70">{t("settings.qrHint")}</p>
       <div className="mt-4 flex flex-wrap items-center gap-5">
         <div className="grid size-40 place-items-center rounded-2xl bg-white p-2 ring-1 ring-breeze-100">
           {png ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={png} alt={t("settings.qrAlt", { name })} className="size-full" />
           ) : (
-            <span className="text-xs text-ink/40">…</span>
+            <span className="text-xs text-ink/70">…</span>
           )}
         </div>
         <div className="min-w-0 flex-1 space-y-3">

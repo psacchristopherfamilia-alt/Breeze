@@ -22,11 +22,11 @@ export function CreateBusiness() {
         <section className="mt-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-breeze-100">
           <Store className="size-10 text-breeze-500" />
           <h1 className="mt-3 text-2xl font-extrabold">{t("panel.empty.title")}</h1>
-          <p className="mt-1 text-sm text-ink/60">{t("panel.empty.body")}</p>
+          <p className="mt-1 text-sm text-ink/70">{t("panel.empty.body")}</p>
           <div className="mt-5 space-y-3">
             {(["orgName", "salonName"] as const).map((k) => (
               <label key={k} className="block">
-                <span className="text-xs font-bold text-ink/60">{t(`auth.fields.${k}`)}</span>
+                <span className="text-xs font-bold text-ink/70">{t(`auth.fields.${k}`)}</span>
                 <input value={form[k]} onChange={(e) => setForm({ ...form, [k]: e.target.value })} className="mt-1 w-full rounded-xl bg-foam px-3 py-2.5 ring-1 ring-breeze-100 outline-none focus:ring-2 focus:ring-breeze-400" />
               </label>
             ))}
@@ -63,7 +63,7 @@ export function CreateBusiness() {
         </section>
         <form action={signOut} className="mt-4 text-center">
           <input type="hidden" name="to" value="/negocios" />
-          <button className="text-sm font-semibold text-ink/50 underline">{t("panel.signOut")}</button>
+          <button className="text-sm font-semibold text-ink/70 underline">{t("panel.signOut")}</button>
         </form>
       </div>
     </main>

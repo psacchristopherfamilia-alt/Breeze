@@ -1,5 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+/**
+ * Espera a que terminen las animaciones de entrada: axe mide el color real de cada texto y, a media
+ * aparición, los colores están semitransparentes (daba falsos errores de contraste según el momento).
+ */
+async function settle(page: Page) {
+  await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))));
+}
 
 /**
  * Accesibilidad automática (axe, WCAG 2.1 A/AA) en las pantallas públicas.
@@ -11,6 +19,7 @@ for (const path of PAGES) {
   test(`${path} no tiene problemas graves de accesibilidad`, async ({ page }) => {
     await page.goto(path);
     await page.waitForLoadState("networkidle");
+    await settle(page);
     const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
     const serious = violations.filter((v) => v.impact === "serious" || v.impact === "critical");
     expect(
@@ -28,6 +37,7 @@ test("el último paso de la reserva (forma de pago y datos) es accesible", async
   await page.getByRole("button", { name: /^\d{1,2}:\d{2} (AM|PM)$/ }).first().click();
   await page.getByRole("button", { name: "Continue" }).click();
   await expect(page.getByText("How you'll pay")).toBeVisible();
+  await settle(page);
   const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
   const serious = violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.help} → ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`)).toEqual([]);

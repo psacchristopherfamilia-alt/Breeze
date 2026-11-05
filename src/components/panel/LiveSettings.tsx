@@ -10,6 +10,7 @@ import { TypeIcon } from "@/components/ui/TypeIcon";
 import { addDaysKey, atLocal, formatDayShort, formatTime } from "@/lib/time";
 import { ZONES } from "@/lib/validation/auth";
 import { Toggle } from "./LiveProfessionals";
+import { SalonQr } from "./SalonQr";
 
 type BT = "barbershop" | "salon" | "spa";
 interface Settings {
@@ -81,6 +82,8 @@ export function LiveSettings({
           {t(salon.isPublished ? "settings.unpublish" : "settings.publish")}
         </button>
       </section>
+
+      {salon.isPublished && <SalonQr slug={salon.slug} name={salon.name} />}
 
       {/* Datos y políticas */}
       <section className="mt-5 space-y-4 rounded-3xl bg-white p-5 ring-1 ring-breeze-100">

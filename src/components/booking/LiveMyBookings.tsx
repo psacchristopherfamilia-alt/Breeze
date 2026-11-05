@@ -7,6 +7,7 @@ import type { BookingSummary } from "@/lib/booking/types";
 import { useNow } from "@/lib/mock/store";
 import { BookingCard } from "./BookingCard";
 import { ClaimDeviceBookings } from "./ClaimDeviceBookings";
+import { MyPrivacy } from "./MyPrivacy";
 
 export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
   const t = useTranslations();
@@ -51,6 +52,7 @@ export function LiveMyBookings({ bookings }: { bookings: BookingSummary[] }) {
             )}
           </>
         )}
+        <MyPrivacy />
       </main>
     </div>
   );

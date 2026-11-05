@@ -9,7 +9,7 @@ export const LEGAL = {
   company: "[LEGAL ENTITY NAME]",
   contactEmail: "[CONTACT EMAIL]",
   governingLaw: "the Turks and Caicos Islands",
-  version: "2026-11-draft",
+  version: "2026-11-draft-2",
   updated: "2026-11-04",
   reviewed: false,
 } as const;

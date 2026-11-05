@@ -60,7 +60,7 @@ const privacy: Record<Locale, LegalDoc> = {
         "While your account or your relationship with a business is active, and as long as needed for bookings, billing and legal obligations. If a business closes its account, its data is kept for a reasonable period and then deleted or anonymised. You can ask us to delete your data at any time.",
       ] },
       { id: "rights", heading: "8. Your rights", body: [
-        "You can ask to access, correct, export or delete your personal data, and to withdraw your consent to messages. Write to {email}. We may need to verify your identity first. Where a business is the one that decided to collect your data as its client, we will also pass your request on to it.",
+        "You can ask to access, correct, export or delete your personal data, and to withdraw your consent to messages. If you have an account, you can download your data and delete your account yourself from “My bookings”. Otherwise, write to {email}. We may need to verify your identity first. Where a business is the one that decided to collect your data as its client, we will also pass your request on to it.",
       ] },
       { id: "security", heading: "9. Security", body: [
         "We use encrypted connections and access controls so each business only sees its own data. No system is perfectly secure; if something affects your data we will tell you as required by law.",
@@ -102,7 +102,7 @@ const privacy: Record<Locale, LegalDoc> = {
         "Mientras tu cuenta o tu relación con un negocio esté activa, y el tiempo necesario para las citas, la facturación y las obligaciones legales. Si un negocio cierra su cuenta, guardamos sus datos un tiempo razonable y luego los borramos o anonimizamos. Puedes pedirnos que borremos tus datos cuando quieras.",
       ] },
       { id: "rights", heading: "8. Tus derechos", body: [
-        "Puedes pedir acceder a tus datos, corregirlos, exportarlos o borrarlos, y retirar tu consentimiento a los mensajes. Escribe a {email}. Podemos pedirte antes que verifiques tu identidad. Si es un negocio quien decidió recoger tus datos como cliente suyo, también le trasladaremos tu solicitud.",
+        "Puedes pedir acceder a tus datos, corregirlos, exportarlos o borrarlos, y retirar tu consentimiento a los mensajes. Si tienes cuenta, puedes descargar tus datos y borrar tu cuenta tú mismo desde «Mis citas». Si no, escribe a {email}. Podemos pedirte antes que verifiques tu identidad. Si es un negocio quien decidió recoger tus datos como cliente suyo, también le trasladaremos tu solicitud.",
       ] },
       { id: "security", heading: "9. Seguridad", body: [
         "Usamos conexiones cifradas y controles de acceso para que cada negocio vea solo sus datos. Ningún sistema es perfecto; si algo afecta a tus datos te lo diremos como exige la ley.",

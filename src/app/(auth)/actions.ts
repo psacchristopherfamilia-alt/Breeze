@@ -121,6 +121,19 @@ export async function signOut(fd?: FormData) {
   redirect(safeNext(fd?.get("to") ?? null) ?? "/explore");
 }
 
+/**
+ * Borra la cuenta del cliente (la base de datos cancela sus citas futuras y quita sus datos personales).
+ * Devuelve una clave auth.errors.* si no se pudo; si sale bien, cierra la sesión y va al catálogo.
+ */
+export async function deleteAccount(): Promise<{ error: string }> {
+  if (!isSupabaseConfigured()) return { error: "notConfigured" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("delete_my_account");
+  if (error) return { error: error.message === "owner_cannot_delete" ? "accountOwnerCannotDelete" : "generic" };
+  await supabase.auth.signOut().catch(() => {});
+  redirect("/explore");
+}
+
 const INVITE_ERRORS: Record<string, string> = {
   invitation_not_found: "inviteNotFound",
   invitation_already_used: "inviteUsed",

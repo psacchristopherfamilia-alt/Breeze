@@ -1,7 +1,11 @@
+import type { Metadata } from "next";
 import { GuestBooking } from "@/components/booking/GuestBooking";
 import type { BookingSummary } from "@/lib/booking/types";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
+
+/** El enlace es privado: nunca se indexa. */
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 /** Enlace del invitado (turista sin cuenta): ver, cancelar o reprogramar su cita. */
 export default async function GuestBookingPage({ params }: { params: Promise<{ token: string }> }) {

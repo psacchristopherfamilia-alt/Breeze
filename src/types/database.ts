@@ -632,6 +632,12 @@ isOneToOne: false
 "create_organization":
 { Args: { "p_address"?: string,"p_business_types": (Database["public"]['Enums']["business_type"])[],"p_org_name": string,"p_phone"?: string,"p_salon_name": string,"p_zone": Database["public"]['Enums']["salon_zone"] }; Returns: Json
                            },
+"delete_my_account":
+{ Args: Record<PropertyKey, never>; Returns: undefined
+                           },
+"export_my_data":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "get_guest_booking":
 { Args: { "p_token": string }; Returns: Json
                            },

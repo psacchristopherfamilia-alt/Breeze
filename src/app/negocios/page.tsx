@@ -36,6 +36,10 @@ export default function NegociosPage() {
         ))}
       </nav>
 
+      <Link href="/negocios/precios" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-glow underline-offset-2 hover:underline">
+        {t("pricing")} <ArrowRight className="size-4" />
+      </Link>
+
       <ul className="mt-8 space-y-2 text-sm text-white/70">
         {(["agenda", "online", "reminders", "live"] as const).map((k) => (
           <li key={k} className="flex items-center gap-2">

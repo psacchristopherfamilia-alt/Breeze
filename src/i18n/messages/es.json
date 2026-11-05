@@ -195,7 +195,13 @@
     "guestSaveHint": "Crea una cuenta para verlas en cualquier lugar.",
     "guestCreateAccount": "Crear cuenta",
     "guestHaveAccount": "Ya tengo cuenta",
-    "claimed": "{count, plural, one {Añadimos # cita de este dispositivo a tu cuenta.} other {Añadimos # citas de este dispositivo a tu cuenta.}}"
+    "claimed": "{count, plural, one {Añadimos # cita de este dispositivo a tu cuenta.} other {Añadimos # citas de este dispositivo a tu cuenta.}}",
+    "privacyTitle": "Tus datos",
+    "privacyHint": "Descarga todo lo que Breeze guarda de ti, o borra tu cuenta. Las citas pasadas se quedan en el negocio sin tus datos personales; las próximas se cancelan.",
+    "downloadData": "Descargar mis datos",
+    "deleteAccount": "Borrar mi cuenta",
+    "deleteWarning": "No se puede deshacer. Tus próximas citas se cancelarán y tu cuenta se eliminará.",
+    "deleteConfirm": "Sí, borrar mi cuenta"
   },
   "status": {
     "booked": "Confirmada",
@@ -519,7 +525,8 @@
       "inviteExpired": "Esta invitación caducó. Pide una nueva al salón.",
       "inviteWrongAccount": "Esta invitación se envió a otro correo o teléfono.",
       "generic": "Algo salió mal. Inténtalo de nuevo.",
-      "acceptTerms": "Debes aceptar los términos para registrar tu negocio."
+      "acceptTerms": "Debes aceptar los términos para registrar tu negocio.",
+      "accountOwnerCannotDelete": "Eres dueño de un negocio en Breeze. Escríbenos para cerrar primero el negocio."
     }
   },
   "guest": {
@@ -606,7 +613,13 @@
       "hint": "Se envían por WhatsApp (si el cliente aceptó), SMS o correo, firmados por Breeze. La confirmación y los avisos de cancelación se envían siempre.",
       "day": "24 horas antes",
       "twoHours": "2 horas antes"
-    }
+    },
+    "qrTitle": "QR y enlace de reservas",
+    "qrHint": "Imprímelo para el espejo o el mostrador, o comparte el enlace por WhatsApp e Instagram. Tus clientes reservan en segundos.",
+    "qrAlt": "Código QR para reservar en {name}",
+    "qrCopy": "Copiar enlace",
+    "qrCopied": "Copiado",
+    "qrDownload": "Descargar QR"
   },
   "negocios": {
     "tag": "Negocios",
@@ -642,7 +655,8 @@
       "haveAccount": "¿Ya eres parte de un equipo?",
       "signIn": "Entrar",
       "back": "Breeze Negocios"
-    }
+    },
+    "pricing": "Ver precios"
   },
   "billing": {
     "title": "Plan y pagos",
@@ -677,7 +691,19 @@
       "bank_transfer": "Transferencia",
       "cash": "Efectivo",
       "other": "Otro"
-    }
+    },
+    "print": "Imprimir / Guardar como PDF",
+    "receiptTitle": "Recibo",
+    "invoiceTitle": "Factura",
+    "billedTo": "Facturado a",
+    "paidOn": "Pagada el",
+    "dueOn": "Vence el",
+    "concept": "Concepto",
+    "amount": "Importe",
+    "total": "Total",
+    "paidNote": "Pagado. ¡Gracias!",
+    "useReference": "Usa {number} como referencia del pago.",
+    "viewDocument": "Ver / imprimir"
   },
   "admin": {
     "tag": "Administración",
@@ -778,5 +804,30 @@
       "signup": "Al crear tu cuenta aceptas los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy>.",
       "business": "Acepto los <business>Términos para negocios</business>, los <terms>Términos de uso</terms> y la <privacy>Política de privacidad</privacy>."
     }
+  },
+  "pricing": {
+    "title": "Precios simples para tu negocio",
+    "subtitle": "Un precio fijo al mes. Empieza con 14 días gratis, sin tarjeta.",
+    "cycle": "Ciclo de cobro",
+    "monthly": "Mensual",
+    "annual": "Anual",
+    "annualNote": "Pagas 10 meses, usas 12.",
+    "perMonth": "/ mes",
+    "perYear": "/ año",
+    "pros": "Para {min}–{max} profesionales",
+    "prosOpen": "Para {min} o más profesionales",
+    "cta": "Empezar prueba gratis",
+    "features": {
+      "agenda": "Agenda con color por profesional",
+      "online": "Reservas en línea, nunca duplicadas",
+      "reminders": "Recordatorios automáticos por correo",
+      "live": "Breeze Live para la TV de tu local",
+      "whatsapp": "Recordatorios por SMS y WhatsApp ({count} mensajes / mes)",
+      "reports": "Reportes"
+    },
+    "extraBranch": "Sucursal extra: {price} / mes cada una.",
+    "trial": "14 días de prueba gratis. Si dejas de pagar, las reservas se pausan a los 14 días. Nunca borramos tus datos.",
+    "billing": "Te facturamos directamente: pagas por transferencia bancaria o en efectivo. No hace falta pagar en línea.",
+    "noLock": "Sin contratos. Cancelas cuando quieras."
   }
 }

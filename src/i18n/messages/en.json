@@ -845,5 +845,22 @@
     "trial": "14-day free trial. If you stop paying, bookings pause after 14 days. We never delete your data.",
     "billing": "We invoice you directly: pay by bank transfer or cash. No online payments needed.",
     "noLock": "No contracts. Cancel any time."
+  },
+  "errors": {
+    "notfound": {
+      "title": "We couldn't find that page",
+      "body": "The link may be mistyped or out of date."
+    },
+    "unavailable": {
+      "title": "This salon isn't available right now",
+      "body": "It may be closed for a while or not taking bookings at the moment. You can look at other salons."
+    },
+    "error": {
+      "title": "Something went wrong on our side",
+      "body": "Your data is safe. Try again in a moment."
+    },
+    "seeSalons": "See salons",
+    "home": "Back to start",
+    "retry": "Try again"
   }
 }

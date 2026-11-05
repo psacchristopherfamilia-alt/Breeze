@@ -845,5 +845,22 @@
     "trial": "14 días de prueba gratis. Si dejas de pagar, las reservas se pausan a los 14 días. Nunca borramos tus datos.",
     "billing": "Te facturamos directamente: pagas por transferencia bancaria o en efectivo. No hace falta pagar en línea.",
     "noLock": "Sin contratos. Cancelas cuando quieras."
+  },
+  "errors": {
+    "notfound": {
+      "title": "No encontramos esa página",
+      "body": "Puede que el enlace esté mal escrito o desactualizado."
+    },
+    "unavailable": {
+      "title": "Este salón no está disponible por el momento",
+      "body": "Puede estar cerrado temporalmente o sin recibir reservas ahora. Mira otros salones."
+    },
+    "error": {
+      "title": "Algo falló de nuestro lado",
+      "body": "Tus datos están a salvo. Inténtalo de nuevo en un momento."
+    },
+    "seeSalons": "Ver salones",
+    "home": "Volver al inicio",
+    "retry": "Intentar de nuevo"
   }
 }

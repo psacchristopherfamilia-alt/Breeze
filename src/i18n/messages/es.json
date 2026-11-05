@@ -955,5 +955,26 @@
     "history": "Historial de visitas",
     "noHistory": "Aún no hay visitas.",
     "upcoming": "Próxima"
+  },
+  "alerts": {
+    "title": "Avisos",
+    "label": "Avisos",
+    "labelUnread": "Avisos, {count} sin leer",
+    "markAll": "Marcar todo como leído",
+    "empty": "Aún no hay avisos. Las reservas nuevas aparecen aquí.",
+    "unread": "sin leer",
+    "soundOn": "Sonido activado. Toca para apagarlo",
+    "soundOff": "Sonido apagado. Toca para encenderlo",
+    "push": {
+      "title": "Avisos en este teléfono",
+      "hint": "Recibe una notificación de cada reserva nueva, aunque Breeze esté cerrada.",
+      "enable": "Activar avisos",
+      "on": "Los avisos están activados en este teléfono.",
+      "disable": "Desactivar en este teléfono",
+      "needsInstall": "En iPhone, primero toca Compartir → “Añadir a pantalla de inicio” y abre Breeze desde ahí. Luego vuelve aquí para activar los avisos.",
+      "denied": "Las notificaciones están bloqueadas para Breeze. Permítelas en el navegador o en los ajustes del teléfono y vuelve.",
+      "unsupported": "Este navegador no puede mostrar avisos en el teléfono. Prueba con Chrome o Safari.",
+      "error": "No pudimos activar los avisos. Inténtalo de nuevo."
+    }
   }
 }

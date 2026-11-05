@@ -8,6 +8,7 @@ import { signOut } from "@/app/(auth)/actions";
 import { switchSalon } from "@/app/dashboard/actions";
 import { Logo } from "@/components/ui/Logo";
 import type { BillingNotice } from "@/lib/billing";
+import { AlertsBell } from "./AlertsBell";
 import { BillingBanner } from "./BillingBanner";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import type { PanelSalon } from "@/lib/panel/server";
@@ -24,6 +25,7 @@ export function LiveShell({
   current,
   isManager,
   isAdmin = false,
+  userId,
   subscription,
   notice,
   children,
@@ -33,6 +35,8 @@ export function LiveShell({
   isManager: boolean;
   /** Administrador de la plataforma: ve el enlace a /admin (nadie más lo ve). */
   isAdmin?: boolean;
+  /** Persona con sesión: recibe sus propios avisos de reservas. */
+  userId: string;
   subscription: ShellSubscription | null;
   notice: BillingNotice | null;
   children: React.ReactNode;
@@ -60,7 +64,10 @@ export function LiveShell({
             <Logo href="/dashboard" />
             <span className="rounded-full border border-lagoon/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-lagoon">{t("tag")}</span>
           </span>
-          <div className="lg:hidden"><LocaleSwitcher /></div>
+          <div className="flex items-center gap-2">
+            <AlertsBell userId={userId} />
+            <div className="lg:hidden"><LocaleSwitcher /></div>
+          </div>
         </div>
         <div className="px-4 pb-3 lg:px-5">
           <label className={`flex items-center gap-2 rounded-xl bg-breeze-50 px-3 py-2 ring-1 ring-breeze-100 ${pending ? "opacity-60" : ""}`}>

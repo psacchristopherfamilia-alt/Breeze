@@ -268,6 +268,35 @@ export async function addServiceTemplates(input: z.input<typeof templatesSchema>
   return error ? fail(error) : done();
 }
 
+// ─── Avisos en el teléfono (Web Push) ──────────────────────────────────────
+
+const pushSchema = z.object({
+  endpoint: z.string().url().startsWith("https://").max(1000),
+  p256dh: z.string().min(10).max(200),
+  auth: z.string().min(10).max(100),
+  userAgent: z.string().max(300).optional(),
+});
+
+/** Guarda este teléfono/navegador para recibir avisos de reservas. */
+export async function savePushSubscription(input: z.input<typeof pushSchema>): Promise<Result> {
+  const p = pushSchema.safeParse(input);
+  if (!p.success) return { ok: false, error: "invalid_form" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("save_push_subscription", {
+    p_endpoint: p.data.endpoint,
+    p_p256dh: p.data.p256dh,
+    p_auth: p.data.auth,
+    p_user_agent: p.data.userAgent,
+  });
+  return error ? fail(error) : { ok: true };
+}
+
+export async function removePushSubscription(endpoint: string): Promise<Result> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("remove_push_subscription", { p_endpoint: endpoint });
+  return error ? fail(error) : { ok: true };
+}
+
 // ─── Ficha del cliente ─────────────────────────────────────────────────────
 
 const customerSchema = z.object({

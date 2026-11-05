@@ -467,6 +467,26 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"push_subscriptions": {
+                  Row: {
+                    "auth": string,"created_at": string,"endpoint": string,"id": string,"p256dh": string,"user_agent": string | null,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "auth": string,"created_at"?: string,"endpoint": string,"id"?: string,"p256dh": string,"user_agent"?: string | null,"user_id": string
+                  }
+                  Update: {
+                    "auth"?: string,"created_at"?: string,"endpoint"?: string,"id"?: string,"p256dh"?: string,"user_agent"?: string | null,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "push_subscriptions_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"salon_closures": {
                   Row: {
                     "created_at": string,"ends_at": string,"id": string,"reason_en": string | null,"reason_es": string | null,"salon_id": string,"starts_at": string
@@ -544,6 +564,38 @@ isOneToOne: false
       columns: ["salon_id"]
 isOneToOne: false
       referencedRelation: "salons"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"staff_alerts": {
+                  Row: {
+                    "booking_group_id": string | null,"created_at": string,"customer_display": string,"id": string,"kind": string,"pro_name": string,"read_at": string | null,"salon_id": string,"service_en": string,"service_es": string,"starts_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "booking_group_id"?: string | null,"created_at"?: string,"customer_display"?: string,"id"?: string,"kind": string,"pro_name"?: string,"read_at"?: string | null,"salon_id": string,"service_en"?: string,"service_es"?: string,"starts_at": string,"user_id": string
+                  }
+                  Update: {
+                    "booking_group_id"?: string | null,"created_at"?: string,"customer_display"?: string,"id"?: string,"kind"?: string,"pro_name"?: string,"read_at"?: string | null,"salon_id"?: string,"service_en"?: string,"service_es"?: string,"starts_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "staff_alerts_booking_group_id_fkey"
+      columns: ["booking_group_id"]
+isOneToOne: false
+      referencedRelation: "booking_groups"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "staff_alerts_salon_id_fkey"
+      columns: ["salon_id"]
+isOneToOne: false
+      referencedRelation: "salons"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "staff_alerts_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
       referencedColumns: ["id"]
     }
                   ]
@@ -714,6 +766,9 @@ isOneToOne: false
 "platform_void_invoice":
 { Args: { "p_invoice": string,"p_reason"?: string }; Returns: undefined
                            },
+"remove_push_subscription":
+{ Args: { "p_endpoint": string }; Returns: undefined
+                           },
 "request_live_pairing":
 { Args: { "p_salon_slug": string }; Returns: Json
                            },
@@ -725,6 +780,9 @@ isOneToOne: false
                            },
 "revoke_live_device":
 { Args: { "p_device_id": string }; Returns: undefined
+                           },
+"save_push_subscription":
+{ Args: { "p_auth": string,"p_endpoint": string,"p_p256dh": string,"p_user_agent"?: string }; Returns: undefined
                            },
 "set_professional_services":
 { Args: { "p_professional_id": string,"p_service_ids": (string)[] }; Returns: number

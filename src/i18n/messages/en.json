@@ -955,5 +955,26 @@
     "history": "Visit history",
     "noHistory": "No visits yet.",
     "upcoming": "Upcoming"
+  },
+  "alerts": {
+    "title": "Alerts",
+    "label": "Alerts",
+    "labelUnread": "Alerts, {count} unread",
+    "markAll": "Mark all as read",
+    "empty": "No alerts yet. New bookings show up here.",
+    "unread": "unread",
+    "soundOn": "Sound on. Tap to turn it off",
+    "soundOff": "Sound off. Tap to turn it on",
+    "push": {
+      "title": "Alerts on this phone",
+      "hint": "Get a notification for every new booking, even when Breeze is closed.",
+      "enable": "Turn on alerts",
+      "on": "Alerts are on for this phone.",
+      "disable": "Turn off on this phone",
+      "needsInstall": "On iPhone, first tap Share → “Add to Home Screen” and open Breeze from there. Then come back here to turn alerts on.",
+      "denied": "Notifications are blocked for Breeze. Allow them in your browser or phone settings, then come back.",
+      "unsupported": "This browser can't show phone alerts. Try Chrome or Safari.",
+      "error": "We couldn't turn on the alerts. Try again."
+    }
   }
 }

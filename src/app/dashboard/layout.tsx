@@ -15,6 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   const supabaseForRole = await createClient();
   const isAdmin = await isPlatformAdmin(supabaseForRole);
+  const { data: auth } = await supabaseForRole.auth.getUser();
 
   let subscription: ShellSubscription | null = null;
   let notice: BillingNotice | null = null;
@@ -35,7 +36,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <LiveShell salons={ctx.salons} current={ctx.current} isManager={ctx.isManager} isAdmin={isAdmin} subscription={subscription} notice={notice}>
+    <LiveShell salons={ctx.salons} current={ctx.current} isManager={ctx.isManager} isAdmin={isAdmin} userId={auth.user?.id ?? ""} subscription={subscription} notice={notice}>
       {children}
     </LiveShell>
   );

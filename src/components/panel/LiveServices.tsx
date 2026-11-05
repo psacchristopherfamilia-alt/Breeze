@@ -3,12 +3,13 @@ import { Clock, Pencil, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
-import { saveService } from "@/app/dashboard/actions";
+import { addServiceTemplates, saveService } from "@/app/dashboard/actions";
 import { Modal } from "@/components/agenda/AgendaView";
 import { useAppLocale } from "@/components/Providers";
 import { TypeIcon } from "@/components/ui/TypeIcon";
 import { formatDuration } from "@/lib/format";
 import { formatPrice, type BusinessType } from "@/lib/mock/data";
+import { templatesFor } from "@/lib/panel/service-templates";
 import { Toggle } from "./LiveProfessionals";
 
 interface Service {
@@ -50,6 +51,8 @@ export function LiveServices({
       </div>
 
       {services.length === 0 && <p className="mt-6 rounded-3xl bg-white p-10 text-center text-ink/60 ring-1 ring-breeze-100">{t("services.empty")}</p>}
+
+      <SuggestedServices salonId={salon.id} types={[...new Set(categories.map((c) => c.type))]} services={services} onDone={() => router.refresh()} />
 
       <div className="mt-6 space-y-6">
         {categories
@@ -160,5 +163,83 @@ function ServiceDialog({ salonId, service, categories, onClose }: { salonId: str
       {error && <p role="alert" className="mt-4 rounded-xl bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">{t(`panel.errors.${error}`)}</p>}
       <button onClick={save} disabled={pending} className="mt-4 w-full rounded-xl bg-lagoon py-3 font-bold text-white disabled:opacity-50">{t("common.save")}</button>
     </Modal>
+  );
+}
+
+/** Servicios típicos del tipo de negocio, para empezar en un clic. Se pueden desmarcar y cambiar el precio antes de añadir. */
+function SuggestedServices({ salonId, types, services, onDone }: { salonId: string; types: BusinessType[]; services: Service[]; onDone: () => void }) {
+  const t = useTranslations();
+  const { locale } = useAppLocale();
+  const options = templatesFor(types, services);
+  const [open, setOpen] = useState(services.length === 0);
+  const [picked, setPicked] = useState<Record<string, boolean>>({});
+  const [prices, setPrices] = useState<Record<string, string>>({});
+  const [pending, start] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+  if (options.length === 0) return null;
+
+  const isOn = (k: string) => picked[k] ?? services.length === 0;
+  const chosen = options.filter((o) => isOn(o.key));
+  const priceOf = (o: (typeof options)[number]) => {
+    const v = Number((prices[o.key] ?? (o.priceCents / 100).toFixed(2)).replace(",", "."));
+    return Number.isFinite(v) && v >= 0 ? Math.round(v * 100) : o.priceCents;
+  };
+
+  const add = () =>
+    start(async () => {
+      setError(null);
+      const r = await addServiceTemplates({
+        salonId,
+        items: chosen.map((o) => ({ categoryCode: o.category, nameEn: o.nameEn, nameEs: o.nameEs, durationMin: o.durationMin, bufferMin: o.bufferMin, priceCents: priceOf(o) })),
+      });
+      if (r.ok) {
+        setPicked({});
+        setOpen(false);
+        onDone();
+      } else setError(r.error);
+    });
+
+  if (!open)
+    return (
+      <button onClick={() => setOpen(true)} className="mt-4 text-sm font-bold text-lagoon hover:underline">
+        {t("services.suggestedOpen")}
+      </button>
+    );
+
+  return (
+    <section className="mt-4 rounded-3xl bg-white p-4 ring-1 ring-breeze-100 lg:p-6">
+      <h2 className="text-lg font-extrabold">{t("services.suggestedTitle")}</h2>
+      <p className="mt-1 text-sm text-ink/60">{t("services.suggestedHint")}</p>
+      <div className="mt-3 divide-y divide-breeze-50">
+        {options.map((o) => (
+          <label key={o.key} className="flex items-center gap-3 py-2 text-sm">
+            <input type="checkbox" checked={isOn(o.key)} onChange={(e) => setPicked({ ...picked, [o.key]: e.target.checked })} className="size-4 accent-lagoon" />
+            <span className="flex-1">
+              <span className="font-semibold">{locale === "es" ? o.nameEs : o.nameEn}</span>
+              <span className="ml-2 text-xs text-ink/50">{t(`categories.${o.category}`)} · {formatDuration(o.durationMin)}</span>
+            </span>
+            <span className="text-ink/50">$</span>
+            <input
+              inputMode="decimal"
+              aria-label={t("services.price")}
+              value={prices[o.key] ?? (o.priceCents / 100).toFixed(2)}
+              onChange={(e) => setPrices({ ...prices, [o.key]: e.target.value })}
+              className="w-20 rounded-lg bg-foam px-2 py-1.5 text-right ring-1 ring-breeze-100"
+            />
+          </label>
+        ))}
+      </div>
+      {error && <p className="mt-3 text-sm font-semibold text-red-600">{t(`panel.errors.${error}`)}</p>}
+      <div className="mt-4 flex items-center gap-3">
+        <button onClick={add} disabled={pending || chosen.length === 0} className="rounded-xl bg-lagoon px-4 py-2 text-sm font-bold text-white shadow hover:bg-breeze-800 disabled:opacity-50">
+          {t("services.suggestedAdd", { count: chosen.length })}
+        </button>
+        {services.length > 0 && (
+          <button onClick={() => setOpen(false)} className="text-sm font-semibold text-ink/60 hover:underline">
+            {t("services.suggestedClose")}
+          </button>
+        )}
+      </div>
+    </section>
   );
 }

@@ -217,6 +217,46 @@ export async function saveService(input: z.input<typeof serviceSchema>): Promise
   return error ? fail(error) : done();
 }
 
+const templatesSchema = z.object({
+  salonId: uuid,
+  items: z
+    .array(
+      z.object({
+        categoryCode: z.string().min(2),
+        nameEn: z.string().trim().min(2).max(120),
+        nameEs: z.string().trim().min(2).max(120),
+        durationMin: z.number().int().min(5).max(480),
+        bufferMin: z.number().int().min(0).max(120),
+        priceCents: z.number().int().min(0).max(10_000_00),
+      }),
+    )
+    .min(1)
+    .max(40),
+});
+
+/** Alta rápida: crea varios servicios sugeridos de una vez (RLS exige ser dueño/admin del salón). */
+export async function addServiceTemplates(input: z.input<typeof templatesSchema>): Promise<Result> {
+  const p = templatesSchema.safeParse(input);
+  if (!p.success) return { ok: false, error: "invalid_form" };
+  const supabase = await createClient();
+  const { count } = await supabase.from("services").select("id", { count: "exact", head: true }).eq("salon_id", p.data.salonId);
+  const base = count ?? 0;
+  const { error } = await supabase.from("services").insert(
+    p.data.items.map((d, i) => ({
+      salon_id: p.data.salonId,
+      category_code: d.categoryCode,
+      name_en: d.nameEn,
+      name_es: d.nameEs,
+      duration_min: d.durationMin,
+      buffer_min: d.bufferMin,
+      price_cents: d.priceCents,
+      sort_order: base + i,
+    })),
+  );
+  if (error?.code === "23514") return { ok: false, error: "category_mismatch" };
+  return error ? fail(error) : done();
+}
+
 // ─── Ajustes y publicación ─────────────────────────────────────────────────
 
 const settingsSchema = z.object({

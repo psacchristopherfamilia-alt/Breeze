@@ -49,6 +49,8 @@ export interface AgendaAppt {
   source: ApptSource;
   customerName: string;
   customerPhone: string;
+  /** Solo con datos reales: abre la ficha del cliente. */
+  customerId?: string;
 }
 export type ActionResult = { ok: true } | { ok: false; error: string };
 export interface AgendaActions {
@@ -361,6 +363,11 @@ function DetailModal({ a, pro, now, actions, onClose }: { a: AgendaAppt; pro: Ag
           <dt className="text-ink/70">{t("panel.detail.with")}</dt>
           <dd className="font-semibold">{pro.firstName} {pro.lastName}</dd>
         </dl>
+        {a.customerId && (
+          <Link href={`/dashboard/clients/${a.customerId}`} className="block rounded-xl bg-white px-3 py-2.5 text-center font-bold text-lagoon ring-1 ring-breeze-200 hover:bg-breeze-50">
+            {t("panel.detail.viewClient")}
+          </Link>
+        )}
         <p className="rounded-xl bg-breeze-50 px-3 py-2 text-xs text-ink/70">{t("panel.detail.privacy")}</p>
         {error && <p role="alert" className="rounded-xl bg-red-50 px-3 py-2 font-semibold text-red-700">{t(`panel.errors.${error}`)}</p>}
         {a.status === "booked" && (

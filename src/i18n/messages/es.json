@@ -234,7 +234,8 @@
       "services": "Servicios",
       "settings": "Ajustes",
       "billing": "Plan y pagos",
-      "admin": "Administración"
+      "admin": "Administración",
+      "clients": "Clientes"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
@@ -280,7 +281,8 @@
       "noShow": "No asistió",
       "cancel": "Cancelar",
       "startedHint": "Márcala como completada o no asistió cuando haya empezado.",
-      "futureHint": "Puedes cancelarla antes de que empiece; se avisará al cliente."
+      "futureHint": "Puedes cancelarla antes de que empiece; se avisará al cliente.",
+      "viewClient": "Ver ficha del cliente"
     },
     "new": {
       "title": "Nueva cita por teléfono / sin cita",
@@ -331,7 +333,9 @@
       "too_many_pending": "Demasiadas pantallas esperando. Prueba más tarde.",
       "payment_method_required": "Elige al menos una forma de cobrar.",
       "transfer_details_required": "Agrega los datos para transferir.",
-      "services_required": "Elige al menos un servicio."
+      "services_required": "Elige al menos un servicio.",
+      "invalid_note": "Escribe algo en la nota (hasta 1000 caracteres).",
+      "invalid_email": "Escribe un correo válido."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -902,5 +906,75 @@
     "cta": "Configura tu salón en 4 pasos",
     "ctaHint": "Servicios, tu primer profesional y tu horario. Unos 5 minutos.",
     "ctaButton": "Empezar"
+  },
+  "clients": {
+    "title": "Clientes",
+    "subtitleManager": "Todas las personas que han reservado en tu negocio.",
+    "subtitlePro": "Los clientes que tú atiendes.",
+    "search": "Buscar por nombre o teléfono",
+    "count": "{count, plural, =0 {Ningún cliente} one {# cliente} other {# clientes}}",
+    "resultsFor": "{count, plural, =0 {Sin resultados} one {# resultado} other {# resultados}} para “{q}”",
+    "noMatches": "Nadie coincide con esa búsqueda.",
+    "empty": "Aún no hay clientes. Aparecen aquí después de su primera reserva.",
+    "visits": "{count, plural, =0 {Sin visitas aún} one {# visita} other {# visitas}}",
+    "lastVisit": "última visita {when}",
+    "nextVisit": "próxima {when}",
+    "ago": {
+      "today": "hoy",
+      "yesterday": "ayer",
+      "days": "hace {count} días",
+      "weeks": "hace {count, plural, one {# semana} other {# semanas}}",
+      "months": "hace {count, plural, one {# mes} other {# meses}}",
+      "years": "hace {count, plural, one {# año} other {# años}}"
+    },
+    "contact": "Contacto y permisos",
+    "edit": "Editar",
+    "save": "Guardar",
+    "phone": "Teléfono",
+    "email": "Correo",
+    "language": "Idioma",
+    "lang": {
+      "en": "Inglés",
+      "es": "Español"
+    },
+    "whatsapp": "Acepta recordatorios por WhatsApp",
+    "marketing": "Acepta promociones",
+    "yes": "Sí",
+    "no": "No",
+    "call": "Llamar",
+    "editOnlyManagers": "Solo el dueño o un administrador puede cambiar estos datos.",
+    "notes": "Notas privadas",
+    "notesPrivate": "El cliente nunca las ve",
+    "noNotes": "Aún no hay notas.",
+    "newNote": "Nueva nota",
+    "notePlaceholder": "Escribe una nota: alergias, estilo preferido, lo que ayude la próxima vez…",
+    "saveNote": "Guardar nota",
+    "deleteNote": "Borrar",
+    "confirmDelete": "Sí, borrar",
+    "unknownAuthor": "Antiguo miembro del equipo",
+    "history": "Historial de visitas",
+    "noHistory": "Aún no hay visitas.",
+    "upcoming": "Próxima"
+  },
+  "alerts": {
+    "title": "Avisos",
+    "label": "Avisos",
+    "labelUnread": "Avisos, {count} sin leer",
+    "markAll": "Marcar todo como leído",
+    "empty": "Aún no hay avisos. Las reservas nuevas aparecen aquí.",
+    "unread": "sin leer",
+    "soundOn": "Sonido activado. Toca para apagarlo",
+    "soundOff": "Sonido apagado. Toca para encenderlo",
+    "push": {
+      "title": "Avisos en este teléfono",
+      "hint": "Recibe una notificación de cada reserva nueva, aunque Breeze esté cerrada.",
+      "enable": "Activar avisos",
+      "on": "Los avisos están activados en este teléfono.",
+      "disable": "Desactivar en este teléfono",
+      "needsInstall": "En iPhone, primero toca Compartir → “Añadir a pantalla de inicio” y abre Breeze desde ahí. Luego vuelve aquí para activar los avisos.",
+      "denied": "Las notificaciones están bloqueadas para Breeze. Permítelas en el navegador o en los ajustes del teléfono y vuelve.",
+      "unsupported": "Este navegador no puede mostrar avisos en el teléfono. Prueba con Chrome o Safari.",
+      "error": "No pudimos activar los avisos. Inténtalo de nuevo."
+    }
   }
 }

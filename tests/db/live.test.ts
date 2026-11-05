@@ -141,7 +141,7 @@ describe("tiempo real", () => {
     await asSuperuser(c);
     await c.query("delete from realtime.test_sent");
     await book(c, { salon: ID.salonA1, professional: ID.carlos, customer: ID.juanA, start: "2027-04-06T10:00:00-04:00" });
-    const sent = (await c.query("select payload, event, topic, private from realtime.test_sent")).rows;
+    const sent = (await c.query("select payload, event, topic, private from realtime.test_sent where topic like 'live:%'")).rows;
     expect(sent).toHaveLength(1);
     expect(sent[0]).toMatchObject({ event: "appointment", topic: `live:${ID.salonA1}`, private: true });
     expect(sent[0].payload.type).toBe("booked");
@@ -155,7 +155,7 @@ describe("tiempo real", () => {
     await c.query("delete from realtime.test_sent");
     await c.query("update public.appointments set starts_at = starts_at + interval '1 hour', ends_at = ends_at + interval '1 hour', blocked_until = blocked_until + interval '1 hour' where id = $1", [id]);
     await c.query("update public.appointments set status = 'cancelled', cancelled_at = now() where id = $1", [id]);
-    const types = (await c.query("select payload->>'type' t from realtime.test_sent order by id")).rows.map((r) => r.t);
+    const types = (await c.query("select payload->>'type' t from realtime.test_sent where topic like 'live:%' order by id")).rows.map((r) => r.t);
     expect(types).toEqual(["rescheduled", "cancelled"]);
   });
 

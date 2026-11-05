@@ -108,6 +108,7 @@ export async function loadAgendaDay(supabase: Client, salonId: string, dateKey: 
       source: (Array.isArray(group) ? group[0]?.source : group?.source) ?? "online",
       customerName: c ? `${c.first_name} ${c.last_name}`.trim() : "—",
       customerPhone: c?.phone ?? "",
+      customerId: c ? c.id : undefined,
     };
   });
 

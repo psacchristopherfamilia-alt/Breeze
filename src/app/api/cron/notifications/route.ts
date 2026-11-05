@@ -1,5 +1,5 @@
-import { timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
+import { isCronAuthorized } from "@/lib/cron-auth";
 import { providersFromEnv } from "@/lib/notifications/providers";
 import type { JobPayload } from "@/lib/notifications/types";
 import { runNotificationBatch } from "@/lib/notifications/worker";
@@ -11,16 +11,9 @@ import { createAdminClient } from "@/lib/supabase/admin";
  */
 export const dynamic = "force-dynamic";
 
-function authorized(req: NextRequest): boolean {
-  const secret = process.env.CRON_SECRET;
-  const got = req.headers.get("authorization") ?? "";
-  const expected = `Bearer ${secret}`;
-  return !!secret && got.length === expected.length && timingSafeEqual(Buffer.from(got), Buffer.from(expected));
-}
-
 async function handle(req: NextRequest) {
   if (!process.env.CRON_SECRET) return NextResponse.json({ error: "cron_not_configured" }, { status: 503 });
-  if (!authorized(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!isCronAuthorized(req.headers.get("authorization"))) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   let supabase: ReturnType<typeof createAdminClient>;
   try {

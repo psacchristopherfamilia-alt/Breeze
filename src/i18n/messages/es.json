@@ -606,7 +606,13 @@
       "hint": "Se envían por WhatsApp (si el cliente aceptó), SMS o correo, firmados por Breeze. La confirmación y los avisos de cancelación se envían siempre.",
       "day": "24 horas antes",
       "twoHours": "2 horas antes"
-    }
+    },
+    "qrTitle": "QR y enlace de reservas",
+    "qrHint": "Imprímelo para el espejo o el mostrador, o comparte el enlace por WhatsApp e Instagram. Tus clientes reservan en segundos.",
+    "qrAlt": "Código QR para reservar en {name}",
+    "qrCopy": "Copiar enlace",
+    "qrCopied": "Copiado",
+    "qrDownload": "Descargar QR"
   },
   "negocios": {
     "tag": "Negocios",

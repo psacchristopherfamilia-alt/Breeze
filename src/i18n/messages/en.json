@@ -606,7 +606,13 @@
       "hint": "Sent by WhatsApp (if the client accepted), SMS or email, signed by Breeze. Confirmation and cancellation notices are always sent.",
       "day": "24 hours before",
       "twoHours": "2 hours before"
-    }
+    },
+    "qrTitle": "QR and booking link",
+    "qrHint": "Print it for the mirror or the counter, or share the link on WhatsApp and Instagram. Clients book in seconds.",
+    "qrAlt": "QR code to book at {name}",
+    "qrCopy": "Copy link",
+    "qrCopied": "Copied",
+    "qrDownload": "Download QR"
   },
   "negocios": {
     "tag": "Negocios",

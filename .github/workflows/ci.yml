@@ -48,5 +48,5 @@ jobs:
         run: pnpm test
       - name: Pruebas de base de datos
         run: pnpm test:db
-      - name: Build (sin Supabase: modo prototipo)
+      - name: "Build (sin Supabase, modo prototipo)"
         run: pnpm build

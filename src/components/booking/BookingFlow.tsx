@@ -2,7 +2,7 @@
 import { ArrowLeft, Check, CheckCircle2, Clock, Globe2, Loader2, LogIn, MapPin, MessageCircle, Star, UserRound, Users } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppLocale } from "@/components/Providers";
 import { LegalConsent } from "@/components/legal/LegalConsent";
 import { ClientHeader } from "@/components/ui/ClientHeader";
@@ -105,6 +105,20 @@ export function BookingFlow({
     () => (now ? Array.from({ length: DAYS_AHEAD }, (_, i) => addDaysKey(localDateKey(now), i)) : []),
     [now],
   );
+  // Al llegar a «hora», si el día elegido (hoy, por defecto) no tiene huecos —domingo, fuera de horario, todo
+  // ocupado— se salta al primer día que sí los tenga. Solo una vez por combinación de servicios y profesional:
+  // si después la persona toca un día sin huecos, se respeta.
+  const autoDay = useRef("");
+  useEffect(() => {
+    if (step !== "time" || !now || !dateKey) return;
+    const key = `${selected.join(",")}|${proId}`;
+    if (autoDay.current === key) return;
+    autoDay.current = key;
+    if (slotsFor(dateKey).length > 0) return;
+    const first = days.find((k) => slotsFor(k).length > 0);
+    if (first) setDateKey(first);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, now, dateKey, selected, proId]);
   const daySlots = dateKey && step === "time" ? slotsFor(dateKey) : [];
   const groups = {
     morning: daySlots.filter((s) => toTZ(s.start).getHours() < 12),

@@ -50,3 +50,17 @@ test("un invitado reserva un corte y después esa hora ya no está libre", async
   await page.getByRole("button", { name: "Continue" }).click();
   await expect(page.getByRole("button", { name: first, exact: true })).toHaveCount(0);
 });
+
+/** Un domingo (cerrado) la reserva no deja al cliente en un día sin huecos: salta al primer día disponible. */
+test("si hoy no hay huecos (domingo), la reserva muestra el primer día con horas libres", async ({ page }) => {
+  await page.clock.setFixedTime(new Date("2026-11-08T15:00:00Z")); // domingo 10:00 en Turks and Caicos
+  await page.goto("/s/island-fade");
+  await page.getByRole("button", { name: /Classic cut/ }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
+  await page.getByRole("button", { name: /Carlos M\./ }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
+
+  const slots = page.getByRole("button", { name: /^\d{1,2}:\d{2} (AM|PM)$/ });
+  await expect(slots.first()).toBeVisible();
+  await expect(page.getByText("No availability this day. Try another date.")).toHaveCount(0);
+});

@@ -236,7 +236,8 @@
       "billing": "Plan & payments",
       "admin": "Administration",
       "clients": "Clients",
-      "reviews": "Reviews"
+      "reviews": "Reviews",
+      "reports": "Reports"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
@@ -1172,5 +1173,59 @@
     "reported": "Reported, under review",
     "reportedReason": "Your reason: {reason}",
     "count": "{count, plural, one {# review} other {# reviews}}"
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitleManager": "How your business is doing: income, busy hours and clients. Figures are estimates based on list prices, because Breeze doesn't collect payments.",
+    "subtitlePro": "Your own numbers for this location.",
+    "periodLabel": "Period",
+    "lastDays": "Last {days} days",
+    "summary": "Summary",
+    "vsPrevious": "vs. previous {days} days",
+    "noCompare": "no earlier data",
+    "pts": "pts",
+    "kpi": {
+      "revenue": "Estimated income",
+      "appointments": "Appointments served",
+      "avgTicket": "Average ticket",
+      "occupancy": "Occupancy"
+    },
+    "revenueByPro": "Income by professional",
+    "yourRevenue": "Your income",
+    "revenueHint": "Last {days} days, list price",
+    "occupancyByPro": "Occupancy by professional",
+    "yourOccupancy": "Your occupancy",
+    "occupancyHint": "Booked minutes over scheduled minutes",
+    "booked": "booked",
+    "apptCount": "{count, plural, one {# appointment} other {# appointments}}",
+    "services": "Most booked services",
+    "none": "Nothing in this period.",
+    "col": {
+      "service": "Service",
+      "appointments": "Appts",
+      "revenue": "Income",
+      "hour": "Hour"
+    },
+    "clients": "New and returning clients",
+    "clientsHint": "{count, plural, one {# client} other {# clients}} served in {days} days",
+    "clientsAria": "{returning} returning clients and {fresh} new clients",
+    "returning": "Returning",
+    "newClients": "New",
+    "lapsed": "Haven't been back in a while",
+    "lapsedHint": "Over 6 weeks since their last visit and nothing booked. Only owners and admins see this.",
+    "lapsedNone": "Nobody right now.",
+    "viewFile": "View file",
+    "heat": "Busiest hours",
+    "heatHint": "Appointments by day and hour (Turks and Caicos time).",
+    "peak": "Peak: {day} {from} to {to}, {count, plural, one {# appointment} other {# appointments}}.",
+    "less": "Fewer",
+    "more": "More",
+    "viewTable": "View data as a table",
+    "empty": {
+      "title": "No appointments to report yet",
+      "body": "Reports fill in as clients are served. Mark appointments as completed in the agenda, or they count automatically one hour after they end."
+    },
+    "loadError": "We couldn't load the reports. Try again in a moment.",
+    "howTo": "How it's calculated: served = completed, or booked and ended over an hour ago (cancellations and no-shows don't count). Income uses the list price at booking. Occupancy = booked minutes ÷ scheduled minutes, minus days off and closures."
   }
 }

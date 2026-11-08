@@ -895,6 +895,9 @@ isOneToOne: false
 "staff_move_appointment":
 { Args: { "p_appointment_id": string,"p_duration_min"?: number,"p_notify"?: boolean,"p_professional_id": string,"p_starts_at": string }; Returns: Json
                            },
+"staff_report":
+{ Args: { "p_from": string,"p_salon_id": string,"p_to": string }; Returns: Json
+                           },
 "staff_reviews":
 { Args: { "p_limit"?: number,"p_offset"?: number,"p_salon_id": string }; Returns: Json
                            },

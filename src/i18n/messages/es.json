@@ -236,7 +236,8 @@
       "billing": "Plan y pagos",
       "admin": "Administración",
       "clients": "Clientes",
-      "reviews": "Reseñas"
+      "reviews": "Reseñas",
+      "reports": "Informes"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
@@ -1172,5 +1173,59 @@
     "reported": "Reportada, en revisión",
     "reportedReason": "Tu motivo: {reason}",
     "count": "{count, plural, one {# reseña} other {# reseñas}}"
+  },
+  "reports": {
+    "title": "Informes",
+    "subtitleManager": "Cómo va tu negocio: ingresos, horas pico y clientes. Las cifras son estimadas con el precio de lista, porque Breeze no cobra.",
+    "subtitlePro": "Tus propias cifras en esta sucursal.",
+    "periodLabel": "Periodo",
+    "lastDays": "Últimos {days} días",
+    "summary": "Resumen",
+    "vsPrevious": "vs. {days} días anteriores",
+    "noCompare": "sin datos anteriores",
+    "pts": "pts",
+    "kpi": {
+      "revenue": "Ingresos estimados",
+      "appointments": "Citas atendidas",
+      "avgTicket": "Ticket medio",
+      "occupancy": "Ocupación"
+    },
+    "revenueByPro": "Ingresos por profesional",
+    "yourRevenue": "Tus ingresos",
+    "revenueHint": "Últimos {days} días, precio de lista",
+    "occupancyByPro": "Ocupación por profesional",
+    "yourOccupancy": "Tu ocupación",
+    "occupancyHint": "Minutos con cita sobre minutos de horario",
+    "booked": "ocupado",
+    "apptCount": "{count, plural, one {# cita} other {# citas}}",
+    "services": "Servicios más pedidos",
+    "none": "Nada en este periodo.",
+    "col": {
+      "service": "Servicio",
+      "appointments": "Citas",
+      "revenue": "Ingresos",
+      "hour": "Hora"
+    },
+    "clients": "Clientes nuevos y que vuelven",
+    "clientsHint": "{count, plural, one {# cliente atendido} other {# clientes atendidos}} en {days} días",
+    "clientsAria": "{returning} clientes que vuelven y {fresh} nuevos",
+    "returning": "Que vuelven",
+    "newClients": "Nuevos",
+    "lapsed": "Llevan tiempo sin volver",
+    "lapsedHint": "Más de 6 semanas desde su última visita y sin cita reservada. Solo lo ven dueño y administradores.",
+    "lapsedNone": "Nadie por ahora.",
+    "viewFile": "Ver ficha",
+    "heat": "Horas pico",
+    "heatHint": "Citas por día y hora (hora de Turks and Caicos).",
+    "peak": "Pico: {day} de {from} a {to}, {count, plural, one {# cita} other {# citas}}.",
+    "less": "Menos",
+    "more": "Más",
+    "viewTable": "Ver datos como tabla",
+    "empty": {
+      "title": "Todavía no hay citas que mostrar",
+      "body": "Los informes se llenan al atender clientes. Marca las citas como completadas en la agenda; si no, cuentan solas una hora después de terminar."
+    },
+    "loadError": "No pudimos cargar los informes. Inténtalo de nuevo en un momento.",
+    "howTo": "Cómo se calcula: atendida = completada, o reservada y terminada hace más de una hora (canceladas y «no vino» no cuentan). Los ingresos usan el precio de lista al reservar. Ocupación = minutos con cita ÷ minutos de horario, menos días libres y cierres."
   }
 }

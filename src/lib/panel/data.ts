@@ -70,14 +70,19 @@ export async function loadServices(supabase: Client, salonId: string, onlyActive
 
 /** Todo lo que necesita la agenda de UN día (hora local de TCI). */
 export async function loadAgendaDay(supabase: Client, salonId: string, dateKey: string) {
-  const from = atLocal(dateKey, "00:00").toISOString();
-  const to = atLocal(addDaysKey(dateKey, 1), "00:00").toISOString();
+  return loadAgendaRange(supabase, salonId, dateKey, addDaysKey(dateKey, 1));
+}
+
+/** Agenda de un rango de días: desde `fromKey` (incluido) hasta `toKeyExclusive` (no incluido), en hora local de TCI. */
+export async function loadAgendaRange(supabase: Client, salonId: string, fromKey: string, toKeyExclusive: string) {
+  const from = atLocal(fromKey, "00:00").toISOString();
+  const to = atLocal(toKeyExclusive, "00:00").toISOString();
   const [pros, services, appts, off, closures] = await Promise.all([
     loadPros(supabase, salonId),
     loadServices(supabase, salonId),
     supabase
       .from("appointments")
-      .select("id, booking_group_id, professional_id, customer_id, service_name_en, service_name_es, price_cents, starts_at, ends_at, blocked_until, status, booking_groups!appointments_booking_group_id_salon_id_fkey(source)")
+      .select("id, booking_group_id, professional_id, customer_id, service_id, service_name_en, service_name_es, price_cents, starts_at, ends_at, blocked_until, status, booking_groups!appointments_booking_group_id_salon_id_fkey(source)")
       .eq("salon_id", salonId)
       .neq("status", "cancelled")
       .gte("starts_at", from)
@@ -100,6 +105,7 @@ export async function loadAgendaDay(supabase: Client, salonId: string, dateKey: 
       id: a.id,
       groupId: a.booking_group_id,
       professionalId: a.professional_id,
+      serviceId: a.service_id ?? undefined,
       serviceNameEn: a.service_name_en,
       serviceNameEs: a.service_name_es,
       priceCents: a.price_cents,

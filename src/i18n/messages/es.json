@@ -345,7 +345,9 @@
       "invalid_photo": "Esa foto no es válida.",
       "reply_too_long": "La respuesta es demasiado larga (máximo 500 caracteres).",
       "reason_required": "Cuéntanos el motivo (de 3 a 300 caracteres).",
-      "already_reported": "Esa reseña ya fue reportada."
+      "already_reported": "Esa reseña ya fue reportada.",
+      "already_started": "Esa cita ya empezó.",
+      "invalid_duration": "La duración debe estar entre 5 minutos y 8 horas."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -376,7 +378,64 @@
       "past_due": "Tienes un pago pendiente desde hace {days, plural, one {# día} other {# días}}. Pronto se pausarán las reservas en línea y Breeze Live.",
       "suspended": "Tu plan está suspendido: las reservas en línea y Breeze Live están pausadas. Tu agenda y tus datos siguen aquí.",
       "cta": "Ver plan y pagos"
-    }
+    },
+    "views": {
+      "label": "Vista",
+      "day": "Día",
+      "week": "Semana",
+      "team": "Equipo",
+      "apptsShort": "citas"
+    },
+    "weekTitle": "Semana del {from} al {to}",
+    "prevWeek": "Semana anterior",
+    "nextWeek": "Semana siguiente",
+    "thisWeek": "Esta semana",
+    "weekPro": "Profesional",
+    "move": {
+      "button": "Mover…",
+      "title": "Mover la cita de {name}",
+      "current": "Ahora: {when} con {pro}",
+      "pro": "Profesional",
+      "day": "Día",
+      "time": "Hora",
+      "duration": "Duración",
+      "pick": "Elige un cambio.",
+      "ok": "Hay hueco: nadie más está reservado a esa hora.",
+      "notify": "Avisar al cliente",
+      "notifyHint": "Recibe el cambio por el mismo canal de sus recordatorios.",
+      "confirm": "Confirmar",
+      "moved": "{name}: {when} con {pro}",
+      "notified": "cliente avisado",
+      "notNotified": "sin avisar al cliente",
+      "undo": "Deshacer",
+      "undone": "Cambio deshecho.",
+      "dragHint": "Arrastra una cita para moverla, o su borde de abajo para cambiar la duración. En el teléfono, mantén pulsada primero. También puedes tocarla y elegir Mover.",
+      "reasons": {
+        "not_booked": "Solo se mueven las citas reservadas.",
+        "started": "Esta cita ya empezó.",
+        "past": "Esa hora ya pasó.",
+        "not_offered": "{pro} no ofrece este servicio.",
+        "day_off": "{pro} no trabaja ese día.",
+        "outside_hours": "Fuera del horario de {pro} ({from} a {to}).",
+        "blocked": "{pro} tiene el día libre o el salón está cerrado.",
+        "overlap": "Choca con otra cita a las {time}."
+      }
+    },
+    "team": {
+      "title": "¿Quién tiene hueco esta semana?",
+      "hint": "Cada celda muestra las citas y cuánto del horario está ocupado. Toca una para abrir la semana de esa persona.",
+      "pro": "Profesional",
+      "off": "Libre",
+      "count": "{count, plural, one {# cita} other {# citas}}",
+      "cell": "{count} citas · {pct} % ocupado · libre {free}",
+      "step1": "0–19 % ocupado",
+      "step2": "20–39 %",
+      "step3": "40–59 %",
+      "step4": "60–79 %",
+      "step5": "80–100 %",
+      "free": "{pct} % ocupado · libre {free}"
+    },
+    "agendaRegion": "Cuadrícula de la agenda: desplázate para ver más"
   },
   "pros": {
     "title": "Profesionales",

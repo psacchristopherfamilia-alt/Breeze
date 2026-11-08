@@ -543,6 +543,31 @@ export async function revokeLiveDevice(deviceId: string): Promise<Result> {
   return error ? fail(error) : done();
 }
 
+// ─── Mover citas desde la agenda ───────────────────────────────────────────
+
+const moveSchema = z.object({
+  appointmentId: z.string().uuid(),
+  professionalId: z.string().uuid(),
+  startsAt: z.string().datetime(),
+  durationMin: z.number().int().min(5).max(480),
+  notify: z.boolean(),
+});
+
+/** Mueve una cita (hora, día, profesional y/o duración). La base de datos decide si es posible. */
+export async function moveAppointment(input: z.input<typeof moveSchema>): Promise<Result> {
+  const p = moveSchema.safeParse(input);
+  if (!p.success) return { ok: false, error: "invalid_form" };
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("staff_move_appointment", {
+    p_appointment_id: p.data.appointmentId,
+    p_professional_id: p.data.professionalId,
+    p_starts_at: p.data.startsAt,
+    p_duration_min: p.data.durationMin,
+    p_notify: p.data.notify,
+  });
+  return error ? fail(error) : done();
+}
+
 // ─── Fotos ─────────────────────────────────────────────────────────────────
 // El navegador reduce y sube el archivo a Storage (RLS: solo dueño/admin en la carpeta de su salón);
 // aquí solo se guarda la RUTA en la base de datos y se limpian los archivos que dejan de usarse.

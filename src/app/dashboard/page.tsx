@@ -1,23 +1,32 @@
 import { LiveAgenda } from "@/components/agenda/LiveAgenda";
 import { MockAgenda } from "@/components/agenda/MockAgenda";
 import { SetupChecklist } from "@/components/panel/SetupChecklist";
-import { loadAgendaDay, loadSetupStatus } from "@/lib/panel/data";
+import { weekDays } from "@/lib/agenda/occupancy";
+import { loadAgendaRange, loadSetupStatus } from "@/lib/panel/data";
 import { getPanelContext } from "@/lib/panel/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
-import { localDateKey } from "@/lib/time";
+import { addDaysKey, localDateKey } from "@/lib/time";
 
-/** Agenda del día por columnas (una por profesional, con su color). ?date=YYYY-MM-DD */
-export default async function AgendaPage({ searchParams }: { searchParams: Promise<{ date?: string }> }) {
+/**
+ * Agenda. ?date=YYYY-MM-DD&view=day|week|team&pro=<id>
+ *  · día: una columna por profesional (con su color)
+ *  · semana: los 7 días de UN profesional
+ *  · equipo: resumen de ocupación de toda la semana
+ */
+export default async function AgendaPage({ searchParams }: { searchParams: Promise<{ date?: string; view?: string; pro?: string }> }) {
   if (!isSupabaseConfigured()) return <MockAgenda />;
   const ctx = await getPanelContext();
   if (!ctx) return null; // el layout muestra "crea tu negocio"
 
-  const { date } = await searchParams;
+  const { date, view: rawView, pro } = await searchParams;
   const dateKey = date && /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : localDateKey(new Date());
+  const view = rawView === "week" || rawView === "team" ? rawView : "day";
   const supabase = await createClient();
   const { data: salon } = await supabase.from("salons").select("id, name, slug, slot_step_min").eq("id", ctx.current.salonId).single();
-  const day = await loadAgendaDay(supabase, ctx.current.salonId, dateKey);
+  const days = view === "day" ? [dateKey] : weekDays(dateKey);
+  const day = await loadAgendaRange(supabase, ctx.current.salonId, days[0], addDaysKey(days[days.length - 1], 1));
+  const proId = ctx.professionalId ?? (day.pros.some((p) => p.id === pro) ? pro! : (day.pros[0]?.id ?? null));
   const setup = ctx.isManager ? await loadSetupStatus(supabase, ctx.current.salonId) : null;
 
   return (
@@ -34,6 +43,8 @@ export default async function AgendaPage({ searchParams }: { searchParams: Promi
       appointments={day.appointments}
       blocked={day.blocked}
       dateKey={dateKey}
+      view={view}
+      proId={proId}
       onlyProfessionalId={ctx.professionalId}
       />
     </>

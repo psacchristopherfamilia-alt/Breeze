@@ -13,14 +13,24 @@ const CHANNEL = "breeze-live";
 
 export type StoreEvent =
   | { type: "booked"; appointments: Appointment[] }
-  | { type: "status"; ids: string[]; status: AppointmentStatus };
+  | { type: "status"; ids: string[]; status: AppointmentStatus }
+  | { type: "moved"; ids: string[] };
+
+/** Cambios de hora, día, profesional o duración hechos desde la agenda del prototipo. */
+export interface MovePatch {
+  professionalId: string;
+  startsAt: string;
+  endsAt: string;
+  blockedUntil: string;
+}
 
 interface Stored {
   added: Appointment[];
   status: Record<string, AppointmentStatus>;
+  moved: Record<string, MovePatch>;
 }
 
-const empty = (): Stored => ({ added: [], status: {} });
+const empty = (): Stored => ({ added: [], status: {}, moved: {} });
 
 function read(): Stored {
   try {
@@ -92,6 +102,27 @@ export function setStatus(ids: string[], status: AppointmentStatus) {
   emit({ type: "status", ids, status });
 }
 
+/**
+ * Mueve una cita del prototipo (simula `staff_move_appointment`). Comprueba solapes con las demás citas
+ * del profesional, como lo hace la exclusion constraint de Postgres.
+ */
+export function moveAppointment(id: string, patch: MovePatch, current: Appointment[]): "ok" | "conflict" {
+  const range = { start: new Date(patch.startsAt), end: new Date(patch.blockedUntil) };
+  const clash = current.some(
+    (b) =>
+      b.id !== id &&
+      b.status !== "cancelled" &&
+      b.professionalId === patch.professionalId &&
+      overlaps(range, { start: new Date(b.startsAt), end: new Date(b.blockedUntil) }),
+  );
+  if (clash) return "conflict";
+  const s = read();
+  s.moved[id] = patch;
+  write(s);
+  emit({ type: "moved", ids: [id] });
+  return "ok";
+}
+
 export function resetPrototype() {
   write(empty());
   emit({ type: "status", ids: [], status: "booked" });
@@ -127,7 +158,11 @@ export function useAppointments(onEvent?: (e: StoreEvent) => void) {
     if (!seedAt) return [];
     const s = read();
     const all = [...seedAppointments(seedAt), ...s.added];
-    return all.map((a) => (s.status[a.id] ? { ...a, status: s.status[a.id] } : a));
+    return all.map((a) => {
+      const moved = s.moved?.[a.id];
+      const withMove = moved ? { ...a, ...moved } : a;
+      return s.status[a.id] ? { ...withMove, status: s.status[a.id] } : withMove;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seedAt, version]);
 

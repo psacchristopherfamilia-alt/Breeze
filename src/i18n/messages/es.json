@@ -236,7 +236,8 @@
       "billing": "Plan y pagos",
       "admin": "Administración",
       "clients": "Clientes",
-      "reviews": "Reseñas"
+      "reviews": "Reseñas",
+      "reports": "Informes"
     },
     "branch": "Sucursal",
     "yourBranches": "tus sucursales",
@@ -345,7 +346,9 @@
       "invalid_photo": "Esa foto no es válida.",
       "reply_too_long": "La respuesta es demasiado larga (máximo 500 caracteres).",
       "reason_required": "Cuéntanos el motivo (de 3 a 300 caracteres).",
-      "already_reported": "Esa reseña ya fue reportada."
+      "already_reported": "Esa reseña ya fue reportada.",
+      "already_started": "Esa cita ya empezó.",
+      "invalid_duration": "La duración debe estar entre 5 minutos y 8 horas."
     },
     "setup": {
       "title": "Pasos para empezar a recibir reservas",
@@ -376,7 +379,64 @@
       "past_due": "Tienes un pago pendiente desde hace {days, plural, one {# día} other {# días}}. Pronto se pausarán las reservas en línea y Breeze Live.",
       "suspended": "Tu plan está suspendido: las reservas en línea y Breeze Live están pausadas. Tu agenda y tus datos siguen aquí.",
       "cta": "Ver plan y pagos"
-    }
+    },
+    "views": {
+      "label": "Vista",
+      "day": "Día",
+      "week": "Semana",
+      "team": "Equipo",
+      "apptsShort": "citas"
+    },
+    "weekTitle": "Semana del {from} al {to}",
+    "prevWeek": "Semana anterior",
+    "nextWeek": "Semana siguiente",
+    "thisWeek": "Esta semana",
+    "weekPro": "Profesional",
+    "move": {
+      "button": "Mover…",
+      "title": "Mover la cita de {name}",
+      "current": "Ahora: {when} con {pro}",
+      "pro": "Profesional",
+      "day": "Día",
+      "time": "Hora",
+      "duration": "Duración",
+      "pick": "Elige un cambio.",
+      "ok": "Hay hueco: nadie más está reservado a esa hora.",
+      "notify": "Avisar al cliente",
+      "notifyHint": "Recibe el cambio por el mismo canal de sus recordatorios.",
+      "confirm": "Confirmar",
+      "moved": "{name}: {when} con {pro}",
+      "notified": "cliente avisado",
+      "notNotified": "sin avisar al cliente",
+      "undo": "Deshacer",
+      "undone": "Cambio deshecho.",
+      "dragHint": "Arrastra una cita para moverla, o su borde de abajo para cambiar la duración. En el teléfono, mantén pulsada primero. También puedes tocarla y elegir Mover.",
+      "reasons": {
+        "not_booked": "Solo se mueven las citas reservadas.",
+        "started": "Esta cita ya empezó.",
+        "past": "Esa hora ya pasó.",
+        "not_offered": "{pro} no ofrece este servicio.",
+        "day_off": "{pro} no trabaja ese día.",
+        "outside_hours": "Fuera del horario de {pro} ({from} a {to}).",
+        "blocked": "{pro} tiene el día libre o el salón está cerrado.",
+        "overlap": "Choca con otra cita a las {time}."
+      }
+    },
+    "team": {
+      "title": "¿Quién tiene hueco esta semana?",
+      "hint": "Cada celda muestra las citas y cuánto del horario está ocupado. Toca una para abrir la semana de esa persona.",
+      "pro": "Profesional",
+      "off": "Libre",
+      "count": "{count, plural, one {# cita} other {# citas}}",
+      "cell": "{count} citas · {pct} % ocupado · libre {free}",
+      "step1": "0–19 % ocupado",
+      "step2": "20–39 %",
+      "step3": "40–59 %",
+      "step4": "60–79 %",
+      "step5": "80–100 %",
+      "free": "{pct} % ocupado · libre {free}"
+    },
+    "agendaRegion": "Cuadrícula de la agenda: desplázate para ver más"
   },
   "pros": {
     "title": "Profesionales",
@@ -1113,5 +1173,59 @@
     "reported": "Reportada, en revisión",
     "reportedReason": "Tu motivo: {reason}",
     "count": "{count, plural, one {# reseña} other {# reseñas}}"
+  },
+  "reports": {
+    "title": "Informes",
+    "subtitleManager": "Cómo va tu negocio: ingresos, horas pico y clientes. Las cifras son estimadas con el precio de lista, porque Breeze no cobra.",
+    "subtitlePro": "Tus propias cifras en esta sucursal.",
+    "periodLabel": "Periodo",
+    "lastDays": "Últimos {days} días",
+    "summary": "Resumen",
+    "vsPrevious": "vs. {days} días anteriores",
+    "noCompare": "sin datos anteriores",
+    "pts": "pts",
+    "kpi": {
+      "revenue": "Ingresos estimados",
+      "appointments": "Citas atendidas",
+      "avgTicket": "Ticket medio",
+      "occupancy": "Ocupación"
+    },
+    "revenueByPro": "Ingresos por profesional",
+    "yourRevenue": "Tus ingresos",
+    "revenueHint": "Últimos {days} días, precio de lista",
+    "occupancyByPro": "Ocupación por profesional",
+    "yourOccupancy": "Tu ocupación",
+    "occupancyHint": "Minutos con cita sobre minutos de horario",
+    "booked": "ocupado",
+    "apptCount": "{count, plural, one {# cita} other {# citas}}",
+    "services": "Servicios más pedidos",
+    "none": "Nada en este periodo.",
+    "col": {
+      "service": "Servicio",
+      "appointments": "Citas",
+      "revenue": "Ingresos",
+      "hour": "Hora"
+    },
+    "clients": "Clientes nuevos y que vuelven",
+    "clientsHint": "{count, plural, one {# cliente atendido} other {# clientes atendidos}} en {days} días",
+    "clientsAria": "{returning} clientes que vuelven y {fresh} nuevos",
+    "returning": "Que vuelven",
+    "newClients": "Nuevos",
+    "lapsed": "Llevan tiempo sin volver",
+    "lapsedHint": "Más de 6 semanas desde su última visita y sin cita reservada. Solo lo ven dueño y administradores.",
+    "lapsedNone": "Nadie por ahora.",
+    "viewFile": "Ver ficha",
+    "heat": "Horas pico",
+    "heatHint": "Citas por día y hora (hora de Turks and Caicos).",
+    "peak": "Pico: {day} de {from} a {to}, {count, plural, one {# cita} other {# citas}}.",
+    "less": "Menos",
+    "more": "Más",
+    "viewTable": "Ver datos como tabla",
+    "empty": {
+      "title": "Todavía no hay citas que mostrar",
+      "body": "Los informes se llenan al atender clientes. Marca las citas como completadas en la agenda; si no, cuentan solas una hora después de terminar."
+    },
+    "loadError": "No pudimos cargar los informes. Inténtalo de nuevo en un momento.",
+    "howTo": "Cómo se calcula: atendida = completada, o reservada y terminada hace más de una hora (canceladas y «no vino» no cuentan). Los ingresos usan el precio de lista al reservar. Ocupación = minutos con cita ÷ minutos de horario, menos días libres y cierres."
   }
 }

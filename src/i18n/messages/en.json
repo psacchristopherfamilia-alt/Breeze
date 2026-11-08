@@ -236,7 +236,8 @@
       "billing": "Plan & payments",
       "admin": "Administration",
       "clients": "Clients",
-      "reviews": "Reviews"
+      "reviews": "Reviews",
+      "reports": "Reports"
     },
     "branch": "Branch",
     "yourBranches": "your branches",
@@ -345,7 +346,9 @@
       "invalid_photo": "That photo isn't valid.",
       "reply_too_long": "The reply is too long (500 characters maximum).",
       "reason_required": "Tell us the reason (3 to 300 characters).",
-      "already_reported": "That review was already reported."
+      "already_reported": "That review was already reported.",
+      "already_started": "That appointment already started.",
+      "invalid_duration": "The length must be between 5 minutes and 8 hours."
     },
     "setup": {
       "title": "Steps to start receiving bookings",
@@ -376,7 +379,64 @@
       "past_due": "You have had a payment pending for {days, plural, one {# day} other {# days}}. Online bookings and Breeze Live will be paused soon.",
       "suspended": "Your plan is suspended: online bookings and Breeze Live are paused. Your agenda and data are still here.",
       "cta": "View plan & payments"
-    }
+    },
+    "views": {
+      "label": "View",
+      "day": "Day",
+      "week": "Week",
+      "team": "Team",
+      "apptsShort": "appts"
+    },
+    "weekTitle": "Week of {from} to {to}",
+    "prevWeek": "Previous week",
+    "nextWeek": "Next week",
+    "thisWeek": "This week",
+    "weekPro": "Professional",
+    "move": {
+      "button": "Move…",
+      "title": "Move {name}'s appointment",
+      "current": "Now: {when} with {pro}",
+      "pro": "Professional",
+      "day": "Day",
+      "time": "Time",
+      "duration": "Duration",
+      "pick": "Choose a change.",
+      "ok": "There's room: nobody else is booked then.",
+      "notify": "Notify the client",
+      "notifyHint": "They get the change through the same channel as their reminders.",
+      "confirm": "Confirm",
+      "moved": "{name}: {when} with {pro}",
+      "notified": "client notified",
+      "notNotified": "client not notified",
+      "undo": "Undo",
+      "undone": "Change undone.",
+      "dragHint": "Drag an appointment to move it, or drag its bottom edge to change the length. On a phone, press and hold first. You can also tap it and choose Move.",
+      "reasons": {
+        "not_booked": "Only booked appointments can be moved.",
+        "started": "This appointment already started.",
+        "past": "That time has already passed.",
+        "not_offered": "{pro} doesn't offer this service.",
+        "day_off": "{pro} doesn't work that day.",
+        "outside_hours": "Outside {pro}'s hours ({from} to {to}).",
+        "blocked": "{pro} is off or the salon is closed then.",
+        "overlap": "It overlaps another appointment at {time}."
+      }
+    },
+    "team": {
+      "title": "Who has room this week?",
+      "hint": "Each cell shows the appointments and how much of the schedule is booked. Tap one to open that person's week.",
+      "pro": "Professional",
+      "off": "Off",
+      "count": "{count, plural, one {# appointment} other {# appointments}}",
+      "cell": "{count} appts · {pct}% booked · {free} free",
+      "step1": "0–19% booked",
+      "step2": "20–39%",
+      "step3": "40–59%",
+      "step4": "60–79%",
+      "step5": "80–100%",
+      "free": "{pct}% booked · {free} free"
+    },
+    "agendaRegion": "Agenda grid: scroll to see more"
   },
   "pros": {
     "title": "Professionals",
@@ -1113,5 +1173,59 @@
     "reported": "Reported, under review",
     "reportedReason": "Your reason: {reason}",
     "count": "{count, plural, one {# review} other {# reviews}}"
+  },
+  "reports": {
+    "title": "Reports",
+    "subtitleManager": "How your business is doing: income, busy hours and clients. Figures are estimates based on list prices, because Breeze doesn't collect payments.",
+    "subtitlePro": "Your own numbers for this location.",
+    "periodLabel": "Period",
+    "lastDays": "Last {days} days",
+    "summary": "Summary",
+    "vsPrevious": "vs. previous {days} days",
+    "noCompare": "no earlier data",
+    "pts": "pts",
+    "kpi": {
+      "revenue": "Estimated income",
+      "appointments": "Appointments served",
+      "avgTicket": "Average ticket",
+      "occupancy": "Occupancy"
+    },
+    "revenueByPro": "Income by professional",
+    "yourRevenue": "Your income",
+    "revenueHint": "Last {days} days, list price",
+    "occupancyByPro": "Occupancy by professional",
+    "yourOccupancy": "Your occupancy",
+    "occupancyHint": "Booked minutes over scheduled minutes",
+    "booked": "booked",
+    "apptCount": "{count, plural, one {# appointment} other {# appointments}}",
+    "services": "Most booked services",
+    "none": "Nothing in this period.",
+    "col": {
+      "service": "Service",
+      "appointments": "Appts",
+      "revenue": "Income",
+      "hour": "Hour"
+    },
+    "clients": "New and returning clients",
+    "clientsHint": "{count, plural, one {# client} other {# clients}} served in {days} days",
+    "clientsAria": "{returning} returning clients and {fresh} new clients",
+    "returning": "Returning",
+    "newClients": "New",
+    "lapsed": "Haven't been back in a while",
+    "lapsedHint": "Over 6 weeks since their last visit and nothing booked. Only owners and admins see this.",
+    "lapsedNone": "Nobody right now.",
+    "viewFile": "View file",
+    "heat": "Busiest hours",
+    "heatHint": "Appointments by day and hour (Turks and Caicos time).",
+    "peak": "Peak: {day} {from} to {to}, {count, plural, one {# appointment} other {# appointments}}.",
+    "less": "Fewer",
+    "more": "More",
+    "viewTable": "View data as a table",
+    "empty": {
+      "title": "No appointments to report yet",
+      "body": "Reports fill in as clients are served. Mark appointments as completed in the agenda, or they count automatically one hour after they end."
+    },
+    "loadError": "We couldn't load the reports. Try again in a moment.",
+    "howTo": "How it's calculated: served = completed, or booked and ended over an hour ago (cancellations and no-shows don't count). Income uses the list price at booking. Occupancy = booked minutes ÷ scheduled minutes, minus days off and closures."
   }
 }

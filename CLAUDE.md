@@ -48,6 +48,7 @@ Next.js App Router + TypeScript + Tailwind CSS + Supabase (Auth, Postgres, Realt
 ## Recordatorios (módulo 6)
 - El trigger `appointments_enqueue_notifications` crea los trabajos en `notification_jobs` (uno por reserva): confirmación, recordatorios según `salons.reminder_offsets_min`, reprogramación y cancelación.
 - Worker en `src/app/api/cron/notifications/route.ts` (Next, no Edge Function: reutiliza plantillas y hora de TCI, y se prueba con Vitest). Usa `createAdminClient()` (service_role) → `claim_notification_jobs` / `complete_notification_job` (solo service_role).
+- **Solo correo por ahora**: el formulario de invitado pide correo («recomendado», con aviso de que sin él no hay recordatorios) y oculta la casilla de WhatsApp salvo que `NEXT_PUBLIC_WHATSAPP_REMINDERS=on` (`src/lib/notifications/channels.ts`). Un mensaje sin canal posible (`no_channel_available`) queda `skipped` sin reintentos. Remitente `EMAIL_FROM="Breeze <citas@saasifytci.com>"`, dirección pública `NEXT_PUBLIC_APP_URL=https://www.saasifytci.com`.
 - Plantillas en `src/lib/notifications/templates.ts` (EN/ES, siempre "— Breeze"); proveedores en `providers.ts` (console, Resend, Twilio SMS/WhatsApp vía fetch, sin SDK); orden de canales y reintentos en `worker.ts`.
 - El enlace privado del invitado se adjunta con `attach_guest_link(token)` y se borra al enviar; la columna `link_token` no es legible por el panel.
 

@@ -141,8 +141,8 @@
     "guestHint": "Just visiting? No account needed. We'll text you a link to manage your booking.",
     "first": "First name",
     "last": "Last name",
-    "phone": "Phone (WhatsApp)",
-    "email": "Email (optional)",
+    "phone": "Phone",
+    "email": "Email (recommended)",
     "whatsappOptIn": "Send me reminders on WhatsApp",
     "policy": "Free cancellation up to {hours} h before. Pay at the salon (cash or transfer).",
     "summary": "{count, plural, one {# service} other {# services}}",
@@ -188,7 +188,8 @@
     "directions": "Directions",
     "callSalon": "Call the salon",
     "calGoogle": "Google Calendar",
-    "calFile": "Apple Calendar / .ics file"
+    "calFile": "Apple Calendar / .ics file",
+    "emailHint": "We'll email your confirmation and reminders. Without an email, you won't get reminders."
   },
   "me": {
     "title": "My bookings",

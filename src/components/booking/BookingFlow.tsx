@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppLocale } from "@/components/Providers";
 import { LegalConsent } from "@/components/legal/LegalConsent";
 import { ClientHeader } from "@/components/ui/ClientHeader";
+import { WHATSAPP_REMINDERS } from "@/lib/notifications/channels";
 import { ReviewsList } from "@/components/reviews/ReviewsList";
 import { ProBadge } from "@/components/ui/ProBadge";
 import { TypeIcon } from "@/components/ui/TypeIcon";
@@ -148,8 +149,8 @@ export function BookingFlow({
         account
           ? undefined
           : acc
-            ? { firstName: first, lastName: rest.join(" "), phone: acc.phone ?? "", email: acc.email ?? undefined, whatsapp: true, locale }
-            : { firstName: form.first, lastName: form.last, phone: form.phone, email: form.email || undefined, whatsapp: form.whatsapp, locale },
+            ? { firstName: first, lastName: rest.join(" "), phone: acc.phone ?? "", email: acc.email ?? undefined, whatsapp: WHATSAPP_REMINDERS, locale }
+            : { firstName: form.first, lastName: form.last, phone: form.phone, email: form.email || undefined, whatsapp: WHATSAPP_REMINDERS && form.whatsapp, locale },
     };
     try {
       const r = await onConfirm(req, slot.proId);
@@ -543,10 +544,13 @@ export function BookingFlow({
                     </div>
                     <Field label={t("booking.phone")} value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} type="tel" placeholder="+1 649 …" autoComplete="tel" />
                     <Field label={t("booking.email")} value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" autoComplete="email" />
-                    <label className="flex items-center gap-2 text-sm">
-                      <input type="checkbox" checked={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.checked })} className="size-4 accent-[#0e7c86]" />
-                      {t("booking.whatsappOptIn")}
-                    </label>
+                    <p className="-mt-1 text-xs text-ink/70">{t("booking.emailHint")}</p>
+                    {WHATSAPP_REMINDERS && (
+                      <label className="flex items-center gap-2 text-sm">
+                        <input type="checkbox" checked={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.checked })} className="size-4 accent-[#0e7c86]" />
+                        {t("booking.whatsappOptIn")}
+                      </label>
+                    )}
                     {captchaSiteKey && <Turnstile siteKey={captchaSiteKey} onToken={setCaptchaToken} resetKey={captchaReset} lang={locale} />}
                   </div>
                 )}

@@ -130,6 +130,21 @@ describe("worker (service_role)", () => {
     }
   });
 
+  it("un mensaje sin ningún canal posible queda 'skipped' al instante (sin reintentos ni fallo)", async () => {
+    const r = await bookGuest();
+    await switchTo(c, serviceRole);
+    const job = (await c.query("select public.claim_notification_jobs(10) as j")).rows[0].j;
+    const status = (await c.query("select public.complete_notification_job($1, false, null, null, null, 'no_channel_available') as s", [job.job_id])).rows[0].s;
+    expect(status).toBe("skipped");
+    await asSuperuser(c);
+    const row = (await c.query("select status, error, link_token from public.notification_jobs where id = $1", [job.job_id])).rows[0];
+    expect(row).toEqual({ status: "skipped", error: "no_channel_available", link_token: null });
+    // y no vuelve a reclamarse
+    await switchTo(c, serviceRole);
+    expect((await c.query("select public.claim_notification_jobs(10) as j")).rows.every((x) => x.j.job_id !== job.job_id)).toBe(true);
+    expect(r.booking_group_id).toBeTruthy();
+  });
+
   it("no envía recordatorios de reservas canceladas", async () => {
     const r = await bookGuest();
     await c.query("update public.notification_jobs set scheduled_for = now() - interval '1 minute' where booking_group_id = $1", [r.booking_group_id]);

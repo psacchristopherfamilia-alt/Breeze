@@ -26,7 +26,9 @@ test("un invitado reserva un corte y después esa hora ya no está libre", async
   await firstName.fill("Ashley");
   await lastName.fill("Taylor");
   await page.locator("input[type=tel]").fill("649 555 0123");
-  await page.locator("input[type=checkbox]").check();
+  // Solo correo por ahora: la casilla de WhatsApp no se ofrece y el correo se pide como recomendado.
+  await expect(page.locator("input[type=checkbox]")).toHaveCount(0);
+  await expect(page.getByText(/won.t get reminders|no recibirás recordatorios/i)).toBeVisible();
   await page.getByRole("button", { name: "Confirm booking" }).click();
 
   await expect(page.getByText(/booked|confirmed|you're all set/i).first()).toBeVisible();

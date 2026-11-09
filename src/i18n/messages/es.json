@@ -141,8 +141,8 @@
     "guestHint": "¿Estás de paso? No necesitas cuenta. Te enviaremos un enlace para gestionar tu cita.",
     "first": "Nombre",
     "last": "Apellido",
-    "phone": "Teléfono (WhatsApp)",
-    "email": "Correo (opcional)",
+    "phone": "Teléfono",
+    "email": "Correo (recomendado)",
     "whatsappOptIn": "Enviarme recordatorios por WhatsApp",
     "policy": "Cancelación gratis hasta {hours} h antes. Pagas en el salón (efectivo o transferencia).",
     "summary": "{count, plural, one {# servicio} other {# servicios}}",
@@ -188,7 +188,8 @@
     "directions": "Cómo llegar",
     "callSalon": "Llamar al salón",
     "calGoogle": "Google Calendar",
-    "calFile": "Calendario de Apple / archivo .ics"
+    "calFile": "Calendario de Apple / archivo .ics",
+    "emailHint": "Te enviaremos por correo la confirmación y los recordatorios. Sin correo, no recibirás recordatorios."
   },
   "me": {
     "title": "Mis citas",

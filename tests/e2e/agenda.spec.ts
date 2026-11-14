@@ -13,6 +13,24 @@ async function axeSerious(page: Page) {
     .map((v) => `${v.id} (${v.impact}): ${v.help} → ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`);
 }
 
+/**
+ * Lleva la agenda al próximo día con citas de ejemplo que todavía no empezaron.
+ * Los datos del prototipo son de lunes a sábado: si «mañana» es domingo (las pruebas corren un sábado), sigue al lunes.
+ */
+async function goToNextBookedDay(page: Page) {
+  const cards = page.locator("button.border-l-4");
+  for (let i = 0; i < 3; i++) {
+    await page.getByRole("button", { name: "Next day" }).click();
+    try {
+      await cards.first().waitFor({ state: "visible", timeout: 3000 });
+      return;
+    } catch {
+      // Día sin citas (domingo): se prueba con el siguiente.
+    }
+  }
+  throw new Error("No hay ningún día con citas en los próximos 3 días");
+}
+
 test("la agenda tiene vista de día, de semana y de equipo", async ({ page }) => {
   await page.goto("/dashboard");
   await expect(page.getByRole("button", { name: "Day", exact: true })).toHaveAttribute("aria-pressed", "true");
@@ -33,8 +51,7 @@ test("la agenda tiene vista de día, de semana y de equipo", async ({ page }) =>
 
 test("mover una cita con «Mover…»: muestra por qué no se puede y bloquea el botón", async ({ page }) => {
   await page.goto("/dashboard");
-  // Mañana siempre hay citas de ejemplo que todavía no empezaron.
-  await page.getByRole("button", { name: "Next day" }).click();
+  await goToNextBookedDay(page);
   await page.locator("button.border-l-4").first().click();
   await page.getByRole("button", { name: "Move…" }).click();
 
@@ -51,7 +68,7 @@ test("mover una cita con «Mover…»: muestra por qué no se puede y bloquea el
 
 test("acortar una cita se confirma y se puede deshacer", async ({ page }) => {
   await page.goto("/dashboard");
-  await page.getByRole("button", { name: "Next day" }).click();
+  await goToNextBookedDay(page);
   await page.locator("button.border-l-4").first().click();
   await page.getByRole("button", { name: "Move…" }).click();
 
@@ -71,7 +88,7 @@ test("acortar una cita se confirma y se puede deshacer", async ({ page }) => {
 
 test("cambiar la hora pregunta si avisar al cliente (marcado por defecto)", async ({ page }) => {
   await page.goto("/dashboard");
-  await page.getByRole("button", { name: "Next day" }).click();
+  await goToNextBookedDay(page);
   await page.locator("button.border-l-4").first().click();
   await page.getByRole("button", { name: "Move…" }).click();
 
@@ -92,7 +109,7 @@ test("cambiar la hora pregunta si avisar al cliente (marcado por defecto)", asyn
 test("estirar el borde de una cita (ratón) abre la confirmación con la duración nueva", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === "movil", "Con el dedo se usa mantener pulsado o el botón «Mover…»");
   await page.goto("/dashboard");
-  await page.getByRole("button", { name: "Next day" }).click();
+  await goToNextBookedDay(page);
   const appt = page.locator("button.border-l-4").first();
   await expect(appt).toBeVisible();
   await appt.scrollIntoViewIfNeeded();

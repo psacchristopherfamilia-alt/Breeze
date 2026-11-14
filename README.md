@@ -12,7 +12,9 @@ Zona horaria `America/Grand_Turk` · USD · Inglés y español.
 Next.js (App Router) · TypeScript · Tailwind CSS · Supabase (Auth, Postgres, Realtime, Edge Functions, pg_cron).
 
 ## Estado
-**Fase 3 — prototipo con datos falsos** (sin Supabase todavía). Plan en [`docs/PLAN.md`](docs/PLAN.md).
+**En producción** con Supabase: módulos 1–7 terminados (base de datos, acceso, reservas, panel del salón, Breeze Live, recordatorios por correo y cobro manual), además de reseñas, fotos, términos y privacidad. Plan en [`docs/PLAN.md`](docs/PLAN.md).
+
+Sin las variables de Supabase la app arranca en **modo prototipo** con datos falsos, útil para demostraciones.
 
 ### Ver el prototipo
 ```bash
@@ -90,12 +92,19 @@ La pantalla solo recibe "Nombre I.", servicio y hora: el recorte lo hace la base
 
 ### Recordatorios (módulo 6)
 - Cada reserva encola sola: **confirmación**, **recordatorios** (24 h y 2 h antes, configurable en Ajustes) y avisos de **cambio de hora** o **cancelación**. Un mensaje por reserva, firmado **"— Breeze"**, en el idioma del cliente.
-- Canal: **WhatsApp** (si el cliente aceptó) → **SMS** → **correo**; si uno falla, prueba el siguiente. Hasta 3 intentos con espera.
+- Canal: hoy **solo correo** (el cliente sin correo no recibe recordatorios y la reserva lo avisa). WhatsApp y SMS están preparados (WhatsApp → SMS → correo) y se activan cuando haya claves de Twilio y plantillas aprobadas. Hasta 3 intentos con espera.
 - Proveedores (`.env.local`): `NOTIFICATIONS_PROVIDER=console` (se imprime en el log) o `live` (Resend para correo; Twilio para SMS/WhatsApp, solo los que tengan claves).
 - Worker: `GET/POST /api/cron/notifications` con `Authorization: Bearer <CRON_SECRET>`, cada 5 min. Programarlo con `supabase/snippets/schedule-notifications.sql` (pg_cron + pg_net) o con el cron del hosting.
 - WhatsApp en producción: Meta exige **plantillas aprobadas** para mensajes iniciados por el negocio; hay que registrarlas en Twilio antes de activarlo.
 
 **Datos de demo** (`supabase/seed.sql`, se cargan con `supabase db reset`): 3 salones, 8 profesionales; dueño `owner@breeze.demo` / `breeze-demo-2026`.
+
+### Cobro (módulo 7)
+Stripe no opera en Turks and Caicos: el cobro es manual (transferencia o efectivo).
+- Cada negocio nuevo tiene **14 días de prueba**. Los planes y precios viven en la tabla `plans` (se cambian sin desplegar).
+- El dueño ve su plan, importe, vencimiento y datos para pagar en **Panel → Plan**.
+- En **`/admin`** (rol `platform_admin`) generas la factura, registras el pago (método y referencia), extiendes o suspendes.
+- Sin pago: a los 7 días del vencimiento pasa a `past_due` (aviso) y a los 14 a `suspended` (se apaga la reserva en línea y Breeze Live; nunca se borran datos).
 
 ## Reglas no negociables
 - Sin doble reserva: exclusion constraint con rangos de tiempo en Postgres.

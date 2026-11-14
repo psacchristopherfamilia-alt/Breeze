@@ -3,32 +3,14 @@ import { coverFor } from "@/lib/booking/types";
 import { colorOf } from "@/lib/colors";
 import { mediaUrl } from "@/lib/media";
 import { showRating } from "@/lib/reviews";
-import { SALONS, prosOf, servicesOf, type BusinessType, type Zone } from "@/lib/mock/data";
+import { type BusinessType, type Zone } from "@/lib/mock/data";
+import { mockSalons } from "@/lib/mock/explore";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 
 /** Búsqueda de salones por nombre, servicio, tipo y zona. */
 export default async function ExplorePage() {
   return <ExploreView salons={isSupabaseConfigured() ? await liveSalons() : mockSalons()} />;
-}
-
-function mockSalons(): ExploreSalon[] {
-  return SALONS.map((s) => {
-    const services = servicesOf(s.id);
-    return {
-      id: s.id,
-      slug: s.slug,
-      name: s.name,
-      businessTypes: s.businessTypes,
-      zone: s.zone,
-      rating: s.rating,
-      reviews: s.reviews,
-      cover: s.cover,
-      pros: prosOf(s.id).map((p) => ({ id: p.id, firstName: p.firstName, lastName: p.lastName, colorHex: colorOf(p.color).hex })),
-      fromCents: services.length ? Math.min(...services.map((v) => v.priceCents)) : null,
-      searchText: [s.name, ...services.flatMap((v) => [v.nameEn, v.nameEs])].join(" "),
-    };
-  });
 }
 
 async function liveSalons(): Promise<ExploreSalon[]> {

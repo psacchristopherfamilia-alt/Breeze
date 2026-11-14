@@ -8,7 +8,9 @@
     "cancel": "Cancel",
     "save": "Save",
     "close": "Close",
-    "delete": "Delete"
+    "delete": "Delete",
+    "demo": "Breeze demo · sample data, nothing is saved",
+    "demoStart": "Create my business"
   },
   "hub": {
     "eyebrow": "Breeze · Phase 3 prototype",
@@ -753,7 +755,11 @@
       "signIn": "Sign in",
       "back": "Breeze Negocios"
     },
-    "pricing": "See pricing"
+    "pricing": "See pricing",
+    "demo": {
+      "title": "Try the demo",
+      "desc": "See the calendar, bookings and Breeze Live with sample data, no account needed."
+    }
   },
   "billing": {
     "title": "Plan & payments",
@@ -1228,5 +1234,14 @@
     },
     "loadError": "We couldn't load the reports. Try again in a moment.",
     "howTo": "How it's calculated: served = completed, or booked and ended over an hour ago (cancellations and no-shows don't count). Income uses the list price at booking. Occupancy = booked minutes ÷ scheduled minutes, minus days off and closures."
+  },
+  "demo": {
+    "eyebrow": "Breeze demo",
+    "title": "Try Breeze without an account.",
+    "subtitle": "Book as a client, move appointments in the salon's calendar and watch the live screen. All with sample data that is only kept in this browser.",
+    "ctaTitle": "Like it?",
+    "ctaBody": "Create your business in minutes. 14-day free trial, no card needed.",
+    "start": "Create my business",
+    "prices": "See pricing"
   }
 }

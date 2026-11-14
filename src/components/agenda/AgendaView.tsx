@@ -12,6 +12,7 @@ import { withAlpha } from "@/lib/colors";
 import { formatDuration } from "@/lib/format";
 import { formatPrice } from "@/lib/mock/data";
 import { addDaysKey, atLocal, formatDayLong, formatDayShort, formatTime, localDateKey, minutesOfDay, weekdayOf } from "@/lib/time";
+import { useAppHref } from "@/lib/demo/useDemo";
 
 const START_H = 7;
 const END_H = 21;
@@ -127,6 +128,7 @@ const durOf = (a: AgendaAppt) => Math.round((new Date(a.endsAt).getTime() - new 
 const targetStart = (t: Target) => atLocal(t.dateKey, hhmm(t.startMin));
 
 export function AgendaView(props: AgendaViewProps) {
+  const appHref = useAppHref();
   const { salon, services, appointments, dateKey, now, view, onNavigate, onlyProfessionalId, actions } = props;
   const t = useTranslations();
   const { locale } = useAppLocale();
@@ -261,7 +263,7 @@ export function AgendaView(props: AgendaViewProps) {
             </button>
           </div>
           <Link
-            href={`/live/${salon.slug}`}
+            href={appHref(`/live/${salon.slug}`)}
             target="_blank"
             className="hidden items-center gap-1.5 rounded-xl bg-white px-3 py-2 text-sm font-bold text-ink/70 ring-1 ring-breeze-100 hover:text-lagoon sm:inline-flex"
           >

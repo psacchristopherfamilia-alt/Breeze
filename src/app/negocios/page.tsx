@@ -8,6 +8,7 @@ const DOORS = [
   { key: "enter", href: "/login?for=negocios&next=/dashboard", main: true },
   { key: "register", href: "/signup/salon", main: false },
   { key: "team", href: "/negocios/equipo", main: false },
+  { key: "demo", href: "/demo", main: false },
 ] as const;
 
 /** Puerta de Breeze Negocios: dueños, administradores y equipo. Los clientes entran por /explore. */

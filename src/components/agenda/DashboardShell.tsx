@@ -8,6 +8,7 @@ import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import { PrototypeBanner } from "@/components/ui/PrototypeBanner";
 import { SALONS, type Salon } from "@/lib/mock/data";
+import { useAppHref } from "@/lib/demo/useDemo";
 
 const SalonCtx = createContext<{ salon: Salon; setSalonId: (id: string) => void }>({
   salon: SALONS[1],
@@ -20,6 +21,7 @@ const DEMO_ORG = "Coral Group";
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const t = useTranslations("panel");
+  const appHref = useAppHref();
   const path = usePathname();
   const [salonId, setSalonIdState] = useState("s2");
 
@@ -40,9 +42,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const others = SALONS.filter((s) => s.organization !== DEMO_ORG);
 
   const nav = [
-    { href: "/dashboard", icon: CalendarDays, label: t("nav.agenda") },
-    { href: "/dashboard/professionals", icon: Users, label: t("nav.professionals") },
-    { href: `/live/${salon.slug}`, icon: MonitorPlay, label: "Breeze Live" },
+    { href: appHref("/dashboard"), icon: CalendarDays, label: t("nav.agenda") },
+    { href: appHref("/dashboard/professionals"), icon: Users, label: t("nav.professionals") },
+    { href: appHref(`/live/${salon.slug}`), icon: MonitorPlay, label: "Breeze Live" },
   ];
 
   return (
@@ -51,7 +53,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       <div className="min-h-dvh bg-foam/50 lg:flex">
         <aside className="border-b border-breeze-100 bg-white lg:sticky lg:top-0 lg:h-dvh lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
           <div className="flex items-center justify-between px-4 py-3 lg:block lg:px-5 lg:py-6">
-            <Logo href="/dashboard" />
+            <Logo href={appHref("/dashboard")} />
             <div className="lg:hidden"><LocaleSwitcher /></div>
           </div>
           <div className="px-4 pb-3 lg:px-5">

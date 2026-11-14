@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
+import { useAppHref } from "@/lib/demo/useDemo";
 import { resetPrototype } from "@/lib/mock/store";
 
 const CARDS = [
@@ -12,8 +13,11 @@ const CARDS = [
   { href: "/live/coral-salon", icon: MonitorPlay, key: "live", accent: "#BE185D" },
 ] as const;
 
-export function Hub() {
+/** Portada del prototipo (sin Supabase) y de la demo pública (/demo, con `demo`). */
+export function Hub({ demo = false }: { demo?: boolean }) {
   const t = useTranslations("hub");
+  const d = useTranslations("demo");
+  const appHref = useAppHref();
   return (
     <main className="bg-breeze-sky min-h-dvh">
       <div className="mx-auto max-w-5xl px-4 py-8 sm:py-14">
@@ -23,16 +27,16 @@ export function Hub() {
         </header>
 
         <section className="mt-12 max-w-2xl">
-          <p className="text-sm font-bold uppercase tracking-widest text-breeze-600">{t("eyebrow")}</p>
-          <h1 className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">{t("title")}</h1>
-          <p className="mt-4 text-lg text-ink/70">{t("subtitle")}</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-breeze-600">{demo ? d("eyebrow") : t("eyebrow")}</p>
+          <h1 className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">{demo ? d("title") : t("title")}</h1>
+          <p className="mt-4 text-lg text-ink/70">{demo ? d("subtitle") : t("subtitle")}</p>
         </section>
 
         <section className="mt-10 grid gap-4 sm:grid-cols-3">
           {CARDS.map(({ href, icon: Icon, key, accent }) => (
             <Link
               key={key}
-              href={href}
+              href={appHref(href)}
               className="group rounded-3xl bg-white p-6 shadow-sm ring-1 ring-breeze-100 transition hover:-translate-y-1 hover:shadow-lg"
             >
               <span className="grid size-12 place-items-center rounded-2xl text-white" style={{ backgroundColor: accent }}>
@@ -64,6 +68,23 @@ export function Hub() {
             {t("reset")}
           </button>
         </section>
+
+        {demo && (
+          <section className="mt-6 flex flex-col gap-4 rounded-3xl bg-ink p-6 text-white sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-lg font-bold">{d("ctaTitle")}</h3>
+              <p className="mt-1 text-sm text-white/80">{d("ctaBody")}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/signup/salon" className="rounded-2xl bg-breeze-300 px-5 py-3 font-bold text-ink hover:bg-white">
+                {d("start")}
+              </Link>
+              <Link href="/negocios/precios" className="rounded-2xl px-5 py-3 font-bold text-white ring-1 ring-white/40 hover:bg-white/10">
+                {d("prices")}
+              </Link>
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

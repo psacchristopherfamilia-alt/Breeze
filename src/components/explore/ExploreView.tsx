@@ -9,6 +9,7 @@ import { ProBadge } from "@/components/ui/ProBadge";
 import { TypeIcon } from "@/components/ui/TypeIcon";
 import { BUSINESS_TYPES, formatPrice, type BusinessType, type Zone } from "@/lib/mock/data";
 import { ZONES } from "@/lib/validation/auth";
+import { useAppHref } from "@/lib/demo/useDemo";
 
 /** Salón tal como aparece en la búsqueda (prototipo o Supabase). */
 export interface ExploreSalon {
@@ -29,6 +30,7 @@ export interface ExploreSalon {
 const norm = (s: string) => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
 
 export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
+  const appHref = useAppHref();
   const t = useTranslations();
   const [q, setQ] = useState("");
   const [type, setType] = useState<BusinessType | "all">("all");
@@ -101,7 +103,7 @@ export function ExploreView({ salons }: { salons: ExploreSalon[] }) {
             return (
               <Link
                 key={s.id}
-                href={`/s/${s.slug}`}
+                href={appHref(`/s/${s.slug}`)}
                 className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-breeze-100 transition hover:-translate-y-0.5 hover:shadow-lg animate-fade-up"
               >
                 <div

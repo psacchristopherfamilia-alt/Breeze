@@ -8,9 +8,11 @@ import { ProBadge } from "@/components/ui/ProBadge";
 import { formatPrice, proById, salonById, serviceById, serviceName, type Appointment } from "@/lib/mock/data";
 import { setStatus, useAppointments } from "@/lib/mock/store";
 import { formatDayLong, formatTime } from "@/lib/time";
+import { useAppHref } from "@/lib/demo/useDemo";
 
 export function MockMyBookings() {
   const t = useTranslations();
+  const appHref = useAppHref();
   const { locale } = useAppLocale();
   const { now, appointments, ready } = useAppointments();
 
@@ -30,7 +32,7 @@ export function MockMyBookings() {
         ) : list.length === 0 ? (
           <div className="mt-6 rounded-3xl bg-white p-10 text-center ring-1 ring-breeze-100">
             <p className="text-ink/70">{t("me.empty")}</p>
-            <Link href="/explore" className="mt-4 inline-flex items-center gap-1 rounded-2xl bg-lagoon px-5 py-3 font-bold text-white">
+            <Link href={appHref("/explore")} className="mt-4 inline-flex items-center gap-1 rounded-2xl bg-lagoon px-5 py-3 font-bold text-white">
               <Plus className="size-4" /> {t("me.bookNow")}
             </Link>
           </div>
@@ -62,6 +64,7 @@ export function MockMyBookings() {
 
 function BookingCard({ group, now, locale }: { group: Appointment[]; now: Date; locale: "en" | "es" }) {
   const t = useTranslations();
+  const appHref = useAppHref();
   const first = group[0];
   const salon = salonById(first.salonId)!;
   const pro = proById(first.professionalId)!;
@@ -99,7 +102,7 @@ function BookingCard({ group, now, locale }: { group: Appointment[]; now: Date; 
           {canChange ? (
             <div className="flex gap-2">
               <Link
-                href={`/s/${salon.slug}?reschedule=${first.groupId}`}
+                href={appHref(`/s/${salon.slug}?reschedule=${first.groupId}`)}
                 className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-breeze-50 py-2.5 text-sm font-bold text-lagoon hover:bg-breeze-100"
               >
                 <CalendarClock className="size-4" /> {t("me.reschedule")}

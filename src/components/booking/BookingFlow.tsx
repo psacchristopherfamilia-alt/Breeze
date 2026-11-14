@@ -19,6 +19,7 @@ import { addDaysKey, atLocal, formatDayLong, formatDayShort, formatTime, localDa
 import { ConfirmActions } from "./ConfirmActions";
 import { PaymentInfo } from "./PaymentInfo";
 import { Turnstile } from "./Turnstile";
+import { useAppHref } from "@/lib/demo/useDemo";
 
 type Step = "services" | "pro" | "time" | "details";
 const STEPS: Step[] = ["services", "pro", "time", "details"];
@@ -68,6 +69,7 @@ export function BookingFlow({
   captchaSiteKey,
 }: BookingFlowProps) {
   const t = useTranslations();
+  const appHref = useAppHref();
   const { locale } = useAppLocale();
   const { salon, services, pros } = data;
   const isReschedule = !!reschedule;
@@ -256,10 +258,10 @@ export function BookingFlow({
             </div>
           )}
           <div className="mt-6 flex flex-col gap-2">
-            <Link href={manageHref(done)} className="rounded-2xl bg-lagoon px-5 py-3 font-bold text-white hover:bg-breeze-800">
+            <Link href={appHref(manageHref(done))} className="rounded-2xl bg-lagoon px-5 py-3 font-bold text-white hover:bg-breeze-800">
               {t("booking.manage")}
             </Link>
-            <Link href={`/live/${salon.slug}`} className="rounded-2xl px-5 py-3 text-sm font-semibold text-lagoon hover:bg-white">
+            <Link href={appHref(`/live/${salon.slug}`)} className="rounded-2xl px-5 py-3 text-sm font-semibold text-lagoon hover:bg-white">
               {t("booking.seeLive")}
             </Link>
           </div>

@@ -8,7 +8,9 @@
     "cancel": "Cancelar",
     "save": "Guardar",
     "close": "Cerrar",
-    "delete": "Eliminar"
+    "delete": "Eliminar",
+    "demo": "Demo de Breeze · datos de ejemplo, nada se guarda",
+    "demoStart": "Crear mi negocio"
   },
   "hub": {
     "eyebrow": "Breeze · prototipo Fase 3",
@@ -753,7 +755,11 @@
       "signIn": "Entrar",
       "back": "Breeze Negocios"
     },
-    "pricing": "Ver precios"
+    "pricing": "Ver precios",
+    "demo": {
+      "title": "Probar la demo",
+      "desc": "Mira la agenda, las reservas y Breeze Live con datos de ejemplo, sin crear cuenta."
+    }
   },
   "billing": {
     "title": "Plan y pagos",
@@ -1228,5 +1234,14 @@
     },
     "loadError": "No pudimos cargar los informes. Inténtalo de nuevo en un momento.",
     "howTo": "Cómo se calcula: atendida = completada, o reservada y terminada hace más de una hora (canceladas y «no vino» no cuentan). Los ingresos usan el precio de lista al reservar. Ocupación = minutos con cita ÷ minutos de horario, menos días libres y cierres."
+  },
+  "demo": {
+    "eyebrow": "Demo de Breeze",
+    "title": "Prueba Breeze sin crear cuenta.",
+    "subtitle": "Reserva como cliente, mueve citas en la agenda del salón y mira la pantalla en vivo. Todo con datos de ejemplo que solo se guardan en este navegador.",
+    "ctaTitle": "¿Te gustó?",
+    "ctaBody": "Crea tu negocio en minutos. 14 días de prueba gratis, sin tarjeta.",
+    "start": "Crear mi negocio",
+    "prices": "Ver precios"
   }
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { signOut } from "@/app/(auth)/actions";
 import { useDeviceTokens } from "@/lib/booking/device";
+import { useAppHref, useIsDemo } from "@/lib/demo/useDemo";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { useSignedIn } from "@/lib/supabase/useSignedIn";
 import { Logo } from "./Logo";
@@ -16,26 +17,28 @@ const btn = "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm f
  * Cabecera de la app del cliente.
  *  · "Mis citas": con cuenta, o si ESTE navegador ya reservó como invitado.
  *  · "Entrar": solo si no hay cuenta con sesión. Con sesión, "Salir".
- * En modo prototipo (sin Supabase) se muestran los dos, como siempre.
+ * En modo prototipo (sin Supabase) se muestran los dos, como siempre. En la demo pública (/demo) solo "Mis citas".
  */
 export function ClientHeader() {
   const t = useTranslations("client");
-  const configured = isSupabaseConfigured();
+  const inDemo = useIsDemo();
+  const appHref = useAppHref();
+  const configured = isSupabaseConfigured() && !inDemo;
   const signedIn = useSignedIn();
   const tokens = useDeviceTokens();
   const ready = !configured || (signedIn !== undefined && tokens !== undefined);
   const showBookings = !configured || signedIn === true || (tokens?.length ?? 0) > 0;
-  const showSignIn = !configured || signedIn === false;
+  const showSignIn = !inDemo && (!configured || signedIn === false);
 
   return (
     <>
       <PrototypeBanner />
       <header className="sticky top-0 z-30 border-b border-breeze-100/70 bg-white/85 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <Logo href="/explore" />
+          <Logo href={appHref("/explore")} />
           <div className="flex items-center gap-2">
             {ready && showBookings && (
-              <Link href="/me" className={btn} aria-label={t("myBookings")}>
+              <Link href={appHref("/me")} className={btn} aria-label={t("myBookings")}>
                 <CalendarCheck className="size-4" />
                 <span className="hidden sm:inline">{t("myBookings")}</span>
               </Link>

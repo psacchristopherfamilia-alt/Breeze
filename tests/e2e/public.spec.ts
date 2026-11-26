@@ -47,8 +47,22 @@ test.describe("negocios y precios", () => {
 test.describe("rutas privadas", () => {
   test("robots.txt oculta el panel, el admin y los enlaces privados", async ({ request }) => {
     const txt = await (await request.get("/robots.txt")).text();
-    for (const p of ["/dashboard", "/admin", "/b/", "/me"]) expect(txt).toContain(`Disallow: ${p}`);
+    for (const p of ["/dashboard", "/admin", "/b/", "/r/", "/live"]) expect(txt).toContain(`Disallow: ${p}`);
+    // Lo público que no debe salir en Google NO se bloquea (Google no leería el noindex): lleva noindex.
+    for (const p of ["/login", "/signup", "/me", "/negocios", "/explore", "/s/"]) expect(txt).not.toContain(`Disallow: ${p}`);
     expect(txt).toContain("Sitemap:");
+  });
+
+  test("entrar, crear cuenta y mis citas llevan noindex; el catálogo no", async ({ page }) => {
+    for (const p of ["/login", "/signup", "/signup/salon", "/me", "/negocios/equipo"]) {
+      await page.goto(p);
+      await expect(page.locator('meta[name="robots"]'), p).toHaveAttribute("content", /noindex/);
+    }
+    for (const [p, canon] of [["/explore?q=hair", "/explore"], ["/negocios", "/negocios"], ["/negocios/precios", "/negocios/precios"], ["/privacy", "/privacy"]]) {
+      await page.goto(p);
+      await expect(page.locator('meta[name="robots"]'), p).toHaveCount(0);
+      await expect(page.locator('link[rel="canonical"]'), p).toHaveAttribute("href", new RegExp(`${canon.replace("/", "\\/")}$`));
+    }
   });
 
   test("el sitemap lista el catálogo y los textos legales", async ({ request }) => {

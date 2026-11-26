@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { isPlatformAdmin } from "@/lib/auth/server";
 import { DashboardShell } from "@/components/agenda/DashboardShell";
 import { CreateBusiness } from "@/components/panel/CreateBusiness";
@@ -6,6 +7,8 @@ import { billingNotice, type BillingNotice, type SubscriptionStatus } from "@/li
 import { getPanelContext } from "@/lib/panel/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   if (!isSupabaseConfigured()) return <DashboardShell>{children}</DashboardShell>;

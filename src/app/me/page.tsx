@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import { GuestMyBookings } from "@/components/booking/GuestMyBookings";
 import { LiveMyBookings } from "@/components/booking/LiveMyBookings";
 import { MockMyBookings } from "@/components/booking/MockMyBookings";
 import type { BookingSummary } from "@/lib/booking/types";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
+import { NOINDEX } from "@/lib/seo";
+
+export const metadata: Metadata = { title: "My bookings", robots: NOINDEX };
 
 /**
  * Mis citas. Con cuenta: las de la cuenta (en cualquier dispositivo) y las que este navegador

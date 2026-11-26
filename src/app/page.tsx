@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { Hub } from "@/components/Hub";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 
@@ -9,6 +9,6 @@ import { isSupabaseConfigured } from "@/lib/supabase/env";
 export const dynamic = "force-dynamic";
 
 export default function Home() {
-  if (isSupabaseConfigured()) redirect("/explore");
+  if (isSupabaseConfigured()) permanentRedirect("/explore");
   return <Hub />;
 }

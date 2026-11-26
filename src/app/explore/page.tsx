@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ExploreView, type ExploreSalon } from "@/components/explore/ExploreView";
 import { coverFor } from "@/lib/booking/types";
 import { colorOf } from "@/lib/colors";
@@ -7,6 +8,12 @@ import { type BusinessType, type Zone } from "@/lib/mock/data";
 import { mockSalons } from "@/lib/mock/explore";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
+import { canonical } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Book salons, barbershops and spas in Turks and Caicos",
+  alternates: canonical("/explore"),
+};
 
 /** Búsqueda de salones por nombre, servicio, tipo y zona. */
 export default async function ExplorePage() {

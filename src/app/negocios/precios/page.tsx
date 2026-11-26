@@ -3,10 +3,12 @@ import { PricingView } from "@/components/negocios/PricingView";
 import { plansFromRows, FALLBACK_PLANS } from "@/lib/plans";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
+import { canonical } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description: "Breeze plans for barbershops, salons and spas in Turks and Caicos. 14-day free trial.",
+  alternates: canonical("/negocios/precios"),
 };
 
 export default async function PricingPage() {

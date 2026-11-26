@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
+import { NOINDEX } from "@/lib/seo";
 import { LegalLinks } from "@/components/legal/LegalConsent";
 import { Logo } from "@/components/ui/Logo";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 import { NotConfiguredBanner } from "@/components/auth/ui";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+
+/** Entrar, crear cuenta, revisar correo, invitaciones: se pueden abrir, pero no salen en Google. */
+export const metadata: Metadata = { robots: NOINDEX };
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (

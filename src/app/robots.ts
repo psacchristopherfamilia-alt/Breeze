@@ -1,16 +1,18 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site";
 
-/** Solo se indexa lo público (catálogo, salones y textos legales). Panel, cuentas y enlaces privados quedan fuera. */
+/**
+ * robots.txt bloquea SOLO lo que Google no debe ni abrir: panel, admin, API, enlaces privados con token
+ * (/b/, /r/) y Breeze Live (/live: al abrirse pide un código de emparejamiento).
+ * Las páginas públicas que no deben salir en Google (entrar, crear cuenta, /me, equipo) NO se bloquean aquí:
+ * llevan `noindex` (lib/seo.ts). Si se bloquearan, Google no podría leer ese noindex y las marcaría
+ * como «Bloqueada por robots.txt» o incluso las indexaría sin contenido.
+ */
+const PRIVATE_PATHS = ["/dashboard", "/admin", "/api/", "/auth/", "/b/", "/r/", "/live"];
+
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: ["/", "/explore", "/s/", "/privacy", "/terms", "/business-terms", "/negocios"],
-        disallow: ["/dashboard", "/admin", "/b/", "/r/", "/me", "/live", "/api/", "/auth/", "/login", "/signup", "/invite/", "/pro", "/onboarding"],
-      },
-    ],
+    rules: [{ userAgent: "*", allow: "/", disallow: PRIVATE_PATHS }],
     sitemap: `${siteUrl()}/sitemap.xml`,
   };
 }
